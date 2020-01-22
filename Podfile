@@ -1,0 +1,20 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '10.0'
+
+target 'spotcheck-ios' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Firebase dependencies
+  pod 'Firebase/Core'
+  pod 'Firebase/Auth'
+  pod 'FirebaseUI/Auth'
+  pod 'Firebase/Database'
+  pod 'Firebase/Storage'
+  pod 'FirebaseUI/Storage'
+  
+  # Material design dependencies
+  pod 'MaterialComponents/TextFields'
+  pod 'MaterialComponents/Buttons'
+
+end

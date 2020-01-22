@@ -1,0 +1,684 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		567952FE23D806BE0077BA08 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567952FD23D806BE0077BA08 /* AppDelegate.swift */; };
+		5679530023D806BE0077BA08 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567952FF23D806BE0077BA08 /* SceneDelegate.swift */; };
+		5679530223D806BE0077BA08 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5679530123D806BE0077BA08 /* ViewController.swift */; };
+		5679530523D806BE0077BA08 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5679530323D806BE0077BA08 /* Main.storyboard */; };
+		5679530723D806C00077BA08 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5679530623D806C00077BA08 /* Assets.xcassets */; };
+		5679530A23D806C00077BA08 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5679530823D806C00077BA08 /* LaunchScreen.storyboard */; };
+		5679531523D806C00077BA08 /* spotcheck_iosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5679531423D806C00077BA08 /* spotcheck_iosTests.swift */; };
+		5679532023D806C00077BA08 /* spotcheck_iosUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5679531F23D806C00077BA08 /* spotcheck_iosUITests.swift */; };
+		E3C7E3CE180E9771ECE84E15 /* Pods_spotcheck_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C55EFD15D5AF50B8A44B99 /* Pods_spotcheck_ios.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5679531123D806C00077BA08 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 567952F223D806BE0077BA08 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 567952F923D806BE0077BA08;
+			remoteInfo = "spotcheck-ios";
+		};
+		5679531C23D806C00077BA08 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 567952F223D806BE0077BA08 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 567952F923D806BE0077BA08;
+			remoteInfo = "spotcheck-ios";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		18C55EFD15D5AF50B8A44B99 /* Pods_spotcheck_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_spotcheck_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		567952FA23D806BE0077BA08 /* spotcheck-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "spotcheck-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		567952FD23D806BE0077BA08 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		567952FF23D806BE0077BA08 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		5679530123D806BE0077BA08 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		5679530423D806BE0077BA08 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		5679530623D806C00077BA08 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5679530923D806C00077BA08 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		5679530B23D806C00077BA08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5679531023D806C00077BA08 /* spotcheck-iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "spotcheck-iosTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5679531423D806C00077BA08 /* spotcheck_iosTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = spotcheck_iosTests.swift; sourceTree = "<group>"; };
+		5679531623D806C00077BA08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5679531B23D806C00077BA08 /* spotcheck-iosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "spotcheck-iosUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5679531F23D806C00077BA08 /* spotcheck_iosUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = spotcheck_iosUITests.swift; sourceTree = "<group>"; };
+		5679532123D806C00077BA08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C07067766A14538D3F6C55CF /* Pods-spotcheck-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios.debug.xcconfig"; path = "Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios.debug.xcconfig"; sourceTree = "<group>"; };
+		D85CF2035FF885BA48368721 /* Pods-spotcheck-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios.release.xcconfig"; path = "Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		567952F723D806BE0077BA08 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E3C7E3CE180E9771ECE84E15 /* Pods_spotcheck_ios.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5679530D23D806C00077BA08 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5679531823D806C00077BA08 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		10C4979D2923A737CB22C2A2 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C07067766A14538D3F6C55CF /* Pods-spotcheck-ios.debug.xcconfig */,
+				D85CF2035FF885BA48368721 /* Pods-spotcheck-ios.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		567952F123D806BE0077BA08 = {
+			isa = PBXGroup;
+			children = (
+				567952FC23D806BE0077BA08 /* spotcheck-ios */,
+				5679531323D806C00077BA08 /* spotcheck-iosTests */,
+				5679531E23D806C00077BA08 /* spotcheck-iosUITests */,
+				567952FB23D806BE0077BA08 /* Products */,
+				10C4979D2923A737CB22C2A2 /* Pods */,
+				63CFF66ACB16D4BF08954AA5 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		567952FB23D806BE0077BA08 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				567952FA23D806BE0077BA08 /* spotcheck-ios.app */,
+				5679531023D806C00077BA08 /* spotcheck-iosTests.xctest */,
+				5679531B23D806C00077BA08 /* spotcheck-iosUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		567952FC23D806BE0077BA08 /* spotcheck-ios */ = {
+			isa = PBXGroup;
+			children = (
+				567952FD23D806BE0077BA08 /* AppDelegate.swift */,
+				567952FF23D806BE0077BA08 /* SceneDelegate.swift */,
+				5679530123D806BE0077BA08 /* ViewController.swift */,
+				5679530323D806BE0077BA08 /* Main.storyboard */,
+				5679530623D806C00077BA08 /* Assets.xcassets */,
+				5679530823D806C00077BA08 /* LaunchScreen.storyboard */,
+				5679530B23D806C00077BA08 /* Info.plist */,
+			);
+			path = "spotcheck-ios";
+			sourceTree = "<group>";
+		};
+		5679531323D806C00077BA08 /* spotcheck-iosTests */ = {
+			isa = PBXGroup;
+			children = (
+				5679531423D806C00077BA08 /* spotcheck_iosTests.swift */,
+				5679531623D806C00077BA08 /* Info.plist */,
+			);
+			path = "spotcheck-iosTests";
+			sourceTree = "<group>";
+		};
+		5679531E23D806C00077BA08 /* spotcheck-iosUITests */ = {
+			isa = PBXGroup;
+			children = (
+				5679531F23D806C00077BA08 /* spotcheck_iosUITests.swift */,
+				5679532123D806C00077BA08 /* Info.plist */,
+			);
+			path = "spotcheck-iosUITests";
+			sourceTree = "<group>";
+		};
+		63CFF66ACB16D4BF08954AA5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				18C55EFD15D5AF50B8A44B99 /* Pods_spotcheck_ios.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		567952F923D806BE0077BA08 /* spotcheck-ios */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5679532423D806C00077BA08 /* Build configuration list for PBXNativeTarget "spotcheck-ios" */;
+			buildPhases = (
+				67C18429FD9F750F3C04AB8D /* [CP] Check Pods Manifest.lock */,
+				567952F623D806BE0077BA08 /* Sources */,
+				567952F723D806BE0077BA08 /* Frameworks */,
+				567952F823D806BE0077BA08 /* Resources */,
+				C9EB24FE3240D96B350F6C4A /* [CP] Embed Pods Frameworks */,
+				0E1FD83A45F95A4CE7B608C9 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "spotcheck-ios";
+			productName = "spotcheck-ios";
+			productReference = 567952FA23D806BE0077BA08 /* spotcheck-ios.app */;
+			productType = "com.apple.product-type.application";
+		};
+		5679530F23D806C00077BA08 /* spotcheck-iosTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5679532723D806C00077BA08 /* Build configuration list for PBXNativeTarget "spotcheck-iosTests" */;
+			buildPhases = (
+				5679530C23D806C00077BA08 /* Sources */,
+				5679530D23D806C00077BA08 /* Frameworks */,
+				5679530E23D806C00077BA08 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5679531223D806C00077BA08 /* PBXTargetDependency */,
+			);
+			name = "spotcheck-iosTests";
+			productName = "spotcheck-iosTests";
+			productReference = 5679531023D806C00077BA08 /* spotcheck-iosTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		5679531A23D806C00077BA08 /* spotcheck-iosUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5679532A23D806C00077BA08 /* Build configuration list for PBXNativeTarget "spotcheck-iosUITests" */;
+			buildPhases = (
+				5679531723D806C00077BA08 /* Sources */,
+				5679531823D806C00077BA08 /* Frameworks */,
+				5679531923D806C00077BA08 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5679531D23D806C00077BA08 /* PBXTargetDependency */,
+			);
+			name = "spotcheck-iosUITests";
+			productName = "spotcheck-iosUITests";
+			productReference = 5679531B23D806C00077BA08 /* spotcheck-iosUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		567952F223D806BE0077BA08 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1120;
+				LastUpgradeCheck = 1120;
+				ORGANIZATIONNAME = "Miguel Paysan";
+				TargetAttributes = {
+					567952F923D806BE0077BA08 = {
+						CreatedOnToolsVersion = 11.2.1;
+					};
+					5679530F23D806C00077BA08 = {
+						CreatedOnToolsVersion = 11.2.1;
+						TestTargetID = 567952F923D806BE0077BA08;
+					};
+					5679531A23D806C00077BA08 = {
+						CreatedOnToolsVersion = 11.2.1;
+						TestTargetID = 567952F923D806BE0077BA08;
+					};
+				};
+			};
+			buildConfigurationList = 567952F523D806BE0077BA08 /* Build configuration list for PBXProject "spotcheck-ios" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 567952F123D806BE0077BA08;
+			productRefGroup = 567952FB23D806BE0077BA08 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				567952F923D806BE0077BA08 /* spotcheck-ios */,
+				5679530F23D806C00077BA08 /* spotcheck-iosTests */,
+				5679531A23D806C00077BA08 /* spotcheck-iosUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		567952F823D806BE0077BA08 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5679530A23D806C00077BA08 /* LaunchScreen.storyboard in Resources */,
+				5679530723D806C00077BA08 /* Assets.xcassets in Resources */,
+				5679530523D806BE0077BA08 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5679530E23D806C00077BA08 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5679531923D806C00077BA08 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0E1FD83A45F95A4CE7B608C9 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		67C18429FD9F750F3C04AB8D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-spotcheck-ios-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C9EB24FE3240D96B350F6C4A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		567952F623D806BE0077BA08 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5679530223D806BE0077BA08 /* ViewController.swift in Sources */,
+				567952FE23D806BE0077BA08 /* AppDelegate.swift in Sources */,
+				5679530023D806BE0077BA08 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5679530C23D806C00077BA08 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5679531523D806C00077BA08 /* spotcheck_iosTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5679531723D806C00077BA08 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5679532023D806C00077BA08 /* spotcheck_iosUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5679531223D806C00077BA08 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 567952F923D806BE0077BA08 /* spotcheck-ios */;
+			targetProxy = 5679531123D806C00077BA08 /* PBXContainerItemProxy */;
+		};
+		5679531D23D806C00077BA08 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 567952F923D806BE0077BA08 /* spotcheck-ios */;
+			targetProxy = 5679531C23D806C00077BA08 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		5679530323D806BE0077BA08 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5679530423D806BE0077BA08 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		5679530823D806C00077BA08 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5679530923D806C00077BA08 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		5679532223D806C00077BA08 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		5679532323D806C00077BA08 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		5679532523D806C00077BA08 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C07067766A14538D3F6C55CF /* Pods-spotcheck-ios.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8U9GL9JNNQ;
+				INFOPLIST_FILE = "spotcheck-ios/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.spotcheck.spotcheck-ios";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		5679532623D806C00077BA08 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D85CF2035FF885BA48368721 /* Pods-spotcheck-ios.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8U9GL9JNNQ;
+				INFOPLIST_FILE = "spotcheck-ios/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.spotcheck.spotcheck-ios";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		5679532823D806C00077BA08 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8U9GL9JNNQ;
+				INFOPLIST_FILE = "spotcheck-iosTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.spotcheck.spotcheck-iosTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/spotcheck-ios.app/spotcheck-ios";
+			};
+			name = Debug;
+		};
+		5679532923D806C00077BA08 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8U9GL9JNNQ;
+				INFOPLIST_FILE = "spotcheck-iosTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.spotcheck.spotcheck-iosTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/spotcheck-ios.app/spotcheck-ios";
+			};
+			name = Release;
+		};
+		5679532B23D806C00077BA08 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8U9GL9JNNQ;
+				INFOPLIST_FILE = "spotcheck-iosUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.spotcheck.spotcheck-iosUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "spotcheck-ios";
+			};
+			name = Debug;
+		};
+		5679532C23D806C00077BA08 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8U9GL9JNNQ;
+				INFOPLIST_FILE = "spotcheck-iosUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.spotcheck.spotcheck-iosUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "spotcheck-ios";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		567952F523D806BE0077BA08 /* Build configuration list for PBXProject "spotcheck-ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5679532223D806C00077BA08 /* Debug */,
+				5679532323D806C00077BA08 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5679532423D806C00077BA08 /* Build configuration list for PBXNativeTarget "spotcheck-ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5679532523D806C00077BA08 /* Debug */,
+				5679532623D806C00077BA08 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5679532723D806C00077BA08 /* Build configuration list for PBXNativeTarget "spotcheck-iosTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5679532823D806C00077BA08 /* Debug */,
+				5679532923D806C00077BA08 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5679532A23D806C00077BA08 /* Build configuration list for PBXNativeTarget "spotcheck-iosUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5679532B23D806C00077BA08 /* Debug */,
+				5679532C23D806C00077BA08 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 567952F223D806BE0077BA08 /* Project object */;
+}
