@@ -3,18 +3,20 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		567952FE23D806BE0077BA08 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567952FD23D806BE0077BA08 /* AppDelegate.swift */; };
-		5679530023D806BE0077BA08 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567952FF23D806BE0077BA08 /* SceneDelegate.swift */; };
-		5679530223D806BE0077BA08 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5679530123D806BE0077BA08 /* ViewController.swift */; };
 		5679530523D806BE0077BA08 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5679530323D806BE0077BA08 /* Main.storyboard */; };
 		5679530723D806C00077BA08 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5679530623D806C00077BA08 /* Assets.xcassets */; };
 		5679530A23D806C00077BA08 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5679530823D806C00077BA08 /* LaunchScreen.storyboard */; };
 		5679531523D806C00077BA08 /* spotcheck_iosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5679531423D806C00077BA08 /* spotcheck_iosTests.swift */; };
 		5679532023D806C00077BA08 /* spotcheck_iosUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5679531F23D806C00077BA08 /* spotcheck_iosUITests.swift */; };
+		5679533423D972F00077BA08 /* AuthOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5679533323D972F00077BA08 /* AuthOptionsViewController.swift */; };
+		5679533623D97EDD0077BA08 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5679533523D97EDD0077BA08 /* GoogleService-Info.plist */; };
+		5679533823D980E40077BA08 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5679533723D980E40077BA08 /* FeedViewController.swift */; };
+		5679533A23D988910077BA08 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5679533923D988910077BA08 /* ProfileViewController.swift */; };
 		E3C7E3CE180E9771ECE84E15 /* Pods_spotcheck_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C55EFD15D5AF50B8A44B99 /* Pods_spotcheck_ios.framework */; };
 /* End PBXBuildFile section */
 
@@ -39,8 +41,6 @@
 		18C55EFD15D5AF50B8A44B99 /* Pods_spotcheck_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_spotcheck_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		567952FA23D806BE0077BA08 /* spotcheck-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "spotcheck-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		567952FD23D806BE0077BA08 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		567952FF23D806BE0077BA08 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		5679530123D806BE0077BA08 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		5679530423D806BE0077BA08 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5679530623D806C00077BA08 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5679530923D806C00077BA08 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -51,6 +51,10 @@
 		5679531B23D806C00077BA08 /* spotcheck-iosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "spotcheck-iosUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5679531F23D806C00077BA08 /* spotcheck_iosUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = spotcheck_iosUITests.swift; sourceTree = "<group>"; };
 		5679532123D806C00077BA08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5679533323D972F00077BA08 /* AuthOptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthOptionsViewController.swift; sourceTree = "<group>"; };
+		5679533523D97EDD0077BA08 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5679533723D980E40077BA08 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
+		5679533923D988910077BA08 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		C07067766A14538D3F6C55CF /* Pods-spotcheck-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios.debug.xcconfig"; path = "Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios.debug.xcconfig"; sourceTree = "<group>"; };
 		D85CF2035FF885BA48368721 /* Pods-spotcheck-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios.release.xcconfig"; path = "Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -87,7 +91,6 @@
 				C07067766A14538D3F6C55CF /* Pods-spotcheck-ios.debug.xcconfig */,
 				D85CF2035FF885BA48368721 /* Pods-spotcheck-ios.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -117,11 +120,13 @@
 			isa = PBXGroup;
 			children = (
 				567952FD23D806BE0077BA08 /* AppDelegate.swift */,
-				567952FF23D806BE0077BA08 /* SceneDelegate.swift */,
-				5679530123D806BE0077BA08 /* ViewController.swift */,
 				5679530323D806BE0077BA08 /* Main.storyboard */,
+				5679533923D988910077BA08 /* ProfileViewController.swift */,
+				5679533723D980E40077BA08 /* FeedViewController.swift */,
+				5679533323D972F00077BA08 /* AuthOptionsViewController.swift */,
 				5679530623D806C00077BA08 /* Assets.xcassets */,
 				5679530823D806C00077BA08 /* LaunchScreen.storyboard */,
+				5679533523D97EDD0077BA08 /* GoogleService-Info.plist */,
 				5679530B23D806C00077BA08 /* Info.plist */,
 			);
 			path = "spotcheck-ios";
@@ -261,6 +266,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5679530A23D806C00077BA08 /* LaunchScreen.storyboard in Resources */,
+				5679533623D97EDD0077BA08 /* GoogleService-Info.plist in Resources */,
 				5679530723D806C00077BA08 /* Assets.xcassets in Resources */,
 				5679530523D806BE0077BA08 /* Main.storyboard in Resources */,
 			);
@@ -346,9 +352,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5679530223D806BE0077BA08 /* ViewController.swift in Sources */,
 				567952FE23D806BE0077BA08 /* AppDelegate.swift in Sources */,
-				5679530023D806BE0077BA08 /* SceneDelegate.swift in Sources */,
+				5679533823D980E40077BA08 /* FeedViewController.swift in Sources */,
+				5679533A23D988910077BA08 /* ProfileViewController.swift in Sources */,
+				5679533423D972F00077BA08 /* AuthOptionsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -529,7 +536,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.spotcheck.spotcheck-ios";
+				PRODUCT_BUNDLE_IDENTIFIER = com.spotcheck;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -548,7 +555,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.spotcheck.spotcheck-ios";
+				PRODUCT_BUNDLE_IDENTIFIER = com.spotcheck;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

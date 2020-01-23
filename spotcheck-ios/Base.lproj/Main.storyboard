@@ -7,10 +7,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Login Options-->
+        <!--Auth Options-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" userLabel="Login Options" customClass="ViewController" customModule="spotcheck_ios" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AuthOptionsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" userLabel="Auth Options" customClass="AuthOptionsViewController" customModule="spotcheck_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -21,9 +21,12 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="75d-DQ-o7d">
-                                <rect key="frame" x="180" y="669.5" width="54" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="75d-DQ-o7d">
+                                <rect key="frame" x="20" y="629" width="374" height="48"/>
                                 <state key="normal" title="Sign Up"/>
+                                <connections>
+                                    <action selector="signupTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ekS-6U-pJD"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Already have an account?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="96G-j7-8Ko">
                                 <rect key="frame" x="84" y="778.5" width="196" height="21"/>
@@ -31,20 +34,23 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="miX-Zg-7Gt">
-                                <rect key="frame" x="288" y="774" width="47" height="30"/>
-                                <state key="normal" title="Sign In"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="miX-Zg-7Gt" userLabel="Login">
+                                <rect key="frame" x="288" y="774" width="38" height="30"/>
+                                <state key="normal" title="Login"/>
+                                <connections>
+                                    <action selector="loginTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7gC-bd-Roh"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="75d-DQ-o7d" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="OpG-eT-e56"/>
-                            <constraint firstItem="96G-j7-8Ko" firstAttribute="top" secondItem="75d-DQ-o7d" secondAttribute="bottom" constant="79" id="RTq-fB-opt"/>
+                            <constraint firstItem="96G-j7-8Ko" firstAttribute="top" secondItem="75d-DQ-o7d" secondAttribute="bottom" constant="79" id="RTq-fB-opt" userLabel="Already have an account?.bottom = Safe Area.bottom + 50"/>
                             <constraint firstItem="miX-Zg-7Gt" firstAttribute="leading" secondItem="96G-j7-8Ko" secondAttribute="trailing" constant="8" id="RxF-OC-OAg"/>
                             <constraint firstItem="96G-j7-8Ko" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="84" id="Tom-1d-nIs"/>
-                            <constraint firstItem="96G-j7-8Ko" firstAttribute="centerY" secondItem="miX-Zg-7Gt" secondAttribute="centerY" id="ZzN-Q2-Odu"/>
+                            <constraint firstItem="96G-j7-8Ko" firstAttribute="centerY" secondItem="miX-Zg-7Gt" secondAttribute="centerY" id="ZzN-Q2-Odu" userLabel="Sign In.centerY = Already have an account?.centerY"/>
                             <constraint firstItem="Ol0-aH-ENA" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="129" id="a7a-v8-BE6" userLabel="Spot Check.centerX = centerX"/>
-                            <constraint firstItem="miX-Zg-7Gt" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="730" id="bHt-A2-a58" userLabel="Sign In.top = Sign Up.bottom + 79"/>
+                            <constraint firstItem="miX-Zg-7Gt" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="730" id="bHt-A2-a58" userLabel="Sign In.top = Safe Area.bottom + 50"/>
                             <constraint firstItem="Ol0-aH-ENA" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="131" id="hUw-L7-nsD"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -57,23 +63,33 @@
         <!--Profile-->
         <scene sceneID="6nE-ZL-oG8">
             <objects>
-                <viewController id="tMw-Fa-6Zf" userLabel="Profile" sceneMemberID="viewController">
+                <viewController id="tMw-Fa-6Zf" userLabel="Profile" customClass="ProfileViewController" customModule="spotcheck_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4mr-Q0-Vdn">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="maf-99-wkt" userLabel="Logout">
+                                <rect key="frame" x="57" y="433" width="256" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Logout"/>
+                                <connections>
+                                    <action selector="logoutTapped:" destination="tMw-Fa-6Zf" eventType="touchUpInside" id="JEf-9X-4v9"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="s8p-ny-o4T"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 2" id="GTg-OC-a8H" userLabel="Profile"/>
+                    <navigationItem key="navigationItem" id="xIp-U2-S5Y"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="idr-30-M9b" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1891" y="504"/>
+            <point key="canvasLocation" x="2800" y="503.57142857142856"/>
         </scene>
         <!--HomeFeed-->
         <scene sceneID="TXG-rZ-4K3">
             <objects>
-                <viewController id="Qfh-fr-ymc" userLabel="HomeFeed" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FeedViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Qfh-fr-ymc" userLabel="HomeFeed" customClass="FeedViewController" customModule="spotcheck_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="W9P-Hw-Tze">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -84,31 +100,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PeB-ic-UsK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2800" y="-144.64285714285714"/>
+            <point key="canvasLocation" x="3708.6956521739135" y="-144.64285714285714"/>
         </scene>
-        <!--Tab Bar Controller-->
-        <scene sceneID="qi4-9p-puu">
-            <objects>
-                <tabBarController storyboardIdentifier="MainTabBarController" id="VvJ-XL-5Iq" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="EiC-mx-iRJ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </tabBar>
-                    <connections>
-                        <segue destination="OlI-rI-fzN" kind="relationship" relationship="viewControllers" id="ZG8-8q-jYv"/>
-                        <segue destination="tMw-Fa-6Zf" kind="relationship" relationship="viewControllers" id="cYA-sV-Mk2"/>
-                    </connections>
-                </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Cl6-c9-mGm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="974" y="179"/>
-        </scene>
-        <!--HomeFeed-->
+        <!--Feed Nav-->
         <scene sceneID="tKa-Wv-tax">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="OlI-rI-fzN" userLabel="HomeFeed" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item 1" id="cIk-Q9-Tk9" userLabel="Home"/>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="OlI-rI-fzN" userLabel="Feed Nav" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Feed" id="cIk-Q9-Tk9" userLabel="Home"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="3EG-Kk-QhD">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -120,6 +118,43 @@
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k2h-uM-kP8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2800" y="-144.64285714285714"/>
+        </scene>
+        <!--Profile Nav-->
+        <scene sceneID="h2A-9d-tbu">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Y1l-d4-YEY" userLabel="Profile Nav" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Profile" id="GTg-OC-a8H" userLabel="Profile"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="wSk-Kj-Iy8">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="tMw-Fa-6Zf" kind="relationship" relationship="rootViewController" id="j7d-U2-LKt"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Tb5-NS-M8E" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1889.8550724637682" y="503.57142857142856"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="MS6-eU-Ycf">
+            <objects>
+                <tabBarController storyboardIdentifier="MainTabBarController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9YE-l1-4yY" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="x7u-Am-f7n">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="OlI-rI-fzN" kind="relationship" relationship="viewControllers" id="ZVp-47-uXk"/>
+                        <segue destination="Y1l-d4-YEY" kind="relationship" relationship="viewControllers" id="kpO-I3-R4j"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lVk-tp-Sdt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1889.8550724637682" y="-144.64285714285714"/>
         </scene>
