@@ -13,6 +13,9 @@ target 'spotcheck-ios' do
   pod 'Firebase/Storage'
   pod 'FirebaseUI/Storage'
   
+  pod 'Firebase/Firestore'
+  pod 'FirebaseFirestoreSwift'
+  
   # Material design dependencies
   pod 'MaterialComponents/TextFields'
   pod 'MaterialComponents/Buttons'
