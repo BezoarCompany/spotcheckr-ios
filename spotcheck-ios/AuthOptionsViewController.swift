@@ -9,26 +9,18 @@
 import UIKit
 import Firebase
 import FirebaseUI
+import MaterialComponents
 
 class AuthOptionsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
 
     @objc private func authenticationFinished() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let baseViewController = storyboard.instantiateViewController(withIdentifier: "MainTabBarController")
         UIApplication.shared.keyWindow?.rootViewController = baseViewController
-    }
-    
-    @IBAction func signupTapped(_ sender: Any) {
-        authenticationFinished()
-    }
-    
-    @IBAction func loginTapped(_ sender: Any) {
-        authenticationFinished()
     }
 }
 
