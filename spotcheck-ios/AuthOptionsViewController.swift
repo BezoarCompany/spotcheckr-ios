@@ -26,7 +26,7 @@ class AuthOptionsViewController: UIViewController {
         SignUpButton.applyContainedTheme(withScheme: ApplicationScheme.instance.containerScheme)
         LogInButton.applyContainedTheme(withScheme: ApplicationScheme.instance.containerScheme)
         SpotcheckHeadline.font = ApplicationScheme.instance.containerScheme.typographyScheme.headline4
-        SpotcheckSubtitle.font = ApplicationScheme.instance.containerScheme.typographyScheme.subtitle1
+        SpotcheckSubtitle.font = ApplicationScheme.instance.containerScheme.typographyScheme.subtitle2
         ConnectWithGoogleButton.applyContainedTheme(withScheme: ApplicationScheme.instance.containerScheme)
         ConnectWithFacebookButton.applyContainedTheme(withScheme: ApplicationScheme.instance.containerScheme)
         
