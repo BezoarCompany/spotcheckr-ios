@@ -305,6 +305,22 @@ PODS:
     - MaterialComponents/Typography
     - MDFInternationalization
     - MDFTextAccessibility
+  - "MaterialComponents/Buttons+ColorThemer (102.0.0)":
+    - MaterialComponents/Buttons
+    - MaterialComponents/schemes/Color
+  - "MaterialComponents/Buttons+ShapeThemer (102.0.0)":
+    - MaterialComponents/Buttons
+    - MaterialComponents/schemes/Shape
+  - "MaterialComponents/Buttons+Theming (102.0.0)":
+    - MaterialComponents/Buttons
+    - "MaterialComponents/Buttons+ColorThemer"
+    - "MaterialComponents/Buttons+ShapeThemer"
+    - "MaterialComponents/Buttons+TypographyThemer"
+    - MaterialComponents/schemes/Container
+    - MaterialComponents/ShadowElevations
+  - "MaterialComponents/Buttons+TypographyThemer (102.0.0)":
+    - MaterialComponents/Buttons
+    - MaterialComponents/schemes/Typography
   - MaterialComponents/Elevation (102.0.0):
     - MaterialComponents/private/Color
     - MaterialComponents/private/Math
@@ -319,9 +335,27 @@ PODS:
     - MaterialComponents/AnimationTiming
     - MaterialComponents/private/Color
     - MaterialComponents/private/Math
+  - MaterialComponents/schemes/Color (102.0.0):
+    - MaterialComponents/private/Color
+  - MaterialComponents/schemes/Container (102.0.0):
+    - MaterialComponents/schemes/Color
+    - MaterialComponents/schemes/Shape
+    - MaterialComponents/schemes/Typography
+  - MaterialComponents/schemes/Shape (102.0.0):
+    - MaterialComponents/ShapeLibrary
+    - MaterialComponents/Shapes
+  - MaterialComponents/schemes/Typography (102.0.0):
+    - "MaterialComponents/schemes/Typography+BasicFontScheme"
+    - "MaterialComponents/schemes/Typography+Scheming"
+    - MaterialComponents/Typography
+  - "MaterialComponents/schemes/Typography+BasicFontScheme (102.0.0)"
+  - "MaterialComponents/schemes/Typography+Scheming (102.0.0)"
   - MaterialComponents/ShadowElevations (102.0.0)
   - MaterialComponents/ShadowLayer (102.0.0):
     - MaterialComponents/ShadowElevations
+  - MaterialComponents/ShapeLibrary (102.0.0):
+    - MaterialComponents/private/Math
+    - MaterialComponents/Shapes
   - MaterialComponents/Shapes (102.0.0):
     - MaterialComponents/private/Color
     - MaterialComponents/private/Math
@@ -359,6 +393,9 @@ DEPENDENCIES:
   - FirebaseUI/Auth
   - FirebaseUI/Storage
   - MaterialComponents/Buttons
+  - "MaterialComponents/Buttons+Theming"
+  - MaterialComponents/schemes/Color
+  - MaterialComponents/schemes/Typography
   - MaterialComponents/TextFields
 
 SPEC REPOS:
@@ -426,6 +463,6 @@ SPEC CHECKSUMS:
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   SDWebImage: 1245d058b7b8f59adef7a6da6bbafd4f1ab67041
 
-PODFILE CHECKSUM: 13358b8f25560861abef15981d5a0ce4af25cbb0
+PODFILE CHECKSUM: 4760e2ae114166697af0b359daf7d619506020a1
 
 COCOAPODS: 1.8.4

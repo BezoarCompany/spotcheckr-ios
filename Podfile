@@ -19,5 +19,7 @@ target 'spotcheck-ios' do
   # Material design dependencies
   pod 'MaterialComponents/TextFields'
   pod 'MaterialComponents/Buttons'
-
+  pod 'MaterialComponents/Buttons+Theming'
+  pod 'MaterialComponents/schemes/Color'
+  pod 'MaterialComponents/schemes/Typography'
 end
