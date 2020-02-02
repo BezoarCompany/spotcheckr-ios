@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/uioporqwerty/projects/spotcheck-ios/spotcheck-ios/ApplicationScheme.swift">
+   </FileRef>
+   <FileRef
       location = "group:spotcheck-ios.xcodeproj">
    </FileRef>
    <FileRef

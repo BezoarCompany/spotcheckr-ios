@@ -18,6 +18,10 @@
 		5679533823D980E40077BA08 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5679533723D980E40077BA08 /* FeedViewController.swift */; };
 		5679533A23D988910077BA08 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5679533923D988910077BA08 /* ProfileViewController.swift */; };
 		56B79E3823E2B27100568685 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B79E3723E2B27100568685 /* Post.swift */; };
+		BA49212B23E5B0D000A74A73 /* ApplicationScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA49212A23E5B0D000A74A73 /* ApplicationScheme.swift */; };
+		BA49213623E6289B00A74A73 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA49212F23E6289A00A74A73 /* Roboto-Regular.ttf */; };
+		BA49213723E6289B00A74A73 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA49213023E6289A00A74A73 /* Roboto-Medium.ttf */; };
+		BA49213823E6289B00A74A73 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA49213123E6289B00A74A73 /* Roboto-Light.ttf */; };
 		E3C7E3CE180E9771ECE84E15 /* Pods_spotcheck_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C55EFD15D5AF50B8A44B99 /* Pods_spotcheck_ios.framework */; };
 /* End PBXBuildFile section */
 
@@ -40,7 +44,7 @@
 
 /* Begin PBXFileReference section */
 		18C55EFD15D5AF50B8A44B99 /* Pods_spotcheck_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_spotcheck_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		567952FA23D806BE0077BA08 /* spotcheck-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "spotcheck-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		567952FA23D806BE0077BA08 /* Spotcheck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spotcheck.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		567952FD23D806BE0077BA08 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5679530423D806BE0077BA08 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5679530623D806C00077BA08 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -57,6 +61,10 @@
 		5679533723D980E40077BA08 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		5679533923D988910077BA08 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		56B79E3723E2B27100568685 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		BA49212A23E5B0D000A74A73 /* ApplicationScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ApplicationScheme.swift; path = "/Users/uioporqwerty/projects/spotcheck-ios/spotcheck-ios/ApplicationScheme.swift"; sourceTree = "<absolute>"; };
+		BA49212F23E6289A00A74A73 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
+		BA49213023E6289A00A74A73 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
+		BA49213123E6289B00A74A73 /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
 		C07067766A14538D3F6C55CF /* Pods-spotcheck-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios.debug.xcconfig"; path = "Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios.debug.xcconfig"; sourceTree = "<group>"; };
 		D85CF2035FF885BA48368721 /* Pods-spotcheck-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios.release.xcconfig"; path = "Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -111,7 +119,7 @@
 		567952FB23D806BE0077BA08 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				567952FA23D806BE0077BA08 /* spotcheck-ios.app */,
+				567952FA23D806BE0077BA08 /* Spotcheck.app */,
 				5679531023D806C00077BA08 /* spotcheck-iosTests.xctest */,
 				5679531B23D806C00077BA08 /* spotcheck-iosUITests.xctest */,
 			);
@@ -121,8 +129,10 @@
 		567952FC23D806BE0077BA08 /* spotcheck-ios */ = {
 			isa = PBXGroup;
 			children = (
+				BA49212C23E6285600A74A73 /* Fonts */,
 				56B79E3623E2AFA700568685 /* DataModels */,
 				567952FD23D806BE0077BA08 /* AppDelegate.swift */,
+				BA49212A23E5B0D000A74A73 /* ApplicationScheme.swift */,
 				5679530323D806BE0077BA08 /* Main.storyboard */,
 				5679533923D988910077BA08 /* ProfileViewController.swift */,
 				5679533723D980E40077BA08 /* FeedViewController.swift */,
@@ -169,6 +179,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		BA49212C23E6285600A74A73 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				BA49213123E6289B00A74A73 /* Roboto-Light.ttf */,
+				BA49213023E6289A00A74A73 /* Roboto-Medium.ttf */,
+				BA49212F23E6289A00A74A73 /* Roboto-Regular.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -189,7 +209,7 @@
 			);
 			name = "spotcheck-ios";
 			productName = "spotcheck-ios";
-			productReference = 567952FA23D806BE0077BA08 /* spotcheck-ios.app */;
+			productReference = 567952FA23D806BE0077BA08 /* Spotcheck.app */;
 			productType = "com.apple.product-type.application";
 		};
 		5679530F23D806C00077BA08 /* spotcheck-iosTests */ = {
@@ -276,10 +296,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA49213723E6289B00A74A73 /* Roboto-Medium.ttf in Resources */,
 				5679530A23D806C00077BA08 /* LaunchScreen.storyboard in Resources */,
+				BA49213623E6289B00A74A73 /* Roboto-Regular.ttf in Resources */,
 				5679533623D97EDD0077BA08 /* GoogleService-Info.plist in Resources */,
 				5679530723D806C00077BA08 /* Assets.xcassets in Resources */,
 				5679530523D806BE0077BA08 /* Main.storyboard in Resources */,
+				BA49213823E6289B00A74A73 /* Roboto-Light.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -364,6 +387,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				567952FE23D806BE0077BA08 /* AppDelegate.swift in Sources */,
+				BA49212B23E5B0D000A74A73 /* ApplicationScheme.swift in Sources */,
 				5679533823D980E40077BA08 /* FeedViewController.swift in Sources */,
 				5679533A23D988910077BA08 /* ProfileViewController.swift in Sources */,
 				5679533423D972F00077BA08 /* AuthOptionsViewController.swift in Sources */,
@@ -549,7 +573,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.spotcheck;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Spotcheck;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -568,7 +592,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.spotcheck;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Spotcheck;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
