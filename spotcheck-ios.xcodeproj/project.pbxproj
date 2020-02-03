@@ -17,8 +17,8 @@
 		5679533623D97EDD0077BA08 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5679533523D97EDD0077BA08 /* GoogleService-Info.plist */; };
 		5679533823D980E40077BA08 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5679533723D980E40077BA08 /* FeedViewController.swift */; };
 		5679533A23D988910077BA08 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5679533923D988910077BA08 /* ProfileViewController.swift */; };
+		568721A323E7EF1100E15F87 /* ApplicationScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568721A223E7EF1100E15F87 /* ApplicationScheme.swift */; };
 		56B79E3823E2B27100568685 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B79E3723E2B27100568685 /* Post.swift */; };
-		BA49212B23E5B0D000A74A73 /* ApplicationScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA49212A23E5B0D000A74A73 /* ApplicationScheme.swift */; };
 		BA49213623E6289B00A74A73 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA49212F23E6289A00A74A73 /* Roboto-Regular.ttf */; };
 		BA49213723E6289B00A74A73 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA49213023E6289A00A74A73 /* Roboto-Medium.ttf */; };
 		BA49213823E6289B00A74A73 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA49213123E6289B00A74A73 /* Roboto-Light.ttf */; };
@@ -60,8 +60,8 @@
 		5679533523D97EDD0077BA08 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5679533723D980E40077BA08 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		5679533923D988910077BA08 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		568721A223E7EF1100E15F87 /* ApplicationScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationScheme.swift; sourceTree = "<group>"; };
 		56B79E3723E2B27100568685 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
-		BA49212A23E5B0D000A74A73 /* ApplicationScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ApplicationScheme.swift; path = "/Users/uioporqwerty/projects/spotcheck-ios/spotcheck-ios/ApplicationScheme.swift"; sourceTree = "<absolute>"; };
 		BA49212F23E6289A00A74A73 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		BA49213023E6289A00A74A73 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		BA49213123E6289B00A74A73 /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
@@ -132,7 +132,6 @@
 				BA49212C23E6285600A74A73 /* Fonts */,
 				56B79E3623E2AFA700568685 /* DataModels */,
 				567952FD23D806BE0077BA08 /* AppDelegate.swift */,
-				BA49212A23E5B0D000A74A73 /* ApplicationScheme.swift */,
 				5679530323D806BE0077BA08 /* Main.storyboard */,
 				5679533923D988910077BA08 /* ProfileViewController.swift */,
 				5679533723D980E40077BA08 /* FeedViewController.swift */,
@@ -141,6 +140,7 @@
 				5679530823D806C00077BA08 /* LaunchScreen.storyboard */,
 				5679533523D97EDD0077BA08 /* GoogleService-Info.plist */,
 				5679530B23D806C00077BA08 /* Info.plist */,
+				568721A223E7EF1100E15F87 /* ApplicationScheme.swift */,
 			);
 			path = "spotcheck-ios";
 			sourceTree = "<group>";
@@ -387,7 +387,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				567952FE23D806BE0077BA08 /* AppDelegate.swift in Sources */,
-				BA49212B23E5B0D000A74A73 /* ApplicationScheme.swift in Sources */,
+				568721A323E7EF1100E15F87 /* ApplicationScheme.swift in Sources */,
 				5679533823D980E40077BA08 /* FeedViewController.swift in Sources */,
 				5679533A23D988910077BA08 /* ProfileViewController.swift in Sources */,
 				5679533423D972F00077BA08 /* AuthOptionsViewController.swift in Sources */,
