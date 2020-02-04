@@ -34,7 +34,7 @@ class AuthOptionsViewController: UIViewController {
 
     @objc private func authenticationFinished() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let baseViewController = storyboard.instantiateViewController(withIdentifier: "MainTabBarController")
+        let baseViewController = storyboard.instantiateViewController(withIdentifier: K.Storyboard.MainTabBarControllerId)
         UIApplication.shared.keyWindow?.rootViewController = baseViewController
     }
 }
