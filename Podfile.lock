@@ -293,8 +293,8 @@ PODS:
   - gRPC-Core/Interface (1.21.0)
   - GTMSessionFetcher/Core (1.3.1)
   - leveldb-library (1.22)
-  - MaterialComponents/AnimationTiming (102.0.0)
-  - MaterialComponents/Buttons (102.0.0):
+  - MaterialComponents/AnimationTiming (103.1.0)
+  - MaterialComponents/Buttons (103.1.0):
     - MaterialComponents/Elevation
     - MaterialComponents/Ink
     - MaterialComponents/private/Math
@@ -305,62 +305,62 @@ PODS:
     - MaterialComponents/Typography
     - MDFInternationalization
     - MDFTextAccessibility
-  - "MaterialComponents/Buttons+ColorThemer (102.0.0)":
+  - "MaterialComponents/Buttons+ColorThemer (103.1.0)":
     - MaterialComponents/Buttons
     - MaterialComponents/schemes/Color
-  - "MaterialComponents/Buttons+ShapeThemer (102.0.0)":
+  - "MaterialComponents/Buttons+ShapeThemer (103.1.0)":
     - MaterialComponents/Buttons
     - MaterialComponents/schemes/Shape
-  - "MaterialComponents/Buttons+Theming (102.0.0)":
+  - "MaterialComponents/Buttons+Theming (103.1.0)":
     - MaterialComponents/Buttons
     - "MaterialComponents/Buttons+ColorThemer"
     - "MaterialComponents/Buttons+ShapeThemer"
     - "MaterialComponents/Buttons+TypographyThemer"
     - MaterialComponents/schemes/Container
     - MaterialComponents/ShadowElevations
-  - "MaterialComponents/Buttons+TypographyThemer (102.0.0)":
+  - "MaterialComponents/Buttons+TypographyThemer (103.1.0)":
     - MaterialComponents/Buttons
     - MaterialComponents/schemes/Typography
-  - MaterialComponents/Elevation (102.0.0):
+  - MaterialComponents/Elevation (103.1.0):
     - MaterialComponents/private/Color
     - MaterialComponents/private/Math
-  - MaterialComponents/Ink (102.0.0):
+  - MaterialComponents/Ink (103.1.0):
     - MaterialComponents/private/Color
     - MaterialComponents/private/Math
-  - MaterialComponents/Palettes (102.0.0)
-  - MaterialComponents/private/Application (102.0.0)
-  - MaterialComponents/private/Color (102.0.0)
-  - MaterialComponents/private/Math (102.0.0)
-  - MaterialComponents/Ripple (102.0.0):
+  - MaterialComponents/Palettes (103.1.0)
+  - MaterialComponents/private/Application (103.1.0)
+  - MaterialComponents/private/Color (103.1.0)
+  - MaterialComponents/private/Math (103.1.0)
+  - MaterialComponents/Ripple (103.1.0):
     - MaterialComponents/AnimationTiming
     - MaterialComponents/private/Color
     - MaterialComponents/private/Math
-  - MaterialComponents/schemes/Color (102.0.0):
+  - MaterialComponents/schemes/Color (103.1.0):
     - MaterialComponents/private/Color
-  - MaterialComponents/schemes/Container (102.0.0):
+  - MaterialComponents/schemes/Container (103.1.0):
     - MaterialComponents/schemes/Color
     - MaterialComponents/schemes/Shape
     - MaterialComponents/schemes/Typography
-  - MaterialComponents/schemes/Shape (102.0.0):
+  - MaterialComponents/schemes/Shape (103.1.0):
     - MaterialComponents/ShapeLibrary
     - MaterialComponents/Shapes
-  - MaterialComponents/schemes/Typography (102.0.0):
+  - MaterialComponents/schemes/Typography (103.1.0):
     - "MaterialComponents/schemes/Typography+BasicFontScheme"
     - "MaterialComponents/schemes/Typography+Scheming"
     - MaterialComponents/Typography
-  - "MaterialComponents/schemes/Typography+BasicFontScheme (102.0.0)"
-  - "MaterialComponents/schemes/Typography+Scheming (102.0.0)"
-  - MaterialComponents/ShadowElevations (102.0.0)
-  - MaterialComponents/ShadowLayer (102.0.0):
+  - "MaterialComponents/schemes/Typography+BasicFontScheme (103.1.0)"
+  - "MaterialComponents/schemes/Typography+Scheming (103.1.0)"
+  - MaterialComponents/ShadowElevations (103.1.0)
+  - MaterialComponents/ShadowLayer (103.1.0):
     - MaterialComponents/ShadowElevations
-  - MaterialComponents/ShapeLibrary (102.0.0):
+  - MaterialComponents/ShapeLibrary (103.1.0):
     - MaterialComponents/private/Math
     - MaterialComponents/Shapes
-  - MaterialComponents/Shapes (102.0.0):
+  - MaterialComponents/Shapes (103.1.0):
     - MaterialComponents/private/Color
     - MaterialComponents/private/Math
     - MaterialComponents/ShadowLayer
-  - MaterialComponents/TextFields (102.0.0):
+  - MaterialComponents/TextFields (103.1.0):
     - MaterialComponents/AnimationTiming
     - MaterialComponents/Buttons
     - MaterialComponents/Elevation
@@ -368,7 +368,21 @@ PODS:
     - MaterialComponents/private/Math
     - MaterialComponents/Typography
     - MDFInternationalization
-  - MaterialComponents/Typography (102.0.0):
+  - "MaterialComponents/TextFields+ColorThemer (103.1.0)":
+    - MaterialComponents/TextFields
+    - MaterialComponents/Themes
+  - "MaterialComponents/TextFields+Theming (103.1.0)":
+    - MaterialComponents/schemes/Container
+    - MaterialComponents/TextFields
+    - "MaterialComponents/TextFields+ColorThemer"
+    - "MaterialComponents/TextFields+TypographyThemer"
+  - "MaterialComponents/TextFields+TypographyThemer (103.1.0)":
+    - MaterialComponents/schemes/Typography
+    - MaterialComponents/TextFields
+  - MaterialComponents/Themes (103.1.0):
+    - MaterialComponents/schemes/Color
+    - MaterialComponents/schemes/Typography
+  - MaterialComponents/Typography (103.1.0):
     - MaterialComponents/private/Application
     - MaterialComponents/private/Math
   - MDFInternationalization (2.0.0)
@@ -397,6 +411,7 @@ DEPENDENCIES:
   - MaterialComponents/schemes/Color
   - MaterialComponents/schemes/Typography
   - MaterialComponents/TextFields
+  - "MaterialComponents/TextFields+Theming"
 
 SPEC REPOS:
   trunk:
@@ -456,13 +471,13 @@ SPEC CHECKSUMS:
   gRPC-Core: c9aef9a261a1247e881b18059b84d597293c9947
   GTMSessionFetcher: cea130bbfe5a7edc8d06d3f0d17288c32ffe9925
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
-  MaterialComponents: 4b31f682e9c6e8ccbf4f85b479556aa8bd23ffe9
+  MaterialComponents: 0312a643d1aed5e5f10cba4be06a6aa62bd07c14
   MDFInternationalization: 010097556d6b09d2c4ea38e0820ea6d37be6a314
   MDFTextAccessibility: 85c09a1bd9c321f494348e632a25063bcda35a53
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   SDWebImage: 1245d058b7b8f59adef7a6da6bbafd4f1ab67041
 
-PODFILE CHECKSUM: 4760e2ae114166697af0b359daf7d619506020a1
+PODFILE CHECKSUM: 671beb98c7ff28cba7ae9c99f0025b8819367785
 
 COCOAPODS: 1.8.4
