@@ -14,13 +14,44 @@ import FirebaseFirestoreSwift
 
 class FeedViewController: UIViewController, PostsService {
     
+    @IBOutlet weak var tableView: UITableView!
+    
     var db: Firestore!
-    var posts: [Post] = []
+    var posts: [Post] = [
+        Post(postId: "a", authorId: "1", authorName: "Miguel", createdAt: "2/2/2020", updatedAt: "2/2/2020", question: "Why is the sky blue?"),
+        Post(postId: "b", authorId: "2", authorName: "Nitish", createdAt: "2/2/2020", updatedAt: "2/2/2020", question: "Does gymming attract pussy cats?"),
+        Post(postId: "c", authorId: "1", authorName: "Miguel", createdAt: "2/2/2020", updatedAt: "2/2/2020", question: "Will the Chiefs win the superbowl?")
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("@FeedViewController")
                 
+        tableView.dataSource = self
+        tableView.delegate = self
+        
+        navigationItem.hidesBackButton = true
+    }
+}
+
+
+extension FeedViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return posts.count
     }
     
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: K.Storyboard.feedCellId, for: indexPath)
+            
+        cell.textLabel?.text = posts[indexPath.row].question
+        return cell
+    }
 }
+
+extension FeedViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(indexPath.row)
+    }
+}
+
