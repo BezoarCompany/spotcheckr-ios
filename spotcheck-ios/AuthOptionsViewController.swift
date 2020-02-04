@@ -7,9 +7,9 @@ import MaterialComponents.MaterialTextFields
 import MaterialComponents.MaterialTextFields_Theming
 import MaterialComponents.MaterialTextFields_TypographyThemer
 import MaterialComponents.MaterialContainerScheme
+import SwiftValidator
 
-class AuthOptionsViewController: UIViewController, UITextFieldDelegate {
-
+class AuthOptionsViewController: UIViewController, UITextFieldDelegate, ValidationDelegate {
     let spotcheckHeadline: UILabel = {
        let label = UILabel()
         label.text = "Spotcheck"
@@ -77,9 +77,15 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate {
         return service
     }()
     
+    let validator: Validator
+    
     required init?(coder aDecoder: NSCoder) {
         emailAddressTextFieldController = MDCTextInputControllerOutlined(textInput: emailAddressTextField)
+        emailAddressTextFieldController.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
         passwordTextFieldController = MDCTextInputControllerOutlined(textInput: passwordTextField)
+        passwordTextFieldController.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
+        validator = Validator()
+        
         super.init(coder: aDecoder)
     }
     
@@ -87,9 +93,15 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         addSubviews()
         setDelegates()
+        setupValidation()
         applyConstraints()
     }
 
+    private func setupValidation() {
+        validator.registerField(emailAddressTextField, rules: [RequiredRule(message: "Required"), EmailRule(message: "Invalid email address")])
+        validator.registerField(passwordTextField, rules: [RequiredRule(message: "Required")])
+    }
+    
     private func setDelegates() {
         emailAddressTextField.delegate = self
         passwordTextField.delegate = self
@@ -112,24 +124,46 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate {
         emailAddressTextField.topAnchor.constraint(equalTo: spotcheckSubtitle.bottomAnchor, constant: 90).isActive = true
         emailAddressTextField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 40).isActive = true
         self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: emailAddressTextField.trailingAnchor, constant: 40).isActive = true
-        passwordTextField.topAnchor.constraint(equalTo: emailAddressTextField.bottomAnchor, constant: 10).isActive = true
+        passwordTextField.topAnchor.constraint(equalTo: emailAddressTextField.bottomAnchor, constant: 15).isActive = true
         passwordTextField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 40).isActive = true
         self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: passwordTextField.trailingAnchor, constant: 40).isActive = true
         signUpButton.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 40).isActive = true
-        signUpButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 10).isActive = true
+        signUpButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 30).isActive = true
         signInButton.widthAnchor.constraint(equalTo: signUpButton.widthAnchor).isActive = true
         signInButton.leadingAnchor.constraint(equalTo: signUpButton.trailingAnchor, constant: 20).isActive = true
-        signInButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 10).isActive = true
+        signInButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 30).isActive = true
         self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: signInButton.trailingAnchor, constant: 40).isActive = true
     }
     
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        if textField == emailAddressTextField && emailAddressTextFieldController.errorText != nil {
+            emailAddressTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
+        }
+        else if textField == passwordTextField && passwordTextFieldController.errorText != nil {
+            passwordTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
+        }
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField == emailAddressTextField {
-            passwordTextField.becomeFirstResponder()
+        validator.validateField(textField) { error in
+            if textField == emailAddressTextField {
+                if error == nil {
+                    passwordTextField.becomeFirstResponder()
+                }
+                else {
+                    emailAddressTextFieldController.setErrorText(error?.errorMessage, errorAccessibilityValue: error?.errorMessage)
+                }
+            }
+            else if textField == passwordTextField {
+                if error == nil {
+                    passwordTextField.resignFirstResponder()
+                }
+                else {
+                    passwordTextFieldController.setErrorText(error?.errorMessage, errorAccessibilityValue: error?.errorMessage)
+                }
+            }
         }
-        else if textField == passwordTextField {
-            passwordTextField.resignFirstResponder()
-        }
+        
         return true
     }
     
@@ -138,13 +172,25 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc private func onSignInClick(sender: Any) {
+        validator.validate(self)
+    }
+        
+    func validationSuccessful() {
+        emailAddressTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
+        passwordTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
         authenticationService.signIn(emailAddress: emailAddressTextField.text!, password: passwordTextField.text!)
     }
     
-    @objc private func authenticationFinished() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let baseViewController = storyboard.instantiateViewController(withIdentifier: "MainTabBarController")
-        UIApplication.shared.keyWindow?.rootViewController = baseViewController
+    func validationFailed(_ errors: [(Validatable, ValidationError)]) {
+        for (field, error) in errors {
+            if let field = field as? MDCTextField {
+                if field == emailAddressTextField {
+                    emailAddressTextFieldController.setErrorText(error.errorMessage, errorAccessibilityValue: error.errorMessage)
+                }
+                else if field == passwordTextField {
+                    passwordTextFieldController.setErrorText(error.errorMessage, errorAccessibilityValue: error.errorMessage)
+                }
+            }
+        }
     }
 }
-

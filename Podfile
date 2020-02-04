@@ -5,6 +5,9 @@ target 'spotcheck-ios' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
+  # Form validation
+  pod 'SwiftValidator', :git => 'https://github.com/jpotts18/SwiftValidator.git', :tag => '4.2.0'
+  
   # Firebase dependencies
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
@@ -12,7 +15,6 @@ target 'spotcheck-ios' do
   pod 'Firebase/Database'
   pod 'Firebase/Storage'
   pod 'FirebaseUI/Storage'
-  
   pod 'Firebase/Firestore'
   pod 'FirebaseFirestoreSwift'
   

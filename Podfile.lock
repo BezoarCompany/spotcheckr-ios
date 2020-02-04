@@ -396,6 +396,7 @@ PODS:
   - SDWebImage (5.5.1):
     - SDWebImage/Core (= 5.5.1)
   - SDWebImage/Core (5.5.1)
+  - SwiftValidator (4.0.0)
 
 DEPENDENCIES:
   - Firebase/Auth
@@ -412,6 +413,7 @@ DEPENDENCIES:
   - MaterialComponents/schemes/Typography
   - MaterialComponents/TextFields
   - "MaterialComponents/TextFields+Theming"
+  - SwiftValidator (from `https://github.com/jpotts18/SwiftValidator.git`, tag `4.2.0`)
 
 SPEC REPOS:
   trunk:
@@ -446,6 +448,16 @@ SPEC REPOS:
     - PromisesObjC
     - SDWebImage
 
+EXTERNAL SOURCES:
+  SwiftValidator:
+    :git: https://github.com/jpotts18/SwiftValidator.git
+    :tag: 4.2.0
+
+CHECKOUT OPTIONS:
+  SwiftValidator:
+    :git: https://github.com/jpotts18/SwiftValidator.git
+    :tag: 4.2.0
+
 SPEC CHECKSUMS:
   abseil: 18063d773f5366ff8736a050fe035a28f635fd27
   BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
@@ -477,7 +489,8 @@ SPEC CHECKSUMS:
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   SDWebImage: 1245d058b7b8f59adef7a6da6bbafd4f1ab67041
+  SwiftValidator: 249b6b3ae3b294266c5b9de134d94f18f2d5aa47
 
-PODFILE CHECKSUM: 671beb98c7ff28cba7ae9c99f0025b8819367785
+PODFILE CHECKSUM: 53da881f552c9434289cd3b35a4dc5542d5b1a47
 
 COCOAPODS: 1.8.4
