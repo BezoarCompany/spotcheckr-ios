@@ -18,6 +18,8 @@
 		5679533823D980E40077BA08 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5679533723D980E40077BA08 /* FeedViewController.swift */; };
 		5679533A23D988910077BA08 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5679533923D988910077BA08 /* ProfileViewController.swift */; };
 		567E9A3223E93EA2004C1B2E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567E9A3123E93EA2004C1B2E /* Constants.swift */; };
+		567E9A3623EA8F0C004C1B2E /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567E9A3423EA8F0C004C1B2E /* PostCell.swift */; };
+		567E9A3723EA8F0C004C1B2E /* PostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 567E9A3523EA8F0C004C1B2E /* PostCell.xib */; };
 		568721A323E7EF1100E15F87 /* ApplicationScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568721A223E7EF1100E15F87 /* ApplicationScheme.swift */; };
 		56B79E3823E2B27100568685 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B79E3723E2B27100568685 /* Post.swift */; };
 		BA49213623E6289B00A74A73 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA49212F23E6289A00A74A73 /* Roboto-Regular.ttf */; };
@@ -62,6 +64,8 @@
 		5679533723D980E40077BA08 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		5679533923D988910077BA08 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		567E9A3123E93EA2004C1B2E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		567E9A3423EA8F0C004C1B2E /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
+		567E9A3523EA8F0C004C1B2E /* PostCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostCell.xib; sourceTree = "<group>"; };
 		568721A223E7EF1100E15F87 /* ApplicationScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationScheme.swift; sourceTree = "<group>"; };
 		56B79E3723E2B27100568685 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		BA49212F23E6289A00A74A73 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
@@ -170,6 +174,8 @@
 			children = (
 				5679530323D806BE0077BA08 /* Main.storyboard */,
 				568721A223E7EF1100E15F87 /* ApplicationScheme.swift */,
+				567E9A3423EA8F0C004C1B2E /* PostCell.swift */,
+				567E9A3523EA8F0C004C1B2E /* PostCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -310,6 +316,7 @@
 				BA49213723E6289B00A74A73 /* Roboto-Medium.ttf in Resources */,
 				5679530A23D806C00077BA08 /* LaunchScreen.storyboard in Resources */,
 				BA49213623E6289B00A74A73 /* Roboto-Regular.ttf in Resources */,
+				567E9A3723EA8F0C004C1B2E /* PostCell.xib in Resources */,
 				5679533623D97EDD0077BA08 /* GoogleService-Info.plist in Resources */,
 				5679530723D806C00077BA08 /* Assets.xcassets in Resources */,
 				5679530523D806BE0077BA08 /* Main.storyboard in Resources */,
@@ -404,6 +411,7 @@
 				567E9A3223E93EA2004C1B2E /* Constants.swift in Sources */,
 				5679533423D972F00077BA08 /* AuthOptionsViewController.swift in Sources */,
 				56B79E3823E2B27100568685 /* Post.swift in Sources */,
+				567E9A3623EA8F0C004C1B2E /* PostCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
