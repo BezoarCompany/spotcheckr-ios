@@ -31,6 +31,8 @@ class FeedViewController: UIViewController, PostsService {
         tableView.delegate = self
         
         navigationItem.hidesBackButton = true
+        
+        tableView.register(UINib(nibName:K.Storyboard.postNibName, bundle: nil), forCellReuseIdentifier: K.Storyboard.feedCellId)
     }
 }
 
@@ -43,8 +45,11 @@ extension FeedViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: K.Storyboard.feedCellId, for: indexPath)
-            
-        cell.textLabel?.text = posts[indexPath.row].question
+            as! PostCell
+                
+        cell.postLabel.text = posts[indexPath.row].question
+        cell.authorLabel.text = posts[indexPath.row].authorName
+        //cell.textLabel?.text = posts[indexPath.row].question
         return cell
     }
 }
