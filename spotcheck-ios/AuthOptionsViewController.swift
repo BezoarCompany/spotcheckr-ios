@@ -15,7 +15,7 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
        let label = UILabel()
         label.text = "Spotcheck"
         label.textAlignment = .center
-        label.textColor = .white
+        label.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
         label.font = ApplicationScheme.instance.containerScheme.typographyScheme.headline4
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -25,7 +25,7 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
         let label = UILabel()
         label.text = "Get your exercise form reviewed \nand connect with certfied trainers."
         label.textAlignment = .center
-        label.textColor = .white
+        label.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
         label.font = ApplicationScheme.instance.containerScheme.typographyScheme.subtitle2
         label.numberOfLines = 2
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -52,6 +52,18 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
         return field
     }()
     let passwordTextFieldController: MDCTextInputControllerOutlined
+    
+    let forgotPasswordLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Forgot password?"
+        label.font = ApplicationScheme.instance.containerScheme.typographyScheme.subtitle1
+        label.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
+        label.textAlignment = .right
+        label.sizeToFit()
+        label.isUserInteractionEnabled = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     
     let signUpButton: MDCButton = {
         let button = MDCButton()
@@ -89,6 +101,7 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
     override func viewDidLoad() {
         super.viewDidLoad()
         addSubviews()
+        addGestures()
         setDelegates()
         setupValidation()
         applyConstraints()
@@ -104,11 +117,17 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
         passwordTextField.delegate = self
     }
     
+    private func addGestures() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onForgotPasswordClick))
+        forgotPasswordLabel.addGestureRecognizer(tapGesture)
+    }
+    
     private func addSubviews() {
         self.view.addSubview(spotcheckHeadline)
         self.view.addSubview(spotcheckSubtitle)
         self.view.addSubview(emailAddressTextField)
         self.view.addSubview(passwordTextField)
+        self.view.addSubview(forgotPasswordLabel)
         self.view.addSubview(signUpButton)
         self.view.addSubview(signInButton)
     }
@@ -121,14 +140,16 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
         emailAddressTextField.topAnchor.constraint(equalTo: spotcheckSubtitle.bottomAnchor, constant: 90).isActive = true
         emailAddressTextField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 40).isActive = true
         self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: emailAddressTextField.trailingAnchor, constant: 40).isActive = true
-        passwordTextField.topAnchor.constraint(equalTo: emailAddressTextField.bottomAnchor, constant: 15).isActive = true
+        passwordTextField.topAnchor.constraint(equalTo: emailAddressTextField.bottomAnchor, constant: 10).isActive = true
         passwordTextField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 40).isActive = true
         self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: passwordTextField.trailingAnchor, constant: 40).isActive = true
+        forgotPasswordLabel.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 0).isActive = true
+        self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: forgotPasswordLabel.trailingAnchor, constant: 40).isActive = true
+        signUpButton.topAnchor.constraint(equalTo: forgotPasswordLabel.bottomAnchor, constant: 30).isActive = true
         signUpButton.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 40).isActive = true
-        signUpButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 30).isActive = true
         signInButton.widthAnchor.constraint(equalTo: signUpButton.widthAnchor).isActive = true
+        signInButton.topAnchor.constraint(equalTo: forgotPasswordLabel.bottomAnchor, constant: 30).isActive = true
         signInButton.leadingAnchor.constraint(equalTo: signUpButton.trailingAnchor, constant: 20).isActive = true
-        signInButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 30).isActive = true
         self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: signInButton.trailingAnchor, constant: 40).isActive = true
     }
     
@@ -190,6 +211,10 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
                 }
             }
         }
+    }
+    
+    @objc func onForgotPasswordClick() {
+        print("forgot password clicked") //TODO: Implement redirect
     }
     
     @objc private func authenticationFinished() {
