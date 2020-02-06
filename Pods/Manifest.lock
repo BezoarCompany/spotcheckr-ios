@@ -392,6 +392,15 @@ PODS:
     - nanopb/encode (= 0.3.9011)
   - nanopb/decode (0.3.9011)
   - nanopb/encode (0.3.9011)
+  - PromiseKit (6.13.1):
+    - PromiseKit/CorePromise (= 6.13.1)
+    - PromiseKit/Foundation (= 6.13.1)
+    - PromiseKit/UIKit (= 6.13.1)
+  - PromiseKit/CorePromise (6.13.1)
+  - PromiseKit/Foundation (6.13.1):
+    - PromiseKit/CorePromise
+  - PromiseKit/UIKit (6.13.1):
+    - PromiseKit/CorePromise
   - PromisesObjC (1.2.8)
   - SDWebImage (5.5.1):
     - SDWebImage/Core (= 5.5.1)
@@ -413,6 +422,7 @@ DEPENDENCIES:
   - MaterialComponents/schemes/Typography
   - MaterialComponents/TextFields
   - "MaterialComponents/TextFields+Theming"
+  - PromiseKit
   - SwiftValidator (from `https://github.com/jpotts18/SwiftValidator.git`, tag `4.2.0`)
 
 SPEC REPOS:
@@ -445,6 +455,7 @@ SPEC REPOS:
     - MDFInternationalization
     - MDFTextAccessibility
     - nanopb
+    - PromiseKit
     - PromisesObjC
     - SDWebImage
 
@@ -487,10 +498,11 @@ SPEC CHECKSUMS:
   MDFInternationalization: 010097556d6b09d2c4ea38e0820ea6d37be6a314
   MDFTextAccessibility: 85c09a1bd9c321f494348e632a25063bcda35a53
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
+  PromiseKit: 28fda91c973cc377875d8c0ea4f973013c05b6db
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   SDWebImage: 1245d058b7b8f59adef7a6da6bbafd4f1ab67041
   SwiftValidator: 249b6b3ae3b294266c5b9de134d94f18f2d5aa47
 
-PODFILE CHECKSUM: 53da881f552c9434289cd3b35a4dc5542d5b1a47
+PODFILE CHECKSUM: c1c482bff4d8716d7afc89553b038fec430609fd
 
 COCOAPODS: 1.8.4

@@ -25,6 +25,8 @@
 		BA49213823E6289B00A74A73 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA49213123E6289B00A74A73 /* Roboto-Light.ttf */; };
 		BA4EE42623E94A6E003E6D87 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4EE42523E94A6E003E6D87 /* AuthenticationService.swift */; };
 		BA4EE42823E94BBF003E6D87 /* AuthenticationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4EE42723E94BBF003E6D87 /* AuthenticationProtocol.swift */; };
+		BA4EE44523EBA221003E6D87 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4EE44423EBA221003E6D87 /* User.swift */; };
+		BA4EE44723EBA347003E6D87 /* Identity.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4EE44623EBA347003E6D87 /* Identity.swift */; };
 		E3C7E3CE180E9771ECE84E15 /* Pods_spotcheck_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C55EFD15D5AF50B8A44B99 /* Pods_spotcheck_ios.framework */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +73,8 @@
 		BA49213123E6289B00A74A73 /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
 		BA4EE42523E94A6E003E6D87 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 		BA4EE42723E94BBF003E6D87 /* AuthenticationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationProtocol.swift; sourceTree = "<group>"; };
+		BA4EE44423EBA221003E6D87 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		BA4EE44623EBA347003E6D87 /* Identity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identity.swift; sourceTree = "<group>"; };
 		C07067766A14538D3F6C55CF /* Pods-spotcheck-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios.debug.xcconfig"; path = "Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios.debug.xcconfig"; sourceTree = "<group>"; };
 		D85CF2035FF885BA48368721 /* Pods-spotcheck-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios.release.xcconfig"; path = "Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -183,6 +187,8 @@
 			isa = PBXGroup;
 			children = (
 				56B79E3723E2B27100568685 /* Post.swift */,
+				BA4EE44423EBA221003E6D87 /* User.swift */,
+				BA4EE44623EBA347003E6D87 /* Identity.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -417,8 +423,10 @@
 				5679533823D980E40077BA08 /* FeedViewController.swift in Sources */,
 				5679533A23D988910077BA08 /* ProfileViewController.swift in Sources */,
 				567E9A3223E93EA2004C1B2E /* Constants.swift in Sources */,
+				BA4EE44723EBA347003E6D87 /* Identity.swift in Sources */,
 				5679533423D972F00077BA08 /* AuthOptionsViewController.swift in Sources */,
 				56B79E3823E2B27100568685 /* Post.swift in Sources */,
+				BA4EE44523EBA221003E6D87 /* User.swift in Sources */,
 				BA4EE42623E94A6E003E6D87 /* AuthenticationService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

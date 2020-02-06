@@ -8,6 +8,7 @@ import MaterialComponents.MaterialTextFields_Theming
 import MaterialComponents.MaterialTextFields_TypographyThemer
 import MaterialComponents.MaterialContainerScheme
 import SwiftValidator
+import PromiseKit
 
 class AuthOptionsViewController: UIViewController, UITextFieldDelegate, ValidationDelegate {
     let spotcheckHeadline: UILabel = {
@@ -71,12 +72,8 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
         button.addTarget(self, action: #selector(onSignInClick(sender:)), for: .touchUpInside)
         return button
     }()
-    
-    let authenticationService: AuthenticationProtocol = {
-        let service = AuthenticationService()
-        return service
-    }()
-    
+
+    let authenticationService: AuthenticationProtocol = AuthenticationService()
     let validator: Validator
     
     required init?(coder aDecoder: NSCoder) {
@@ -147,20 +144,12 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         validator.validateField(textField) { error in
             if textField == emailAddressTextField {
-                if error == nil {
-                    passwordTextField.becomeFirstResponder()
-                }
-                else {
-                    emailAddressTextFieldController.setErrorText(error?.errorMessage, errorAccessibilityValue: error?.errorMessage)
-                }
+                passwordTextField.becomeFirstResponder()
+                emailAddressTextFieldController.setErrorText(error?.errorMessage, errorAccessibilityValue: error?.errorMessage)
             }
             else if textField == passwordTextField {
-                if error == nil {
-                    passwordTextField.resignFirstResponder()
-                }
-                else {
-                    passwordTextFieldController.setErrorText(error?.errorMessage, errorAccessibilityValue: error?.errorMessage)
-                }
+                passwordTextField.resignFirstResponder()
+                passwordTextFieldController.setErrorText(error?.errorMessage, errorAccessibilityValue: error?.errorMessage)
             }
         }
         
@@ -176,9 +165,18 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
     }
         
     func validationSuccessful() {
+        signInButton.setEnabled(false, animated: true)
         emailAddressTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
         passwordTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
-        authenticationService.signIn(emailAddress: emailAddressTextField.text!, password: passwordTextField.text!)
+        firstly {
+            authenticationService.signIn(emailAddress: emailAddressTextField.text!, password: passwordTextField.text!)
+        }.done { _ in
+            self.authenticationFinished()
+        }.catch { error in
+            print(error.localizedDescription)
+        }.finally {
+            self.signInButton.setEnabled(true, animated: true)
+        }
     }
     
     func validationFailed(_ errors: [(Validatable, ValidationError)]) {
@@ -193,10 +191,9 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
             }
         }
     }
+    
     @objc private func authenticationFinished() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let baseViewController = storyboard.instantiateViewController(withIdentifier: K.Storyboard.MainTabBarControllerId)
-        UIApplication.shared.keyWindow?.rootViewController = baseViewController
-
+        let homeViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: K.Storyboard.MainTabBarControllerId)
+        self.present(homeViewController, animated: true)
     }
 }
