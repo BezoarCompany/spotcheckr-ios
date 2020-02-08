@@ -203,7 +203,8 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
     }
     
     @objc private func onSignUpClick(sender: Any) {
-        // TODO: Implement signUp redirect
+        let signUpViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SignUpViewController")
+        self.present(signUpViewController, animated: true)
     }
     
     @objc private func onSignInClick(sender: Any) {
