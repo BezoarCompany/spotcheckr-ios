@@ -51,6 +51,7 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
         field.placeholder = "Password"
         field.isSecureTextEntry = true
         field.returnKeyType = .done
+        field.clearsOnBeginEditing = false
         field.translatesAutoresizingMaskIntoConstraints = false
         return field
     }()
@@ -102,7 +103,7 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
     
     let snackbarMessage: MDCSnackbarMessage = {
        let message = MDCSnackbarMessage()
-       MDCSnackbarTypographyThemer.applyTypographyScheme(ApplicationScheme.instance.containerScheme.typographyScheme)
+        MDCSnackbarTypographyThemer.applyTypographyScheme(ApplicationScheme.instance.containerScheme.typographyScheme)
        return message
     }()
     
@@ -203,7 +204,8 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
     }
     
     @objc private func onSignUpClick(sender: Any) {
-        // TODO: Implement signUp redirect
+        let signUpViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: K.Storyboard.SignUpViewControllerId)
+        self.present(signUpViewController, animated: true)
     }
     
     @objc private func onSignInClick(sender: Any) {
