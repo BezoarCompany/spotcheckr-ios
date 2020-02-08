@@ -103,7 +103,7 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
     
     let snackbarMessage: MDCSnackbarMessage = {
        let message = MDCSnackbarMessage()
-       MDCSnackbarTypographyThemer.applyTypographyScheme(ApplicationScheme.instance.containerScheme.typographyScheme)
+        MDCSnackbarTypographyThemer.applyTypographyScheme(ApplicationScheme.instance.containerScheme.typographyScheme)
        return message
     }()
     
@@ -204,7 +204,7 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
     }
     
     @objc private func onSignUpClick(sender: Any) {
-        let signUpViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SignUpViewController")
+        let signUpViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: K.Storyboard.SignUpViewControllerId)
         self.present(signUpViewController, animated: true)
     }
     

@@ -31,6 +31,13 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, ValidationDel
     }()
     let passwordTextFieldController: MDCTextInputControllerOutlined
     
+    let snackbarMessage: MDCSnackbarMessage = {
+          let message = MDCSnackbarMessage()
+           MDCSnackbarTypographyThemer.applyTypographyScheme(ApplicationScheme.instance.containerScheme.typographyScheme)
+          return message
+       }()
+    
+    let authenticationService: AuthenticationProtocol = AuthenticationService()
     let validator: Validator
     
     required init?(coder aDecoder: NSCoder) {
@@ -95,6 +102,11 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, ValidationDel
         validator.registerField(passwordTextField, rules: [RequiredRule(message: "Required"), MinLengthRule(length: 8, message: "Password must be at least 8 characters long")])
     }
     
+    @objc private func authenticationFinished() {
+           let homeViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: K.Storyboard.MainTabBarControllerId)
+           self.present(homeViewController, animated: true)
+    }
+    
     internal func textFieldDidChangeSelection(_ textField: UITextField) {
         if textField == emailAddressTextField && emailAddressTextFieldController.errorText != nil {
             emailAddressTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
@@ -123,7 +135,24 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, ValidationDel
         createAccountButton.setEnabled(false, animated: true)
         emailAddressTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
         passwordTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
-        
+        firstly {
+            authenticationService.signUp(emailAddress: emailAddressTextField.text!, password: passwordTextField.text!)
+        }.done {
+            self.authenticationFinished()
+        }.catch { error in
+            let errorCode = (error as NSError).code
+            
+            switch errorCode {
+            case AuthErrorCode.emailAlreadyInUse.rawValue:
+                self.snackbarMessage.text = "Account with that email address already exists"
+            default:
+                self.snackbarMessage.text = error.localizedDescription
+            }
+            
+            MDCSnackbarManager.show(self.snackbarMessage)
+        }.finally {
+            self.createAccountButton.setEnabled(true, animated: true)
+        }
     }
     
     internal func validationFailed(_ errors: [(Validatable, ValidationError)]) {
