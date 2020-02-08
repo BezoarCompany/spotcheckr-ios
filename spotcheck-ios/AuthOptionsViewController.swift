@@ -7,8 +7,11 @@ import MaterialComponents.MaterialTextFields
 import MaterialComponents.MaterialTextFields_Theming
 import MaterialComponents.MaterialTextFields_TypographyThemer
 import MaterialComponents.MaterialContainerScheme
+import MaterialComponents.MaterialSnackbar
+import MaterialComponents.MaterialSnackbar_TypographyThemer
 import SwiftValidator
 import PromiseKit
+import FirebaseAuth.FIRAuthErrors
 
 class AuthOptionsViewController: UIViewController, UITextFieldDelegate, ValidationDelegate {
     let spotcheckHeadline: UILabel = {
@@ -84,7 +87,25 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
         button.addTarget(self, action: #selector(onSignInClick(sender:)), for: .touchUpInside)
         return button
     }()
-
+    
+    let errorLabel: UILabel = {
+        let label = UILabel()
+        label.layer.backgroundColor = ApplicationScheme.instance.containerScheme.colorScheme.errorColor.cgColor
+        label.layer.cornerRadius = 3
+        label.font = ApplicationScheme.instance.containerScheme.typographyScheme.body1
+        label.isHidden = true
+        label.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
+        label.textAlignment = .left
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let snackbarMessage: MDCSnackbarMessage = {
+       let message = MDCSnackbarMessage()
+       MDCSnackbarTypographyThemer.applyTypographyScheme(ApplicationScheme.instance.containerScheme.typographyScheme)
+       return message
+    }()
+    
     let authenticationService: AuthenticationProtocol = AuthenticationService()
     let validator: Validator
     
@@ -125,6 +146,7 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
     private func addSubviews() {
         self.view.addSubview(spotcheckHeadline)
         self.view.addSubview(spotcheckSubtitle)
+        self.view.addSubview(errorLabel)
         self.view.addSubview(emailAddressTextField)
         self.view.addSubview(passwordTextField)
         self.view.addSubview(forgotPasswordLabel)
@@ -137,7 +159,10 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
         spotcheckHeadline.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 90).isActive = true
         spotcheckSubtitle.topAnchor.constraint(equalTo: spotcheckHeadline.bottomAnchor, constant: 16).isActive = true
         spotcheckSubtitle.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor, constant: 0).isActive = true
-        emailAddressTextField.topAnchor.constraint(equalTo: spotcheckSubtitle.bottomAnchor, constant: 90).isActive = true
+        errorLabel.topAnchor.constraint(equalTo: spotcheckSubtitle.bottomAnchor, constant: 30).isActive = true
+        errorLabel.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 40).isActive = true
+        self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: errorLabel.trailingAnchor, constant: 40).isActive = true
+        emailAddressTextField.topAnchor.constraint(equalTo: errorLabel.bottomAnchor, constant: 15).isActive = true
         emailAddressTextField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 40).isActive = true
         self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: emailAddressTextField.trailingAnchor, constant: 40).isActive = true
         passwordTextField.topAnchor.constraint(equalTo: emailAddressTextField.bottomAnchor, constant: 10).isActive = true
@@ -178,10 +203,11 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
     }
     
     @objc private func onSignUpClick(sender: Any) {
-        
+        // TODO: Implement signUp redirect
     }
     
     @objc private func onSignInClick(sender: Any) {
+        errorLabel.isHidden = true
         validator.validate(self)
     }
         
@@ -194,7 +220,30 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
         }.done { _ in
             self.authenticationFinished()
         }.catch { error in
-            print(error.localizedDescription)
+            let errorCode = (error as NSError).code
+            var errorMessage = ""
+            var isCriticalError = false
+            
+            switch errorCode {
+            case AuthErrorCode.wrongPassword.rawValue:
+                errorMessage = "The password is incorrect."
+            case AuthErrorCode.userNotFound.rawValue:
+                errorMessage = "This user does not exist."
+            case AuthErrorCode.userDisabled.rawValue:
+                self.snackbarMessage.text = "This user account is disabled."
+                isCriticalError = true
+            case AuthErrorCode.tooManyRequests.rawValue:
+                self.snackbarMessage.text = "Too many requests made to log in."
+                isCriticalError = true
+            default:
+                self.snackbarMessage.text = "An unknown error occurred."
+                isCriticalError = true
+            }
+            if isCriticalError {
+                MDCSnackbarManager.show(self.snackbarMessage)
+            }
+            self.errorLabel.text = errorMessage
+            self.errorLabel.isHidden = false
         }.finally {
             self.signInButton.setEnabled(true, animated: true)
         }

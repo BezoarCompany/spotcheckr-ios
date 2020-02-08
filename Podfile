@@ -22,6 +22,8 @@ target 'spotcheck-ios' do
   # Material design dependencies
   pod 'MaterialComponents/TextFields'
   pod 'MaterialComponents/TextFields+Theming'
+  pod 'MaterialComponents/Snackbar'
+  pod 'MaterialComponents/Snackbar+TypographyThemer'
   pod 'MaterialComponents/Buttons'
   pod 'MaterialComponents/Buttons+Theming'
   pod 'MaterialComponents/schemes/Color'

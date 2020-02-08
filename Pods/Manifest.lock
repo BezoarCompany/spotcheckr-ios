@@ -327,10 +327,15 @@ PODS:
   - MaterialComponents/Ink (103.1.0):
     - MaterialComponents/private/Color
     - MaterialComponents/private/Math
+  - MaterialComponents/OverlayWindow (103.1.0):
+    - MaterialComponents/private/Application
   - MaterialComponents/Palettes (103.1.0)
   - MaterialComponents/private/Application (103.1.0)
   - MaterialComponents/private/Color (103.1.0)
+  - MaterialComponents/private/KeyboardWatcher (103.1.0):
+    - MaterialComponents/private/Application
   - MaterialComponents/private/Math (103.1.0)
+  - MaterialComponents/private/Overlay (103.1.0)
   - MaterialComponents/Ripple (103.1.0):
     - MaterialComponents/AnimationTiming
     - MaterialComponents/private/Color
@@ -360,6 +365,21 @@ PODS:
     - MaterialComponents/private/Color
     - MaterialComponents/private/Math
     - MaterialComponents/ShadowLayer
+  - MaterialComponents/Snackbar (103.1.0):
+    - MaterialComponents/AnimationTiming
+    - MaterialComponents/Buttons
+    - MaterialComponents/Elevation
+    - MaterialComponents/OverlayWindow
+    - MaterialComponents/private/Application
+    - MaterialComponents/private/KeyboardWatcher
+    - MaterialComponents/private/Math
+    - MaterialComponents/private/Overlay
+    - MaterialComponents/ShadowElevations
+    - MaterialComponents/ShadowLayer
+    - MaterialComponents/Typography
+  - "MaterialComponents/Snackbar+TypographyThemer (103.1.0)":
+    - MaterialComponents/schemes/Typography
+    - MaterialComponents/Snackbar
   - MaterialComponents/TextFields (103.1.0):
     - MaterialComponents/AnimationTiming
     - MaterialComponents/Buttons
@@ -420,6 +440,8 @@ DEPENDENCIES:
   - "MaterialComponents/Buttons+Theming"
   - MaterialComponents/schemes/Color
   - MaterialComponents/schemes/Typography
+  - MaterialComponents/Snackbar
+  - "MaterialComponents/Snackbar+TypographyThemer"
   - MaterialComponents/TextFields
   - "MaterialComponents/TextFields+Theming"
   - PromiseKit
@@ -503,6 +525,6 @@ SPEC CHECKSUMS:
   SDWebImage: 1245d058b7b8f59adef7a6da6bbafd4f1ab67041
   SwiftValidator: 249b6b3ae3b294266c5b9de134d94f18f2d5aa47
 
-PODFILE CHECKSUM: c1c482bff4d8716d7afc89553b038fec430609fd
+PODFILE CHECKSUM: a0e35a9fd9d00d08ea950e1de0fecccbd1a0e104
 
 COCOAPODS: 1.8.4
