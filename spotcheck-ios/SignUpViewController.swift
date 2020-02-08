@@ -2,6 +2,7 @@ import MaterialComponents.MDCTextInputControllerOutlined
 import SwiftValidator
 import PromiseKit
 import FirebaseAuth.FIRAuthErrors
+import SwiftSVG
 
 class SignUpViewController: UIViewController, UITextFieldDelegate, ValidationDelegate {
     @IBOutlet weak var spotcheckHeadlineLabel: UILabel!
@@ -26,6 +27,15 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, ValidationDel
         field.isSecureTextEntry = true
         field.returnKeyType = .done
         field.clearsOnBeginEditing = false
+        field.trailingView = UIImageView(SVGNamed: "eye"){
+            (svgLayer) in
+            svgLayer.fillColor = .none
+            svgLayer.strokeColor = UIColor.white.cgColor
+        }
+        field.trailingViewMode = .always
+        field.trailingView?.isUserInteractionEnabled = true
+        field.trailingView?.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        field.trailingView?.widthAnchor.constraint(equalToConstant: 30).isActive = true
         field.translatesAutoresizingMaskIntoConstraints = false
         return field
     }()
@@ -54,6 +64,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, ValidationDel
         super.viewDidLoad()
         
         addSubviews()
+        setGestures()
         setDelegates()
         applyStyling()
         applyConstraints()
@@ -67,6 +78,10 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, ValidationDel
     private func addSubviews() {
         self.view.addSubview(emailAddressTextField)
         self.view.addSubview(passwordTextField)
+    }
+    
+    private func setGestures() {
+        self.passwordTextField.trailingView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(passwordIconOnClick(sender:))))
     }
     
     private func setDelegates() {
@@ -105,6 +120,29 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, ValidationDel
     @objc private func authenticationFinished() {
            let homeViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: K.Storyboard.MainTabBarControllerId)
            self.present(homeViewController, animated: true)
+    }
+    
+    @objc func passwordIconOnClick(sender: Any) {
+        self.passwordTextField.isSecureTextEntry = !self.passwordTextField.isSecureTextEntry
+        if self.passwordTextField.isSecureTextEntry {
+            self.passwordTextField.trailingView = UIImageView(SVGNamed: "eye"){
+                (svgLayer) in
+                svgLayer.fillColor = .none
+                svgLayer.strokeColor = UIColor.white.cgColor
+            }
+        }
+        else {
+            self.passwordTextField.trailingView = UIImageView(SVGNamed: "eye-off"){
+                (svgLayer) in
+                svgLayer.fillColor = .none
+                svgLayer.strokeColor = UIColor.white.cgColor
+            }
+        }
+        self.passwordTextField.trailingView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(passwordIconOnClick(sender:))))
+        self.passwordTextField.trailingViewMode = .always
+        self.passwordTextField.trailingView?.isUserInteractionEnabled = true
+        self.passwordTextField.trailingView?.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        self.passwordTextField.trailingView?.widthAnchor.constraint(equalToConstant: 30).isActive = true
     }
     
     internal func textFieldDidChangeSelection(_ textField: UITextField) {

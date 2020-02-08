@@ -28,6 +28,8 @@
 		BA4EE44523EBA221003E6D87 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4EE44423EBA221003E6D87 /* User.swift */; };
 		BA4EE44723EBA347003E6D87 /* Identity.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4EE44623EBA347003E6D87 /* Identity.swift */; };
 		BA4EE44F23EE91D1003E6D87 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4EE44E23EE91D1003E6D87 /* SignUpViewController.swift */; };
+		BA4EE45323EECE84003E6D87 /* eye.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA4EE45123EECE83003E6D87 /* eye.svg */; };
+		BA4EE45423EECE84003E6D87 /* eye-off.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA4EE45223EECE84003E6D87 /* eye-off.svg */; };
 		E3C7E3CE180E9771ECE84E15 /* Pods_spotcheck_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C55EFD15D5AF50B8A44B99 /* Pods_spotcheck_ios.framework */; };
 /* End PBXBuildFile section */
 
@@ -77,6 +79,8 @@
 		BA4EE44423EBA221003E6D87 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		BA4EE44623EBA347003E6D87 /* Identity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identity.swift; sourceTree = "<group>"; };
 		BA4EE44E23EE91D1003E6D87 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		BA4EE45123EECE83003E6D87 /* eye.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = eye.svg; sourceTree = "<group>"; };
+		BA4EE45223EECE84003E6D87 /* eye-off.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "eye-off.svg"; sourceTree = "<group>"; };
 		C07067766A14538D3F6C55CF /* Pods-spotcheck-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios.debug.xcconfig"; path = "Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios.debug.xcconfig"; sourceTree = "<group>"; };
 		D85CF2035FF885BA48368721 /* Pods-spotcheck-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios.release.xcconfig"; path = "Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -141,6 +145,7 @@
 		567952FC23D806BE0077BA08 /* spotcheck-ios */ = {
 			isa = PBXGroup;
 			children = (
+				BA4EE45023EECE5D003E6D87 /* Icons */,
 				BA4EE42423E94A4E003E6D87 /* Services */,
 				567E9A3323E93F15004C1B2E /* Views */,
 				BA49212C23E6285600A74A73 /* Fonts */,
@@ -221,6 +226,15 @@
 				BA4EE42723E94BBF003E6D87 /* AuthenticationProtocol.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		BA4EE45023EECE5D003E6D87 /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				BA4EE45223EECE84003E6D87 /* eye-off.svg */,
+				BA4EE45123EECE83003E6D87 /* eye.svg */,
+			);
+			path = Icons;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -330,6 +344,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA4EE45423EECE84003E6D87 /* eye-off.svg in Resources */,
+				BA4EE45323EECE84003E6D87 /* eye.svg in Resources */,
 				BA49213723E6289B00A74A73 /* Roboto-Medium.ttf in Resources */,
 				5679530A23D806C00077BA08 /* LaunchScreen.storyboard in Resources */,
 				BA49213623E6289B00A74A73 /* Roboto-Regular.ttf in Resources */,

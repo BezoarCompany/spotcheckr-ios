@@ -425,6 +425,7 @@ PODS:
   - SDWebImage (5.5.1):
     - SDWebImage/Core (= 5.5.1)
   - SDWebImage/Core (5.5.1)
+  - SwiftSVG (2.2.1)
   - SwiftValidator (4.0.0)
 
 DEPENDENCIES:
@@ -445,6 +446,7 @@ DEPENDENCIES:
   - MaterialComponents/TextFields
   - "MaterialComponents/TextFields+Theming"
   - PromiseKit
+  - SwiftSVG (~> 2.2.1)
   - SwiftValidator (from `https://github.com/jpotts18/SwiftValidator.git`, tag `4.2.0`)
 
 SPEC REPOS:
@@ -480,6 +482,7 @@ SPEC REPOS:
     - PromiseKit
     - PromisesObjC
     - SDWebImage
+    - SwiftSVG
 
 EXTERNAL SOURCES:
   SwiftValidator:
@@ -523,8 +526,9 @@ SPEC CHECKSUMS:
   PromiseKit: 28fda91c973cc377875d8c0ea4f973013c05b6db
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   SDWebImage: 1245d058b7b8f59adef7a6da6bbafd4f1ab67041
+  SwiftSVG: e55084e4c5534f3f25743003a6a3a88580cacfb0
   SwiftValidator: 249b6b3ae3b294266c5b9de134d94f18f2d5aa47
 
-PODFILE CHECKSUM: a0e35a9fd9d00d08ea950e1de0fecccbd1a0e104
+PODFILE CHECKSUM: 5efdaabaf674e48e5ac516b3989be4431e306b31
 
 COCOAPODS: 1.8.4
