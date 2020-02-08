@@ -10,7 +10,6 @@ class AuthenticationService: AuthenticationProtocol {
             }
         }
     }
-    
     func signUp(emailAddress: String, password: String) -> Promise<Void> {
         return Promise { promise in
             Auth.auth().createUser(withEmail: emailAddress, password: password) {

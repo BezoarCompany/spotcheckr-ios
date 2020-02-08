@@ -10,8 +10,6 @@ struct K {
         static let ForgotPasswordControllerId = "ForgotPasswordViewController"
         static let PasswordResetConfirmationViewControllerId = "PasswordResetConfirmationViewController"
         static let feedCellId = "ItemCell"
-        
-        
     }
     struct Firestore {
         static let posts = "posts"
