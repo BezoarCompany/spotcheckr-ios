@@ -15,6 +15,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, ValidationDel
         field.placeholder = "Email Address"
         field.keyboardType = .emailAddress
         field.returnKeyType = .next
+        field.autocorrectionType = .no
         field.autocapitalizationType = .none
         field.translatesAutoresizingMaskIntoConstraints = false
         return field
