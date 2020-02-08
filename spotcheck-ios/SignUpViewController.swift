@@ -1,7 +1,9 @@
 import MaterialComponents.MDCTextInputControllerOutlined
+import SwiftValidator
+import PromiseKit
+import FirebaseAuth.FIRAuthErrors
 
-class SignUpViewController: UIViewController, UITextFieldDelegate {
-
+class SignUpViewController: UIViewController, UITextFieldDelegate, ValidationDelegate {
     @IBOutlet weak var spotcheckHeadlineLabel: UILabel!
     @IBOutlet weak var spotcheckSubtitleLabel: UILabel!
     @IBOutlet weak var createAccountButton: MDCButton!
@@ -23,17 +25,21 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         field.placeholder = "Password"
         field.isSecureTextEntry = true
         field.returnKeyType = .done
+        field.clearsOnBeginEditing = false
         field.translatesAutoresizingMaskIntoConstraints = false
         return field
     }()
     let passwordTextFieldController: MDCTextInputControllerOutlined
+    
+    let validator: Validator
     
     required init?(coder aDecoder: NSCoder) {
         emailAddressTextFieldController = MDCTextInputControllerOutlined(textInput: emailAddressTextField)
         emailAddressTextFieldController.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
         passwordTextFieldController = MDCTextInputControllerOutlined(textInput: passwordTextField)
         passwordTextFieldController.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
-        
+        passwordTextFieldController.helperText = "Password must be at least 8 characters long"
+        validator = Validator()
         super.init(coder: aDecoder)
     }
     
@@ -44,6 +50,11 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         setDelegates()
         applyStyling()
         applyConstraints()
+        setupValidation()
+    }
+    
+    @IBAction func createAccountOnClick(_ sender: MDCButton) {
+        validator.validate(self)
     }
     
     private func addSubviews() {
@@ -77,5 +88,54 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: passwordTextField.trailingAnchor, constant: 40).isActive = true
             
         self.createAccountButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 20).isActive = true
+    }
+    
+    private func setupValidation() {
+        validator.registerField(emailAddressTextField, rules: [RequiredRule(message: "Required"), EmailRule(message: "Invalid email address")])
+        validator.registerField(passwordTextField, rules: [RequiredRule(message: "Required"), MinLengthRule(length: 8, message: "Password must be at least 8 characters long")])
+    }
+    
+    internal func textFieldDidChangeSelection(_ textField: UITextField) {
+        if textField == emailAddressTextField && emailAddressTextFieldController.errorText != nil {
+            emailAddressTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
+        }
+        else if textField == passwordTextField && passwordTextFieldController.errorText != nil {
+            passwordTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
+        }
+    }
+    
+    internal func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        validator.validateField(textField) { error in
+            if textField == emailAddressTextField {
+                passwordTextField.becomeFirstResponder()
+                emailAddressTextFieldController.setErrorText(error?.errorMessage, errorAccessibilityValue: error?.errorMessage)
+            }
+            else if textField == passwordTextField {
+                passwordTextField.resignFirstResponder()
+                passwordTextFieldController.setErrorText(error?.errorMessage, errorAccessibilityValue: error?.errorMessage)
+            }
+        }
+        
+        return true
+    }
+    
+    internal func validationSuccessful() {
+        createAccountButton.setEnabled(false, animated: true)
+        emailAddressTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
+        passwordTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
+        
+    }
+    
+    internal func validationFailed(_ errors: [(Validatable, ValidationError)]) {
+        for (field, error) in errors {
+            if let field = field as? MDCTextField {
+                if field == emailAddressTextField {
+                    emailAddressTextFieldController.setErrorText(error.errorMessage, errorAccessibilityValue: error.errorMessage)
+                }
+                else if field == passwordTextField {
+                    passwordTextFieldController.setErrorText(error.errorMessage, errorAccessibilityValue: error.errorMessage)
+                }
+            }
+        }
     }
 }

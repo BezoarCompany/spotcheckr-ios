@@ -51,6 +51,7 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
         field.placeholder = "Password"
         field.isSecureTextEntry = true
         field.returnKeyType = .done
+        field.clearsOnBeginEditing = false
         field.translatesAutoresizingMaskIntoConstraints = false
         return field
     }()
