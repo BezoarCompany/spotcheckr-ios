@@ -31,6 +31,7 @@
 		BA4EE45323EECE84003E6D87 /* eye.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA4EE45123EECE83003E6D87 /* eye.svg */; };
 		BA4EE45423EECE84003E6D87 /* eye-off.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA4EE45223EECE84003E6D87 /* eye-off.svg */; };
 		BA4EE45A23EF1408003E6D87 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4EE45923EF1408003E6D87 /* ForgotPasswordViewController.swift */; };
+		BA4EE45C23EF6814003E6D87 /* PasswordResetConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4EE45B23EF6814003E6D87 /* PasswordResetConfirmationViewController.swift */; };
 		E3C7E3CE180E9771ECE84E15 /* Pods_spotcheck_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C55EFD15D5AF50B8A44B99 /* Pods_spotcheck_ios.framework */; };
 /* End PBXBuildFile section */
 
@@ -83,6 +84,7 @@
 		BA4EE45123EECE83003E6D87 /* eye.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = eye.svg; sourceTree = "<group>"; };
 		BA4EE45223EECE84003E6D87 /* eye-off.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "eye-off.svg"; sourceTree = "<group>"; };
 		BA4EE45923EF1408003E6D87 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
+		BA4EE45B23EF6814003E6D87 /* PasswordResetConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetConfirmationViewController.swift; sourceTree = "<group>"; };
 		C07067766A14538D3F6C55CF /* Pods-spotcheck-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios.debug.xcconfig"; path = "Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios.debug.xcconfig"; sourceTree = "<group>"; };
 		D85CF2035FF885BA48368721 /* Pods-spotcheck-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios.release.xcconfig"; path = "Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -163,6 +165,7 @@
 				567E9A3123E93EA2004C1B2E /* Constants.swift */,
 				BA4EE44E23EE91D1003E6D87 /* SignUpViewController.swift */,
 				BA4EE45923EF1408003E6D87 /* ForgotPasswordViewController.swift */,
+				BA4EE45B23EF6814003E6D87 /* PasswordResetConfirmationViewController.swift */,
 			);
 			path = "spotcheck-ios";
 			sourceTree = "<group>";
@@ -441,6 +444,7 @@
 			files = (
 				567952FE23D806BE0077BA08 /* AppDelegate.swift in Sources */,
 				BA4EE42823E94BBF003E6D87 /* AuthenticationProtocol.swift in Sources */,
+				BA4EE45C23EF6814003E6D87 /* PasswordResetConfirmationViewController.swift in Sources */,
 				568721A323E7EF1100E15F87 /* ApplicationScheme.swift in Sources */,
 				5679533823D980E40077BA08 /* FeedViewController.swift in Sources */,
 				5679533A23D988910077BA08 /* ProfileViewController.swift in Sources */,

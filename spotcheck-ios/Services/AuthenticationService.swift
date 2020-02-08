@@ -1,7 +1,16 @@
 import FirebaseAuth
 import PromiseKit
+import Foundation
 
 class AuthenticationService: AuthenticationProtocol {
+    func sendResetPasswordEmail(emailAddress: String) -> Promise<Void> {
+        return Promise { promise in
+            Auth.auth().sendPasswordReset(withEmail: emailAddress) { error in
+                return error != nil ? promise.reject(error!) : promise.fulfill_()
+            }
+        }
+    }
+    
     func signUp(emailAddress: String, password: String) -> Promise<Void> {
         return Promise { promise in
             Auth.auth().createUser(withEmail: emailAddress, password: password) {

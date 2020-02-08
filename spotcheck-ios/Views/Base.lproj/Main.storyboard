@@ -147,6 +147,58 @@
             </objects>
             <point key="canvasLocation" x="-90" y="-640"/>
         </scene>
+        <!--Password Reset Confirmation-->
+        <scene sceneID="nXt-k3-nV3">
+            <objects>
+                <viewController storyboardIdentifier="PasswordResetConfirmationViewController" title="Password Reset Confirmation" id="7Xy-42-96W" customClass="PasswordResetConfirmationViewController" customModule="Spotcheck" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="uqT-tG-RUu">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reset link has been sent" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ohp-rJ-Ieh">
+                                <rect key="frame" x="45" y="89" width="324" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="An email with instructions to reset your password has been sent to your email address." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YmC-ev-t87">
+                                <rect key="frame" x="45" y="124.5" width="309" height="61"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iY5-IX-IuR" customClass="MDCButton">
+                                <rect key="frame" x="45" y="215.5" width="324" height="30"/>
+                                <state key="normal" title="Return to login"/>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="cVI-yl-QGZ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.1333333333" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="ohp-rJ-Ieh" firstAttribute="top" secondItem="bzg-0c-uZn" secondAttribute="top" constant="45" id="Hmb-dh-jGd"/>
+                            <constraint firstItem="iY5-IX-IuR" firstAttribute="leading" secondItem="bzg-0c-uZn" secondAttribute="leading" constant="45" id="L4g-pG-eg2"/>
+                            <constraint firstItem="bzg-0c-uZn" firstAttribute="trailing" secondItem="ohp-rJ-Ieh" secondAttribute="trailing" constant="45" id="YTY-6Z-Qjw"/>
+                            <constraint firstItem="ohp-rJ-Ieh" firstAttribute="leading" secondItem="bzg-0c-uZn" secondAttribute="leading" constant="45" id="awH-po-HfD"/>
+                            <constraint firstItem="YmC-ev-t87" firstAttribute="top" secondItem="ohp-rJ-Ieh" secondAttribute="bottom" constant="15" id="cmj-dE-C63"/>
+                            <constraint firstItem="bzg-0c-uZn" firstAttribute="trailing" secondItem="iY5-IX-IuR" secondAttribute="trailing" constant="45" id="cnH-Vd-cni"/>
+                            <constraint firstItem="YmC-ev-t87" firstAttribute="leading" secondItem="bzg-0c-uZn" secondAttribute="leading" constant="45" id="cyD-W7-oVH"/>
+                            <constraint firstItem="iY5-IX-IuR" firstAttribute="top" secondItem="YmC-ev-t87" secondAttribute="bottom" constant="30" id="dmF-YV-alc"/>
+                            <constraint firstAttribute="trailing" secondItem="YmC-ev-t87" secondAttribute="trailing" constant="60" id="tco-QN-b1H"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="bzg-0c-uZn"/>
+                    </view>
+                    <connections>
+                        <outlet property="confirmationHeadline" destination="ohp-rJ-Ieh" id="cyO-Hm-1Lm"/>
+                        <outlet property="confirmationSubtitle" destination="YmC-ev-t87" id="mBf-4b-fob"/>
+                        <outlet property="loginReturnButton" destination="iY5-IX-IuR" id="6HW-vR-lA1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1R4-iH-16h" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="704" y="-640"/>
+        </scene>
         <!--Profile-->
         <scene sceneID="6nE-ZL-oG8">
             <objects>
@@ -265,6 +317,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="0Wk-uv-QKh"/>
+        <segue reference="cVI-yl-QGZ"/>
     </inferredMetricsTieBreakers>
 </document>

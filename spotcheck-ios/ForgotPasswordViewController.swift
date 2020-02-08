@@ -1,6 +1,8 @@
 import MaterialComponents.MDCButton
 import MaterialComponents.MDCFlatButton
+import FirebaseAuth.FIRAuthErrors
 import SwiftValidator
+import PromiseKit
 
 class ForgotPasswordViewController: UIViewController, UITextFieldDelegate, ValidationDelegate {
     @IBOutlet weak var forgotPasswordHeadline: UILabel!
@@ -19,9 +21,16 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate, Valid
         field.translatesAutoresizingMaskIntoConstraints = false
         return field
     }()
+    let snackbarMessage: MDCSnackbarMessage = {
+       let message = MDCSnackbarMessage()
+        MDCSnackbarTypographyThemer.applyTypographyScheme(ApplicationScheme.instance.containerScheme.typographyScheme)
+       return message
+    }()
+    
     let emailAddressTextFieldController: MDCTextInputControllerOutlined
     let validator: Validator
-    
+    let authenticationService = AuthenticationService()
+
     required init?(coder aDecoder: NSCoder) {
         emailAddressTextFieldController = MDCTextInputControllerOutlined(textInput: emailAddressTextField)
         emailAddressTextFieldController.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
@@ -72,6 +81,11 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate, Valid
         self.continueButton.topAnchor.constraint(equalTo: emailAddressTextField.bottomAnchor, constant: 20).isActive = true
     }
     
+    @objc private func navigateOnReset() {
+           let resetPasswordConfirmationViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: K.Storyboard.PasswordResetConfirmationViewControllerId)
+           self.present(resetPasswordConfirmationViewController, animated: true)
+    }
+    
     internal func textFieldDidChangeSelection(_ textField: UITextField) {
         if textField == emailAddressTextField && emailAddressTextFieldController.errorText != nil {
             emailAddressTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
@@ -90,7 +104,19 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate, Valid
     }
     
     internal func validationSuccessful() {
-        print("success validate")
+        self.continueButton.setEnabled(false, animated: true)
+        emailAddressTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
+        
+        firstly {
+            authenticationService.sendResetPasswordEmail(emailAddress: emailAddressTextField.text!)
+        }.done {
+            self.navigateOnReset()
+        }.catch { error in
+            self.snackbarMessage.text = error.localizedDescription
+            MDCSnackbarManager.show(self.snackbarMessage)
+        }.finally {
+            self.continueButton.setEnabled(true, animated: true)
+        }
     }
     
     internal func validationFailed(_ errors: [(Validatable, ValidationError)]) {
@@ -102,4 +128,5 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate, Valid
             }
         }
     }
+    
 }
