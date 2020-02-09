@@ -18,9 +18,9 @@ class FeedViewController: UIViewController, PostsService {
     
     var db: Firestore!
     var posts: [Post] = [
-        Post(postId: "a", authorId: "1", authorName: "Miguel", createdAt: "2/2/2020", updatedAt: "2/2/2020", question: "Why is the sky blue?"),
+        Post(postId: "a", authorId: "1", authorName: "Miguel", createdAt: "2/2/2020", updatedAt: "2/2/2020", question: "Why is the sky blue? Why is the sky blue? Why is the sky blue? Why is the sky blue? Why is the sky blue? Why is the sky blue?"),
         Post(postId: "b", authorId: "2", authorName: "Nitish", createdAt: "2/2/2020", updatedAt: "2/2/2020", question: "Does gymming attract pussy cats?"),
-        Post(postId: "c", authorId: "1", authorName: "Miguel", createdAt: "2/2/2020", updatedAt: "2/2/2020", question: "Will the Chiefs win the superbowl?")
+        Post(postId: "c", authorId: "1", authorName: "Miguel", createdAt: "2/2/2020", updatedAt: "2/2/2020", question: "Will the Chiefs win the superbowl? Likr OMH beckk wtfa. Lorem ipsum, squirtle squirtle squirtle.")
     ]
     
     override func viewDidLoad() {
@@ -33,6 +33,10 @@ class FeedViewController: UIViewController, PostsService {
         navigationItem.hidesBackButton = true
         
         tableView.register(UINib(nibName:K.Storyboard.postNibName, bundle: nil), forCellReuseIdentifier: K.Storyboard.feedCellId)
+        
+        //tableView.rowHeight = UITableView.automaticDimension
+        //tableView.estimatedRowHeight = 400
+
     }
 }
 
@@ -48,7 +52,12 @@ extension FeedViewController: UITableViewDataSource {
             as! PostCell
                 
         cell.postLabel.text = posts[indexPath.row].question
-        cell.authorLabel.text = posts[indexPath.row].authorName
+        cell.authorNameLabel.text = posts[indexPath.row].authorName
+        cell.authorTaglineLabel.text = "Tool default"
+        
+        cell.upvoteCounts.text = "0xx"
+        cell.answersLabel.text = "0xx answers"
+        
         //cell.textLabel?.text = posts[indexPath.row].question
         return cell
     }
