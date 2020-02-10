@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5627FCA223F0BEB4001B4B5B /* FeedPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5627FCA023F0BEB4001B4B5B /* FeedPostCell.swift */; };
+		5627FCA323F0BEB4001B4B5B /* FeedPostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5627FCA123F0BEB4001B4B5B /* FeedPostCell.xib */; };
 		567952FE23D806BE0077BA08 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567952FD23D806BE0077BA08 /* AppDelegate.swift */; };
 		5679530523D806BE0077BA08 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5679530323D806BE0077BA08 /* Main.storyboard */; };
 		5679530723D806C00077BA08 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5679530623D806C00077BA08 /* Assets.xcassets */; };
@@ -54,6 +56,8 @@
 
 /* Begin PBXFileReference section */
 		18C55EFD15D5AF50B8A44B99 /* Pods_spotcheck_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_spotcheck_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5627FCA023F0BEB4001B4B5B /* FeedPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedPostCell.swift; sourceTree = "<group>"; };
+		5627FCA123F0BEB4001B4B5B /* FeedPostCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedPostCell.xib; sourceTree = "<group>"; };
 		567952FA23D806BE0077BA08 /* Spotcheck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spotcheck.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		567952FD23D806BE0077BA08 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5679530423D806BE0077BA08 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -193,6 +197,8 @@
 			children = (
 				5679530323D806BE0077BA08 /* Main.storyboard */,
 				568721A223E7EF1100E15F87 /* ApplicationScheme.swift */,
+				5627FCA023F0BEB4001B4B5B /* FeedPostCell.swift */,
+				5627FCA123F0BEB4001B4B5B /* FeedPostCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -357,6 +363,7 @@
 				BA49213623E6289B00A74A73 /* Roboto-Regular.ttf in Resources */,
 				5679533623D97EDD0077BA08 /* GoogleService-Info.plist in Resources */,
 				5679530723D806C00077BA08 /* Assets.xcassets in Resources */,
+				5627FCA323F0BEB4001B4B5B /* FeedPostCell.xib in Resources */,
 				5679530523D806BE0077BA08 /* Main.storyboard in Resources */,
 				BA49213823E6289B00A74A73 /* Roboto-Light.ttf in Resources */,
 			);
@@ -445,6 +452,7 @@
 				567952FE23D806BE0077BA08 /* AppDelegate.swift in Sources */,
 				BA4EE42823E94BBF003E6D87 /* AuthenticationProtocol.swift in Sources */,
 				BA4EE45C23EF6814003E6D87 /* PasswordResetConfirmationViewController.swift in Sources */,
+				5627FCA223F0BEB4001B4B5B /* FeedPostCell.swift in Sources */,
 				568721A323E7EF1100E15F87 /* ApplicationScheme.swift in Sources */,
 				5679533823D980E40077BA08 /* FeedViewController.swift in Sources */,
 				5679533A23D988910077BA08 /* ProfileViewController.swift in Sources */,
