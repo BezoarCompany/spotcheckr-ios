@@ -158,6 +158,37 @@
             </objects>
             <point key="canvasLocation" x="3708.6956521739135" y="-144.64285714285714"/>
         </scene>
+        <!--Post Details-->
+        <scene sceneID="6dT-Gy-rnv">
+            <objects>
+                <viewController storyboardIdentifier="PostDetailViewController" id="M9o-fR-ved" userLabel="Post Details" customClass="PostDetailViewController" customModule="Spotcheck" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="KGI-Jf-7G6">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Lorem ipsumfs asfd asfasdf asdf sdf sdf sadf s sdf dsaf sda" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="haP-kO-ydd" userLabel="postLabel">
+                                <rect key="frame" x="20" y="44" width="394" height="107"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="haP-kO-ydd" firstAttribute="trailing" secondItem="qMF-pz-b0p" secondAttribute="trailing" id="LHC-dF-Map"/>
+                            <constraint firstItem="haP-kO-ydd" firstAttribute="top" secondItem="qMF-pz-b0p" secondAttribute="top" id="joc-tl-A3V"/>
+                            <constraint firstItem="haP-kO-ydd" firstAttribute="leading" secondItem="qMF-pz-b0p" secondAttribute="leading" constant="20" id="kyW-zy-pla"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="qMF-pz-b0p"/>
+                    </view>
+                    <connections>
+                        <outlet property="postLabel" destination="haP-kO-ydd" id="Icu-Lf-GUQ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ps5-bF-p3k" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4662.3188405797109" y="-123.21428571428571"/>
+        </scene>
         <!--Feed Nav-->
         <scene sceneID="tKa-Wv-tax">
             <objects>

@@ -33,9 +33,6 @@ class FeedViewController: UIViewController, PostsService {
         navigationItem.hidesBackButton = true
         
         tableView.register(UINib(nibName:K.Storyboard.postNibName, bundle: nil), forCellReuseIdentifier: K.Storyboard.feedCellId)
-        
-        //tableView.rowHeight = UITableView.automaticDimension
-        //tableView.estimatedRowHeight = 400
 
     }
 }
@@ -66,6 +63,8 @@ extension FeedViewController: UITableViewDataSource {
 extension FeedViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(indexPath.row)
+        let postDetailViewController = PostDetailViewController.create(post: posts[indexPath.row])
+        self.navigationController?.pushViewController(postDetailViewController, animated: true)
     }
 }
 
