@@ -5,7 +5,7 @@ struct K {
         static let AuthOptionViewControllerId = "AuthOptionsViewController"
 
         static let feedCellId = "FeedCell" //Reusable Cell ID
-        static let postNibName = "PostCell" //<name>.xib
+        static let postNibName = "FeedPostCell" //<name>.xib
 
         static let SignUpViewControllerId =  "SignUpViewController"
         

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PostCell: UITableViewCell {
+class FeedPostCell: UITableViewCell {
 
     @IBOutlet weak var postLabel: UILabel!
     

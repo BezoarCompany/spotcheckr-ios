@@ -49,7 +49,7 @@ extension FeedViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: K.Storyboard.feedCellId, for: indexPath)
-            as! PostCell
+            as! FeedPostCell
                 
         cell.postLabel.text = posts[indexPath.row].question
         cell.authorNameLabel.text = posts[indexPath.row].authorName
