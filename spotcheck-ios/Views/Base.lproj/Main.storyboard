@@ -21,7 +21,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-619" y="123"/>
+            <point key="canvasLocation" x="137.68115942028987" y="137.94642857142856"/>
         </scene>
         <!--Sign Up-->
         <scene sceneID="5Q1-li-qaX">
@@ -83,121 +83,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZlX-wq-2qm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1471" y="-640"/>
-        </scene>
-        <!--Forgot Password-->
-        <scene sceneID="3uk-uV-eHI">
-            <objects>
-                <viewController storyboardIdentifier="ForgotPasswordViewController" title="Forgot Password" id="qzr-KD-2UL" customClass="ForgotPasswordViewController" customModule="Spotcheck" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="xN0-Qt-FQa">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forgot your password?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BsL-Qr-Tm7">
-                                <rect key="frame" x="45" y="89" width="324" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your email to reset your password." lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3qU-To-qYO">
-                                <rect key="frame" x="45" y="124.5" width="309" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rVK-pw-ZQy" customClass="MDCButton">
-                                <rect key="frame" x="45" y="250" width="324" height="30"/>
-                                <state key="normal" title="Continue"/>
-                                <connections>
-                                    <action selector="continueOnClick:" destination="qzr-KD-2UL" eventType="touchUpInside" id="rmx-FY-tyt"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cQD-LN-PSN" customClass="MDCFlatButton">
-                                <rect key="frame" x="45" y="304" width="324" height="30"/>
-                                <state key="normal" title="Cancel"/>
-                                <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="0Wk-uv-QKh"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" red="0.1333333333" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstItem="oqd-N9-CrI" firstAttribute="trailing" secondItem="BsL-Qr-Tm7" secondAttribute="trailing" constant="45" id="AOk-QD-1Gc"/>
-                            <constraint firstItem="oqd-N9-CrI" firstAttribute="trailing" secondItem="cQD-LN-PSN" secondAttribute="trailing" constant="45" id="Aih-P9-pGl"/>
-                            <constraint firstItem="BsL-Qr-Tm7" firstAttribute="leading" secondItem="oqd-N9-CrI" secondAttribute="leading" constant="45" id="D4c-Ic-VdU"/>
-                            <constraint firstItem="oqd-N9-CrI" firstAttribute="trailing" secondItem="rVK-pw-ZQy" secondAttribute="trailing" constant="45" id="EiO-1f-T8m"/>
-                            <constraint firstItem="cQD-LN-PSN" firstAttribute="leading" secondItem="oqd-N9-CrI" secondAttribute="leading" constant="45" id="N0W-OT-O75"/>
-                            <constraint firstItem="3qU-To-qYO" firstAttribute="top" secondItem="BsL-Qr-Tm7" secondAttribute="bottom" constant="15" id="QMi-Dq-Vet"/>
-                            <constraint firstItem="BsL-Qr-Tm7" firstAttribute="top" secondItem="oqd-N9-CrI" secondAttribute="top" constant="45" id="S50-dG-tEW"/>
-                            <constraint firstItem="oqd-N9-CrI" firstAttribute="trailing" secondItem="3qU-To-qYO" secondAttribute="trailing" constant="60" id="Vgm-Fr-AOa"/>
-                            <constraint firstItem="cQD-LN-PSN" firstAttribute="top" secondItem="rVK-pw-ZQy" secondAttribute="bottom" constant="25" id="gGB-zW-S9g"/>
-                            <constraint firstItem="3qU-To-qYO" firstAttribute="leading" secondItem="oqd-N9-CrI" secondAttribute="leading" constant="45" id="k33-5V-be4"/>
-                            <constraint firstItem="rVK-pw-ZQy" firstAttribute="leading" secondItem="oqd-N9-CrI" secondAttribute="leading" constant="45" id="y4z-aa-wJW"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="oqd-N9-CrI"/>
-                    </view>
-                    <connections>
-                        <outlet property="cancelButton" destination="cQD-LN-PSN" id="Jzq-yg-xH1"/>
-                        <outlet property="continueButton" destination="rVK-pw-ZQy" id="mjm-bc-S1d"/>
-                        <outlet property="forgotPasswordHeadline" destination="BsL-Qr-Tm7" id="emk-Dg-UUN"/>
-                        <outlet property="forgotPasswordSubtitle" destination="3qU-To-qYO" id="gCg-on-YRg"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="kvC-gB-ECz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-90" y="-640"/>
-        </scene>
-        <!--Password Reset Confirmation-->
-        <scene sceneID="nXt-k3-nV3">
-            <objects>
-                <viewController storyboardIdentifier="PasswordResetConfirmationViewController" title="Password Reset Confirmation" id="7Xy-42-96W" customClass="PasswordResetConfirmationViewController" customModule="Spotcheck" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="uqT-tG-RUu">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reset link has been sent" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ohp-rJ-Ieh">
-                                <rect key="frame" x="45" y="89" width="324" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="An email with instructions to reset your password has been sent to your email address." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YmC-ev-t87">
-                                <rect key="frame" x="45" y="124.5" width="309" height="61"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iY5-IX-IuR" customClass="MDCButton">
-                                <rect key="frame" x="45" y="215.5" width="324" height="30"/>
-                                <state key="normal" title="Return to login"/>
-                                <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="cVI-yl-QGZ"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" red="0.1333333333" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstItem="ohp-rJ-Ieh" firstAttribute="top" secondItem="bzg-0c-uZn" secondAttribute="top" constant="45" id="Hmb-dh-jGd"/>
-                            <constraint firstItem="iY5-IX-IuR" firstAttribute="leading" secondItem="bzg-0c-uZn" secondAttribute="leading" constant="45" id="L4g-pG-eg2"/>
-                            <constraint firstItem="bzg-0c-uZn" firstAttribute="trailing" secondItem="ohp-rJ-Ieh" secondAttribute="trailing" constant="45" id="YTY-6Z-Qjw"/>
-                            <constraint firstItem="ohp-rJ-Ieh" firstAttribute="leading" secondItem="bzg-0c-uZn" secondAttribute="leading" constant="45" id="awH-po-HfD"/>
-                            <constraint firstItem="YmC-ev-t87" firstAttribute="top" secondItem="ohp-rJ-Ieh" secondAttribute="bottom" constant="15" id="cmj-dE-C63"/>
-                            <constraint firstItem="bzg-0c-uZn" firstAttribute="trailing" secondItem="iY5-IX-IuR" secondAttribute="trailing" constant="45" id="cnH-Vd-cni"/>
-                            <constraint firstItem="YmC-ev-t87" firstAttribute="leading" secondItem="bzg-0c-uZn" secondAttribute="leading" constant="45" id="cyD-W7-oVH"/>
-                            <constraint firstItem="iY5-IX-IuR" firstAttribute="top" secondItem="YmC-ev-t87" secondAttribute="bottom" constant="30" id="dmF-YV-alc"/>
-                            <constraint firstAttribute="trailing" secondItem="YmC-ev-t87" secondAttribute="trailing" constant="60" id="tco-QN-b1H"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="bzg-0c-uZn"/>
-                    </view>
-                    <connections>
-                        <outlet property="confirmationHeadline" destination="ohp-rJ-Ieh" id="cyO-Hm-1Lm"/>
-                        <outlet property="confirmationSubtitle" destination="YmC-ev-t87" id="mBf-4b-fob"/>
-                        <outlet property="loginReturnButton" destination="iY5-IX-IuR" id="6HW-vR-lA1"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1R4-iH-16h" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="704" y="-640"/>
+            <point key="canvasLocation" x="967" y="138"/>
         </scene>
         <!--Sign Up-->
         <scene sceneID="5Q1-li-qaX">
@@ -299,22 +185,15 @@
                                 <rect key="frame" x="0.0" y="175" width="414" height="504"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="FGb-KX-9EK">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FGb-KX-9EK" id="81P-xe-Gue">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="TWv-Cy-aLM"/>
                     </view>
                     <navigationItem key="navigationItem" id="tmJ-Mg-eyj"/>
+                    <connections>
+                        <outlet property="tableView" destination="iTh-5i-sab" id="aUF-ih-eam"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PeB-ic-UsK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -378,7 +257,4 @@
             <point key="canvasLocation" x="1889.8550724637682" y="-144.64285714285714"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="cVI-yl-QGZ"/>
-    </inferredMetricsTieBreakers>
 </document>

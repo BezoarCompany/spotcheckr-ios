@@ -3,6 +3,8 @@ import PromiseKit
 import Foundation
 
 class AuthenticationService: AuthenticationProtocol {
+    private let userService = UserService()
+    
     func sendResetPasswordEmail(emailAddress: String) -> Promise<Void> {
         return Promise { promise in
             Auth.auth().sendPasswordReset(withEmail: emailAddress) { error in
@@ -17,7 +19,14 @@ class AuthenticationService: AuthenticationProtocol {
                 guard  authResult != nil else {
                     return promise.reject(error!)
                 }
-                return promise.fulfill_()
+                
+                firstly {
+                    self.userService.createUser(id: (authResult?.user.uid)!)
+                }.catch { error in
+                    return promise.reject(error)
+                }.finally {
+                    return promise.fulfill_()
+                }
             }
         }
     }
