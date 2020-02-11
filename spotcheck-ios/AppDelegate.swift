@@ -1,11 +1,3 @@
-//
-//  AppDelegate.swift
-//  spotcheck-ios
-//
-//  Created by Miguel Paysan on 1/21/20.
-//  Copyright © 2020 Miguel Paysan. All rights reserved.
-//
-
 import UIKit
 import Firebase
 import FirebaseUI
@@ -16,42 +8,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        print("@App Delegate")
         
-        // Override point for customization after application launch.
-        FirebaseApp.configure()            
-        
+        styleNavigationBar()
+        styleTabBar()
+        configureServices()
         setStartingViewController()
         
         return true
     }
-
+    
+    private func styleNavigationBar() {
+        UINavigationBar.appearance().barTintColor = ApplicationScheme.instance.containerScheme.colorScheme.primaryColor
+        UINavigationBar.appearance().tintColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
+        UINavigationBar.appearance().titleTextAttributes = [
+            NSAttributedString.Key.font: ApplicationScheme.instance.containerScheme.typographyScheme.button
+        ]
+    }
+    
+    private func styleTabBar() {
+        UITabBar.appearance().barTintColor = ApplicationScheme.instance.containerScheme.colorScheme.primaryColor
+        UITabBar.appearance().tintColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
+    }
+    
+    private func configureServices() {
+        FirebaseApp.configure()
+    }
+    
     private func setStartingViewController() {
-        print("@ AppDelegate. setStartingViewController")
         self.window = UIWindow(frame: UIScreen.main.bounds)
-        
-        /*
         let currentUser = Auth.auth().currentUser
-        
-        if currentUser != nil {
-            // User is signed in, proceed into the app
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let baseViewController = storyboard.instantiateViewController(withIdentifier: "MainTabBarController")
-            self.window?.rootViewController = baseViewController
-        } else {
-            // No user is signed in, show options page
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let baseViewController = storyboard.instantiateViewController(withIdentifier: "AuthOptionsViewController")
-            self.window?.rootViewController = baseViewController
-        }
-        */
-        
-        // No user is signed in, show options page
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        //let baseViewController = storyboard.instantiateViewController(withIdentifier: "AuthOptionsViewController")
-        let baseViewController = storyboard.instantiateViewController(withIdentifier: K.Storyboard.MainTabBarControllerId) //bypass login for easier development
+        let baseViewController = currentUser != nil ? storyboard.instantiateViewController(withIdentifier: K.Storyboard.MainTabBarControllerId) : storyboard.instantiateViewController(withIdentifier: K.Storyboard.AuthOptionViewControllerId)
         self.window?.rootViewController = baseViewController
-        
         self.window?.makeKeyAndVisible()
     }
     
