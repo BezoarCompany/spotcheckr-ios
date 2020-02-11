@@ -21,7 +21,21 @@
 		5679533A23D988910077BA08 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5679533923D988910077BA08 /* ProfileViewController.swift */; };
 		567E9A3223E93EA2004C1B2E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567E9A3123E93EA2004C1B2E /* Constants.swift */; };
 		568721A323E7EF1100E15F87 /* ApplicationScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568721A223E7EF1100E15F87 /* ApplicationScheme.swift */; };
-		56B79E3823E2B27100568685 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B79E3723E2B27100568685 /* Post.swift */; };
+		BA1FB51323F1014900E091B1 /* BodyMeasurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1FB51223F1014900E091B1 /* BodyMeasurement.swift */; };
+		BA1FB51523F1047A00E091B1 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1FB51423F1047A00E091B1 /* Contact.swift */; };
+		BA1FB51723F104B400E091B1 /* PhoneNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1FB51623F104B400E091B1 /* PhoneNumber.swift */; };
+		BA1FB51923F1058500E091B1 /* EmailAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1FB51823F1058500E091B1 /* EmailAddress.swift */; };
+		BA1FB51B23F106B600E091B1 /* Trainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1FB51A23F106B600E091B1 /* Trainer.swift */; };
+		BA1FB51D23F106E500E091B1 /* Certification.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1FB51C23F106E500E091B1 /* Certification.swift */; };
+		BA1FB51F23F1071000E091B1 /* Organization.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1FB51E23F1071000E091B1 /* Organization.swift */; };
+		BA1FB52123F1148700E091B1 /* ExercisePost.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1FB52023F1148600E091B1 /* ExercisePost.swift */; };
+		BA1FB52323F116AE00E091B1 /* ExercisePostProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1FB52223F116AE00E091B1 /* ExercisePostProtocol.swift */; };
+		BA1FB52523F116BD00E091B1 /* ExercisePostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1FB52423F116BD00E091B1 /* ExercisePostService.swift */; };
+		BA1FB52723F119CB00E091B1 /* Metrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1FB52623F119CB00E091B1 /* Metrics.swift */; };
+		BA1FB52923F11ADA00E091B1 /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1FB52823F11ADA00E091B1 /* Answer.swift */; };
+		BA1FB52B23F11B5100E091B1 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1FB52A23F11B5100E091B1 /* Media.swift */; };
+		BA1FB52D23F11BDC00E091B1 /* Like.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1FB52C23F11BDC00E091B1 /* Like.swift */; };
+		BA1FB52F23F11C3400E091B1 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1FB52E23F11C3400E091B1 /* Exercise.swift */; };
 		BA49213623E6289B00A74A73 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA49212F23E6289A00A74A73 /* Roboto-Regular.ttf */; };
 		BA49213723E6289B00A74A73 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA49213023E6289A00A74A73 /* Roboto-Medium.ttf */; };
 		BA49213823E6289B00A74A73 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA49213123E6289B00A74A73 /* Roboto-Light.ttf */; };
@@ -78,7 +92,22 @@
 		5679533923D988910077BA08 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		567E9A3123E93EA2004C1B2E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		568721A223E7EF1100E15F87 /* ApplicationScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationScheme.swift; sourceTree = "<group>"; };
-		56B79E3723E2B27100568685 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		BA1FB51223F1014900E091B1 /* BodyMeasurement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyMeasurement.swift; sourceTree = "<group>"; };
+		BA1FB51423F1047A00E091B1 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
+		BA1FB51623F104B400E091B1 /* PhoneNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumber.swift; sourceTree = "<group>"; };
+		BA1FB51823F1058500E091B1 /* EmailAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailAddress.swift; sourceTree = "<group>"; };
+		BA1FB51A23F106B600E091B1 /* Trainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trainer.swift; sourceTree = "<group>"; };
+		BA1FB51C23F106E500E091B1 /* Certification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Certification.swift; sourceTree = "<group>"; };
+		BA1FB51E23F1071000E091B1 /* Organization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Organization.swift; sourceTree = "<group>"; };
+		BA1FB52023F1148600E091B1 /* ExercisePost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExercisePost.swift; sourceTree = "<group>"; };
+		BA1FB52223F116AE00E091B1 /* ExercisePostProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisePostProtocol.swift; sourceTree = "<group>"; };
+		BA1FB52423F116BD00E091B1 /* ExercisePostService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisePostService.swift; sourceTree = "<group>"; };
+		BA1FB52623F119CB00E091B1 /* Metrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metrics.swift; sourceTree = "<group>"; };
+		BA1FB52823F11ADA00E091B1 /* Answer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
+		BA1FB52A23F11B5100E091B1 /* Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
+		BA1FB52C23F11BDC00E091B1 /* Like.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Like.swift; sourceTree = "<group>"; };
+		BA1FB52E23F11C3400E091B1 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
+		BA1FB53023F2D29C00E091B1 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		BA49212F23E6289A00A74A73 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		BA49213023E6289A00A74A73 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		BA49213123E6289B00A74A73 /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
@@ -210,9 +239,21 @@
 		56B79E3623E2AFA700568685 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				56B79E3723E2B27100568685 /* Post.swift */,
+				BA1FB52023F1148600E091B1 /* ExercisePost.swift */,
 				BA4EE44423EBA221003E6D87 /* User.swift */,
 				BA4EE44623EBA347003E6D87 /* Identity.swift */,
+				BA1FB51223F1014900E091B1 /* BodyMeasurement.swift */,
+				BA1FB51423F1047A00E091B1 /* Contact.swift */,
+				BA1FB51623F104B400E091B1 /* PhoneNumber.swift */,
+				BA1FB51823F1058500E091B1 /* EmailAddress.swift */,
+				BA1FB51A23F106B600E091B1 /* Trainer.swift */,
+				BA1FB51C23F106E500E091B1 /* Certification.swift */,
+				BA1FB51E23F1071000E091B1 /* Organization.swift */,
+				BA1FB52623F119CB00E091B1 /* Metrics.swift */,
+				BA1FB52823F11ADA00E091B1 /* Answer.swift */,
+				BA1FB52A23F11B5100E091B1 /* Media.swift */,
+				BA1FB52C23F11BDC00E091B1 /* Like.swift */,
+				BA1FB52E23F11C3400E091B1 /* Exercise.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -242,6 +283,9 @@
 				BA4EE42723E94BBF003E6D87 /* AuthenticationProtocol.swift */,
 				BA4EE45D23EFEC39003E6D87 /* UserProtocol.swift */,
 				BA4EE45F23EFEC7B003E6D87 /* UserService.swift */,
+				BA1FB52223F116AE00E091B1 /* ExercisePostProtocol.swift */,
+				BA1FB52423F116BD00E091B1 /* ExercisePostService.swift */,
+				BA1FB53023F2D29C00E091B1 /* README.md */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -456,19 +500,33 @@
 			buildActionMask = 2147483647;
 			files = (
 				567952FE23D806BE0077BA08 /* AppDelegate.swift in Sources */,
+				BA1FB51523F1047A00E091B1 /* Contact.swift in Sources */,
 				BA4EE42823E94BBF003E6D87 /* AuthenticationProtocol.swift in Sources */,
+				BA1FB52923F11ADA00E091B1 /* Answer.swift in Sources */,
+				BA1FB51923F1058500E091B1 /* EmailAddress.swift in Sources */,
+				BA1FB52723F119CB00E091B1 /* Metrics.swift in Sources */,
+				BA1FB51723F104B400E091B1 /* PhoneNumber.swift in Sources */,
+				BA1FB52523F116BD00E091B1 /* ExercisePostService.swift in Sources */,
 				BA4EE45C23EF6814003E6D87 /* PasswordResetConfirmationViewController.swift in Sources */,
 				5627FCA223F0BEB4001B4B5B /* FeedPostCell.swift in Sources */,
 				568721A323E7EF1100E15F87 /* ApplicationScheme.swift in Sources */,
+				BA1FB52B23F11B5100E091B1 /* Media.swift in Sources */,
 				5679533823D980E40077BA08 /* FeedViewController.swift in Sources */,
 				5679533A23D988910077BA08 /* ProfileViewController.swift in Sources */,
+				BA1FB51F23F1071000E091B1 /* Organization.swift in Sources */,
+				BA1FB52323F116AE00E091B1 /* ExercisePostProtocol.swift in Sources */,
 				567E9A3223E93EA2004C1B2E /* Constants.swift in Sources */,
+				BA1FB51B23F106B600E091B1 /* Trainer.swift in Sources */,
 				BA4EE44F23EE91D1003E6D87 /* SignUpViewController.swift in Sources */,
 				BA4EE45E23EFEC39003E6D87 /* UserProtocol.swift in Sources */,
+				BA1FB51323F1014900E091B1 /* BodyMeasurement.swift in Sources */,
 				BA4EE44723EBA347003E6D87 /* Identity.swift in Sources */,
 				5679533423D972F00077BA08 /* AuthOptionsViewController.swift in Sources */,
-				56B79E3823E2B27100568685 /* Post.swift in Sources */,
+				BA1FB51D23F106E500E091B1 /* Certification.swift in Sources */,
+				BA1FB52D23F11BDC00E091B1 /* Like.swift in Sources */,
+				BA1FB52123F1148700E091B1 /* ExercisePost.swift in Sources */,
 				BA4EE46023EFEC7B003E6D87 /* UserService.swift in Sources */,
+				BA1FB52F23F11C3400E091B1 /* Exercise.swift in Sources */,
 				BA4EE45A23EF1408003E6D87 /* ForgotPasswordViewController.swift in Sources */,
 				BA4EE44523EBA221003E6D87 /* User.swift in Sources */,
 				BA4EE42623E94A6E003E6D87 /* AuthenticationService.swift in Sources */,

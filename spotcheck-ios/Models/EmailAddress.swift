@@ -1,0 +1,3 @@
+struct Email {
+    var emailAddress = ""
+}
