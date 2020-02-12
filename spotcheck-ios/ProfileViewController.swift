@@ -24,16 +24,7 @@ class ProfileViewController: UIViewController {
     }
     
     private func setupTestUser() {
-        let user = Trainer(id: "a")
-        user.contactInformation = Contact(phoneNumbers: [PhoneNumber(number: "714-555-5555", type: .Cell)], emailAddresses: [Email(emailAddress: "emma.watson@gmail.com")])
-        user.information = Identity(salutation: "Mr.", firstName: "Emma", middleName: "Charlotte Duerre", lastName: "Watson", gender: "Female", birthDate: Date("1990-04-15"))
-        user.measurement = BodyMeasurement(height: 100, weight: 160)
-        user.profilePictureUrl = URL(string: "https://pbs.twimg.com/profile_images/791680078203715585/OOgcKGuR_400x400.jpg")
-        user.username = "emma.watson"
-        user.certifications = [Certification(name: "CPT", issuer: Organization(name: "NASM")), Certification(name: "CES", issuer: Organization(name: "NASM"))]
-        user.occupationTitle = "Certified Personal Trainer"
-        user.occupationCompany = "LA Fitness"
-        self.currentUser = user
+        self.currentUser = FakeDataFactory.GetTrainers(count: 1)[0]
         populateUserProfileInformation()
     }
     
