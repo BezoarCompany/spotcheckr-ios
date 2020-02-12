@@ -41,6 +41,7 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
         field.keyboardType = .emailAddress
         field.returnKeyType = .next
         field.autocapitalizationType = .none
+        field.autocorrectionType = .no
         field.translatesAutoresizingMaskIntoConstraints = false
         return field
     }()
@@ -265,7 +266,8 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
     }
     
     @objc func onForgotPasswordClick() {
-        print("forgot password clicked") //TODO: Implement redirect
+        let forgotPasswordController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: K.Storyboard.ForgotPasswordControllerId)
+        self.present(forgotPasswordController, animated: true)
     }
     
     @objc private func authenticationFinished() {
