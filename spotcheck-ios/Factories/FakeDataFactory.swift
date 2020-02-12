@@ -41,12 +41,12 @@ class FakeDataFactory {
         for _ in 1...count {
             let dateCreated = faker.date.between(Date("2000-01-01"), Date("2020-01-01"))
             var likes = [Like]()
-            for _ in 0...Int.random(in: 0..<1000) {
+            for _ in 0...Int.random(in: 0..<50) {
                 likes.append(Like(LikedBy: createFakeUser()))
             }
             
             var answers = [Answer]()
-            for _ in 0...Int.random(in: 0..<100) {
+            for _ in 0...Int.random(in: 0..<20) {
                 var media = [Media]()
                 for _ in 0...Int.random(in: 0..<2){
                     media.append(Media(url: URL(string:faker.internet.image())))

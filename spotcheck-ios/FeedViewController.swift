@@ -15,15 +15,7 @@ class FeedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("@FeedViewController")
-       let user1 = User(id: "1")
-       user1.information = Identity(firstName: "Miguel", lastName: "Paysan")
-       let user2 = User(id: "2")
-       user2.information = Identity(firstName: "Nitish", lastName: "Sachar")
-       self.posts = [
-           ExercisePost(id: "a", title: "Who sells sea shells by the sea shore?", description: "Does Miguel?", createdBy: user2),
-           ExercisePost(id: "b", title: "Does gymming attract pussy cats?", description: "cuz i like pussy cats", createdBy: user1),
-           ExercisePost(id: "c", title: "Will the Chiefs win the superbowl?", description: "Likr OMH beckk wtfa. Lorem ipsum, squirtle squirtle squirtle.", createdBy: user1)
-       ]
+        self.posts = FakeDataFactory.GetExercisePosts(count: 5)
 //        firstly {
 //            //TODO: Replace with call to getPosts(from: Number) which returns all posts since a specific "page length" (e.g. get first 10 posts by created date, scroll, when reached 8/10 posts fetch next 10 posts.
 //            self.exercisePostService.getPost(withId: "dngi33GYXBQU2y6XxklQ")
