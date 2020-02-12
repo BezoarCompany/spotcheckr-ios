@@ -85,6 +85,68 @@
             </objects>
             <point key="canvasLocation" x="967" y="138"/>
         </scene>
+        <!--Sign Up-->
+        <scene sceneID="5Q1-li-qaX">
+            <objects>
+                <viewController storyboardIdentifier="SignUpViewController" title="Sign Up" id="Ip0-qO-wOV" customClass="SignUpViewController" customModule="Spotcheck" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="H6p-Mk-mOp">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Spotcheck" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fn3-hx-7sC">
+                                <rect key="frame" x="90" y="134" width="234" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create an account and have your form critiqued today!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K1c-7f-RFw">
+                                <rect key="frame" x="90" y="171" width="234" height="41"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ppw-83-A6n" customClass="MDCButton">
+                                <rect key="frame" x="40" y="460" width="334" height="30"/>
+                                <state key="normal" title="Create account"/>
+                                <connections>
+                                    <action selector="createAccountOnClick:" destination="Ip0-qO-wOV" eventType="touchUpInside" id="sKF-LT-qD8"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hAd-7t-vsA" customClass="MDCFlatButton">
+                                <rect key="frame" x="40" y="523" width="334" height="30"/>
+                                <state key="normal" title="Have an Account? Log In"/>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="showDetail" id="g51-UX-Uzl"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.1333333333" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="hAd-7t-vsA" firstAttribute="leading" secondItem="IbI-wi-xf2" secondAttribute="leading" constant="40" id="9KL-6I-88a"/>
+                            <constraint firstAttribute="trailing" secondItem="K1c-7f-RFw" secondAttribute="trailing" constant="90" id="CGY-Ge-nmf"/>
+                            <constraint firstItem="Ppw-83-A6n" firstAttribute="leading" secondItem="IbI-wi-xf2" secondAttribute="leading" constant="40" id="CXp-YA-LFF"/>
+                            <constraint firstItem="K1c-7f-RFw" firstAttribute="top" secondItem="Fn3-hx-7sC" secondAttribute="bottom" constant="16" id="DsY-aE-iLJ"/>
+                            <constraint firstItem="IbI-wi-xf2" firstAttribute="trailing" secondItem="Fn3-hx-7sC" secondAttribute="trailing" constant="90" id="Eem-hz-XDp"/>
+                            <constraint firstItem="K1c-7f-RFw" firstAttribute="leading" secondItem="H6p-Mk-mOp" secondAttribute="leading" constant="90" id="SbH-I2-1KC"/>
+                            <constraint firstItem="IbI-wi-xf2" firstAttribute="trailing" secondItem="Ppw-83-A6n" secondAttribute="trailing" constant="40" id="WGc-FL-6nD"/>
+                            <constraint firstItem="hAd-7t-vsA" firstAttribute="top" secondItem="Ppw-83-A6n" secondAttribute="bottom" constant="30" id="aQn-Sj-ttb"/>
+                            <constraint firstItem="Fn3-hx-7sC" firstAttribute="top" secondItem="IbI-wi-xf2" secondAttribute="top" constant="90" id="bTK-ce-zY0"/>
+                            <constraint firstItem="Fn3-hx-7sC" firstAttribute="leading" secondItem="IbI-wi-xf2" secondAttribute="leading" constant="90" id="dZX-ZU-FLb"/>
+                            <constraint firstItem="IbI-wi-xf2" firstAttribute="trailing" secondItem="hAd-7t-vsA" secondAttribute="trailing" constant="40" id="xBS-Ak-1H4"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="IbI-wi-xf2"/>
+                    </view>
+                    <connections>
+                        <outlet property="createAccountButton" destination="Ppw-83-A6n" id="Lhy-93-sOa"/>
+                        <outlet property="loginButton" destination="hAd-7t-vsA" id="kfc-gf-HYh"/>
+                        <outlet property="spotcheckHeadlineLabel" destination="Fn3-hx-7sC" id="Jzj-KS-dIr"/>
+                        <outlet property="spotcheckSubtitleLabel" destination="K1c-7f-RFw" id="2YS-Fg-jM7"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZlX-wq-2qm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="967" y="138"/>
+        </scene>
         <!--Profile-->
         <scene sceneID="6nE-ZL-oG8">
             <objects>

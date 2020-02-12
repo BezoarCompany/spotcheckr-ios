@@ -32,6 +32,10 @@
 		BA4EE44F23EE91D1003E6D87 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4EE44E23EE91D1003E6D87 /* SignUpViewController.swift */; };
 		BA4EE45323EECE84003E6D87 /* eye.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA4EE45123EECE83003E6D87 /* eye.svg */; };
 		BA4EE45423EECE84003E6D87 /* eye-off.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA4EE45223EECE84003E6D87 /* eye-off.svg */; };
+		BA4EE45A23EF1408003E6D87 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4EE45923EF1408003E6D87 /* ForgotPasswordViewController.swift */; };
+		BA4EE45C23EF6814003E6D87 /* PasswordResetConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4EE45B23EF6814003E6D87 /* PasswordResetConfirmationViewController.swift */; };
+		BA4EE45E23EFEC39003E6D87 /* UserProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4EE45D23EFEC39003E6D87 /* UserProtocol.swift */; };
+		BA4EE46023EFEC7B003E6D87 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4EE45F23EFEC7B003E6D87 /* UserService.swift */; };
 		E3C7E3CE180E9771ECE84E15 /* Pods_spotcheck_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C55EFD15D5AF50B8A44B99 /* Pods_spotcheck_ios.framework */; };
 /* End PBXBuildFile section */
 
@@ -85,6 +89,10 @@
 		BA4EE44E23EE91D1003E6D87 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		BA4EE45123EECE83003E6D87 /* eye.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = eye.svg; sourceTree = "<group>"; };
 		BA4EE45223EECE84003E6D87 /* eye-off.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "eye-off.svg"; sourceTree = "<group>"; };
+		BA4EE45923EF1408003E6D87 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
+		BA4EE45B23EF6814003E6D87 /* PasswordResetConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetConfirmationViewController.swift; sourceTree = "<group>"; };
+		BA4EE45D23EFEC39003E6D87 /* UserProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProtocol.swift; sourceTree = "<group>"; };
+		BA4EE45F23EFEC7B003E6D87 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		C07067766A14538D3F6C55CF /* Pods-spotcheck-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios.debug.xcconfig"; path = "Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios.debug.xcconfig"; sourceTree = "<group>"; };
 		D85CF2035FF885BA48368721 /* Pods-spotcheck-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios.release.xcconfig"; path = "Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -164,6 +172,8 @@
 				5679530B23D806C00077BA08 /* Info.plist */,
 				567E9A3123E93EA2004C1B2E /* Constants.swift */,
 				BA4EE44E23EE91D1003E6D87 /* SignUpViewController.swift */,
+				BA4EE45923EF1408003E6D87 /* ForgotPasswordViewController.swift */,
+				BA4EE45B23EF6814003E6D87 /* PasswordResetConfirmationViewController.swift */,
 			);
 			path = "spotcheck-ios";
 			sourceTree = "<group>";
@@ -230,6 +240,8 @@
 			children = (
 				BA4EE42523E94A6E003E6D87 /* AuthenticationService.swift */,
 				BA4EE42723E94BBF003E6D87 /* AuthenticationProtocol.swift */,
+				BA4EE45D23EFEC39003E6D87 /* UserProtocol.swift */,
+				BA4EE45F23EFEC7B003E6D87 /* UserService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -445,15 +457,19 @@
 			files = (
 				567952FE23D806BE0077BA08 /* AppDelegate.swift in Sources */,
 				BA4EE42823E94BBF003E6D87 /* AuthenticationProtocol.swift in Sources */,
+				BA4EE45C23EF6814003E6D87 /* PasswordResetConfirmationViewController.swift in Sources */,
 				5627FCA223F0BEB4001B4B5B /* FeedPostCell.swift in Sources */,
 				568721A323E7EF1100E15F87 /* ApplicationScheme.swift in Sources */,
 				5679533823D980E40077BA08 /* FeedViewController.swift in Sources */,
 				5679533A23D988910077BA08 /* ProfileViewController.swift in Sources */,
 				567E9A3223E93EA2004C1B2E /* Constants.swift in Sources */,
 				BA4EE44F23EE91D1003E6D87 /* SignUpViewController.swift in Sources */,
+				BA4EE45E23EFEC39003E6D87 /* UserProtocol.swift in Sources */,
 				BA4EE44723EBA347003E6D87 /* Identity.swift in Sources */,
 				5679533423D972F00077BA08 /* AuthOptionsViewController.swift in Sources */,
 				56B79E3823E2B27100568685 /* Post.swift in Sources */,
+				BA4EE46023EFEC7B003E6D87 /* UserService.swift in Sources */,
+				BA4EE45A23EF1408003E6D87 /* ForgotPasswordViewController.swift in Sources */,
 				BA4EE44523EBA221003E6D87 /* User.swift in Sources */,
 				BA4EE42623E94A6E003E6D87 /* AuthenticationService.swift in Sources */,
 			);
