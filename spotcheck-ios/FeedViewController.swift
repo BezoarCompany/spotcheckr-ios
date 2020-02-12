@@ -1,42 +1,37 @@
-//
-//  FeedViewController.swift
-//  spotcheck-ios
-//
-//  Created by Miguel Paysan on 1/22/20.
-//  Copyright © 2020 Miguel Paysan. All rights reserved.
-//
-
 import Foundation
-
 import FirebaseCore
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import PromiseKit
 
-class FeedViewController: UIViewController, PostsService {
-    
+class FeedViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
+    let exercisePostService = ExercisePostService()
     var db: Firestore!
-    var posts: [Post] = [
-        Post(postId: "a", authorId: "1", authorName: "Miguel", createdAt: "2/2/2020", updatedAt: "2/2/2020", question: "Why is the sky blue? Why is the sky blue? Why is the sky blue? Why is the sky blue? Why is the sky blue? Why is the sky blue?"),
-        Post(postId: "b", authorId: "2", authorName: "Nitish", createdAt: "2/2/2020", updatedAt: "2/2/2020", question: "Does gymming attract pussy cats?"),
-        Post(postId: "c", authorId: "1", authorName: "Miguel", createdAt: "2/2/2020", updatedAt: "2/2/2020", question: "Will the Chiefs win the superbowl? Likr OMH beckk wtfa. Lorem ipsum, squirtle squirtle squirtle.")
-    ]
+    
+    var posts = [ExercisePost]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("@FeedViewController")
-                
+        self.posts = FakeDataFactory.GetExercisePosts(count: 5)
+//        firstly {
+//            //TODO: Replace with call to getPosts(from: Number) which returns all posts since a specific "page length" (e.g. get first 10 posts by created date, scroll, when reached 8/10 posts fetch next 10 posts.
+//            self.exercisePostService.getPost(withId: "dngi33GYXBQU2y6XxklQ")
+//        }.done { post in
+//            self.posts = [post]
+//            //TODO: Since this is async, we would want the table view data source to refresh after it has been loaded. Maybe there is a way to make Posts an Observable that will automagically update after we set it?
+//        }.catch { error in
+//            //TODO: Do something when post fetching fails
+//        }
+        
         tableView.dataSource = self
         tableView.delegate = self
         
         navigationItem.hidesBackButton = true
         
         tableView.register(UINib(nibName:K.Storyboard.postNibName, bundle: nil), forCellReuseIdentifier: K.Storyboard.feedCellId)
-        
-        //tableView.rowHeight = UITableView.automaticDimension
-        //tableView.estimatedRowHeight = 400
-
     }
 }
 
@@ -51,12 +46,12 @@ extension FeedViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: K.Storyboard.feedCellId, for: indexPath)
             as! FeedPostCell
                 
-        cell.postLabel.text = posts[indexPath.row].question
-        cell.authorNameLabel.text = posts[indexPath.row].authorName
+        cell.postLabel.text = posts[indexPath.row].title
+        cell.authorNameLabel.text = posts[indexPath.row].createdBy.information?.fullName
         cell.authorTaglineLabel.text = "Tool default"
         
-        cell.upvoteCounts.text = "0xx"
-        cell.answersLabel.text = "0xx answers"
+        cell.upvoteCounts.text = "\(posts[indexPath.row].metrics.upvotes)"
+        cell.answersLabel.text = "\(posts[indexPath.row].answers.count) answers"
         
         //cell.textLabel?.text = posts[indexPath.row].question
         return cell

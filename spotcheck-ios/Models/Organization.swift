@@ -1,0 +1,3 @@
+struct Organization {
+    var name = ""
+}

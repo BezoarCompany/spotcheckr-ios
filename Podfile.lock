@@ -164,6 +164,7 @@ PODS:
   - BoringSSL-GRPC/Implementation (0.0.3):
     - BoringSSL-GRPC/Interface (= 0.0.3)
   - BoringSSL-GRPC/Interface (0.0.3)
+  - Fakery (4.1.1)
   - Firebase/Auth (6.15.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 6.4.2)
@@ -429,6 +430,7 @@ PODS:
   - SwiftValidator (4.0.0)
 
 DEPENDENCIES:
+  - Fakery
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
@@ -453,6 +455,7 @@ SPEC REPOS:
   trunk:
     - abseil
     - BoringSSL-GRPC
+    - Fakery
     - Firebase
     - FirebaseAnalytics
     - FirebaseAuth
@@ -497,6 +500,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   abseil: 18063d773f5366ff8736a050fe035a28f635fd27
   BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
+  Fakery: d3380c4aa1efe7631c0831d7e26aa9db4491f014
   Firebase: 5d77105d9740a07ca6b16927ca971db7e860faaf
   FirebaseAnalytics: e83e64b1231dedcd9ddd4bdecd9bcfd6ba341679
   FirebaseAuth: ce45d7c5d46bed90159f3a73b6efbe8976ed3573
@@ -529,6 +533,6 @@ SPEC CHECKSUMS:
   SwiftSVG: e55084e4c5534f3f25743003a6a3a88580cacfb0
   SwiftValidator: 249b6b3ae3b294266c5b9de134d94f18f2d5aa47
 
-PODFILE CHECKSUM: 5efdaabaf674e48e5ac516b3989be4431e306b31
+PODFILE CHECKSUM: 246241a1d810af73db4df424c2f785138243dd6d
 
 COCOAPODS: 1.8.4
