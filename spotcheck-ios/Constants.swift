@@ -11,7 +11,6 @@ struct K {
         static let PasswordResetConfirmationViewControllerId = "PasswordResetConfirmationViewController"
         static let feedCellId = "FeedCell" //Reusable Cell ID
         static let postNibName = "FeedPostCell" //<name>.xib
-        
     }
     struct Firestore {
         static let posts = "posts"
