@@ -1,0 +1,3 @@
+struct Exercise {
+    var name = ""
+}

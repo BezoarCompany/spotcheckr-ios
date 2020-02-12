@@ -9,6 +9,7 @@ target 'spotcheck-ios' do
   pod 'SwiftValidator', :git => 'https://github.com/jpotts18/SwiftValidator.git', :tag => '4.2.0'
   pod 'PromiseKit'
   pod 'SwiftSVG', '~> 2.2.1'
+  pod 'Fakery'
   
   # Firebase dependencies
   pod 'Firebase/Core'

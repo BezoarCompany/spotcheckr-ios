@@ -1,11 +1,15 @@
 import Foundation
 
-class Identity {
-    var salutation = ""
-    var firstName = ""
-    var middleName = ""
-    var lastName = ""
-    var fullName = ""
-    var gender = ""
-    var birthDate: Date = Date()
+struct Identity {
+    var salutation: String = ""
+    var firstName: String = ""
+    var middleName: String = ""
+    var lastName: String = ""
+    var fullName: String {
+        get {
+            return middleName.isEmpty ? "\(firstName) \(lastName)" : "\(firstName) \(middleName) \(lastName)"
+        }
+    }
+    var gender: String?
+    var birthDate: Date?
 }
