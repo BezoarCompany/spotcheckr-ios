@@ -50,6 +50,7 @@
 		BA4EE45C23EF6814003E6D87 /* PasswordResetConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4EE45B23EF6814003E6D87 /* PasswordResetConfirmationViewController.swift */; };
 		BA4EE45E23EFEC39003E6D87 /* UserProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4EE45D23EFEC39003E6D87 /* UserProtocol.swift */; };
 		BA4EE46023EFEC7B003E6D87 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4EE45F23EFEC7B003E6D87 /* UserService.swift */; };
+		BAA340FA23F3932900C7392C /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA340F923F3932900C7392C /* DateExtension.swift */; };
 		E3C7E3CE180E9771ECE84E15 /* Pods_spotcheck_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C55EFD15D5AF50B8A44B99 /* Pods_spotcheck_ios.framework */; };
 /* End PBXBuildFile section */
 
@@ -122,6 +123,7 @@
 		BA4EE45B23EF6814003E6D87 /* PasswordResetConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetConfirmationViewController.swift; sourceTree = "<group>"; };
 		BA4EE45D23EFEC39003E6D87 /* UserProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProtocol.swift; sourceTree = "<group>"; };
 		BA4EE45F23EFEC7B003E6D87 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		BAA340F923F3932900C7392C /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		C07067766A14538D3F6C55CF /* Pods-spotcheck-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios.debug.xcconfig"; path = "Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios.debug.xcconfig"; sourceTree = "<group>"; };
 		D85CF2035FF885BA48368721 /* Pods-spotcheck-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios.release.xcconfig"; path = "Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -186,6 +188,7 @@
 		567952FC23D806BE0077BA08 /* spotcheck-ios */ = {
 			isa = PBXGroup;
 			children = (
+				BAA340F823F3931A00C7392C /* Extensions */,
 				BA4EE45023EECE5D003E6D87 /* Icons */,
 				BA4EE42423E94A4E003E6D87 /* Services */,
 				567E9A3323E93F15004C1B2E /* Views */,
@@ -297,6 +300,14 @@
 				BA4EE45123EECE83003E6D87 /* eye.svg */,
 			);
 			path = Icons;
+			sourceTree = "<group>";
+		};
+		BAA340F823F3931A00C7392C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				BAA340F923F3932900C7392C /* DateExtension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -508,6 +519,7 @@
 				BA1FB51723F104B400E091B1 /* PhoneNumber.swift in Sources */,
 				BA1FB52523F116BD00E091B1 /* ExercisePostService.swift in Sources */,
 				BA4EE45C23EF6814003E6D87 /* PasswordResetConfirmationViewController.swift in Sources */,
+				BAA340FA23F3932900C7392C /* DateExtension.swift in Sources */,
 				5627FCA223F0BEB4001B4B5B /* FeedPostCell.swift in Sources */,
 				568721A323E7EF1100E15F87 /* ApplicationScheme.swift in Sources */,
 				BA1FB52B23F11B5100E091B1 /* Media.swift in Sources */,

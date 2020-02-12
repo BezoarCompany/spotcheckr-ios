@@ -1,4 +1,5 @@
 import FirebaseFirestore
+import FirebaseAuth
 import PromiseKit
 
 class UserService: UserProtocol {
@@ -28,7 +29,23 @@ class UserService: UserProtocol {
                                            middleName: (data?.keys.contains("middle-name"))! ? data?["middle-name"] as! String : "",
                                            lastName: (data?.keys.contains("last-name"))! ? data?["last-name"] as! String : "")
                 //TODO: Get more complex information about the user.
+                //TODO: Store in the cache afterwards.
                 return promise.fulfill(user)
+            }
+        }
+    }
+    
+    func getCurrentUser() -> Promise<User> {
+        return Promise { promise in
+            //TODO: Fetch from cache instead and store in there too.
+            let userId = Auth.auth().currentUser?.uid
+            
+            firstly {
+                self.getUser(withId: userId!)
+            }.done { user in
+                return promise.fulfill(user)
+            }.catch { error in
+                return promise.reject(error)
             }
         }
     }
