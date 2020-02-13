@@ -16,6 +16,8 @@ class ProfileViewController: UIViewController {
     let userService = UserService()
     var currentUser: User?
     var receivedUser: User?
+    var numberOfPosts = 0
+    var numberOfAnswers = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,7 +72,8 @@ class ProfileViewController: UIViewController {
             self.certificationsHeadingLabel.isHidden = true
             self.occupationLabel.isHidden = true
         }
-        
+        self.postsButton.setTitle("\(numberOfPosts) \(self.postsButton.title(for: .normal)!)", for: .normal)
+        self.answersButton.setTitle("\(numberOfAnswers) \(self.answersButton.title(for: .normal)!)", for: .normal)
     }
     
     private func applyStyles() {
