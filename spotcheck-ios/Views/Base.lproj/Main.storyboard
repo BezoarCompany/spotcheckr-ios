@@ -226,12 +226,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nnA-Ad-pVx">
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nnA-Ad-pVx">
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
-                                    <navigationItem title="Create Post" id="gFt-Qt-MS2">
-                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="YE0-Od-SSy">
+                                    <navigationItem title="Add a question" id="gFt-Qt-MS2">
+                                        <barButtonItem key="leftBarButtonItem" image="multiply" catalog="system" id="YE0-Od-SSy">
                                             <connections>
                                                 <action selector="cancelPost:" destination="cch-6k-Lhu" id="XAo-nl-9Lr"/>
                                             </connections>
@@ -242,6 +241,12 @@
                             </navigationBar>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="nnA-Ad-pVx" firstAttribute="leading" secondItem="L8l-fi-QXV" secondAttribute="leading" id="S2H-xd-taP"/>
+                            <constraint firstItem="nnA-Ad-pVx" firstAttribute="leading" secondItem="L8l-fi-QXV" secondAttribute="leading" id="agQ-Y1-Swh"/>
+                            <constraint firstItem="nnA-Ad-pVx" firstAttribute="top" secondItem="L8l-fi-QXV" secondAttribute="top" id="iB0-H6-2Z2"/>
+                            <constraint firstItem="nnA-Ad-pVx" firstAttribute="trailing" secondItem="L8l-fi-QXV" secondAttribute="trailing" id="jA7-nn-gvm"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="L8l-fi-QXV"/>
                     </view>
                 </viewController>
@@ -313,6 +318,7 @@
     </scenes>
     <resources>
         <image name="list.dash" catalog="system" width="64" height="42"/>
+        <image name="multiply" catalog="system" width="64" height="54"/>
         <image name="person" catalog="system" width="64" height="58"/>
         <image name="person.crop.circle" catalog="system" width="64" height="60"/>
         <image name="person.fill" catalog="system" width="64" height="60"/>
