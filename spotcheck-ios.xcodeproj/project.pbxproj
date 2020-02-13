@@ -10,6 +10,7 @@
 		5627FCA223F0BEB4001B4B5B /* FeedPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5627FCA023F0BEB4001B4B5B /* FeedPostCell.swift */; };
 		5627FCA323F0BEB4001B4B5B /* FeedPostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5627FCA123F0BEB4001B4B5B /* FeedPostCell.xib */; };
 		5645AFE823F51C0700B64D0B /* CreatePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5645AFE723F51C0700B64D0B /* CreatePostViewController.swift */; };
+		5645AFEA23F53CF700B64D0B /* iOSDropDown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5645AFE923F53CF700B64D0B /* iOSDropDown.framework */; };
 		567952FE23D806BE0077BA08 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567952FD23D806BE0077BA08 /* AppDelegate.swift */; };
 		5679530523D806BE0077BA08 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5679530323D806BE0077BA08 /* Main.storyboard */; };
 		5679530723D806C00077BA08 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5679530623D806C00077BA08 /* Assets.xcassets */; };
@@ -78,6 +79,7 @@
 		5627FCA023F0BEB4001B4B5B /* FeedPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedPostCell.swift; sourceTree = "<group>"; };
 		5627FCA123F0BEB4001B4B5B /* FeedPostCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedPostCell.xib; sourceTree = "<group>"; };
 		5645AFE723F51C0700B64D0B /* CreatePostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostViewController.swift; sourceTree = "<group>"; };
+		5645AFE923F53CF700B64D0B /* iOSDropDown.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = iOSDropDown.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		567952FA23D806BE0077BA08 /* Spotcheck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spotcheck.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		567952FD23D806BE0077BA08 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5679530423D806BE0077BA08 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5645AFEA23F53CF700B64D0B /* iOSDropDown.framework in Frameworks */,
 				E3C7E3CE180E9771ECE84E15 /* Pods_spotcheck_ios.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -270,6 +273,7 @@
 		63CFF66ACB16D4BF08954AA5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5645AFE923F53CF700B64D0B /* iOSDropDown.framework */,
 				18C55EFD15D5AF50B8A44B99 /* Pods_spotcheck_ios.framework */,
 			);
 			name = Frameworks;
