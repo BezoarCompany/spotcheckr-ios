@@ -1,6 +1,7 @@
 import Foundation
 import Firebase
 import PromiseKit
+import MaterialComponents.MDCFlatButton
 
 class ProfileViewController: UIViewController {
     @IBOutlet weak var logoutButton: UIBarButtonItem!
@@ -9,6 +10,8 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var certificationsLabel: UILabel!
     @IBOutlet weak var occupationLabel: UILabel!
     @IBOutlet weak var profilePictureImageView: UIImageView!
+    @IBOutlet weak var postsButton: MDCFlatButton!
+    @IBOutlet weak var answersButton: MDCFlatButton!
     
     let userService = UserService()
     var currentUser: User?
@@ -79,7 +82,14 @@ class ProfileViewController: UIViewController {
         certificationsHeadingLabel.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
         occupationLabel.font = ApplicationScheme.instance.containerScheme.typographyScheme.body1
         occupationLabel.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
+        
+        postsButton.setTitleFont(ApplicationScheme.instance.containerScheme.typographyScheme.button, for: .normal)
+        postsButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor, for: .normal)
+    answersButton.setTitleFont(ApplicationScheme.instance.containerScheme.typographyScheme.button, for: .normal)
+        answersButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor, for: .normal)
+    
     }
+    
     
     @IBAction func logoutTapped(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
