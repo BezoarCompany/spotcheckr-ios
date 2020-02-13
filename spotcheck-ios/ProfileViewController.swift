@@ -14,6 +14,8 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var answersButton: MDCFlatButton!
     
     let userService = UserService()
+    let exercisePostService = ExercisePostService()
+    
     var currentUser: User?
     var receivedUser: User?
     var numberOfPosts = 0
@@ -49,6 +51,12 @@ class ProfileViewController: UIViewController {
                 //TODO: Display error to the user that fetching the current user failed.
             }.finally {
                 self.populateUserProfileInformation()
+                
+                firstly {
+                    self.exercisePostService.getPosts(forUserWithId: self.currentUser!.id!)
+                }.done { posts in
+                    print(posts)
+                }
                 
                 //TODO: Dismiss spinner once data has loaded from user service and is populated.
                 

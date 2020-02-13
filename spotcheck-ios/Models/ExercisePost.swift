@@ -1,4 +1,5 @@
 import Foundation
+import ObjectMapper
 
 struct ExercisePost {
     var id: String = ""

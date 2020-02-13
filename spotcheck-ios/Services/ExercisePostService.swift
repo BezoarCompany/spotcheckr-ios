@@ -29,4 +29,26 @@ class ExercisePostService: ExercisePostProtocol {
             }
         }
     }
+    
+    func getPosts(forUserWithId userId: String) -> Promise<[ExercisePost]> {
+        return Promise { promise in
+            let query = Firestore.firestore().collection(postsCollection).whereField("created-by", isEqualTo: userId)
+            query.getDocuments { (querySnapshot, error) in
+                if let error = error {
+                    return promise.reject(error)
+                }
+                
+                for document in querySnapshot!.documents {
+                    print(document) //TODO: Implement
+                }
+            }
+        }
+    }
+    
+    func getAnswers(forUserWithId userId: String) -> Promise<[Answer]> {
+        return Promise { promise in
+            //TODO: Implement
+            return promise.fulfill([Answer]())
+        }
+    }
 }

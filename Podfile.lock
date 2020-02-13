@@ -413,6 +413,7 @@ PODS:
     - nanopb/encode (= 0.3.9011)
   - nanopb/decode (0.3.9011)
   - nanopb/encode (0.3.9011)
+  - ObjectMapper (3.5.1)
   - PromiseKit (6.13.1):
     - PromiseKit/CorePromise (= 6.13.1)
     - PromiseKit/Foundation (= 6.13.1)
@@ -447,6 +448,7 @@ DEPENDENCIES:
   - "MaterialComponents/Snackbar+TypographyThemer"
   - MaterialComponents/TextFields
   - "MaterialComponents/TextFields+Theming"
+  - ObjectMapper (~> 3.4)
   - PromiseKit
   - SwiftSVG (~> 2.2.1)
   - SwiftValidator (from `https://github.com/jpotts18/SwiftValidator.git`, tag `4.2.0`)
@@ -482,6 +484,7 @@ SPEC REPOS:
     - MDFInternationalization
     - MDFTextAccessibility
     - nanopb
+    - ObjectMapper
     - PromiseKit
     - PromisesObjC
     - SDWebImage
@@ -527,12 +530,13 @@ SPEC CHECKSUMS:
   MDFInternationalization: 010097556d6b09d2c4ea38e0820ea6d37be6a314
   MDFTextAccessibility: 85c09a1bd9c321f494348e632a25063bcda35a53
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
+  ObjectMapper: 70187b8941977c62ccfb423caf6b50be405cabf0
   PromiseKit: 28fda91c973cc377875d8c0ea4f973013c05b6db
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   SDWebImage: 1245d058b7b8f59adef7a6da6bbafd4f1ab67041
   SwiftSVG: e55084e4c5534f3f25743003a6a3a88580cacfb0
   SwiftValidator: 249b6b3ae3b294266c5b9de134d94f18f2d5aa47
 
-PODFILE CHECKSUM: 246241a1d810af73db4df424c2f785138243dd6d
+PODFILE CHECKSUM: 36c7539b6854019ad4d40b208f2d809581228d4e
 
 COCOAPODS: 1.8.4
