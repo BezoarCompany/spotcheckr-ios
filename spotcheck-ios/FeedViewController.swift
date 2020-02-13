@@ -26,12 +26,23 @@ class FeedViewController: UIViewController {
 //            //TODO: Do something when post fetching fails
 //        }
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
+        
         tableView.dataSource = self
         tableView.delegate = self
         
         navigationItem.hidesBackButton = true
         
         tableView.register(UINib(nibName:K.Storyboard.postNibName, bundle: nil), forCellReuseIdentifier: K.Storyboard.feedCellId)
+    }
+    
+    @objc func addTapped() {
+        print("tapped Add Post")
+        
+        let createPostViewController = CreatePostViewController.create()
+        
+        self.present(createPostViewController, animated: true)
+        //self.navigationController?.pushViewController(createPostViewController, animated: true)
     }
 }
 
