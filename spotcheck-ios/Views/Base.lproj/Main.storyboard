@@ -265,7 +265,7 @@
                                     <constraint firstAttribute="height" constant="1" id="L5J-QL-qdN"/>
                                 </constraints>
                             </view>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Write your question" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="9hL-Nu-0us" userLabel="postBodyTextArea">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Write your question" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="9hL-Nu-0us" userLabel="postBodyTextView">
                                 <rect key="frame" x="20" y="239" width="374" height="33"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -298,6 +298,8 @@
                         <viewLayoutGuide key="safeArea" id="L8l-fi-QXV"/>
                     </view>
                     <connections>
+                        <outlet property="postBodyTextView" destination="9hL-Nu-0us" id="nek-9U-3Lx"/>
+                        <outlet property="subjectTextView" destination="JFf-7J-RBW" id="I9q-rT-81n"/>
                         <outlet property="workoutTypeDropDown" destination="1PH-CT-WQj" id="4MO-CT-cm6"/>
                     </connections>
                 </viewController>
