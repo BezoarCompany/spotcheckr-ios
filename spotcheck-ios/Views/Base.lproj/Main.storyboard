@@ -209,7 +209,7 @@
                         <color key="backgroundColor" red="0.1333333333" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                         <viewLayoutGuide key="safeArea" id="TWv-Cy-aLM"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Home" id="tmJ-Mg-eyj"/>
+                    <navigationItem key="navigationItem" title="Home" leftItemsSupplementBackButton="YES" id="tmJ-Mg-eyj"/>
                     <connections>
                         <outlet property="tableView" destination="iTh-5i-sab" id="aUF-ih-eam"/>
                     </connections>
@@ -217,6 +217,99 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PeB-ic-UsK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3708.6956521739135" y="-144.64285714285714"/>
+        </scene>
+        <!--CreatePost-->
+        <scene sceneID="lzG-wv-yeJ">
+            <objects>
+                <viewController storyboardIdentifier="CreatePostViewController" id="cch-6k-Lhu" userLabel="CreatePost" customClass="CreatePostViewController" customModule="Spotcheck" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="XBn-kA-hyM">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nnA-Ad-pVx">
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <items>
+                                    <navigationItem title="Add a question" id="gFt-Qt-MS2">
+                                        <barButtonItem key="leftBarButtonItem" image="multiply" catalog="system" id="YE0-Od-SSy">
+                                            <connections>
+                                                <action selector="cancelPost:" destination="cch-6k-Lhu" id="XAo-nl-9Lr"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="Submit" id="ujP-IS-SBP">
+                                            <connections>
+                                                <action selector="submitPost:" destination="cch-6k-Lhu" id="CCT-TY-Uxe"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Select workout type" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1PH-CT-WQj" userLabel="WorkoutTypeDropDown" customClass="DropDown" customModule="iOSDropDown">
+                                <rect key="frame" x="20" y="101" width="374" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gJ2-nF-iar" userLabel="lineBreak1">
+                                <rect key="frame" x="0.0" y="145" width="414" height="1"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="dED-ms-p4u"/>
+                                </constraints>
+                            </view>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Subject" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="JFf-7J-RBW" userLabel="subjectTextview">
+                                <rect key="frame" x="20" y="165" width="374" height="33"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FVS-BH-7hE" userLabel="lineBreak2">
+                                <rect key="frame" x="0.0" y="218" width="414" height="1"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="L5J-QL-qdN"/>
+                                </constraints>
+                            </view>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Write your question" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="9hL-Nu-0us" userLabel="postBodyTextView">
+                                <rect key="frame" x="20" y="239" width="374" height="33"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="9hL-Nu-0us" firstAttribute="trailing" secondItem="L8l-fi-QXV" secondAttribute="trailing" constant="-20" id="1Kz-FT-6Vd"/>
+                            <constraint firstItem="JFf-7J-RBW" firstAttribute="leading" secondItem="L8l-fi-QXV" secondAttribute="leading" constant="20" id="1hn-nW-LNJ"/>
+                            <constraint firstItem="FVS-BH-7hE" firstAttribute="top" secondItem="JFf-7J-RBW" secondAttribute="bottom" constant="20" id="8eL-Iq-Uxp"/>
+                            <constraint firstItem="JFf-7J-RBW" firstAttribute="top" secondItem="gJ2-nF-iar" secondAttribute="top" constant="20" id="8jA-1N-b5j"/>
+                            <constraint firstItem="JFf-7J-RBW" firstAttribute="trailing" secondItem="L8l-fi-QXV" secondAttribute="trailing" constant="-20" id="9bC-07-esX"/>
+                            <constraint firstItem="gJ2-nF-iar" firstAttribute="trailing" secondItem="L8l-fi-QXV" secondAttribute="trailing" id="JtR-4L-3Ac"/>
+                            <constraint firstItem="gJ2-nF-iar" firstAttribute="leading" secondItem="L8l-fi-QXV" secondAttribute="leading" id="MBl-EU-x3Y"/>
+                            <constraint firstItem="nnA-Ad-pVx" firstAttribute="leading" secondItem="L8l-fi-QXV" secondAttribute="leading" id="S2H-xd-taP"/>
+                            <constraint firstItem="1PH-CT-WQj" firstAttribute="leading" secondItem="L8l-fi-QXV" secondAttribute="leading" constant="20" id="TuG-dP-zsM"/>
+                            <constraint firstItem="FVS-BH-7hE" firstAttribute="trailing" secondItem="L8l-fi-QXV" secondAttribute="trailing" id="Yqn-hk-gpU"/>
+                            <constraint firstItem="nnA-Ad-pVx" firstAttribute="leading" secondItem="L8l-fi-QXV" secondAttribute="leading" id="agQ-Y1-Swh"/>
+                            <constraint firstItem="gJ2-nF-iar" firstAttribute="top" secondItem="1PH-CT-WQj" secondAttribute="bottom" constant="20" id="cFD-lK-aHB"/>
+                            <constraint firstItem="nnA-Ad-pVx" firstAttribute="top" secondItem="L8l-fi-QXV" secondAttribute="top" id="iB0-H6-2Z2"/>
+                            <constraint firstItem="nnA-Ad-pVx" firstAttribute="trailing" secondItem="L8l-fi-QXV" secondAttribute="trailing" id="jA7-nn-gvm"/>
+                            <constraint firstItem="1PH-CT-WQj" firstAttribute="trailing" secondItem="L8l-fi-QXV" secondAttribute="trailing" constant="-20" id="kTq-cs-d6L"/>
+                            <constraint firstItem="9hL-Nu-0us" firstAttribute="top" secondItem="FVS-BH-7hE" secondAttribute="bottom" constant="20" id="sHZ-Tn-8Yk"/>
+                            <constraint firstItem="9hL-Nu-0us" firstAttribute="leading" secondItem="L8l-fi-QXV" secondAttribute="leading" constant="20" id="sYi-5B-Qm5"/>
+                            <constraint firstItem="1PH-CT-WQj" firstAttribute="top" secondItem="nnA-Ad-pVx" secondAttribute="bottom" constant="20" id="w2A-70-PSy"/>
+                            <constraint firstItem="FVS-BH-7hE" firstAttribute="leading" secondItem="L8l-fi-QXV" secondAttribute="leading" id="wqy-w7-wFs"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="L8l-fi-QXV"/>
+                    </view>
+                    <connections>
+                        <outlet property="postBodyTextView" destination="9hL-Nu-0us" id="nek-9U-3Lx"/>
+                        <outlet property="subjectTextView" destination="JFf-7J-RBW" id="I9q-rT-81n"/>
+                        <outlet property="workoutTypeDropDown" destination="1PH-CT-WQj" id="4MO-CT-cm6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WAM-kd-nHb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4713.04347826087" y="-583.25892857142856"/>
         </scene>
         <!--Feed Nav-->
         <scene sceneID="tKa-Wv-tax">
@@ -282,6 +375,7 @@
     </scenes>
     <resources>
         <image name="list.dash" catalog="system" width="64" height="42"/>
+        <image name="multiply" catalog="system" width="64" height="54"/>
         <image name="person" catalog="system" width="64" height="58"/>
         <image name="person.crop.circle" catalog="system" width="64" height="60"/>
         <image name="person.fill" catalog="system" width="64" height="60"/>

@@ -29,4 +29,39 @@ class ExercisePostService: ExercisePostProtocol {
             }
         }
     }
+    //TODO: add more parameters. page#, context parameters?
+    func getPosts(success: @escaping ([ExercisePost])->Void) -> Promise<[ExercisePost]> {
+        return Promise { promise in
+
+            let db = Firestore.firestore()
+            let docRef = db.collection(K.Firestore.posts)
+            
+            var resultPosts = [ExercisePost]()
+            
+            docRef.getDocuments() { querySnapshot, error in
+                guard error == nil, let querySnapshot = querySnapshot, !querySnapshot.isEmpty else {
+                    return promise.reject(error!)
+                }
+                
+                for doc in querySnapshot.documents {
+                    print("\(doc.documentID) => \(doc.data())")
+                    
+                    firstly {
+                        self.getPost(withId:doc.documentID)
+                    }.done { post in
+                        print("@getPosts-ServiceCall------resultPosts:")
+                        
+                        resultPosts.append(post)
+                        success(resultPosts)
+                        print(resultPosts)
+                    }.catch { err in
+                        print("[ERROR]: looping through getPosts document ")
+                        return promise.reject(err)                        
+                    }
+                }                
+                return promise.fulfill(resultPosts)
+            }
+        }
+    }
+ 
 }
