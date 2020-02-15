@@ -12,6 +12,9 @@ target 'spotcheck-ios' do
   pod 'Fakery'
   pod 'ObjectMapper', '~> 3.4'
   
+  # UI Elements
+  pod 'iOSDropDown'
+  
   # Firebase dependencies
   pod 'Firebase/Core'
   pod 'Firebase/Auth'

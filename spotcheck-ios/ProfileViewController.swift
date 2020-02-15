@@ -25,8 +25,8 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         
         //TODO: Remove, only for testing purposes
-        setupTestUser()
-        //resolveProfileUser()
+        //setupTestUser()
+        resolveProfileUser()
         applyStyles()
     }
     

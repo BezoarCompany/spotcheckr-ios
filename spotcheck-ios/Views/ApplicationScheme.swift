@@ -1,7 +1,7 @@
 import MaterialComponents.MaterialContainerScheme
 import MaterialComponents.MaterialColorScheme
 
-class ApplicationScheme: NSObject{
+class ApplicationScheme: NSObject {
     private static var singleton = ApplicationScheme()
     
     static var instance: ApplicationScheme {
