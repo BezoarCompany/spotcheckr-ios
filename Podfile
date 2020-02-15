@@ -11,6 +11,9 @@ target 'spotcheck-ios' do
   pod 'SwiftSVG', '~> 2.2.1'
   pod 'Fakery'
   
+  # UI Elements
+  pod 'iOSDropDown'
+  
   # Firebase dependencies
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
