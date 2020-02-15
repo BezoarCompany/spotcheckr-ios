@@ -15,25 +15,6 @@ class FeedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-<<<<<<< HEAD
-        
-        self.posts = FakeDataFactory.GetExercisePosts(count: 10)
-//        firstly {
-//            //TODO: Replace with call to getPosts(from: Number) which returns all posts since a specific "page length" (e.g. get first 10 posts by created date, scroll, when reached 8/10 posts fetch next 10 posts.
-//            self.exercisePostService.getPost(withId: "dngi33GYXBQU2y6XxklQ")
-//        }.done { post in
-//            self.posts = [post]
-//            self.tableView.reloadData()
-//            //TODO: Since this is async, we would want the table view data source to refresh after it has been loaded. Maybe there is a way to make Posts an Observable that will automagically update after we set it?
-//        }.catch { error in
-//            //TODO: Do something when post fetching fails
-//        }
-=======
-        print("@FeedViewController")
-                        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
-        navigationItem.hidesBackButton = true
->>>>>>> master
         
         tableView.dataSource = self
         tableView.delegate = self

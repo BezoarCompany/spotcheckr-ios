@@ -52,12 +52,12 @@ class ProfileViewController: UIViewController {
             }.finally {
                 self.populateUserProfileInformation()
                 
-                firstly {
-                    self.exercisePostService.getPosts(forUserWithId: self.currentUser!.id!)
-                }.done { posts in
-                    print(posts)
-                }
-                
+//                firstly {
+//                    //self.exercisePostService.getPosts(forUserWithId: self.currentUser!.id!)
+//                }.done { posts in
+//                    print(posts)
+//                }
+//                
                 //TODO: Dismiss spinner once data has loaded from user service and is populated.
                 
             }

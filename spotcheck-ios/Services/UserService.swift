@@ -32,8 +32,8 @@ class UserService: UserProtocol {
                 //TODO: Replace .contains check here with an extension method with something that will take the key, type to downcast, and default value and just return that instead of writing all this boilerplate.
                 user.information = Identity(firstName: (data?.keys.contains("first-name"))! ? data?["first-name"] as! String : "",
                                            middleName: (data?.keys.contains("middle-name"))! ? data?["middle-name"] as! String : "",
-                                           lastName: (data?.keys.contains("last-name"))! ? data?["last-name"] as! String : "",
-                                           gender: )
+                                           lastName: (data?.keys.contains("last-name"))! ? data?["last-name"] as! String : ""
+                                           )
                 //TODO: Get more complex information about the user.
                 //TODO: Store in the cache afterwards.
                 return promise.fulfill(user)

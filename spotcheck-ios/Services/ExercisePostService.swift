@@ -29,22 +29,6 @@ class ExercisePostService: ExercisePostProtocol {
             }
         }
     }
-<<<<<<< HEAD
-    
-    func getPosts(forUserWithId userId: String) -> Promise<[ExercisePost]> {
-        return Promise { promise in
-            let query = Firestore.firestore().collection(postsCollection).whereField("created-by", isEqualTo: userId)
-            query.getDocuments { (querySnapshot, error) in
-                if let error = error {
-                    return promise.reject(error)
-                }
-                
-                for document in querySnapshot!.documents {
-                    print(document) //TODO: Implement
-                }
-            }
-        }
-    }
     
     func getAnswers(forUserWithId userId: String) -> Promise<[Answer]> {
         return Promise { promise in
@@ -52,7 +36,7 @@ class ExercisePostService: ExercisePostProtocol {
             return promise.fulfill([Answer]())
         }
     }
-=======
+    
     //TODO: add more parameters. page#, context parameters?
     func getPosts(success: @escaping ([ExercisePost])->Void) -> Promise<[ExercisePost]> {
         return Promise { promise in
@@ -87,6 +71,4 @@ class ExercisePostService: ExercisePostProtocol {
             }
         }
     }
- 
->>>>>>> master
 }
