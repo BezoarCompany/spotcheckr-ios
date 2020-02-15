@@ -11,10 +11,35 @@ class FeedViewController: UIViewController {
     var db: Firestore!
     
     var posts = [ExercisePost]()
+    var refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("@FeedViewController")
+                        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
+        navigationItem.hidesBackButton = true
+        
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(UINib(nibName:K.Storyboard.postNibName, bundle: nil), forCellReuseIdentifier: K.Storyboard.feedCellId)
+        
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
+        tableView.addSubview(refreshControl)
+
+        getPosts()
+    }
+    
+    func getPosts() {
+        let completePostsDataSet = { ( argPosts: [ExercisePost]) in
+            self.posts = argPosts
+            //self.posts = NSArray(array: argPosts, copyItems: true) as! [ExercisePost]
+            self.tableView.reloadData()
+        }
+        
+        self.exercisePostService.getPosts(success: completePostsDataSet)
+        
         //self.posts = FakeDataFactory.GetExercisePosts(count: 5)
         /*
         firstly {
@@ -30,11 +55,7 @@ class FeedViewController: UIViewController {
         }
         */
         
-        let completePostsDataSet = { ( argPosts: [ExercisePost]) in
-            self.posts = argPosts
-            //self.posts = NSArray(array: argPosts, copyItems: true) as! [ExercisePost]
-            self.tableView.reloadData()
-        }
+
         /*
         firstly {
             self.exercisePostService.getPosts(success: completePostsDataSet)
@@ -48,14 +69,6 @@ class FeedViewController: UIViewController {
             //do something
         }
         */
-        self.exercisePostService.getPosts(success: completePostsDataSet)
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
-        navigationItem.hidesBackButton = true
-        
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.register(UINib(nibName:K.Storyboard.postNibName, bundle: nil), forCellReuseIdentifier: K.Storyboard.feedCellId)
     }
     
     @objc func addTapped() {
@@ -66,6 +79,13 @@ class FeedViewController: UIViewController {
         self.present(createPostViewController, animated: true)
         //self.navigationController?.pushViewController(createPostViewController, animated: true)
     }
+    
+    @objc func refresh() {
+        print("refresh")
+        getPosts()
+        refreshControl.endRefreshing()
+    }
+    
 }
 
 
