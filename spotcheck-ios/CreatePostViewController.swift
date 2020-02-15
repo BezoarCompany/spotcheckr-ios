@@ -14,13 +14,19 @@ class CreatePostViewController: UIViewController {
     }
     @IBAction func submitPost(_ sender: Any) {
         print("submitted")
-        createPost()
-        dismiss(animated: true, completion: nil)
+        
+        if(validatePost()) {
+            createPost()
+            dismiss(animated: true, completion: nil)
+        }
+        
     }
     
     static let SUBJECT_TEXT_PLACEHOLDER = "Subject"
     static let POST_BODY_TEXT_PLACEHOLDER = "Write your question"
-
+    static let MIN_SUBJECT_LENGTH = 10
+    static let MIN_POSTBODY_LENGTH = 2
+    
     static func create() -> CreatePostViewController  {
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         let createPostViewController = storyboard.instantiateViewController(withIdentifier: K.Storyboard.CreatePostViewControllerId) as! CreatePostViewController
@@ -63,6 +69,24 @@ extension CreatePostViewController {
     
     func validatePost() -> Bool {
         
+        let alert = UIAlertController(title: "Invalid post", message: "You can always access your content by signing back in", preferredStyle: UIAlertController.Style.alert)
+
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { _ in
+            //Cancel Action
+        }))
+        
+        if(CreatePostViewController.SUBJECT_TEXT_PLACEHOLDER == subjectTextView.text
+            || subjectTextView.text.count < CreatePostViewController.MIN_SUBJECT_LENGTH
+            ) {
+            alert.message = "Please fill out a valid subject header"
+            self.present(alert, animated: true, completion: nil)
+            return false
+        } else if (CreatePostViewController.POST_BODY_TEXT_PLACEHOLDER == postBodyTextView.text
+            || postBodyTextView.text.count < CreatePostViewController.MIN_POSTBODY_LENGTH) {
+            alert.message = "Please fill out a valid post body"
+            self.present(alert, animated: true, completion: nil)
+            return false
+        }
         return true
     }
     
