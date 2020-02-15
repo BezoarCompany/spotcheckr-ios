@@ -235,7 +235,11 @@
                                                 <action selector="cancelPost:" destination="cch-6k-Lhu" id="XAo-nl-9Lr"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" title="Submit" id="ujP-IS-SBP"/>
+                                        <barButtonItem key="rightBarButtonItem" title="Submit" id="ujP-IS-SBP">
+                                            <connections>
+                                                <action selector="submitPost:" destination="cch-6k-Lhu" id="CCT-TY-Uxe"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>

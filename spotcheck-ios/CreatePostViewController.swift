@@ -1,5 +1,8 @@
 import UIKit
 import iOSDropDown //https://github.com/jriosdev/iOSDropDown
+import Firebase
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 class CreatePostViewController: UIViewController {
 
@@ -9,7 +12,12 @@ class CreatePostViewController: UIViewController {
     @IBAction func cancelPost(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
-
+    @IBAction func submitPost(_ sender: Any) {
+        print("submitted")
+        createPost()
+        dismiss(animated: true, completion: nil)
+    }
+    
     static let SUBJECT_TEXT_PLACEHOLDER = "Subject"
     static let POST_BODY_TEXT_PLACEHOLDER = "Write your question"
 
@@ -51,6 +59,27 @@ extension CreatePostViewController {
         
         postBodyTextView.text = CreatePostViewController.POST_BODY_TEXT_PLACEHOLDER
         postBodyTextView.textColor = UIColor.lightGray
+    }
+    
+    func validatePost() -> Bool {
+        
+        return true
+    }
+    
+    // TODO: put in PostService
+    func createPost() {
+        let db = Firestore.firestore()
+        let newDocRef = db.collection(K.Firestore.posts).document()
+        
+        newDocRef.setData([
+            "created-by" : Auth.auth().currentUser?.uid,
+            "created-date" : FieldValue.serverTimestamp(),
+            "title" : subjectTextView.text!,
+            "description" : postBodyTextView.text!,
+            "id" : newDocRef.documentID,
+            "modified-date" : FieldValue.serverTimestamp()
+        ])
+        
     }
 }
 
