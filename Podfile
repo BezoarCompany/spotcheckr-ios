@@ -10,7 +10,6 @@ target 'spotcheck-ios' do
   pod 'PromiseKit'
   pod 'SwiftSVG', '~> 2.2.1'
   pod 'Fakery'
-  pod 'ObjectMapper', '~> 3.4'
   
   # UI Elements
   pod 'iOSDropDown'
