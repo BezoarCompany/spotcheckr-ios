@@ -1,11 +1,10 @@
 import Foundation
-import ObjectMapper
 
 struct ExercisePost {
     var id: String = ""
     var title: String = ""
     var description: String = ""
-    var createdBy: User
+    var createdBy: User?
     var dateCreated: Date?
     var dateModified: Date?
     var metrics = Metrics()

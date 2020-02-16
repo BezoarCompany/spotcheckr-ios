@@ -48,18 +48,21 @@ class ProfileViewController: UIViewController {
             }.done { user in
                 self.currentUser = user
             }.catch { error in
-                //TODO: Display error to the user that fetching the current user failed.
+                //TODO: Display error to the user that fetching the current user info failed.
             }.finally {
-                self.populateUserProfileInformation()
-                
-//                firstly {
-//                    //self.exercisePostService.getPosts(forUserWithId: self.currentUser!.id!)
-//                }.done { posts in
-//                    print(posts)
-//                }
-//                
                 //TODO: Dismiss spinner once data has loaded from user service and is populated.
-                
+                self.populateUserProfileInformation()
+                firstly {
+                    //TODO: Show spinner that table data is loading.
+                    when(fulfilled: self.exercisePostService.getPosts(forUserWithId: self.currentUser!.id!), self.exercisePostService.getAnswers(byUserWithId: self.currentUser!.id!))
+                }.done { posts, answers in
+                    //TODO: Dismiss spinnner
+                    //TODO: Add to table for posts and answers
+                    print(posts)
+                    print(answers)
+                }.catch {error in
+                    //TODO: Show error message on the table view for failing to fetch posts/answers
+                }
             }
         }
     }
@@ -69,10 +72,15 @@ class ProfileViewController: UIViewController {
         self.nameLabel.text = (self.currentUser?.information?.fullName.isEmpty ?? true) ? "Anonymous" : self.currentUser?.information?.fullName
         if self.currentUser is Trainer {
             let trainer = self.currentUser as! Trainer
-            for certification in trainer.certifications {
-                self.certificationsLabel.text?.append("\(certification.name), ")
+            if trainer.certifications.count == 0 {
+                self.certificationsLabel.isHidden = true
+                self.certificationsHeadingLabel.isHidden = true
+            } else {
+                for certification in trainer.certifications {
+                    self.certificationsLabel.text?.append("\(certification.code), ")
+                }
+                self.certificationsLabel.text = self.certificationsLabel.text?.trimmingCharacters(in: CharacterSet.init(charactersIn: ", "))
             }
-            self.certificationsLabel.text = self.certificationsLabel.text?.trimmingCharacters(in: CharacterSet.init(charactersIn: ", "))
             self.occupationLabel.text = trainer.occupation
         }
         else {
@@ -96,7 +104,7 @@ class ProfileViewController: UIViewController {
         
         postsButton.setTitleFont(ApplicationScheme.instance.containerScheme.typographyScheme.button, for: .normal)
         postsButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor, for: .normal)
-    answersButton.setTitleFont(ApplicationScheme.instance.containerScheme.typographyScheme.button, for: .normal)
+        answersButton.setTitleFont(ApplicationScheme.instance.containerScheme.typographyScheme.button, for: .normal)
         answersButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor, for: .normal)
     
     }

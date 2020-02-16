@@ -1,5 +1,6 @@
 import FirebaseFirestore
 import FirebaseFirestore.FIRCollectionReference
+import FirebaseFirestore.FIRTimestamp
 import FirebaseAuth
 import PromiseKit
 import Foundation
@@ -7,6 +8,7 @@ import Foundation
 class UserService: UserProtocol {
     private let userCollection = "users"
     private let genderCollection = "genders"
+    private let userTypeCollection = "user-types"
     private let certificationCollection = "certifications"
     private let salutationCollection = "salutations"
     
@@ -27,16 +29,93 @@ class UserService: UserProtocol {
                 guard error == nil, let doc = doc, doc.exists else {
                     return promise.reject(error!)
                 }
-                let user = User(id: doc.data()?["id"] as! String)
+                
                 let data = doc.data()
-                //TODO: Replace .contains check here with an extension method with something that will take the key, type to downcast, and default value and just return that instead of writing all this boilerplate.
-                user.information = Identity(firstName: (data?.keys.contains("first-name"))! ? data?["first-name"] as! String : "",
-                                           middleName: (data?.keys.contains("middle-name"))! ? data?["middle-name"] as! String : "",
-                                           lastName: (data?.keys.contains("last-name"))! ? data?["last-name"] as! String : ""
-                                           )
+                let userId = data?.keys.contains("id") != nil ? data?["id"] as! String : doc.documentID
+                var salutations: [String:String] = [:]
+                var genders: [String:String] = [:]
+                var userTypes: [String:String] = [:]
+                var userCertifications = [Certification]()
+                
+                firstly {
+                    when(fulfilled: self.getSalutations(),
+                                    self.getGenders(),
+                                    self.getUserTypes(),
+                                    self.getCertifications(forUserWithId: userId))
+                }.done { salutationsResult,
+                         gendersResult,
+                         userTypesResult,
+                         userCertificationsResult in
+                    salutations = salutationsResult
+                    genders = gendersResult
+                    userTypes = userTypesResult
+                    userCertifications = userCertificationsResult
+                }.catch { error in
+                    return promise.reject(error)
+                }.finally {
+                    var user: User
+                    
+                    let userIsTrainer = data?.keys.contains("type") != nil && userTypes[(data?["type"] as! DocumentReference).path] == "Trainer"
+                    
+                    user = userIsTrainer ? Trainer(id: userId) : User(id: userId)
+                    user.username = data?.keys.contains("username") != nil ? data?["username"] as! String : ""
+                    user.profilePictureUrl = data?.keys.contains("profile-picture-url") != nil ? URL(string: data?["profile-picture-url"] as! String) : nil
+                    user.information = Identity(
+                        salutation: data?.keys.contains("salutation") != nil ? salutations[(data?["salutation"] as! DocumentReference).path]! : "",
+                        firstName: data?.keys.contains("first-name") != nil ? data?["first-name"] as! String : "",
+                        middleName: data?.keys.contains("middle-name") != nil ? data?["middle-name"] as! String : "",
+                        lastName: data?.keys.contains("last-name") != nil ? data?["last-name"] as! String : "",
+                        gender: data?.keys.contains("gender") != nil ? genders[(data?["gender"] as! DocumentReference).path]! : "",
+                        birthDate: data?.keys.contains("birthdate") != nil ? (data?["birthdate"] as! Timestamp).dateValue() : nil
+                    )
+                    user.measurement = BodyMeasurement(
+                        height: data?.keys.contains("height") != nil ? Int(data?["height"] as! String) : 0,
+                        weight: data?.keys.contains("weight") != nil ? Int(data?["weight"] as! String) : 0
+                    )
+                    
+                    if userIsTrainer {
+                        let trainer = user as! Trainer
+
+                        trainer.website = data?.keys.contains("website") != nil ? URL(string: data?["website"] as! String) : nil
+                        trainer.occupationTitle = data?.keys.contains("occupation-title") != nil ? data?["occupation-title"] as! String : ""
+                        trainer.occupationCompany = data?.keys.contains("occupation-company") != nil ? data?["occupation-company"] as! String : ""
+                        trainer.certifications = userCertifications
+                    }
+                    
+                    return promise.fulfill(user)
+                }
+                
                 //TODO: Get more complex information about the user.
                 //TODO: Store in the cache afterwards.
-                return promise.fulfill(user)
+                
+            }
+        }
+    }
+    
+    func getCertifications(forUserWithId id: String) -> Promise<[Certification]> {
+        return Promise { promise in
+            var certifications: [String:Certification] = [:]
+            
+            firstly {
+                self.getCertifications()
+            }.done { certificationsResult in
+                certifications = certificationsResult
+            }.catch { error in
+                return promise.reject(error)
+            }.finally {
+                var userCertifications = [Certification]()
+                let certificationsRef = Firestore.firestore().collection("\(self.userCollection)/\(id)/\(self.certificationCollection)")
+                certificationsRef.getDocuments { (certificationsSnapshot, error) in
+                    if let error = error {
+                        return promise.reject(error)
+                    }
+                    
+                    for certification in certificationsSnapshot!.documents {
+                        userCertifications.append(certifications[(certification["certification"] as! DocumentReference).path]!)
+                    }
+                
+                    return promise.fulfill(userCertifications)
+                }
             }
         }
     }
@@ -52,6 +131,24 @@ class UserService: UserProtocol {
                 return promise.fulfill(user)
             }.catch { error in
                 return promise.reject(error)
+            }
+        }
+    }
+    
+    
+    func getUserTypes() -> Promise<[String: String]>{
+        return Promise { promise in
+            Firestore.firestore().collection(userTypeCollection).getDocuments { (querySnapshot, error) in
+                if let error = error {
+                    promise.reject(error)
+                }
+                
+                var userTypes:[String:String] = [:]
+                for document in querySnapshot!.documents {
+                    userTypes[document.reference.path] = document.data()["name"] as? String
+                }
+                
+                return promise.fulfill(userTypes)
             }
         }
     }

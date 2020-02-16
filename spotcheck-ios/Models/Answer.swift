@@ -2,7 +2,8 @@ import Foundation
 
 struct Answer {
     var createdBy: User?
-    var modifiedDate = Date()
+    var dateCreated: Date?
+    var dateModified: Date?
     var text = ""
     var media = [Media]()
     var upvotes = 0
