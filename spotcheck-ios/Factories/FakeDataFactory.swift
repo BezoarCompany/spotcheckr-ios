@@ -40,10 +40,7 @@ class FakeDataFactory {
         
         for _ in 1...count {
             let dateCreated = faker.date.between(Date("2000-01-01"), Date("2020-01-01"))
-            var likes = [Like]()
-            for _ in 0...Int.random(in: 0..<50) {
-                likes.append(Like(LikedBy: createFakeUser()))
-            }
+            var likes = faker.number.randomInt(min: 1, max: 250)
             
             var answers = [Answer]()
             for _ in 0...Int.random(in: 0..<20) {
@@ -53,7 +50,8 @@ class FakeDataFactory {
                 }
                 
                 answers.append(Answer(createdBy: createFakeUser(),
-                                      modifiedDate: faker.date.between(dateCreated, Date("2020-01-01")),
+                                      dateCreated: dateCreated,
+                                      dateModified: faker.date.between(dateCreated, Date("2020-01-01")),
                                       text: faker.lorem.paragraphs(),
                                       media: media,
                                       upvotes: faker.number.randomInt(min: 1, max: 1000),

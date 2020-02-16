@@ -7,7 +7,21 @@ struct Identity {
     var lastName: String = ""
     var fullName: String {
         get {
-            return middleName.isEmpty ? "\(firstName) \(lastName)" : "\(firstName) \(middleName) \(lastName)"
+            var name = ""
+            
+            if !salutation.isEmpty {
+                name.append("\(salutation) ")
+            }
+            
+            name.append("\(firstName)")
+            
+            if !middleName.isEmpty {
+                name.append(" \(middleName)")
+            }
+            
+            name.append(" \(lastName)")
+            
+            return name
         }
     }
     var gender: String?
