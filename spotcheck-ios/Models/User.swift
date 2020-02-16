@@ -1,5 +1,4 @@
 import Foundation
-import ObjectMapper
 
 class User {
     var id: String?
