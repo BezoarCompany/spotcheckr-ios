@@ -15,10 +15,6 @@ class FeedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("@FeedViewController")
-                        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
-        navigationItem.hidesBackButton = true
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -100,7 +96,7 @@ extension FeedViewController: UITableViewDataSource {
             as! FeedPostCell
                 
         cell.postLabel.text = posts[indexPath.row].title
-        cell.authorNameLabel.text = posts[indexPath.row].createdBy.information?.fullName
+        cell.authorNameLabel.text = posts[indexPath.row].createdBy?.information?.fullName
         cell.authorTaglineLabel.text = "Tool default"
         
         cell.upvoteCounts.text = "\(posts[indexPath.row].metrics.upvotes)"
