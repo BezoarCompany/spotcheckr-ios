@@ -14,6 +14,8 @@ import FirebaseFirestoreSwift
 class PostDetailViewController : UIViewController {
     
     @IBOutlet weak var postLabel: UILabel!
+    @IBOutlet weak var postAuthorLabel: UILabel!
+    @IBOutlet weak var descLabel: UILabel!
     
     var post: ExercisePost?
         
@@ -35,5 +37,7 @@ class PostDetailViewController : UIViewController {
         super.viewDidLoad()
         
         postLabel.text = post?.title
+        postAuthorLabel.text = "Posted by " + (post?.createdBy?.information?.fullName ?? "Anonymous")
+        descLabel.text = post?.description
     }
 }
