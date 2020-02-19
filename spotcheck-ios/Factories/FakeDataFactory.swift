@@ -87,6 +87,29 @@ class FakeDataFactory {
         return exercisePosts
     }
     
+    static func GetAnswersPosts(count: Int) -> [Answer] {
+        var answers = [Answer]()
+        
+        for _ in 0...count {
+            var media = [Media]()
+            for _ in 0...Int.random(in: 0..<2){
+                media.append(Media(url: URL(string:faker.internet.image())))
+            }
+            
+            let dateCreated = faker.date.between(Date("2000-01-01"), Date("2020-01-01"))
+            
+            answers.append(Answer(createdBy: createFakeUser(),
+                                  dateCreated: dateCreated,
+                                  dateModified: faker.date.between(dateCreated, Date("2020-01-01")),
+                                  text: faker.lorem.paragraphs(),
+                                  media: media,
+                                  upvotes: faker.number.randomInt(min: 1, max: 1000),
+                                  downvotes: faker.number.randomInt(min: 1, max: 1000)))
+        }
+        
+        return answers
+    }
+    
     private static func createFakeUser() -> User {
         return createFakeTrainer() as User
     }

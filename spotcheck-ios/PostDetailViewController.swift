@@ -16,6 +16,9 @@ class PostDetailViewController : UIViewController {
     @IBOutlet weak var postLabel: UILabel!
     @IBOutlet weak var postAuthorLabel: UILabel!
     @IBOutlet weak var descLabel: UILabel!
+    @IBOutlet weak var numAnswersLabel: UILabel!
+    
+    @IBOutlet weak var answersTableView: UITableView!
     
     var post: ExercisePost?
         
@@ -36,8 +39,43 @@ class PostDetailViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        post?.answers = FakeDataFactory.GetAnswersPosts(count: 5)
+        
+        //The original question/post
         postLabel.text = post?.title
         postAuthorLabel.text = "Posted by " + (post?.createdBy?.information?.fullName ?? "Anonymous")
         descLabel.text = post?.description
+        numAnswersLabel.text = "\(post?.answersCount ?? 0) Answers"
+        
+        //display answers
+        answersTableView.dataSource = self
+        answersTableView.delegate = self
+        answersTableView.register(UINib(nibName:K.Storyboard.answerNibName, bundle: nil), forCellReuseIdentifier: K.Storyboard.answerCellId)
+        
+    }
+}
+
+
+extension PostDetailViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return post?.answers.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: K.Storyboard.answerCellId, for: indexPath)
+            as! AnswerPostCell
+                
+        cell.answerBodyLabel.text = post?.answers[indexPath.row].text
+        cell.answererNameLabel.text = post?.answers[indexPath.row].createdBy?.information?.fullName
+        cell.answererInfoLabel.text = "Tool default"
+               
+        return cell
+    }
+}
+
+extension PostDetailViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(indexPath.row)
     }
 }

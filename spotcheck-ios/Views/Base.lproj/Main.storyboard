@@ -319,11 +319,22 @@
                                     <constraint firstAttribute="height" constant="45" id="86x-GA-Xui"/>
                                 </constraints>
                             </imageView>
-                            <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Comment..." borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jQS-rw-U3c" userLabel="commentTextView">
+                            <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Answer..." borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jQS-rw-U3c" userLabel="commentTextView">
                                 <rect key="frame" x="73" y="299" width="321" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 Answers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Ji-Av-1lK" userLabel="numAnswersLabel">
+                                <rect key="frame" x="20" y="358.5" width="374" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Cvp-oP-4nj">
+                                <rect key="frame" x="0.0" y="409" width="414" height="453"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -331,13 +342,16 @@
                             <constraint firstItem="dVU-Ii-2vB" firstAttribute="leading" secondItem="qMF-pz-b0p" secondAttribute="leading" constant="20" id="9ac-5f-hBG"/>
                             <constraint firstItem="SGP-gw-bAU" firstAttribute="leading" secondItem="qMF-pz-b0p" secondAttribute="leading" constant="20" id="BS0-KL-gWT"/>
                             <constraint firstItem="KAq-cq-vYg" firstAttribute="leading" secondItem="qMF-pz-b0p" secondAttribute="leading" constant="20" id="Dvm-8f-ke6"/>
+                            <constraint firstItem="4Ji-Av-1lK" firstAttribute="top" secondItem="dVU-Ii-2vB" secondAttribute="bottom" constant="20" id="IjV-kY-ifV"/>
                             <constraint firstItem="jQS-rw-U3c" firstAttribute="centerY" secondItem="dVU-Ii-2vB" secondAttribute="centerY" id="KBf-tB-3Vc"/>
                             <constraint firstItem="haP-kO-ydd" firstAttribute="trailing" secondItem="qMF-pz-b0p" secondAttribute="trailing" constant="-20" id="LHC-dF-Map"/>
+                            <constraint firstItem="4Ji-Av-1lK" firstAttribute="trailing" secondItem="qMF-pz-b0p" secondAttribute="trailing" constant="-20" id="Lx4-fG-JHl"/>
                             <constraint firstItem="jQS-rw-U3c" firstAttribute="leading" secondItem="dVU-Ii-2vB" secondAttribute="trailing" constant="10" id="Mab-KN-3Lp"/>
                             <constraint firstItem="dVU-Ii-2vB" firstAttribute="top" secondItem="1u4-iP-ICU" secondAttribute="bottom" constant="10" id="OB0-Iy-w8K"/>
                             <constraint firstItem="jQS-rw-U3c" firstAttribute="trailing" secondItem="qMF-pz-b0p" secondAttribute="trailing" constant="-20" id="UKx-tD-DMl"/>
                             <constraint firstItem="SGP-gw-bAU" firstAttribute="top" secondItem="KAq-cq-vYg" secondAttribute="bottom" constant="20" id="Yz9-TD-Pl0"/>
                             <constraint firstItem="KAq-cq-vYg" firstAttribute="trailing" secondItem="qMF-pz-b0p" secondAttribute="trailing" constant="-20" id="alO-Fy-MTo"/>
+                            <constraint firstItem="4Ji-Av-1lK" firstAttribute="leading" secondItem="qMF-pz-b0p" secondAttribute="leading" constant="20" id="eps-ZO-9DS"/>
                             <constraint firstItem="KAq-cq-vYg" firstAttribute="top" secondItem="haP-kO-ydd" secondAttribute="bottom" constant="10" id="gnK-Po-aAw"/>
                             <constraint firstItem="haP-kO-ydd" firstAttribute="top" secondItem="qMF-pz-b0p" secondAttribute="top" constant="20" id="joc-tl-A3V"/>
                             <constraint firstItem="haP-kO-ydd" firstAttribute="leading" secondItem="qMF-pz-b0p" secondAttribute="leading" constant="20" id="kyW-zy-pla"/>
@@ -347,7 +361,9 @@
                         <viewLayoutGuide key="safeArea" id="qMF-pz-b0p"/>
                     </view>
                     <connections>
+                        <outlet property="answersTableView" destination="Cvp-oP-4nj" id="vYg-h4-MOP"/>
                         <outlet property="descLabel" destination="SGP-gw-bAU" id="3fb-l0-Srt"/>
+                        <outlet property="numAnswersLabel" destination="4Ji-Av-1lK" id="CNR-p3-TRb"/>
                         <outlet property="postAuthorLabel" destination="KAq-cq-vYg" id="oI1-OZ-dyv"/>
                         <outlet property="postLabel" destination="haP-kO-ydd" id="Icu-Lf-GUQ"/>
                     </connections>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AnswerReuseCell" rowHeight="187" id="KGk-i7-Jjw" customClass="AnswerPostCell" customModule="Spotcheck" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="398" height="187"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="398" height="187"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.crop.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="RkS-yO-X9p" userLabel="answererImageView">
+                        <rect key="frame" x="20" y="20.5" width="40" height="39"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="GiV-2F-mAi"/>
+                            <constraint firstAttribute="width" constant="40" id="wRV-96-kde"/>
+                        </constraints>
+                    </imageView>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="L1A-0Z-6vC" userLabel="answererInfoStackView">
+                        <rect key="frame" x="80" y="20" width="110" height="40"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Seymour Butiex" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q3n-8c-EFR" userLabel="answererNameLabel">
+                                <rect key="frame" x="0.0" y="0.0" width="110" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Professional Tool" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zQy-wq-2YS" userLabel="answererInfoLabel">
+                                <rect key="frame" x="0.0" y="23" width="110" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Lorem ipsum ofafsa fLorem ipsum ofafsa fLorem ipsum ofafsa fLorem ipsum ofafsa f" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rdd-pJ-U1o" userLabel="answerBodyLabel">
+                        <rect key="frame" x="20" y="80" width="364" height="44"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bxl-0j-upj" userLabel="upvoteButtton">
+                        <rect key="frame" x="20" y="144" width="24" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="24" id="D4G-fM-WNn"/>
+                            <constraint firstAttribute="width" constant="24" id="k7P-q3-Po2"/>
+                        </constraints>
+                        <state key="normal" image="shift.fill" catalog="system">
+                            <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Rdd-pJ-U1o" firstAttribute="top" secondItem="RkS-yO-X9p" secondAttribute="bottom" constant="20" id="COG-Fb-3Ba"/>
+                    <constraint firstItem="L1A-0Z-6vC" firstAttribute="leading" secondItem="RkS-yO-X9p" secondAttribute="trailing" constant="20" id="Tyv-0f-C0w"/>
+                    <constraint firstItem="L1A-0Z-6vC" firstAttribute="centerY" secondItem="RkS-yO-X9p" secondAttribute="centerY" id="UPh-c6-xRo"/>
+                    <constraint firstItem="Bxl-0j-upj" firstAttribute="top" secondItem="Rdd-pJ-U1o" secondAttribute="bottom" constant="20" id="klK-Of-9Vs"/>
+                </constraints>
+            </tableViewCellContentView>
+            <constraints>
+                <constraint firstItem="Rdd-pJ-U1o" firstAttribute="trailing" secondItem="njF-e1-oar" secondAttribute="trailing" constant="-20" id="2Up-DQ-UxB"/>
+                <constraint firstItem="RkS-yO-X9p" firstAttribute="leading" secondItem="njF-e1-oar" secondAttribute="leading" constant="20" id="7Xi-YJ-Oga"/>
+                <constraint firstItem="H2p-sc-9uM" firstAttribute="bottom" secondItem="Bxl-0j-upj" secondAttribute="bottom" constant="19" id="B9F-QH-mOQ"/>
+                <constraint firstItem="RkS-yO-X9p" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="ER0-32-69l"/>
+                <constraint firstItem="Rdd-pJ-U1o" firstAttribute="leading" secondItem="njF-e1-oar" secondAttribute="leading" constant="20" id="z9P-mh-zBH"/>
+                <constraint firstItem="Bxl-0j-upj" firstAttribute="leading" secondItem="njF-e1-oar" secondAttribute="leading" constant="20" id="zMP-KJ-eiq"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="answerBodyLabel" destination="Rdd-pJ-U1o" id="RzJ-4I-Wky"/>
+                <outlet property="answererInfoLabel" destination="zQy-wq-2YS" id="TWS-5m-BAg"/>
+                <outlet property="answererNameLabel" destination="Q3n-8c-EFR" id="Uo1-Ox-Ri8"/>
+            </connections>
+            <point key="canvasLocation" x="194.20289855072465" y="145.64732142857142"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="person.crop.circle" catalog="system" width="64" height="60"/>
+        <image name="shift.fill" catalog="system" width="64" height="52"/>
+    </resources>
+</document>
