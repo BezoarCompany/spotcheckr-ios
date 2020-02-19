@@ -16,38 +16,43 @@
                 <rect key="frame" x="0.0" y="0.0" width="398" height="187"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.crop.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="RkS-yO-X9p" userLabel="answererImageView">
-                        <rect key="frame" x="20" y="20.5" width="40" height="39"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="40" id="GiV-2F-mAi"/>
-                            <constraint firstAttribute="width" constant="40" id="wRV-96-kde"/>
-                        </constraints>
-                    </imageView>
-                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="L1A-0Z-6vC" userLabel="answererInfoStackView">
-                        <rect key="frame" x="80" y="20" width="110" height="40"/>
+                    <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="OI3-qN-bNg" userLabel="Answerer Stack View">
+                        <rect key="frame" x="20" y="20" width="170" height="40"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Seymour Butiex" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q3n-8c-EFR" userLabel="answererNameLabel">
-                                <rect key="frame" x="0.0" y="0.0" width="110" height="17"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Professional Tool" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zQy-wq-2YS" userLabel="answererInfoLabel">
-                                <rect key="frame" x="0.0" y="23" width="110" height="17"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.crop.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="RkS-yO-X9p" userLabel="answererImageView">
+                                <rect key="frame" x="0.0" y="0.5" width="40" height="39"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="GiV-2F-mAi"/>
+                                    <constraint firstAttribute="width" constant="40" id="wRV-96-kde"/>
+                                </constraints>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="L1A-0Z-6vC" userLabel="answererInfoStackView">
+                                <rect key="frame" x="60" y="0.0" width="110" height="40"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Seymour Butiex" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q3n-8c-EFR" userLabel="answererNameLabel">
+                                        <rect key="frame" x="0.0" y="0.0" width="110" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Professional Tool" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zQy-wq-2YS" userLabel="answererInfoLabel">
+                                        <rect key="frame" x="0.0" y="23" width="110" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                         </subviews>
                     </stackView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Lorem ipsum ofafsa fLorem ipsum ofafsa fLorem ipsum ofafsa fLorem ipsum ofafsa f" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rdd-pJ-U1o" userLabel="answerBodyLabel">
-                        <rect key="frame" x="20" y="80" width="364" height="44"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ipsum ofafsa fLorem ipsum ofafsa fLorem ipsum ofafsa fLorem ipsum ofafsa f" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rdd-pJ-U1o" userLabel="answerBodyLabel">
+                        <rect key="frame" x="20" y="80" width="358" height="41"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bxl-0j-upj" userLabel="upvoteButtton">
-                        <rect key="frame" x="20" y="144" width="24" height="24"/>
+                        <rect key="frame" x="20" y="141" width="24" height="24"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="24" id="D4G-fM-WNn"/>
                             <constraint firstAttribute="width" constant="24" id="k7P-q3-Po2"/>
@@ -58,19 +63,17 @@
                     </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="Rdd-pJ-U1o" firstAttribute="top" secondItem="RkS-yO-X9p" secondAttribute="bottom" constant="20" id="COG-Fb-3Ba"/>
-                    <constraint firstItem="L1A-0Z-6vC" firstAttribute="leading" secondItem="RkS-yO-X9p" secondAttribute="trailing" constant="20" id="Tyv-0f-C0w"/>
-                    <constraint firstItem="L1A-0Z-6vC" firstAttribute="centerY" secondItem="RkS-yO-X9p" secondAttribute="centerY" id="UPh-c6-xRo"/>
+                    <constraint firstItem="OI3-qN-bNg" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="5ul-FZ-kds"/>
+                    <constraint firstItem="Rdd-pJ-U1o" firstAttribute="top" secondItem="OI3-qN-bNg" secondAttribute="bottom" constant="20" id="a4l-36-hlH"/>
+                    <constraint firstAttribute="bottom" secondItem="Bxl-0j-upj" secondAttribute="bottom" constant="22" id="iXo-wP-W4P"/>
                     <constraint firstItem="Bxl-0j-upj" firstAttribute="top" secondItem="Rdd-pJ-U1o" secondAttribute="bottom" constant="20" id="klK-Of-9Vs"/>
                 </constraints>
             </tableViewCellContentView>
             <constraints>
-                <constraint firstItem="Rdd-pJ-U1o" firstAttribute="trailing" secondItem="njF-e1-oar" secondAttribute="trailing" constant="-20" id="2Up-DQ-UxB"/>
-                <constraint firstItem="RkS-yO-X9p" firstAttribute="leading" secondItem="njF-e1-oar" secondAttribute="leading" constant="20" id="7Xi-YJ-Oga"/>
-                <constraint firstItem="H2p-sc-9uM" firstAttribute="bottom" secondItem="Bxl-0j-upj" secondAttribute="bottom" constant="19" id="B9F-QH-mOQ"/>
-                <constraint firstItem="RkS-yO-X9p" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="ER0-32-69l"/>
-                <constraint firstItem="Rdd-pJ-U1o" firstAttribute="leading" secondItem="njF-e1-oar" secondAttribute="leading" constant="20" id="z9P-mh-zBH"/>
-                <constraint firstItem="Bxl-0j-upj" firstAttribute="leading" secondItem="njF-e1-oar" secondAttribute="leading" constant="20" id="zMP-KJ-eiq"/>
+                <constraint firstItem="Rdd-pJ-U1o" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailing" constant="-20" id="2Up-DQ-UxB"/>
+                <constraint firstItem="OI3-qN-bNg" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="Jbg-g5-KnV"/>
+                <constraint firstItem="Rdd-pJ-U1o" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="z9P-mh-zBH"/>
+                <constraint firstItem="Bxl-0j-upj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="zMP-KJ-eiq"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>

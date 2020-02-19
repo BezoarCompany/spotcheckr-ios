@@ -68,7 +68,7 @@ extension PostDetailViewController: UITableViewDataSource {
                 
         cell.answerBodyLabel.text = post?.answers[indexPath.row].text
         cell.answererNameLabel.text = post?.answers[indexPath.row].createdBy?.information?.fullName
-        cell.answererInfoLabel.text = "Tool default"
+        cell.answererInfoLabel.text = post?.answers[indexPath.row].createdBy?.information?.salutation
                
         return cell
     }
