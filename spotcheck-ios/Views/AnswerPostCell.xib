@@ -57,14 +57,22 @@
                             <constraint firstAttribute="height" constant="24" id="D4G-fM-WNn"/>
                             <constraint firstAttribute="width" constant="24" id="k7P-q3-Po2"/>
                         </constraints>
-                        <state key="normal" image="shift.fill" catalog="system">
-                            <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <state key="normal" title=" 0" image="shift.fill" catalog="system">
+                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </state>
                     </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OFs-PA-WwB" userLabel="upvoteCountLabel">
+                        <rect key="frame" x="48" y="144" width="25" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="OI3-qN-bNg" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="5ul-FZ-kds"/>
+                    <constraint firstItem="OFs-PA-WwB" firstAttribute="bottom" secondItem="Bxl-0j-upj" secondAttribute="bottom" id="Pod-gG-618"/>
                     <constraint firstItem="Rdd-pJ-U1o" firstAttribute="top" secondItem="OI3-qN-bNg" secondAttribute="bottom" constant="20" id="a4l-36-hlH"/>
+                    <constraint firstItem="OFs-PA-WwB" firstAttribute="leading" secondItem="Bxl-0j-upj" secondAttribute="trailing" constant="4" id="cFh-Ff-mu2"/>
                     <constraint firstAttribute="bottom" secondItem="Bxl-0j-upj" secondAttribute="bottom" constant="22" id="iXo-wP-W4P"/>
                     <constraint firstItem="Bxl-0j-upj" firstAttribute="top" secondItem="Rdd-pJ-U1o" secondAttribute="bottom" constant="20" id="klK-Of-9Vs"/>
                 </constraints>
@@ -80,6 +88,7 @@
                 <outlet property="answerBodyLabel" destination="Rdd-pJ-U1o" id="RzJ-4I-Wky"/>
                 <outlet property="answererInfoLabel" destination="zQy-wq-2YS" id="TWS-5m-BAg"/>
                 <outlet property="answererNameLabel" destination="Q3n-8c-EFR" id="Uo1-Ox-Ri8"/>
+                <outlet property="likeCountLabel" destination="OFs-PA-WwB" id="hWM-i5-aaQ"/>
             </connections>
             <point key="canvasLocation" x="194.20289855072465" y="145.64732142857142"/>
         </tableViewCell>

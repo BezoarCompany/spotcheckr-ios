@@ -12,7 +12,8 @@ class DetailedPostCell: UITableViewCell {
     @IBOutlet weak var postTitleLabel: UILabel!
     @IBOutlet weak var posterNameLabel: UILabel!
     @IBOutlet weak var posterDetailLabel: UILabel!
-    @IBOutlet weak var postBodyLabel: UILabel!
+    @IBOutlet weak var postBodyLabel: UILabel!    
+    @IBOutlet weak var likeCountLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

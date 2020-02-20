@@ -46,17 +46,31 @@ class PostDetailViewController : UIViewController {
         tableView.register(UINib(nibName:K.Storyboard.detailedPostNibName , bundle: nil), forCellReuseIdentifier: K.Storyboard.detailedPostCellId)
         tableView.register(UINib(nibName:K.Storyboard.answerNibName, bundle: nil), forCellReuseIdentifier: K.Storyboard.answerCellId)
         
+        tableView.separatorInset = UIEdgeInsets(top: -10,left: 0,bottom: 0,right: 0)
+        
     }
 }
 
+enum SectionTypes: Int {
+    case post = 0
+    case answers = 1
+}
 
 extension PostDetailViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
+        //[0]Post, [1]=Answers
         return 2
     }
     
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == SectionTypes.post.rawValue {
+            return nil
+        }
+        return "\(post?.answersCount ?? 0) Answers"
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
+        if section == SectionTypes.post.rawValue {
             return 1
         } else {
             return post?.answers.count ?? 0
@@ -75,17 +89,21 @@ extension PostDetailViewController: UITableViewDataSource {
             cell.posterDetailLabel.text = "Tool extraordinaire"
             
             cell.postBodyLabel.text = post?.description
+            cell.likeCountLabel.text = "\(post?.metrics.likes ?? 0)"
+            
             return cell
              
         } else { //The answers
             let cell = tableView.dequeueReusableCell(withIdentifier: K.Storyboard.answerCellId, for: indexPath)
                 as! AnswerPostCell
                     
+            let answer = post?.answers[indexPath.row]
+            cell.answerBodyLabel.text = answer?.text
+            cell.answererNameLabel.text = answer?.createdBy?.information?.fullName
+            cell.answererInfoLabel.text = answer?.createdBy?.information?.salutation
             
-            cell.answerBodyLabel.text = post?.answers[indexPath.row].text
-            cell.answererNameLabel.text = post?.answers[indexPath.row].createdBy?.information?.fullName
-            cell.answererInfoLabel.text = post?.answers[indexPath.row].createdBy?.information?.salutation
-                   
+            cell.likeCountLabel.text = "\(answer?.upvotes ?? 0)"
+            
             return cell
         }
 

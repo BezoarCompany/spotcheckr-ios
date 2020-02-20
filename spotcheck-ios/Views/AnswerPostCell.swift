@@ -12,6 +12,7 @@ class AnswerPostCell: UITableViewCell {
     @IBOutlet weak var answererNameLabel: UILabel!
     @IBOutlet weak var answererInfoLabel: UILabel!
     @IBOutlet weak var answerBodyLabel: UILabel!
+    @IBOutlet weak var likeCountLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -22,11 +22,12 @@ class FeedViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UINib(nibName:K.Storyboard.postNibName, bundle: nil), forCellReuseIdentifier: K.Storyboard.feedCellId)
+        tableView.separatorInset = UIEdgeInsets(top: 0,left: 0,bottom: 0,right: 0)
         
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
-        tableView.addSubview(refreshControl)
-
+        tableView.addSubview(refreshControl)        
+        
         getPosts()
     }
     
