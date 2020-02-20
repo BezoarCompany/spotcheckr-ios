@@ -19,6 +19,9 @@ class PostDetailViewController : UIViewController {
     @IBOutlet weak var numAnswersLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
+    @IBAction func addAnswerButton(_ sender: Any) {
+        print("pressed add answer")
+    }
     
     var post: ExercisePost?
         
