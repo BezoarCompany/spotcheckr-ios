@@ -74,19 +74,18 @@ extension CreateAnswerViewController {
     
     // TODO: put in PostService
     func createAnswer() {
-        /*
+        
         let db = Firestore.firestore()
-        let newDocRef = db.collection(K.Firestore.posts).document()
+        let newDocRef = db.collection(K.Firestore.answers).document()
         
         newDocRef.setData([
             "created-by" : Auth.auth().currentUser?.uid,
             "created-date" : FieldValue.serverTimestamp(),
-            "title" : subjectTextView.text!,
-            "description" : postBodyTextView.text!,
-            "id" : newDocRef.documentID,
+            "text" : answerBodyTextView.text!,
+            "exercise-post" : post?.id,
             "modified-date" : FieldValue.serverTimestamp()
         ])
-        */
+        
     }
 }
 
