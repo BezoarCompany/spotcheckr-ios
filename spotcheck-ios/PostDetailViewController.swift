@@ -10,6 +10,7 @@ import Foundation
 import FirebaseCore
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import PromiseKit
 
 class PostDetailViewController : UIViewController {
     
@@ -24,6 +25,7 @@ class PostDetailViewController : UIViewController {
     }
     
     var post: ExercisePost?
+    let exercisePostService = ExercisePostService()
         
         /*
  Post(postId: "a", authorId: "1", authorName: "Miguel", createdAt: "2/2/2020", updatedAt: "2/2/2020", question: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in")
@@ -42,7 +44,20 @@ class PostDetailViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        post?.answers = FakeDataFactory.GetAnswersPosts(count: 5)
+        //post?.answers = FakeDataFactory.GetAnswersPosts(count: 5)
+            
+        firstly {
+            //TODO: Replace with call to getAnswers(from: Number) which returns all answers since a specific "page length" (e.g. get first 10 posts by created date, scroll, when reached 8/10 posts fetch next 10 posts.
+            
+            //self.exercisePostService.getAnswers(forPostWithId : "yGL2u8fzSccPSghpke5w" )
+            self.exercisePostService.getAnswers(forPostWithId : post?.id ?? "" )
+        }.done { answers in
+            self.post?.answers = answers
+            self.post?.answersCount = answers.count
+            self.tableView.reloadData()
+        }.catch { error in
+            //TODO: Do something when post fetching fails
+        }
                 
         tableView.dataSource = self
         tableView.delegate = self
