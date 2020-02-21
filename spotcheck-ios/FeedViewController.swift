@@ -16,14 +16,18 @@ class FeedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
+         navigationItem.hidesBackButton = true
+        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UINib(nibName:K.Storyboard.postNibName, bundle: nil), forCellReuseIdentifier: K.Storyboard.feedCellId)
+        tableView.separatorInset = UIEdgeInsets(top: 0,left: 0,bottom: 0,right: 0)
         
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
-        tableView.addSubview(refreshControl)
-
+        tableView.addSubview(refreshControl)        
+        
         getPosts()
     }
     
@@ -110,6 +114,8 @@ extension FeedViewController: UITableViewDataSource {
 extension FeedViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(indexPath.row)
+        let postDetailViewController = PostDetailViewController.create(post: posts[indexPath.row])
+        self.navigationController?.pushViewController(postDetailViewController, animated: true)
     }
 }
 
