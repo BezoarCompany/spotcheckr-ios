@@ -21,7 +21,9 @@ class PostDetailViewController : UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     @IBAction func addAnswerButton(_ sender: Any) {
-        print("pressed add answer")
+        print("pressed add answer")        
+        let createAnswerViewController = CreateAnswerViewController.create()
+        self.present(createAnswerViewController, animated: true)
     }
     
     var post: ExercisePost?
@@ -67,6 +69,7 @@ class PostDetailViewController : UIViewController {
         tableView.separatorInset = UIEdgeInsets(top: -10,left: 0,bottom: 0,right: 0)
         
     }
+
 }
 
 enum SectionTypes: Int {

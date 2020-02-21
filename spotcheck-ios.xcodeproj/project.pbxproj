@@ -11,6 +11,7 @@
 		5627FCA323F0BEB4001B4B5B /* FeedPostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5627FCA123F0BEB4001B4B5B /* FeedPostCell.xib */; };
 		5645AFE823F51C0700B64D0B /* CreatePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5645AFE723F51C0700B64D0B /* CreatePostViewController.swift */; };
 		5645AFEA23F53CF700B64D0B /* iOSDropDown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5645AFE923F53CF700B64D0B /* iOSDropDown.framework */; };
+		564FA33823FFBF81006017FB /* CreateAnswerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564FA33723FFBF81006017FB /* CreateAnswerViewController.swift */; };
 		5659D9D723FD02980043FA6A /* AnswerPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659D9D523FD02980043FA6A /* AnswerPostCell.swift */; };
 		5659D9D823FD02980043FA6A /* AnswerPostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5659D9D623FD02980043FA6A /* AnswerPostCell.xib */; };
 		567952FE23D806BE0077BA08 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567952FD23D806BE0077BA08 /* AppDelegate.swift */; };
@@ -85,6 +86,7 @@
 		5627FCA123F0BEB4001B4B5B /* FeedPostCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedPostCell.xib; sourceTree = "<group>"; };
 		5645AFE723F51C0700B64D0B /* CreatePostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostViewController.swift; sourceTree = "<group>"; };
 		5645AFE923F53CF700B64D0B /* iOSDropDown.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = iOSDropDown.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		564FA33723FFBF81006017FB /* CreateAnswerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAnswerViewController.swift; sourceTree = "<group>"; };
 		5659D9D523FD02980043FA6A /* AnswerPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerPostCell.swift; sourceTree = "<group>"; };
 		5659D9D623FD02980043FA6A /* AnswerPostCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnswerPostCell.xib; sourceTree = "<group>"; };
 		567952FA23D806BE0077BA08 /* Spotcheck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spotcheck.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -215,8 +217,9 @@
 				567952FD23D806BE0077BA08 /* AppDelegate.swift */,
 				5679533923D988910077BA08 /* ProfileViewController.swift */,
 				5679533723D980E40077BA08 /* FeedViewController.swift */,
-				569794D023F11DBC00994B71 /* PostDetailViewController.swift */,
 				5645AFE723F51C0700B64D0B /* CreatePostViewController.swift */,
+				569794D023F11DBC00994B71 /* PostDetailViewController.swift */,
+				564FA33723FFBF81006017FB /* CreateAnswerViewController.swift */,
 				5679533323D972F00077BA08 /* AuthOptionsViewController.swift */,
 				5679530623D806C00077BA08 /* Assets.xcassets */,
 				5679530823D806C00077BA08 /* LaunchScreen.storyboard */,
@@ -555,6 +558,7 @@
 				5645AFE823F51C0700B64D0B /* CreatePostViewController.swift in Sources */,
 				BA1FB51723F104B400E091B1 /* PhoneNumber.swift in Sources */,
 				BA1FB52523F116BD00E091B1 /* ExercisePostService.swift in Sources */,
+				564FA33823FFBF81006017FB /* CreateAnswerViewController.swift in Sources */,
 				BA4EE45C23EF6814003E6D87 /* PasswordResetConfirmationViewController.swift in Sources */,
 				BAA340FA23F3932900C7392C /* DateExtensions.swift in Sources */,
 				5627FCA223F0BEB4001B4B5B /* FeedPostCell.swift in Sources */,
