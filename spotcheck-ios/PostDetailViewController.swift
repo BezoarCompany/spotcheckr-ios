@@ -22,7 +22,7 @@ class PostDetailViewController : UIViewController {
     
     @IBAction func addAnswerButton(_ sender: Any) {
         print("pressed add answer")        
-        let createAnswerViewController = CreateAnswerViewController.create()
+        let createAnswerViewController = CreateAnswerViewController.create(post: post)
         self.present(createAnswerViewController, animated: true)
     }
     

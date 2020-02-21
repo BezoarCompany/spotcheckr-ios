@@ -436,7 +436,11 @@
                                                 <action selector="cancelAnswer:" destination="Q3E-1v-EnN" id="N2s-iD-81C"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" title="Submit" id="17l-Zk-2Np" userLabel="Submit"/>
+                                        <barButtonItem key="rightBarButtonItem" title="Submit" id="17l-Zk-2Np" userLabel="Submit">
+                                            <connections>
+                                                <action selector="submitAction:" destination="Q3E-1v-EnN" id="gKe-Sg-glu"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -480,6 +484,10 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="8aF-T3-zYd"/>
                     </view>
+                    <connections>
+                        <outlet property="answerBodyTextView" destination="CwC-aa-PVt" id="vye-pS-dyu"/>
+                        <outlet property="subjectPostLabel" destination="Z2B-I8-aSm" id="yfV-nL-bSA"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m9J-bE-l2R" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
