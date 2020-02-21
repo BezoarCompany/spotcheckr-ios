@@ -11,5 +11,5 @@ struct ExercisePost {
     var answers = [Answer]()
     var media = [Media]()
     var exercises = [Exercise]()
-    var answersCount: Int = 7
+    var answersCount: Int = 0
 }
