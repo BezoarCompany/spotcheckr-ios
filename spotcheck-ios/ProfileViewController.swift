@@ -58,6 +58,8 @@ class ProfileViewController: UIViewController {
                 }.done { posts, answers in
                     //TODO: Dismiss spinnner
                     //TODO: Add to table for posts and answers
+                    self.postsButton.setTitle("\(posts.count) Posts", for: .normal)
+                    self.answersButton.setTitle("\(answers.count) Answers", for: .normal)
                     print(posts)
                     print(answers)
                 }.catch {error in
