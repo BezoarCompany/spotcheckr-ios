@@ -45,6 +45,7 @@
 		BA49213623E6289B00A74A73 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA49212F23E6289A00A74A73 /* Roboto-Regular.ttf */; };
 		BA49213723E6289B00A74A73 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA49213023E6289A00A74A73 /* Roboto-Medium.ttf */; };
 		BA49213823E6289B00A74A73 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA49213123E6289B00A74A73 /* Roboto-Light.ttf */; };
+		BA4EDA4124025F0D00206267 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4EDA4024025F0D00206267 /* EditProfileViewController.swift */; };
 		BA4EE42623E94A6E003E6D87 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4EE42523E94A6E003E6D87 /* AuthenticationService.swift */; };
 		BA4EE42823E94BBF003E6D87 /* AuthenticationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4EE42723E94BBF003E6D87 /* AuthenticationProtocol.swift */; };
 		BA4EE44523EBA221003E6D87 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4EE44423EBA221003E6D87 /* User.swift */; };
@@ -126,6 +127,7 @@
 		BA49212F23E6289A00A74A73 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		BA49213023E6289A00A74A73 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		BA49213123E6289B00A74A73 /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
+		BA4EDA4024025F0D00206267 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		BA4EE42523E94A6E003E6D87 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 		BA4EE42723E94BBF003E6D87 /* AuthenticationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationProtocol.swift; sourceTree = "<group>"; };
 		BA4EE44423EBA221003E6D87 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 				BA4EE44E23EE91D1003E6D87 /* SignUpViewController.swift */,
 				BA4EE45923EF1408003E6D87 /* ForgotPasswordViewController.swift */,
 				BA4EE45B23EF6814003E6D87 /* PasswordResetConfirmationViewController.swift */,
+				BA4EDA4024025F0D00206267 /* EditProfileViewController.swift */,
 			);
 			path = "spotcheck-ios";
 			sourceTree = "<group>";
@@ -571,6 +574,7 @@
 				BA1FB51B23F106B600E091B1 /* Trainer.swift in Sources */,
 				BA4EE44F23EE91D1003E6D87 /* SignUpViewController.swift in Sources */,
 				BA4EE45E23EFEC39003E6D87 /* UserProtocol.swift in Sources */,
+				BA4EDA4124025F0D00206267 /* EditProfileViewController.swift in Sources */,
 				BA1FB51323F1014900E091B1 /* BodyMeasurement.swift in Sources */,
 				BA4EE44723EBA347003E6D87 /* Identity.swift in Sources */,
 				5679533423D972F00077BA08 /* AuthOptionsViewController.swift in Sources */,
