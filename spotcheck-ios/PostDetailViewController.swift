@@ -110,7 +110,14 @@ extension PostDetailViewController: UITableViewDataSource {
             cell.posterDetailLabel.text = "Tool extraordinaire"
             
             cell.postBodyLabel.text = post?.description
-            cell.likeCountLabel.text = "\(post?.metrics.likes ?? 0)"
+            
+            //this mocking logic if a post has an image attached
+            if let hasPhoto = post?.imagePath {
+                cell.photoHeightConstraint.constant = CGFloat(FeedViewController.IMAGE_HEIGHT)
+            } else {
+                cell.photoHeightConstraint.constant = 0 //CGFloat(FeedViewController.IMAGE_HEIGHT)
+                cell.photoView.isHidden = true
+            }
             
             return cell
              

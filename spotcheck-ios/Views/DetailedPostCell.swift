@@ -13,7 +13,9 @@ class DetailedPostCell: UITableViewCell {
     @IBOutlet weak var posterNameLabel: UILabel!
     @IBOutlet weak var posterDetailLabel: UILabel!
     @IBOutlet weak var postBodyLabel: UILabel!    
-    @IBOutlet weak var likeCountLabel: UILabel!
+    @IBOutlet weak var photoView: UIImageView!
+    @IBOutlet weak var photoHeightConstraint: NSLayoutConstraint!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -100,15 +100,19 @@ extension FeedViewController: UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: K.Storyboard.feedCellId, for: indexPath)
             as! FeedPostCell
+        
+        let pItem = posts[indexPath.row]
                 
-        cell.postLabel.text = posts[indexPath.row].title
+        cell.postLabel.text = pItem.title
 
         //this mocking logic if a post has an image attached
-        let hasPhoto = Int.random(in: 0..<2)
-        if hasPhoto == 1 {
+        if let hasPhoto = pItem.imagePath {
+            cell.photoHeightConstraint.constant = CGFloat(FeedViewController.IMAGE_HEIGHT)
+        } else {
             cell.photoHeightConstraint.constant = 0 //CGFloat(FeedViewController.IMAGE_HEIGHT)
             cell.photoView.isHidden = true
-        }
+        } 
+        
         return cell
     }
 }
