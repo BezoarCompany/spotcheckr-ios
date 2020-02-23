@@ -27,7 +27,8 @@ class ExercisePostService: ExercisePostProtocol {
                         let exercisePost = ExercisePost(id: doc.data()?["id"] as! String,
                                                         title: doc.data()?["title"] as! String,
                                                         description: doc.data()?["description"] as! String,
-                                                        createdBy: user)
+                                                        createdBy: user,
+                                                        imagePath: doc.data()?["image-path"] as? String)
                         return promise.fulfill(exercisePost)
                     }.catch { error in
                         return promise.reject(error)
