@@ -10,6 +10,7 @@ import Foundation
 import FirebaseCore
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import FirebaseStorage
 import PromiseKit
 
 class PostDetailViewController : UIViewController {
@@ -114,6 +115,20 @@ extension PostDetailViewController: UITableViewDataSource {
             //this mocking logic if a post has an image attached
             if let hasPhoto = post?.imagePath {
                 cell.photoHeightConstraint.constant = CGFloat(FeedViewController.IMAGE_HEIGHT)
+                
+                // Set default image for placeholder
+                let placeholderImage = UIImage(named:"squat1")!
+                
+                // Get a reference to the storage service using the default Firebase App
+                let storage = Storage.storage()
+                let pathname = K.Firestore.Storage.IMAGES_ROOT_DIR + "/" + (post?.imagePath ?? "")
+                
+                // Create a reference with an initial file path and name
+                let storagePathReference = storage.reference(withPath: pathname)
+                
+                // Load the image using SDWebImage
+                
+                cell.photoView.sd_setImage(with: storagePathReference, placeholderImage: placeholderImage)
             } else {
                 cell.photoHeightConstraint.constant = 0 //CGFloat(FeedViewController.IMAGE_HEIGHT)
                 cell.photoView.isHidden = true
