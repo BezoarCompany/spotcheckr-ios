@@ -364,7 +364,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ps5-bF-p3k" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4711.594202898551" y="71.651785714285708"/>
+            <point key="canvasLocation" x="4741" y="280"/>
         </scene>
         <!--CreatePost-->
         <scene sceneID="lzG-wv-yeJ">
@@ -437,7 +437,6 @@
                             <constraint firstItem="nnA-Ad-pVx" firstAttribute="leading" secondItem="L8l-fi-QXV" secondAttribute="leading" id="S2H-xd-taP"/>
                             <constraint firstItem="1PH-CT-WQj" firstAttribute="leading" secondItem="L8l-fi-QXV" secondAttribute="leading" constant="20" id="TuG-dP-zsM"/>
                             <constraint firstItem="FVS-BH-7hE" firstAttribute="trailing" secondItem="L8l-fi-QXV" secondAttribute="trailing" id="Yqn-hk-gpU"/>
-                            <constraint firstItem="nnA-Ad-pVx" firstAttribute="leading" secondItem="L8l-fi-QXV" secondAttribute="leading" id="agQ-Y1-Swh"/>
                             <constraint firstItem="gJ2-nF-iar" firstAttribute="top" secondItem="1PH-CT-WQj" secondAttribute="bottom" constant="20" id="cFD-lK-aHB"/>
                             <constraint firstItem="nnA-Ad-pVx" firstAttribute="top" secondItem="L8l-fi-QXV" secondAttribute="top" id="iB0-H6-2Z2"/>
                             <constraint firstItem="nnA-Ad-pVx" firstAttribute="trailing" secondItem="L8l-fi-QXV" secondAttribute="trailing" id="jA7-nn-gvm"/>
@@ -457,7 +456,81 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WAM-kd-nHb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4713.04347826087" y="-583.25892857142856"/>
+            <point key="canvasLocation" x="4741" y="-503"/>
+        </scene>
+        <!--CreateAnswer-->
+        <scene sceneID="fcI-qE-ADF">
+            <objects>
+                <viewController storyboardIdentifier="CreateAnswerViewController" id="Q3E-1v-EnN" userLabel="CreateAnswer" customClass="CreateAnswerViewController" customModule="Spotcheck" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hSd-Kg-lJe">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ujk-Ji-8st">
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <items>
+                                    <navigationItem title="Add an answer" id="QZR-Rt-hUL" userLabel="Add an answer">
+                                        <barButtonItem key="leftBarButtonItem" image="multiply" catalog="system" id="65U-FQ-7pO">
+                                            <connections>
+                                                <action selector="cancelAnswer:" destination="Q3E-1v-EnN" id="N2s-iD-81C"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="Submit" id="17l-Zk-2Np" userLabel="Submit">
+                                            <connections>
+                                                <action selector="submitAction:" destination="Q3E-1v-EnN" id="gKe-Sg-glu"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subject from post title here" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z2B-I8-aSm" userLabel="subjectPostLabel">
+                                <rect key="frame" x="20" y="108" width="374" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view alpha="0.41999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="14E-rV-z6G" userLabel="lineBreak1">
+                                <rect key="frame" x="0.0" y="149" width="414" height="1"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="CSf-TW-XRV"/>
+                                </constraints>
+                            </view>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="CwC-aa-PVt" userLabel="answerBodyTextView">
+                                <rect key="frame" x="20" y="170" width="374" height="78"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="CwC-aa-PVt" firstAttribute="leading" secondItem="8aF-T3-zYd" secondAttribute="leading" constant="20" id="52J-9I-k21"/>
+                            <constraint firstItem="Ujk-Ji-8st" firstAttribute="trailing" secondItem="8aF-T3-zYd" secondAttribute="trailing" id="5k4-Gv-Rit"/>
+                            <constraint firstItem="Z2B-I8-aSm" firstAttribute="leading" secondItem="8aF-T3-zYd" secondAttribute="leading" constant="20" id="AG8-Ig-JhO"/>
+                            <constraint firstItem="8aF-T3-zYd" firstAttribute="bottom" secondItem="CwC-aa-PVt" secondAttribute="bottom" constant="614" id="BfS-0d-RoH"/>
+                            <constraint firstItem="14E-rV-z6G" firstAttribute="trailing" secondItem="8aF-T3-zYd" secondAttribute="trailing" id="CSz-Bh-vme"/>
+                            <constraint firstItem="Ujk-Ji-8st" firstAttribute="top" secondItem="8aF-T3-zYd" secondAttribute="top" id="Cjz-AW-B01"/>
+                            <constraint firstItem="Z2B-I8-aSm" firstAttribute="top" secondItem="Ujk-Ji-8st" secondAttribute="bottom" constant="20" id="SaR-xp-DCV"/>
+                            <constraint firstItem="Z2B-I8-aSm" firstAttribute="trailing" secondItem="8aF-T3-zYd" secondAttribute="trailing" constant="-20" id="bFH-Dn-h7B"/>
+                            <constraint firstItem="CwC-aa-PVt" firstAttribute="top" secondItem="14E-rV-z6G" secondAttribute="bottom" constant="20" id="oa5-qZ-hZK"/>
+                            <constraint firstItem="CwC-aa-PVt" firstAttribute="trailing" secondItem="8aF-T3-zYd" secondAttribute="trailing" constant="-20" id="q6e-rq-IJF"/>
+                            <constraint firstItem="Ujk-Ji-8st" firstAttribute="leading" secondItem="8aF-T3-zYd" secondAttribute="leading" id="vtc-SI-cOi"/>
+                            <constraint firstItem="14E-rV-z6G" firstAttribute="leading" secondItem="8aF-T3-zYd" secondAttribute="leading" id="wWc-Xq-qU0"/>
+                            <constraint firstItem="14E-rV-z6G" firstAttribute="top" secondItem="Z2B-I8-aSm" secondAttribute="bottom" constant="20" id="xNf-cD-EAm"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="8aF-T3-zYd"/>
+                    </view>
+                    <connections>
+                        <outlet property="answerBodyTextView" destination="CwC-aa-PVt" id="vye-pS-dyu"/>
+                        <outlet property="subjectPostLabel" destination="Z2B-I8-aSm" id="yfV-nL-bSA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="m9J-bE-l2R" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5611.594202898551" y="279.91071428571428"/>
         </scene>
         <!--Feed Nav-->
         <scene sceneID="tKa-Wv-tax">

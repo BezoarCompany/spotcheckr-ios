@@ -12,4 +12,5 @@ struct ExercisePost {
     var media = [Media]()
     var exercises = [Exercise]()
     var answersCount: Int = 0
+    var imagePath: String?
 }

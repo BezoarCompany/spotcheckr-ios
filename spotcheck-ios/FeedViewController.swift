@@ -8,6 +8,8 @@ class FeedViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     let exercisePostService = ExercisePostService()
+    static let IMAGE_HEIGHT = 200
+    
     var db: Firestore!
     
     var posts = [ExercisePost]()
@@ -98,15 +100,19 @@ extension FeedViewController: UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: K.Storyboard.feedCellId, for: indexPath)
             as! FeedPostCell
+        
+        let pItem = posts[indexPath.row]
                 
-        cell.postLabel.text = posts[indexPath.row].title
-        cell.authorNameLabel.text = posts[indexPath.row].createdBy?.information?.fullName
-        cell.authorTaglineLabel.text = "Tool default"
+        cell.postLabel.text = pItem.title
+
+        //this mocking logic if a post has an image attached
+        if let hasPhoto = pItem.imagePath {
+            cell.photoHeightConstraint.constant = CGFloat(FeedViewController.IMAGE_HEIGHT)
+        } else {
+            cell.photoHeightConstraint.constant = 0 //CGFloat(FeedViewController.IMAGE_HEIGHT)
+            cell.photoView.isHidden = true
+        } 
         
-        cell.upvoteCounts.text = "\(posts[indexPath.row].metrics.upvotes)"
-        cell.answersLabel.text = "\(posts[indexPath.row].answers.count) answers"
-        
-        //cell.textLabel?.text = posts[indexPath.row].question
         return cell
     }
 }
