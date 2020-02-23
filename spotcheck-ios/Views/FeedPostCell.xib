@@ -66,6 +66,7 @@
             <connections>
                 <outlet property="photoHeightConstraint" destination="8Id-CC-cj6" id="G8K-ky-EjZ"/>
                 <outlet property="photoView" destination="gsF-XG-D1y" id="Qzh-pp-iv2"/>
+                <outlet property="postBodyLabel" destination="QbN-CJ-Iii" id="UHV-4Z-GDT"/>
                 <outlet property="postLabel" destination="hN5-10-UKh" id="h56-cE-Na8"/>
             </connections>
             <point key="canvasLocation" x="194.20289855072465" y="250.44642857142856"/>

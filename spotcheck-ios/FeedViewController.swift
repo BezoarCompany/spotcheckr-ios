@@ -113,6 +113,8 @@ extension FeedViewController: UITableViewDataSource {
             cell.photoView.isHidden = true
         } 
         
+        cell.postBodyLabel.text = pItem.description
+        
         return cell
     }
 }
