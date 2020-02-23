@@ -128,10 +128,16 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JrX-bd-dR3" customClass="MDCFlatButton">
                                 <rect key="frame" x="10" y="254" width="52" height="30"/>
                                 <state key="normal" title="0 Posts"/>
+                                <connections>
+                                    <action selector="postsButtonOnClick:" destination="tMw-Fa-6Zf" eventType="touchUpInside" id="bHT-r2-kNd"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qsZ-DW-JZt" customClass="MDCFlatButton">
                                 <rect key="frame" x="72" y="254" width="72" height="30"/>
                                 <state key="normal" title="0 Answers"/>
+                                <connections>
+                                    <action selector="answersButtonOnClick:" destination="tMw-Fa-6Zf" eventType="touchUpInside" id="Qzy-wD-ZJG"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Divider" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aJT-vf-uGD">
                                 <rect key="frame" x="0.0" y="292" width="414" height="1"/>
@@ -159,6 +165,9 @@
                                 <color key="separatorColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="sectionIndexColor" red="0.1333333333" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="sectionIndexBackgroundColor" red="0.1333333333" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="tMw-Fa-6Zf" id="YS1-eP-UmO"/>
+                                </connections>
                             </tableView>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0wS-Y9-708" customClass="MDCFlatButton">
                                 <rect key="frame" x="376.5" y="103" width="17.5" height="22"/>
@@ -244,6 +253,7 @@
                         <outlet property="nameLabel" destination="IqF-ab-Xke" id="OQe-Wi-zkl"/>
                         <outlet property="occupationLabel" destination="1LE-Sk-bXV" id="Lta-Rx-gRt"/>
                         <outlet property="postsButton" destination="JrX-bd-dR3" id="j5t-d4-Gf1"/>
+                        <outlet property="postsTableView" destination="iAW-5V-48L" id="LY2-Gf-CsR"/>
                         <outlet property="profilePictureImageView" destination="nWt-qY-6lC" id="LaY-dM-3UP"/>
                         <outlet property="weightLabel" destination="L4U-C1-6zG" id="OY1-Sb-6EZ"/>
                     </connections>

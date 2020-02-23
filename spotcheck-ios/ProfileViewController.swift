@@ -3,7 +3,7 @@ import Firebase
 import PromiseKit
 import MaterialComponents.MDCFlatButton
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController, UITableViewDataSource {
     @IBOutlet weak var logoutButton: UIBarButtonItem!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var certificationsHeadingLabel: UILabel!
@@ -15,6 +15,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var postsButton: MDCFlatButton!
     @IBOutlet weak var answersButton: MDCFlatButton!
     @IBOutlet weak var editProfileButton: MDCFlatButton!
+    @IBOutlet weak var postsTableView: UITableView!
     
     let userService = UserService()
     let exercisePostService = ExercisePostService()
@@ -22,13 +23,29 @@ class ProfileViewController: UIViewController {
     var currentUser: User?
     var receivedUser: User?
     
+    var answers = [Answer]()
+    var posts = [ExercisePost]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.postsTableView.register(UINib(nibName:K.Storyboard.postNibName, bundle: nil), forCellReuseIdentifier: K.Storyboard.feedCellId)
         //TODO: Remove, only for testing purposes
         //setupTestUser()
         resolveProfileUser()
         applyStyles()
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.posts.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = self.postsTableView.dequeueReusableCell(withIdentifier: K.Storyboard.feedCellId, for: indexPath) as! FeedPostCell
+            
+        cell.postLabel.text = posts[indexPath.row].title
+        
+        return cell
     }
     
     private func setupTestUser() {
@@ -63,6 +80,10 @@ class ProfileViewController: UIViewController {
                     //TODO: Add to table for posts and answers
                     self.postsButton.setTitle("\(posts.count) Posts", for: .normal)
                     self.answersButton.setTitle("\(answers.count) Answers", for: .normal)
+                    self.answers = answers
+                    self.posts = posts
+                    
+                    self.postsTableView.reloadData()
                     print(posts)
                     print(answers)
                 }.catch {error in
@@ -70,6 +91,16 @@ class ProfileViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    @IBAction func postsButtonOnClick(_ sender: Any) {
+        self.postsTableView.isHidden = false
+        //self.answersTableView.isHidden = true
+    }
+    
+    @IBAction func answersButtonOnClick(_ sender: Any) {
+        //self.answersTableView.isHidden = false
+        self.postsTableView.isHidden = true
     }
     
     private func showCurrentUserOnlyControls() {
@@ -125,7 +156,6 @@ class ProfileViewController: UIViewController {
         answersButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor, for: .normal)
     
     }
-    
     
     @IBAction func logoutTapped(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
