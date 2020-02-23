@@ -2,13 +2,8 @@ import UIKit
 
 class FeedPostCell: UITableViewCell {
     @IBOutlet weak var postLabel: UILabel!
-    @IBOutlet weak var authorImageView: UIImageView!
-    @IBOutlet weak var authorNameLabel: UILabel!
-    @IBOutlet weak var authorTaglineLabel: UILabel!
-    
-    @IBOutlet weak var upvoteBtn: UIImageView!
-    @IBOutlet weak var upvoteCounts: UILabel!
-    @IBOutlet weak var answersLabel: UILabel!
+    @IBOutlet weak var photoView: UIImageView!
+    @IBOutlet weak var photoHeightConstraint: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -20,6 +15,7 @@ class FeedPostCell: UITableViewCell {
         postLabel.font = ApplicationScheme.instance.containerScheme.typographyScheme.headline6
         postLabel.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
         
+        /*
         authorNameLabel.font = ApplicationScheme.instance.containerScheme.typographyScheme.subtitle2
         authorNameLabel.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
         
@@ -28,6 +24,7 @@ class FeedPostCell: UITableViewCell {
         
         answersLabel.font = ApplicationScheme.instance.containerScheme.typographyScheme.subtitle1
         answersLabel.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
+ */
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
