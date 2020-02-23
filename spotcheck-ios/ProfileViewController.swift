@@ -12,14 +12,13 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var profilePictureImageView: UIImageView!
     @IBOutlet weak var postsButton: MDCFlatButton!
     @IBOutlet weak var answersButton: MDCFlatButton!
+    @IBOutlet weak var editProfileButton: MDCFlatButton!
     
     let userService = UserService()
     let exercisePostService = ExercisePostService()
     
     var currentUser: User?
     var receivedUser: User?
-    var numberOfPosts = 0
-    var numberOfAnswers = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +41,7 @@ class ProfileViewController: UIViewController {
             self.currentUser = self.receivedUser
         }
         else {
+            showCurrentUserOnlyControls()
             firstly {
                 //TODO: Show some sort of spinner while this data loads.
                 self.userService.getCurrentUser()
@@ -69,6 +69,10 @@ class ProfileViewController: UIViewController {
         }
     }
     
+    private func showCurrentUserOnlyControls() {
+        self.editProfileButton.isHidden = false
+    }
+    
     private func populateUserProfileInformation() {
         //TODO: Resolve, what to do if we don't have their full name.
         self.nameLabel.text = (self.currentUser?.information?.fullName.isEmpty ?? true) ? "Anonymous" : self.currentUser?.information?.fullName
@@ -90,8 +94,8 @@ class ProfileViewController: UIViewController {
             self.certificationsHeadingLabel.isHidden = true
             self.occupationLabel.isHidden = true
         }
-        self.postsButton.setTitle("\(numberOfPosts) \(self.postsButton.title(for: .normal)!)", for: .normal)
-        self.answersButton.setTitle("\(numberOfAnswers) \(self.answersButton.title(for: .normal)!)", for: .normal)
+        self.postsButton.setTitle("0 \(self.postsButton.title(for: .normal)!)", for: .normal)
+        self.answersButton.setTitle("0 \(self.answersButton.title(for: .normal)!)", for: .normal)
     }
     
     private func applyStyles() {
