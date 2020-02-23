@@ -440,7 +440,7 @@ DEPENDENCIES:
   - FirebaseFirestoreSwift
   - FirebaseUI/Auth
   - FirebaseUI/Storage
-  - iOSDropDown
+  - iOSDropDown (~> 0.3.4)
   - MaterialComponents/Buttons
   - "MaterialComponents/Buttons+Theming"
   - MaterialComponents/schemes/Color
@@ -537,6 +537,6 @@ SPEC CHECKSUMS:
   SwiftSVG: e55084e4c5534f3f25743003a6a3a88580cacfb0
   SwiftValidator: 249b6b3ae3b294266c5b9de134d94f18f2d5aa47
 
-PODFILE CHECKSUM: 5041ebcc9cac32944888eeb3e3e52e0c85e77ece
+PODFILE CHECKSUM: 3ff3245177c8d8a0e7d1ee45ce4d97b4e2ad1eda
 
 COCOAPODS: 1.8.4
