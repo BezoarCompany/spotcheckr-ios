@@ -9,6 +9,8 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var certificationsHeadingLabel: UILabel!
     @IBOutlet weak var certificationsLabel: UILabel!
     @IBOutlet weak var occupationLabel: UILabel!
+    @IBOutlet weak var heightLabel: UILabel!
+    @IBOutlet weak var weightLabel: UILabel!
     @IBOutlet weak var profilePictureImageView: UIImageView!
     @IBOutlet weak var postsButton: MDCFlatButton!
     @IBOutlet weak var answersButton: MDCFlatButton!
@@ -39,6 +41,7 @@ class ProfileViewController: UIViewController {
         // https://www.youtube.com/watch?v=Kpwrc1PRDsg <- shows how to pass data from one view controller to this one.
         if self.receivedUser != nil {
             self.currentUser = self.receivedUser
+            populateUserProfileInformation()
         }
         else {
             showCurrentUserOnlyControls()
@@ -94,8 +97,12 @@ class ProfileViewController: UIViewController {
             self.certificationsHeadingLabel.isHidden = true
             self.occupationLabel.isHidden = true
         }
-        self.postsButton.setTitle("0 \(self.postsButton.title(for: .normal)!)", for: .normal)
-        self.answersButton.setTitle("0 \(self.answersButton.title(for: .normal)!)", for: .normal)
+        if self.currentUser?.measurement != nil {
+            self.heightLabel.isHidden = false
+            self.weightLabel.isHidden = false
+            self.heightLabel.text = self.currentUser?.measurement?.height?.toFormattedHeight()
+            self.weightLabel.text = self.currentUser?.measurement?.weight?.toFormattedWeight()
+        }
     }
     
     private func applyStyles() {
@@ -107,6 +114,10 @@ class ProfileViewController: UIViewController {
         certificationsHeadingLabel.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
         occupationLabel.font = ApplicationScheme.instance.containerScheme.typographyScheme.body1
         occupationLabel.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
+        heightLabel.font = ApplicationScheme.instance.containerScheme.typographyScheme.body1
+        heightLabel.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
+        weightLabel.font = ApplicationScheme.instance.containerScheme.typographyScheme.body1
+        weightLabel.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
         
         postsButton.setTitleFont(ApplicationScheme.instance.containerScheme.typographyScheme.button, for: .normal)
         postsButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor, for: .normal)
