@@ -160,6 +160,7 @@ class ExercisePostService: ExercisePostProtocol {
                 var metricsPromises = [Promise<Int>]()
                 var exercisePromises = [Promise<[Exercise]>]()
                 var voteDirectionPromises = [Promise<VoteDirection>]()
+                var answerPromises = [Promise<[Answer]>]() //TODO: More efficient such that a count of answers is directly on the exercisePost structure. Same with other metrics.
                 
                 for document in postsSnapshot!.documents {
                     metricsPromises.append(self.getUpvoteCount(forPostWithId: document.documentID, collection: self.postsCollection))
@@ -168,6 +169,7 @@ class ExercisePostService: ExercisePostProtocol {
                     metricsPromises.append(self.getViewsCount(forPostWithId: document.documentID))
                     exercisePromises.append(self.getExercises(forPostWithId: document.documentID))
                     voteDirectionPromises.append(self.getVoteDirection(forPostWithId: document.documentID))
+                    answerPromises.append(self.getAnswers(forPostWithId: document.documentID))
                 }
                 
                 //TODO: Figure out how to execute different types of array of promises at the same time intead of chaining like this :/
@@ -180,30 +182,35 @@ class ExercisePostService: ExercisePostProtocol {
                         firstly {
                             when(fulfilled: voteDirectionPromises)
                         }.done{ voteDirectionResults in
-                            var userPosts = [ExercisePost]()
-                            var metricsIndex = 0
-                            var exercisesIndex = 0
-                            var voteDirectionIndex = 0
-                            
-                            for document in postsSnapshot!.documents {
-                                let metrics = Metrics(views: metricsResults[metricsIndex + 3],
-                                                     likes: metricsResults[metricsIndex + 2],
-                                                     upvotes: metricsResults[metricsIndex],
-                                                     downvotes: metricsResults[metricsIndex + 1],
-                                                     currentVoteDirection: voteDirectionResults[voteDirectionIndex])
-                                
-                                let postExercises = exercisesResults[exercisesIndex]
-                                
-                                userPosts.append(self.mapExercisePost(fromData: document.data(),
-                                                                     metrics: metrics,
-                                                                     exercises: postExercises
-                                                                     ))
-                                metricsIndex += 4
-                                exercisesIndex += 1
-                                voteDirectionIndex += 1
-                            }
+                            firstly {
+                                when(fulfilled: answerPromises)
+                            }.done { answerResults in
+                                var userPosts = [ExercisePost]()
+                                var metricsIndex = 0
+                                var exercisesIndex = 0
+                                var voteDirectionIndex = 0
+                                var answerIndex = 0
+                                for document in postsSnapshot!.documents {
+                                    let metrics = Metrics(views: metricsResults[metricsIndex + 3],
+                                                         likes: metricsResults[metricsIndex + 2],
+                                                         upvotes: metricsResults[metricsIndex],
+                                                         downvotes: metricsResults[metricsIndex + 1],
+                                                         currentVoteDirection: voteDirectionResults[voteDirectionIndex])
+                                    
+                                    let postExercises = exercisesResults[exercisesIndex]
+                                    
+                                    userPosts.append(self.mapExercisePost(fromData: document.data(),
+                                                                         metrics: metrics,
+                                                                         exercises: postExercises,
+                                                                         answers: answerResults[answerIndex]))
+                                    metricsIndex += 4
+                                    exercisesIndex += 1
+                                    voteDirectionIndex += 1
+                                    answerIndex += 1
+                                }
 
-                            return promise.fulfill(userPosts)
+                                return promise.fulfill(userPosts)
+                            }
                         }
                     }
                 }

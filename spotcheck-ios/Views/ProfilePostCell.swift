@@ -6,6 +6,9 @@ class ProfilePostCell: UITableViewCell {
     @IBOutlet weak var datePostedLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var voteTotalLabel: UILabel!
+    @IBOutlet weak var answersLabel: UILabel!
+    @IBOutlet weak var answersCountLabel: UILabel!
+    
     
     @IBOutlet weak var upvoteButton: UIButton!
     @IBOutlet weak var downvoteButton: UIButton!
@@ -110,5 +113,12 @@ class ProfilePostCell: UITableViewCell {
         self.datePostedLabel.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
         self.descriptionLabel.font = ApplicationScheme.instance.containerScheme.typographyScheme.body1
         self.descriptionLabel.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
+        self.voteTotalLabel.font = ApplicationScheme.instance.containerScheme.typographyScheme.body1
+        self.voteTotalLabel.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
+        self.answersCountLabel.font = ApplicationScheme.instance.containerScheme.typographyScheme.body1
+        self.answersCountLabel.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
+        self.answersLabel.font = ApplicationScheme.instance.containerScheme.typographyScheme.body1
+        self.answersLabel.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
+        
     }
 }

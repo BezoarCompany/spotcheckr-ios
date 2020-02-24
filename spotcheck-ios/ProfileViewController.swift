@@ -51,6 +51,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         cell.votingUserId = self.currentUser?.id
         cell.postId = post.id
         cell.voteDirection = post.metrics.currentVoteDirection
+        cell.answersCountLabel.text = "\(post.answers.count)"
         print("votedirection is \(cell.voteDirection!.get())")
         return cell
     }
