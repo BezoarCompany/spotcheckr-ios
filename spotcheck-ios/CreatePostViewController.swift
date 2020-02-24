@@ -5,6 +5,11 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 class CreatePostViewController: UIViewController {
+    
+    static let SUBJECT_TEXT_PLACEHOLDER = "Subject"
+    static let POST_BODY_TEXT_PLACEHOLDER = "Write your question"
+    static let MIN_SUBJECT_LENGTH = 10
+    static let MIN_POSTBODY_LENGTH = 2
 
     @IBOutlet weak var workoutTypeDropDown: DropDown!
     @IBOutlet weak var subjectTextView: UITextView!
@@ -22,11 +27,51 @@ class CreatePostViewController: UIViewController {
         
     }
     
-    static let SUBJECT_TEXT_PLACEHOLDER = "Subject"
-    static let POST_BODY_TEXT_PLACEHOLDER = "Write your question"
-    static let MIN_SUBJECT_LENGTH = 10
-    static let MIN_POSTBODY_LENGTH = 2
+    let keyboardMenuAccessory: UIView = {
+        let accessoryView = UIView(frame: .zero)
+        accessoryView.backgroundColor = .lightGray
+        accessoryView.alpha = 0.6
+        return accessoryView
+    }()
     
+    let openKeyboardBtn: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setTitleColor(UIColor.red, for: .normal)
+        var cameraImg = UIImage(systemName: "keyboard")
+        cameraImg = cameraImg?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+        button.setImage(cameraImg, for: .normal)
+        button.addTarget(self, action:
+        #selector(keyboardBtnTapped), for: .touchUpInside)
+        button.showsTouchWhenHighlighted = true
+        return button
+    }()
+    
+    
+    let openPhotoGalleryBtn: UIButton! = {
+        let button = UIButton(type: .custom)
+        button.setTitleColor(UIColor.red, for: .normal)
+        var cameraImg = UIImage(systemName: "photo.on.rectangle")
+        cameraImg = cameraImg?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+        button.setImage(cameraImg, for: .normal)
+        button.addTarget(self, action:
+        #selector(openPhotoGallery), for: .touchUpInside)
+        button.showsTouchWhenHighlighted = true
+        return button
+    }()
+    
+    let openCameraBtn: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setTitleColor(UIColor.red, for: .normal)
+        var cameraImg = UIImage(systemName: "camera")
+        cameraImg = cameraImg?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+        button.setImage(cameraImg, for: .normal)
+        button.addTarget(self, action:
+        #selector(openCamera), for: .touchUpInside)
+        button.showsTouchWhenHighlighted = true
+        return button
+    }()
+    
+        
     static func create() -> CreatePostViewController  {
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         let createPostViewController = storyboard.instantiateViewController(withIdentifier: K.Storyboard.CreatePostViewControllerId) as! CreatePostViewController
@@ -40,6 +85,7 @@ class CreatePostViewController: UIViewController {
         
         initDropDown()
         initTextViewPlaceholders()
+        addKeyboardMenuAccessory()
     }    
 }
 
@@ -65,6 +111,54 @@ extension CreatePostViewController {
         
         postBodyTextView.text = CreatePostViewController.POST_BODY_TEXT_PLACEHOLDER
         postBodyTextView.textColor = UIColor.lightGray
+    }
+    
+    func addKeyboardMenuAccessory() {
+        postBodyTextView.inputAccessoryView = keyboardMenuAccessory
+        
+        keyboardMenuAccessory.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 45)
+        keyboardMenuAccessory.translatesAutoresizingMaskIntoConstraints = false
+        openKeyboardBtn.translatesAutoresizingMaskIntoConstraints = false
+        openPhotoGalleryBtn.translatesAutoresizingMaskIntoConstraints = false
+        openCameraBtn.translatesAutoresizingMaskIntoConstraints = false
+        
+        keyboardMenuAccessory.addSubview(openKeyboardBtn)
+        keyboardMenuAccessory.addSubview(openPhotoGalleryBtn)
+        keyboardMenuAccessory.addSubview(openCameraBtn)
+        
+        /*
+        NSLayoutConstraint.activate([
+            openKeyboardBtn.leadingAnchor.constraint(equalTo: keyboardMenuAccessory.leadingAnchor, constant: 20),
+            openKeyboardBtn.centerYAnchor.constraint(equalTo: keyboardMenuAccessory.centerYAnchor),
+            openPhotoGalleryBtn.centerXAnchor.constraint(equalTo: keyboardMenuAccessory.centerXAnchor),
+            openPhotoGalleryBtn.centerYAnchor.constraint(equalTo: keyboardMenuAccessory.centerYAnchor),
+            openCameraBtn.trailingAnchor.constraint(equalTo: keyboardMenuAccessory.trailingAnchor, constant: -20),
+            openCameraBtn.centerYAnchor.constraint(equalTo: keyboardMenuAccessory.centerYAnchor)
+        ])
+ */
+        NSLayoutConstraint.activate([
+            openKeyboardBtn.leadingAnchor.constraint(equalTo: keyboardMenuAccessory.leadingAnchor, constant: 20),
+            openKeyboardBtn.centerYAnchor.constraint(equalTo: keyboardMenuAccessory.centerYAnchor),
+            openPhotoGalleryBtn.leadingAnchor.constraint(equalTo: openKeyboardBtn.trailingAnchor, constant: 20),
+            openPhotoGalleryBtn.centerYAnchor.constraint(equalTo: keyboardMenuAccessory.centerYAnchor),
+            openCameraBtn.leadingAnchor.constraint(equalTo: openPhotoGalleryBtn.trailingAnchor, constant: 20),
+            openCameraBtn.centerYAnchor.constraint(equalTo: keyboardMenuAccessory.centerYAnchor)
+        ])
+    }
+    
+    @objc func keyboardBtnTapped() {
+        print("keyboard")
+    }
+    
+    @objc func openCamera() {
+        print("openCamera")
+        //photo.on.rectangle
+        //keyboard
+        //camera
+    }
+    
+    @objc func openPhotoGallery() {
+        print("openPhotoGallery")
     }
     
     func validatePost() -> Bool {

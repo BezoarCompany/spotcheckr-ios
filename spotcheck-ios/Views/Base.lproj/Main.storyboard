@@ -357,7 +357,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gJ2-nF-iar" userLabel="lineBreak1">
+                            <view alpha="0.41999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gJ2-nF-iar" userLabel="lineBreak1">
                                 <rect key="frame" x="0.0" y="145" width="414" height="1"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <constraints>
@@ -371,7 +371,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FVS-BH-7hE" userLabel="lineBreak2">
+                            <view alpha="0.41999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FVS-BH-7hE" userLabel="lineBreak2">
                                 <rect key="frame" x="0.0" y="218" width="414" height="1"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <constraints>
