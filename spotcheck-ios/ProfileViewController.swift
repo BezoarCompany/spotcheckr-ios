@@ -113,11 +113,19 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBAction func postsButtonOnClick(_ sender: Any) {
         self.postsTableView.isHidden = false
         //self.answersTableView.isHidden = true
+        self.postsButton.setBackgroundColor(ApplicationScheme.instance.containerScheme.colorScheme.secondaryColor)
+        self.postsButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onSecondaryColor, for: .normal)
+        self.answersButton.setBackgroundColor(ApplicationScheme.instance.containerScheme.colorScheme.primaryColor)
+        self.answersButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor, for: .normal)
     }
     
     @IBAction func answersButtonOnClick(_ sender: Any) {
         //self.answersTableView.isHidden = false
         self.postsTableView.isHidden = true
+        self.answersButton.setBackgroundColor(ApplicationScheme.instance.containerScheme.colorScheme.secondaryColor)
+        self.answersButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onSecondaryColor, for: .normal)
+        self.postsButton.setBackgroundColor(ApplicationScheme.instance.containerScheme.colorScheme.primaryColor)
+        self.postsButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor, for: .normal)
     }
     
     private func showCurrentUserOnlyControls() {
@@ -167,8 +175,11 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         weightLabel.font = ApplicationScheme.instance.containerScheme.typographyScheme.body1
         weightLabel.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
         
+        postsButton.applyOutlinedTheme(withScheme: ApplicationScheme.instance.containerScheme)
         postsButton.setTitleFont(ApplicationScheme.instance.containerScheme.typographyScheme.button, for: .normal)
-        postsButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor, for: .normal)
+        postsButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onSecondaryColor, for: .normal)
+        postsButton.setBackgroundColor(ApplicationScheme.instance.containerScheme.colorScheme.secondaryColor)
+        answersButton.applyOutlinedTheme(withScheme: ApplicationScheme.instance.containerScheme)
         answersButton.setTitleFont(ApplicationScheme.instance.containerScheme.typographyScheme.button, for: .normal)
         answersButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor, for: .normal)
     
