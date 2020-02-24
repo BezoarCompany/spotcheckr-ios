@@ -62,6 +62,7 @@
 		BA4EE45E23EFEC39003E6D87 /* UserProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4EE45D23EFEC39003E6D87 /* UserProtocol.swift */; };
 		BA4EE46023EFEC7B003E6D87 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4EE45F23EFEC7B003E6D87 /* UserService.swift */; };
 		BA59197623F92DBA00E8B900 /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA59197523F92DBA00E8B900 /* Services.swift */; };
+		BA733D5524038E4100395895 /* ErrorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA733D5424038E4100395895 /* ErrorExtensions.swift */; };
 		BAA340FA23F3932900C7392C /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA340F923F3932900C7392C /* DateExtensions.swift */; };
 		BAA340FF23F39AA500C7392C /* FakeDataFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA340FE23F39AA500C7392C /* FakeDataFactory.swift */; };
 		CE177860E3221E038C0D83EF /* Pods_spotcheck_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BAF183FCC50189FBD943ED6 /* Pods_spotcheck_ios.framework */; };
@@ -150,6 +151,7 @@
 		BA4EE45D23EFEC39003E6D87 /* UserProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProtocol.swift; sourceTree = "<group>"; };
 		BA4EE45F23EFEC7B003E6D87 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		BA59197523F92DBA00E8B900 /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
+		BA733D5424038E4100395895 /* ErrorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorExtensions.swift; sourceTree = "<group>"; };
 		BAA340F923F3932900C7392C /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		BAA340FE23F39AA500C7392C /* FakeDataFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeDataFactory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -346,6 +348,7 @@
 			children = (
 				BAA340F923F3932900C7392C /* DateExtensions.swift */,
 				BA4EDA4224026CE200206267 /* IntExtensions.swift */,
+				BA733D5424038E4100395895 /* ErrorExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -569,6 +572,7 @@
 				BA1FB51923F1058500E091B1 /* EmailAddress.swift in Sources */,
 				BA1FB52723F119CB00E091B1 /* Metrics.swift in Sources */,
 				5645AFE823F51C0700B64D0B /* CreatePostViewController.swift in Sources */,
+				BA733D5524038E4100395895 /* ErrorExtensions.swift in Sources */,
 				BA1FB51723F104B400E091B1 /* PhoneNumber.swift in Sources */,
 				BA1FB52523F116BD00E091B1 /* ExercisePostService.swift in Sources */,
 				564FA33823FFBF81006017FB /* CreateAnswerViewController.swift in Sources */,

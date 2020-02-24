@@ -98,7 +98,10 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, ValidationDel
         self.spotcheckSubtitleLabel.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
         
         self.createAccountButton.applyContainedTheme(withScheme: ApplicationScheme.instance.containerScheme)
+        self.createAccountButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onSecondaryColor, for: .normal)
+        self.createAccountButton.setBackgroundColor(ApplicationScheme.instance.containerScheme.colorScheme.secondaryColor)
         self.loginButton.applyOutlinedTheme(withScheme: ApplicationScheme.instance.containerScheme)
+        self.loginButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor, for: .normal)
     }
     
     private func applyConstraints() {

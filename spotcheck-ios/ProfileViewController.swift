@@ -17,8 +17,11 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var editProfileButton: MDCFlatButton!
     @IBOutlet weak var postsTableView: UITableView!
     
-    let userService = UserService()
-    let exercisePostService = ExercisePostService()
+    let snackbarMessage: MDCSnackbarMessage = {
+       let message = MDCSnackbarMessage()
+        MDCSnackbarTypographyThemer.applyTypographyScheme(ApplicationScheme.instance.containerScheme.typographyScheme)
+       return message
+    }()
     
     var currentUser: User?
     var receivedUser: User?
@@ -81,7 +84,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
             showCurrentUserOnlyControls()
             firstly {
                 //TODO: Show some sort of spinner while this data loads.
-                self.userService.getCurrentUser()
+                Services.userService.getCurrentUser()
             }.done { user in
                 self.currentUser = user
             }.catch { error in
@@ -91,7 +94,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
                 self.populateUserProfileInformation()
                 firstly {
                     //TODO: Show spinner that table data is loading.
-                    when(fulfilled: self.exercisePostService.getPosts(forUserWithId: self.currentUser!.id!), self.exercisePostService.getAnswers(byUserWithId: self.currentUser!.id!))
+                    when(fulfilled: Services.exercisePostService.getPosts(forUserWithId: self.currentUser!.id!), Services.exercisePostService.getAnswers(byUserWithId: self.currentUser!.id!))
                 }.done { posts, answers in
                     //TODO: Dismiss spinnner
                     //TODO: Add to table for posts and answers
@@ -186,8 +189,14 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     @IBAction func logoutTapped(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let baseViewController = storyboard.instantiateViewController(withIdentifier: K.Storyboard.AuthOptionViewControllerId )
-        UIApplication.shared.keyWindow?.rootViewController = baseViewController
+        do {
+            try Services.userService.signOut()
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let baseViewController = storyboard.instantiateViewController(withIdentifier: K.Storyboard.AuthOptionViewControllerId )
+            UIApplication.shared.keyWindow?.rootViewController = baseViewController
+        } catch {
+            self.snackbarMessage.text = "An error occurred signing out."
+            MDCSnackbarManager.show(self.snackbarMessage)
+        }
     }
 }

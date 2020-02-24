@@ -76,6 +76,8 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
         button.isUppercaseTitle = true
         button.translatesAutoresizingMaskIntoConstraints = false
         button.applyContainedTheme(withScheme: ApplicationScheme.instance.containerScheme)
+        button.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onSecondaryColor, for: .normal)
+        button.setBackgroundColor(ApplicationScheme.instance.containerScheme.colorScheme.secondaryColor)
         button.addTarget(self, action: #selector(onSignUpClick(sender:)), for: .touchUpInside)
         return button
     }()
@@ -86,6 +88,8 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
         button.isUppercaseTitle = true
         button.translatesAutoresizingMaskIntoConstraints = false
         button.applyContainedTheme(withScheme: ApplicationScheme.instance.containerScheme)
+        button.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onSecondaryColor, for: .normal)
+        button.setBackgroundColor(ApplicationScheme.instance.containerScheme.colorScheme.secondaryColor)
         button.addTarget(self, action: #selector(onSignInClick(sender:)), for: .touchUpInside)
         return button
     }()
