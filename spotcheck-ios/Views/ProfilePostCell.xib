@@ -101,6 +101,7 @@
                     <constraint firstItem="hTi-wj-ItZ" firstAttribute="top" secondItem="fvS-Rq-Xg0" secondAttribute="top" constant="12" id="zwx-ja-oev"/>
                 </constraints>
             </tableViewCellContentView>
+            <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
             <connections>
                 <outlet property="answersCountLabel" destination="pct-wb-gDQ" id="aRr-TC-UXC"/>
                 <outlet property="answersLabel" destination="oe5-46-tsi" id="BRR-zH-vI3"/>

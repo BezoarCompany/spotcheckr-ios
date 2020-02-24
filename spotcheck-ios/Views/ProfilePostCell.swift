@@ -119,6 +119,5 @@ class ProfilePostCell: UITableViewCell {
         self.answersCountLabel.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
         self.answersLabel.font = ApplicationScheme.instance.containerScheme.typographyScheme.body1
         self.answersLabel.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
-        
     }
 }
