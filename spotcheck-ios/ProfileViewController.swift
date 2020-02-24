@@ -3,7 +3,7 @@ import Firebase
 import PromiseKit
 import MaterialComponents.MDCFlatButton
 
-class ProfileViewController: UIViewController, UITableViewDataSource {
+class ProfileViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var logoutButton: UIBarButtonItem!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var certificationsHeadingLabel: UILabel!
@@ -29,7 +29,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.postsTableView.register(UINib(nibName:K.Storyboard.postNibName, bundle: nil), forCellReuseIdentifier: K.Storyboard.feedCellId)
+        self.postsTableView.register(UINib(nibName:K.Storyboard.profilPostNibName, bundle: nil), forCellReuseIdentifier: K.Storyboard.profilePostCellId)
         //TODO: Remove, only for testing purposes
         //setupTestUser()
         resolveProfileUser()
@@ -41,11 +41,23 @@ class ProfileViewController: UIViewController, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = self.postsTableView.dequeueReusableCell(withIdentifier: K.Storyboard.feedCellId, for: indexPath) as! FeedPostCell
+        let post = posts[indexPath.row]
+        let cell = self.postsTableView.dequeueReusableCell(withIdentifier: K.Storyboard.profilePostCellId, for: indexPath) as! ProfilePostCell
             
-        cell.postLabel.text = posts[indexPath.row].title
-        
+        cell.titleLabel.text = post.title
+        cell.descriptionLabel.text = post.description
+        cell.datePostedLabel.text = post.dateCreated?.toDisplayFormat()
+        cell.voteTotalLabel.text = "\(post.metrics.totalVotes)"
+        cell.votingUserId = self.currentUser?.id
+        cell.postId = post.id
+        cell.voteDirection = post.metrics.currentVoteDirection
+        print("votedirection is \(cell.voteDirection!.get())")
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let cell = cell as! ProfilePostCell
+        cell.adjustVotingControls()
     }
     
     private func setupTestUser() {

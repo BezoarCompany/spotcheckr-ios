@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProfilePostCell" rowHeight="137" id="fso-hz-Fug" customClass="ProfilePostCell" customModule="Spotcheck" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="137"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fso-hz-Fug" id="fvS-Rq-Xg0">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="137"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Title" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hTi-wj-ItZ">
+                        <rect key="frame" x="12" y="12" width="33.5" height="20.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Description" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E5m-nu-NgA">
+                        <rect key="frame" x="12" y="40.5" width="390" height="20.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JkN-JW-xU1">
+                        <rect key="frame" x="12" y="107" width="17" height="22"/>
+                        <accessibility key="accessibilityConfiguration" identifier="Upvote"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <state key="normal" image="arrow.up" catalog="system"/>
+                        <connections>
+                            <action selector="upvoteOnClick:" destination="fso-hz-Fug" eventType="touchUpInside" id="fpG-Uw-Tro"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yUJ-9C-8GG">
+                        <rect key="frame" x="56" y="107" width="17" height="22"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <state key="normal" image="arrow.down" catalog="system"/>
+                        <connections>
+                            <action selector="downvoteOnClick:" destination="fso-hz-Fug" eventType="touchUpInside" id="alA-Pb-qwN"/>
+                        </connections>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0r0-K7-VBY">
+                        <rect key="frame" x="37" y="107" width="11" height="22"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Posted:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hl2-SM-Hw8">
+                        <rect key="frame" x="344" y="12" width="58" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" red="0.1333333333" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                <constraints>
+                    <constraint firstItem="hl2-SM-Hw8" firstAttribute="top" secondItem="fvS-Rq-Xg0" secondAttribute="top" constant="12" id="L30-Ib-04T"/>
+                    <constraint firstItem="yUJ-9C-8GG" firstAttribute="top" secondItem="E5m-nu-NgA" secondAttribute="bottom" constant="12" id="M7c-1q-mDM"/>
+                    <constraint firstAttribute="bottom" secondItem="yUJ-9C-8GG" secondAttribute="bottom" constant="8" id="Oc3-Px-YNm"/>
+                    <constraint firstItem="0r0-K7-VBY" firstAttribute="leading" secondItem="JkN-JW-xU1" secondAttribute="trailing" constant="8" id="PA8-l1-HKh"/>
+                    <constraint firstItem="E5m-nu-NgA" firstAttribute="leading" secondItem="fvS-Rq-Xg0" secondAttribute="leading" constant="12" id="RzX-U7-TJY"/>
+                    <constraint firstAttribute="bottom" secondItem="0r0-K7-VBY" secondAttribute="bottom" constant="8" id="VEI-3a-S56"/>
+                    <constraint firstItem="0r0-K7-VBY" firstAttribute="top" secondItem="E5m-nu-NgA" secondAttribute="bottom" constant="12" id="Wn0-jH-c3O"/>
+                    <constraint firstItem="hTi-wj-ItZ" firstAttribute="leading" secondItem="fvS-Rq-Xg0" secondAttribute="leading" constant="12" id="cKb-6j-Itp"/>
+                    <constraint firstItem="JkN-JW-xU1" firstAttribute="leading" secondItem="fvS-Rq-Xg0" secondAttribute="leading" constant="12" id="ckP-AL-PQa"/>
+                    <constraint firstItem="hl2-SM-Hw8" firstAttribute="leading" secondItem="hTi-wj-ItZ" secondAttribute="trailing" constant="12" id="hL0-6C-DOg"/>
+                    <constraint firstItem="yUJ-9C-8GG" firstAttribute="leading" secondItem="0r0-K7-VBY" secondAttribute="trailing" constant="8" id="jHo-3Q-h0R"/>
+                    <constraint firstItem="JkN-JW-xU1" firstAttribute="top" secondItem="E5m-nu-NgA" secondAttribute="bottom" constant="12" id="jq6-IY-HAH"/>
+                    <constraint firstAttribute="trailing" secondItem="hl2-SM-Hw8" secondAttribute="trailing" constant="12" id="mvz-if-ws0"/>
+                    <constraint firstAttribute="bottom" secondItem="JkN-JW-xU1" secondAttribute="bottom" constant="8" id="vXJ-Zu-5q3"/>
+                    <constraint firstAttribute="trailing" secondItem="E5m-nu-NgA" secondAttribute="trailing" constant="12" id="vrd-kz-il4"/>
+                    <constraint firstItem="E5m-nu-NgA" firstAttribute="top" secondItem="hTi-wj-ItZ" secondAttribute="bottom" constant="8" id="zHT-RO-3h5"/>
+                    <constraint firstItem="hTi-wj-ItZ" firstAttribute="top" secondItem="fvS-Rq-Xg0" secondAttribute="top" constant="12" id="zwx-ja-oev"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="datePostedLabel" destination="hl2-SM-Hw8" id="dJh-5D-iGy"/>
+                <outlet property="descriptionLabel" destination="E5m-nu-NgA" id="lQH-x1-N37"/>
+                <outlet property="downvoteButton" destination="yUJ-9C-8GG" id="x3t-cc-UyN"/>
+                <outlet property="titleLabel" destination="hTi-wj-ItZ" id="je4-uU-XXL"/>
+                <outlet property="upvoteButton" destination="JkN-JW-xU1" id="UJB-Td-ouc"/>
+                <outlet property="voteTotalLabel" destination="0r0-K7-VBY" id="QNI-sl-91z"/>
+            </connections>
+            <point key="canvasLocation" x="163.768115942029" y="100.78125"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="arrow.down" catalog="system" width="60" height="64"/>
+        <image name="arrow.up" catalog="system" width="60" height="64"/>
+    </resources>
+</document>

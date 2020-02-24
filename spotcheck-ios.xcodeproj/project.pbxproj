@@ -48,6 +48,8 @@
 		BA49213823E6289B00A74A73 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA49213123E6289B00A74A73 /* Roboto-Light.ttf */; };
 		BA4EDA4124025F0D00206267 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4EDA4024025F0D00206267 /* EditProfileViewController.swift */; };
 		BA4EDA4324026CE200206267 /* IntExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4EDA4224026CE200206267 /* IntExtensions.swift */; };
+		BA4EDA452402909A00206267 /* ProfilePostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA4EDA442402909A00206267 /* ProfilePostCell.xib */; };
+		BA4EDA47240290C000206267 /* ProfilePostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4EDA46240290C000206267 /* ProfilePostCell.swift */; };
 		BA4EE42623E94A6E003E6D87 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4EE42523E94A6E003E6D87 /* AuthenticationService.swift */; };
 		BA4EE42823E94BBF003E6D87 /* AuthenticationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4EE42723E94BBF003E6D87 /* AuthenticationProtocol.swift */; };
 		BA4EE44523EBA221003E6D87 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4EE44423EBA221003E6D87 /* User.swift */; };
@@ -134,6 +136,8 @@
 		BA49213123E6289B00A74A73 /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
 		BA4EDA4024025F0D00206267 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		BA4EDA4224026CE200206267 /* IntExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntExtensions.swift; sourceTree = "<group>"; };
+		BA4EDA442402909A00206267 /* ProfilePostCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfilePostCell.xib; sourceTree = "<group>"; };
+		BA4EDA46240290C000206267 /* ProfilePostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePostCell.swift; sourceTree = "<group>"; };
 		BA4EE42523E94A6E003E6D87 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 		BA4EE42723E94BBF003E6D87 /* AuthenticationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationProtocol.swift; sourceTree = "<group>"; };
 		BA4EE44423EBA221003E6D87 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -267,6 +271,8 @@
 				5659D9D623FD02980043FA6A /* AnswerPostCell.xib */,
 				5681771523FDCE7500CA7AB5 /* DetailedPostCell.swift */,
 				5681771623FDCE7500CA7AB5 /* DetailedPostCell.xib */,
+				BA4EDA442402909A00206267 /* ProfilePostCell.xib */,
+				BA4EDA46240290C000206267 /* ProfilePostCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -459,6 +465,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA4EDA452402909A00206267 /* ProfilePostCell.xib in Resources */,
 				BA4EE45423EECE84003E6D87 /* eye-off.svg in Resources */,
 				BA4EE45323EECE84003E6D87 /* eye.svg in Resources */,
 				BA49213723E6289B00A74A73 /* Roboto-Medium.ttf in Resources */,
@@ -569,6 +576,7 @@
 				BAA340FA23F3932900C7392C /* DateExtensions.swift in Sources */,
 				5627FCA223F0BEB4001B4B5B /* FeedPostCell.swift in Sources */,
 				5659D9D723FD02980043FA6A /* AnswerPostCell.swift in Sources */,
+				BA4EDA47240290C000206267 /* ProfilePostCell.swift in Sources */,
 				5681771723FDCE7500CA7AB5 /* DetailedPostCell.swift in Sources */,
 				BA59197623F92DBA00E8B900 /* Services.swift in Sources */,
 				568721A323E7EF1100E15F87 /* ApplicationScheme.swift in Sources */,
