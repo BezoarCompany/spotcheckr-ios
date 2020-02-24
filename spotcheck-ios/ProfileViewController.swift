@@ -52,13 +52,17 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         cell.postId = post.id
         cell.voteDirection = post.metrics.currentVoteDirection
         cell.answersCountLabel.text = "\(post.answers.count)"
-        print("votedirection is \(cell.voteDirection!.get())")
         return cell
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let cell = cell as! ProfilePostCell
         cell.adjustVotingControls()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let postDetailViewController = PostDetailViewController.create(post: posts[indexPath.row])
+        self.navigationController?.pushViewController(postDetailViewController, animated: true)
     }
     
     private func setupTestUser() {
