@@ -21,7 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().barTintColor = ApplicationScheme.instance.containerScheme.colorScheme.primaryColor
         UINavigationBar.appearance().tintColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
         UINavigationBar.appearance().titleTextAttributes = [
-            NSAttributedString.Key.font: ApplicationScheme.instance.containerScheme.typographyScheme.button
+            NSAttributedString.Key.font: ApplicationScheme.instance.containerScheme.typographyScheme.headline6,
+            NSAttributedString.Key.foregroundColor: ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
         ]
     }
     

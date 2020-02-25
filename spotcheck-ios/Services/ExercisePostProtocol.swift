@@ -13,4 +13,7 @@ protocol ExercisePostProtocol {
     func getExerciseTypes() -> Promise<[String:ExerciseType]>
     func getAnswers(byUserWithId userId: String) -> Promise<[Answer]>
     func getAnswers(forPostWithId postId: String) -> Promise<[Answer]>
+    func votePost(postId: String, userId: String, direction: VoteDirection) -> Promise<Void>
+    func voteAnswer(answerId: String, userId: String, direction: VoteDirection) -> Promise<Void>
+    func getVoteDirection(forPostWithId: String) -> Promise<VoteDirection>
 }

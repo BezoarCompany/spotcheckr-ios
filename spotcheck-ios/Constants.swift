@@ -22,6 +22,9 @@ struct K {
         static let detailedPostCellId = "DetailedPostReuseCell" //Reusable CellID
         static let detailedPostNibName = "DetailedPostCell" //<name>.xib
         
+        static let profilePostCellId = "ProfilePostCell"
+        static let profilPostNibName = "ProfilePostCell"
+        
     }
     struct Firestore {
         static let posts = "posts"
