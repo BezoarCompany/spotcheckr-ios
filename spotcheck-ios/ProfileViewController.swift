@@ -3,31 +3,69 @@ import Firebase
 import PromiseKit
 import MaterialComponents.MDCFlatButton
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var logoutButton: UIBarButtonItem!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var certificationsHeadingLabel: UILabel!
     @IBOutlet weak var certificationsLabel: UILabel!
     @IBOutlet weak var occupationLabel: UILabel!
+    @IBOutlet weak var heightLabel: UILabel!
+    @IBOutlet weak var weightLabel: UILabel!
     @IBOutlet weak var profilePictureImageView: UIImageView!
     @IBOutlet weak var postsButton: MDCFlatButton!
     @IBOutlet weak var answersButton: MDCFlatButton!
+    @IBOutlet weak var editProfileButton: MDCFlatButton!
+    @IBOutlet weak var postsTableView: UITableView!
     
-    let userService = UserService()
-    let exercisePostService = ExercisePostService()
+    let snackbarMessage: MDCSnackbarMessage = {
+       let message = MDCSnackbarMessage()
+        MDCSnackbarTypographyThemer.applyTypographyScheme(ApplicationScheme.instance.containerScheme.typographyScheme)
+       return message
+    }()
     
     var currentUser: User?
     var receivedUser: User?
-    var numberOfPosts = 0
-    var numberOfAnswers = 0
+    
+    var answers = [Answer]()
+    var posts = [ExercisePost]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.postsTableView.register(UINib(nibName:K.Storyboard.profilPostNibName, bundle: nil), forCellReuseIdentifier: K.Storyboard.profilePostCellId)
         //TODO: Remove, only for testing purposes
         //setupTestUser()
         resolveProfileUser()
         applyStyles()
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.posts.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let post = posts[indexPath.row]
+        let cell = self.postsTableView.dequeueReusableCell(withIdentifier: K.Storyboard.profilePostCellId, for: indexPath) as! ProfilePostCell
+            
+        cell.titleLabel.text = post.title
+        cell.descriptionLabel.text = post.description
+        cell.datePostedLabel.text = post.dateCreated?.toDisplayFormat()
+        cell.voteTotalLabel.text = "\(post.metrics.totalVotes)"
+        cell.votingUserId = self.currentUser?.id
+        cell.postId = post.id
+        cell.voteDirection = post.metrics.currentVoteDirection
+        cell.answersCountLabel.text = "\(post.answers.count)"
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let cell = cell as! ProfilePostCell
+        cell.adjustVotingControls()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let postDetailViewController = PostDetailViewController.create(post: posts[indexPath.row])
+        self.navigationController?.pushViewController(postDetailViewController, animated: true)
     }
     
     private func setupTestUser() {
@@ -40,11 +78,13 @@ class ProfileViewController: UIViewController {
         // https://www.youtube.com/watch?v=Kpwrc1PRDsg <- shows how to pass data from one view controller to this one.
         if self.receivedUser != nil {
             self.currentUser = self.receivedUser
+            populateUserProfileInformation()
         }
         else {
+            showCurrentUserOnlyControls()
             firstly {
                 //TODO: Show some sort of spinner while this data loads.
-                self.userService.getCurrentUser()
+                Services.userService.getCurrentUser()
             }.done { user in
                 self.currentUser = user
             }.catch { error in
@@ -54,10 +94,16 @@ class ProfileViewController: UIViewController {
                 self.populateUserProfileInformation()
                 firstly {
                     //TODO: Show spinner that table data is loading.
-                    when(fulfilled: self.exercisePostService.getPosts(forUserWithId: self.currentUser!.id!), self.exercisePostService.getAnswers(byUserWithId: self.currentUser!.id!))
+                    when(fulfilled: Services.exercisePostService.getPosts(forUserWithId: self.currentUser!.id!), Services.exercisePostService.getAnswers(byUserWithId: self.currentUser!.id!))
                 }.done { posts, answers in
                     //TODO: Dismiss spinnner
                     //TODO: Add to table for posts and answers
+                    self.postsButton.setTitle("\(posts.count) Posts", for: .normal)
+                    self.answersButton.setTitle("\(answers.count) Answers", for: .normal)
+                    self.answers = answers
+                    self.posts = posts
+                    
+                    self.postsTableView.reloadData()
                     print(posts)
                     print(answers)
                 }.catch {error in
@@ -65,6 +111,28 @@ class ProfileViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    @IBAction func postsButtonOnClick(_ sender: Any) {
+        self.postsTableView.isHidden = false
+        //self.answersTableView.isHidden = true
+        self.postsButton.setBackgroundColor(ApplicationScheme.instance.containerScheme.colorScheme.secondaryColor)
+        self.postsButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onSecondaryColor, for: .normal)
+        self.answersButton.setBackgroundColor(ApplicationScheme.instance.containerScheme.colorScheme.primaryColor)
+        self.answersButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor, for: .normal)
+    }
+    
+    @IBAction func answersButtonOnClick(_ sender: Any) {
+        //self.answersTableView.isHidden = false
+        self.postsTableView.isHidden = true
+        self.answersButton.setBackgroundColor(ApplicationScheme.instance.containerScheme.colorScheme.secondaryColor)
+        self.answersButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onSecondaryColor, for: .normal)
+        self.postsButton.setBackgroundColor(ApplicationScheme.instance.containerScheme.colorScheme.primaryColor)
+        self.postsButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor, for: .normal)
+    }
+    
+    private func showCurrentUserOnlyControls() {
+        self.editProfileButton.isHidden = false
     }
     
     private func populateUserProfileInformation() {
@@ -88,8 +156,12 @@ class ProfileViewController: UIViewController {
             self.certificationsHeadingLabel.isHidden = true
             self.occupationLabel.isHidden = true
         }
-        self.postsButton.setTitle("\(numberOfPosts) \(self.postsButton.title(for: .normal)!)", for: .normal)
-        self.answersButton.setTitle("\(numberOfAnswers) \(self.answersButton.title(for: .normal)!)", for: .normal)
+        if self.currentUser?.measurement != nil {
+            self.heightLabel.isHidden = false
+            self.weightLabel.isHidden = false
+            self.heightLabel.text = self.currentUser?.measurement?.height?.toFormattedHeight()
+            self.weightLabel.text = self.currentUser?.measurement?.weight?.toFormattedWeight()
+        }
     }
     
     private func applyStyles() {
@@ -101,18 +173,30 @@ class ProfileViewController: UIViewController {
         certificationsHeadingLabel.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
         occupationLabel.font = ApplicationScheme.instance.containerScheme.typographyScheme.body1
         occupationLabel.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
+        heightLabel.font = ApplicationScheme.instance.containerScheme.typographyScheme.body1
+        heightLabel.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
+        weightLabel.font = ApplicationScheme.instance.containerScheme.typographyScheme.body1
+        weightLabel.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
         
+        postsButton.applyOutlinedTheme(withScheme: ApplicationScheme.instance.containerScheme)
         postsButton.setTitleFont(ApplicationScheme.instance.containerScheme.typographyScheme.button, for: .normal)
-        postsButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor, for: .normal)
+        postsButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onSecondaryColor, for: .normal)
+        postsButton.setBackgroundColor(ApplicationScheme.instance.containerScheme.colorScheme.secondaryColor)
+        answersButton.applyOutlinedTheme(withScheme: ApplicationScheme.instance.containerScheme)
         answersButton.setTitleFont(ApplicationScheme.instance.containerScheme.typographyScheme.button, for: .normal)
         answersButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor, for: .normal)
     
     }
     
-    
     @IBAction func logoutTapped(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let baseViewController = storyboard.instantiateViewController(withIdentifier: K.Storyboard.AuthOptionViewControllerId )
-        UIApplication.shared.keyWindow?.rootViewController = baseViewController
+        do {
+            try Services.userService.signOut()
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let baseViewController = storyboard.instantiateViewController(withIdentifier: K.Storyboard.AuthOptionViewControllerId )
+            UIApplication.shared.keyWindow?.rootViewController = baseViewController
+        } catch {
+            self.snackbarMessage.text = "An error occurred signing out."
+            MDCSnackbarManager.show(self.snackbarMessage)
+        }
     }
 }

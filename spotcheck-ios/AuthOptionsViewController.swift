@@ -76,6 +76,8 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
         button.isUppercaseTitle = true
         button.translatesAutoresizingMaskIntoConstraints = false
         button.applyContainedTheme(withScheme: ApplicationScheme.instance.containerScheme)
+        button.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onSecondaryColor, for: .normal)
+        button.setBackgroundColor(ApplicationScheme.instance.containerScheme.colorScheme.secondaryColor)
         button.addTarget(self, action: #selector(onSignUpClick(sender:)), for: .touchUpInside)
         return button
     }()
@@ -86,6 +88,8 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
         button.isUppercaseTitle = true
         button.translatesAutoresizingMaskIntoConstraints = false
         button.applyContainedTheme(withScheme: ApplicationScheme.instance.containerScheme)
+        button.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onSecondaryColor, for: .normal)
+        button.setBackgroundColor(ApplicationScheme.instance.containerScheme.colorScheme.secondaryColor)
         button.addTarget(self, action: #selector(onSignInClick(sender:)), for: .touchUpInside)
         return button
     }()
@@ -114,8 +118,19 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
     required init?(coder aDecoder: NSCoder) {
         emailAddressTextFieldController = MDCTextInputControllerOutlined(textInput: emailAddressTextField)
         emailAddressTextFieldController.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
+        emailAddressTextFieldController.normalColor  = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
+        emailAddressTextFieldController.activeColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
+        emailAddressTextFieldController.inlinePlaceholderColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
+        emailAddressTextFieldController.floatingPlaceholderNormalColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
+        emailAddressTextFieldController.floatingPlaceholderActiveColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
         passwordTextFieldController = MDCTextInputControllerOutlined(textInput: passwordTextField)
         passwordTextFieldController.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
+        passwordTextFieldController.normalColor  = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
+               passwordTextFieldController.activeColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
+               passwordTextFieldController.inlinePlaceholderColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
+               passwordTextFieldController.floatingPlaceholderNormalColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
+               passwordTextFieldController.floatingPlaceholderActiveColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
+
         validator = Validator()
         
         super.init(coder: aDecoder)

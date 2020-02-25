@@ -10,4 +10,5 @@ protocol UserProtocol {
     func getSalutations() -> Promise<[String:String]>
     func getCertifications() -> Promise<[String:Certification]>
     func getCurrentUser() -> Promise<User>
+    func signOut() throws -> Void
 }

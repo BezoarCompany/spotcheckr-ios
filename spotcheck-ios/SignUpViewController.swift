@@ -54,8 +54,18 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, ValidationDel
     required init?(coder aDecoder: NSCoder) {
         emailAddressTextFieldController = MDCTextInputControllerOutlined(textInput: emailAddressTextField)
         emailAddressTextFieldController.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
+        emailAddressTextFieldController.normalColor  = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
+        emailAddressTextFieldController.activeColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
+        emailAddressTextFieldController.inlinePlaceholderColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
+        emailAddressTextFieldController.floatingPlaceholderNormalColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
+        emailAddressTextFieldController.floatingPlaceholderActiveColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
         passwordTextFieldController = MDCTextInputControllerOutlined(textInput: passwordTextField)
         passwordTextFieldController.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
+        passwordTextFieldController.normalColor  = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
+        passwordTextFieldController.activeColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
+        passwordTextFieldController.inlinePlaceholderColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
+        passwordTextFieldController.floatingPlaceholderNormalColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
+        passwordTextFieldController.floatingPlaceholderActiveColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
         passwordTextFieldController.helperText = "Password must be at least 8 characters long"
         validator = Validator()
         super.init(coder: aDecoder)
@@ -98,7 +108,10 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, ValidationDel
         self.spotcheckSubtitleLabel.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
         
         self.createAccountButton.applyContainedTheme(withScheme: ApplicationScheme.instance.containerScheme)
+        self.createAccountButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onSecondaryColor, for: .normal)
+        self.createAccountButton.setBackgroundColor(ApplicationScheme.instance.containerScheme.colorScheme.secondaryColor)
         self.loginButton.applyOutlinedTheme(withScheme: ApplicationScheme.instance.containerScheme)
+        self.loginButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor, for: .normal)
     }
     
     private func applyConstraints() {

@@ -208,4 +208,11 @@ class UserService: UserProtocol {
         }
     }
     
+    func signOut() throws {
+        do {
+            try Auth.auth().signOut()
+        } catch { error
+            throw error
+        }
+    }
 }

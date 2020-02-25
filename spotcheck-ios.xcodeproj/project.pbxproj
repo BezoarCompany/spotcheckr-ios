@@ -46,6 +46,10 @@
 		BA49213623E6289B00A74A73 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA49212F23E6289A00A74A73 /* Roboto-Regular.ttf */; };
 		BA49213723E6289B00A74A73 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA49213023E6289A00A74A73 /* Roboto-Medium.ttf */; };
 		BA49213823E6289B00A74A73 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA49213123E6289B00A74A73 /* Roboto-Light.ttf */; };
+		BA4EDA4124025F0D00206267 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4EDA4024025F0D00206267 /* EditProfileViewController.swift */; };
+		BA4EDA4324026CE200206267 /* IntExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4EDA4224026CE200206267 /* IntExtensions.swift */; };
+		BA4EDA452402909A00206267 /* ProfilePostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA4EDA442402909A00206267 /* ProfilePostCell.xib */; };
+		BA4EDA47240290C000206267 /* ProfilePostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4EDA46240290C000206267 /* ProfilePostCell.swift */; };
 		BA4EE42623E94A6E003E6D87 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4EE42523E94A6E003E6D87 /* AuthenticationService.swift */; };
 		BA4EE42823E94BBF003E6D87 /* AuthenticationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4EE42723E94BBF003E6D87 /* AuthenticationProtocol.swift */; };
 		BA4EE44523EBA221003E6D87 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4EE44423EBA221003E6D87 /* User.swift */; };
@@ -58,6 +62,7 @@
 		BA4EE45E23EFEC39003E6D87 /* UserProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4EE45D23EFEC39003E6D87 /* UserProtocol.swift */; };
 		BA4EE46023EFEC7B003E6D87 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4EE45F23EFEC7B003E6D87 /* UserService.swift */; };
 		BA59197623F92DBA00E8B900 /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA59197523F92DBA00E8B900 /* Services.swift */; };
+		BA733D5524038E4100395895 /* ErrorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA733D5424038E4100395895 /* ErrorExtensions.swift */; };
 		BAA340FA23F3932900C7392C /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA340F923F3932900C7392C /* DateExtensions.swift */; };
 		BAA340FF23F39AA500C7392C /* FakeDataFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA340FE23F39AA500C7392C /* FakeDataFactory.swift */; };
 		CE177860E3221E038C0D83EF /* Pods_spotcheck_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BAF183FCC50189FBD943ED6 /* Pods_spotcheck_ios.framework */; };
@@ -89,7 +94,7 @@
 		564FA33723FFBF81006017FB /* CreateAnswerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAnswerViewController.swift; sourceTree = "<group>"; };
 		5659D9D523FD02980043FA6A /* AnswerPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerPostCell.swift; sourceTree = "<group>"; };
 		5659D9D623FD02980043FA6A /* AnswerPostCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnswerPostCell.xib; sourceTree = "<group>"; };
-		567952FA23D806BE0077BA08 /* Spotcheck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spotcheck.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		567952FA23D806BE0077BA08 /* Spotcheckr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spotcheckr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		567952FD23D806BE0077BA08 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5679530423D806BE0077BA08 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5679530623D806C00077BA08 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -130,6 +135,10 @@
 		BA49212F23E6289A00A74A73 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		BA49213023E6289A00A74A73 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		BA49213123E6289B00A74A73 /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
+		BA4EDA4024025F0D00206267 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		BA4EDA4224026CE200206267 /* IntExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntExtensions.swift; sourceTree = "<group>"; };
+		BA4EDA442402909A00206267 /* ProfilePostCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfilePostCell.xib; sourceTree = "<group>"; };
+		BA4EDA46240290C000206267 /* ProfilePostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePostCell.swift; sourceTree = "<group>"; };
 		BA4EE42523E94A6E003E6D87 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 		BA4EE42723E94BBF003E6D87 /* AuthenticationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationProtocol.swift; sourceTree = "<group>"; };
 		BA4EE44423EBA221003E6D87 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -142,6 +151,7 @@
 		BA4EE45D23EFEC39003E6D87 /* UserProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProtocol.swift; sourceTree = "<group>"; };
 		BA4EE45F23EFEC7B003E6D87 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		BA59197523F92DBA00E8B900 /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
+		BA733D5424038E4100395895 /* ErrorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorExtensions.swift; sourceTree = "<group>"; };
 		BAA340F923F3932900C7392C /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		BAA340FE23F39AA500C7392C /* FakeDataFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeDataFactory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -197,7 +207,7 @@
 		567952FB23D806BE0077BA08 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				567952FA23D806BE0077BA08 /* Spotcheck.app */,
+				567952FA23D806BE0077BA08 /* Spotcheckr.app */,
 				5679531023D806C00077BA08 /* spotcheck-iosTests.xctest */,
 				5679531B23D806C00077BA08 /* spotcheck-iosUITests.xctest */,
 			);
@@ -229,6 +239,7 @@
 				BA4EE44E23EE91D1003E6D87 /* SignUpViewController.swift */,
 				BA4EE45923EF1408003E6D87 /* ForgotPasswordViewController.swift */,
 				BA4EE45B23EF6814003E6D87 /* PasswordResetConfirmationViewController.swift */,
+				BA4EDA4024025F0D00206267 /* EditProfileViewController.swift */,
 			);
 			path = "spotcheck-ios";
 			sourceTree = "<group>";
@@ -262,6 +273,8 @@
 				5659D9D623FD02980043FA6A /* AnswerPostCell.xib */,
 				5681771523FDCE7500CA7AB5 /* DetailedPostCell.swift */,
 				5681771623FDCE7500CA7AB5 /* DetailedPostCell.xib */,
+				BA4EDA442402909A00206267 /* ProfilePostCell.xib */,
+				BA4EDA46240290C000206267 /* ProfilePostCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -334,6 +347,8 @@
 			isa = PBXGroup;
 			children = (
 				BAA340F923F3932900C7392C /* DateExtensions.swift */,
+				BA4EDA4224026CE200206267 /* IntExtensions.swift */,
+				BA733D5424038E4100395895 /* ErrorExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -366,7 +381,7 @@
 			);
 			name = "spotcheck-ios";
 			productName = "spotcheck-ios";
-			productReference = 567952FA23D806BE0077BA08 /* Spotcheck.app */;
+			productReference = 567952FA23D806BE0077BA08 /* Spotcheckr.app */;
 			productType = "com.apple.product-type.application";
 		};
 		5679530F23D806C00077BA08 /* spotcheck-iosTests */ = {
@@ -453,6 +468,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA4EDA452402909A00206267 /* ProfilePostCell.xib in Resources */,
 				BA4EE45423EECE84003E6D87 /* eye-off.svg in Resources */,
 				BA4EE45323EECE84003E6D87 /* eye.svg in Resources */,
 				BA49213723E6289B00A74A73 /* Roboto-Medium.ttf in Resources */,
@@ -556,6 +572,7 @@
 				BA1FB51923F1058500E091B1 /* EmailAddress.swift in Sources */,
 				BA1FB52723F119CB00E091B1 /* Metrics.swift in Sources */,
 				5645AFE823F51C0700B64D0B /* CreatePostViewController.swift in Sources */,
+				BA733D5524038E4100395895 /* ErrorExtensions.swift in Sources */,
 				BA1FB51723F104B400E091B1 /* PhoneNumber.swift in Sources */,
 				BA1FB52523F116BD00E091B1 /* ExercisePostService.swift in Sources */,
 				564FA33823FFBF81006017FB /* CreateAnswerViewController.swift in Sources */,
@@ -563,6 +580,7 @@
 				BAA340FA23F3932900C7392C /* DateExtensions.swift in Sources */,
 				5627FCA223F0BEB4001B4B5B /* FeedPostCell.swift in Sources */,
 				5659D9D723FD02980043FA6A /* AnswerPostCell.swift in Sources */,
+				BA4EDA47240290C000206267 /* ProfilePostCell.swift in Sources */,
 				5681771723FDCE7500CA7AB5 /* DetailedPostCell.swift in Sources */,
 				BA59197623F92DBA00E8B900 /* Services.swift in Sources */,
 				568721A323E7EF1100E15F87 /* ApplicationScheme.swift in Sources */,
@@ -575,12 +593,14 @@
 				BA1FB51B23F106B600E091B1 /* Trainer.swift in Sources */,
 				BA4EE44F23EE91D1003E6D87 /* SignUpViewController.swift in Sources */,
 				BA4EE45E23EFEC39003E6D87 /* UserProtocol.swift in Sources */,
+				BA4EDA4124025F0D00206267 /* EditProfileViewController.swift in Sources */,
 				BA1FB51323F1014900E091B1 /* BodyMeasurement.swift in Sources */,
 				BA4EE44723EBA347003E6D87 /* Identity.swift in Sources */,
 				5679533423D972F00077BA08 /* AuthOptionsViewController.swift in Sources */,
 				BA1FB51D23F106E500E091B1 /* Certification.swift in Sources */,
 				BA1FB52123F1148700E091B1 /* ExercisePost.swift in Sources */,
 				BA4EE46023EFEC7B003E6D87 /* UserService.swift in Sources */,
+				BA4EDA4324026CE200206267 /* IntExtensions.swift in Sources */,
 				BA1FB52F23F11C3400E091B1 /* Exercise.swift in Sources */,
 				BA4EE45A23EF1408003E6D87 /* ForgotPasswordViewController.swift in Sources */,
 				BA4EE44523EBA221003E6D87 /* User.swift in Sources */,
@@ -767,7 +787,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.spotcheck;
-				PRODUCT_NAME = Spotcheck;
+				PRODUCT_NAME = Spotcheckr;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -786,7 +806,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.spotcheck;
-				PRODUCT_NAME = Spotcheck;
+				PRODUCT_NAME = Spotcheckr;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
