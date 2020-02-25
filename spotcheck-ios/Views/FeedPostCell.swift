@@ -4,6 +4,7 @@ class FeedPostCell: UITableViewCell {
     @IBOutlet weak var postLabel: UILabel!
     @IBOutlet weak var photoView: UIImageView!
     @IBOutlet weak var photoHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var postBodyLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
