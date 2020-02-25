@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -10,7 +10,7 @@
         <!--Auth Options-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="AuthOptionsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" userLabel="Auth Options" customClass="AuthOptionsViewController" customModule="Spotcheck" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AuthOptionsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" userLabel="Auth Options" customClass="AuthOptionsViewController" customModule="Spotcheckr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -26,7 +26,7 @@
         <!--Sign Up-->
         <scene sceneID="5Q1-li-qaX">
             <objects>
-                <viewController storyboardIdentifier="SignUpViewController" title="Sign Up" id="Ip0-qO-wOV" customClass="SignUpViewController" customModule="Spotcheck" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SignUpViewController" title="Sign Up" id="Ip0-qO-wOV" customClass="SignUpViewController" customModule="Spotcheckr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="H6p-Mk-mOp">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -88,7 +88,7 @@
         <!--Profile-->
         <scene sceneID="6nE-ZL-oG8">
             <objects>
-                <viewController id="tMw-Fa-6Zf" userLabel="Profile" customClass="ProfileViewController" customModule="Spotcheck" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="tMw-Fa-6Zf" userLabel="Profile" customClass="ProfileViewController" customModule="Spotcheckr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" opaque="NO" contentMode="scaleToFill" id="4mr-Q0-Vdn">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -272,7 +272,7 @@
         <!--HomeFeed-->
         <scene sceneID="TXG-rZ-4K3">
             <objects>
-                <viewController storyboardIdentifier="FeedViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Qfh-fr-ymc" userLabel="HomeFeed" customClass="FeedViewController" customModule="Spotcheck" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FeedViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Qfh-fr-ymc" userLabel="HomeFeed" customClass="FeedViewController" customModule="Spotcheckr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Vs6-4q-xdK">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -330,7 +330,7 @@
         <!--Post Details-->
         <scene sceneID="6dT-Gy-rnv">
             <objects>
-                <viewController storyboardIdentifier="PostDetailViewController" id="M9o-fR-ved" userLabel="Post Details" customClass="PostDetailViewController" customModule="Spotcheck" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PostDetailViewController" id="M9o-fR-ved" userLabel="Post Details" customClass="PostDetailViewController" customModule="Spotcheckr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KGI-Jf-7G6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -376,7 +376,7 @@
         <!--CreatePost-->
         <scene sceneID="lzG-wv-yeJ">
             <objects>
-                <viewController storyboardIdentifier="CreatePostViewController" id="cch-6k-Lhu" userLabel="CreatePost" customClass="CreatePostViewController" customModule="Spotcheck" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CreatePostViewController" id="cch-6k-Lhu" userLabel="CreatePost" customClass="CreatePostViewController" customModule="Spotcheckr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XBn-kA-hyM">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -466,8 +466,8 @@
                         <viewLayoutGuide key="safeArea" id="L8l-fi-QXV"/>
                     </view>
                     <connections>
-                        <outlet property="photoHeightConstraint" destination="cjr-zq-yDg" id="wUB-cg-ZuI"/>
-                        <outlet property="photoImageVIew" destination="3GY-mJ-ZZG" id="yEV-JS-aDt"/>
+                        <outlet property="photoHeightConstraint" destination="cjr-zq-yDg" id="wUB-cg-ZuI"/>                        
+                        <outlet property="photoImageView" destination="3GY-mJ-ZZG" id="PBh-Cm-b2s"/>
                         <outlet property="postBodyTextView" destination="9hL-Nu-0us" id="nek-9U-3Lx"/>
                         <outlet property="subjectTextView" destination="JFf-7J-RBW" id="I9q-rT-81n"/>
                         <outlet property="workoutTypeDropDown" destination="1PH-CT-WQj" id="4MO-CT-cm6"/>
@@ -480,7 +480,7 @@
         <!--CreateAnswer-->
         <scene sceneID="fcI-qE-ADF">
             <objects>
-                <viewController storyboardIdentifier="CreateAnswerViewController" id="Q3E-1v-EnN" userLabel="CreateAnswer" customClass="CreateAnswerViewController" customModule="Spotcheck" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CreateAnswerViewController" id="Q3E-1v-EnN" userLabel="CreateAnswer" customClass="CreateAnswerViewController" customModule="Spotcheckr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hSd-Kg-lJe">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -615,7 +615,7 @@
         <!--Edit Profile-->
         <scene sceneID="fkx-nW-4Oq">
             <objects>
-                <viewController id="qK8-tQ-gZ3" customClass="EditProfileViewController" customModule="Spotcheck" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="qK8-tQ-gZ3" customClass="EditProfileViewController" customModule="Spotcheckr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IUv-L8-UjY">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

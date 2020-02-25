@@ -3,6 +3,7 @@ import iOSDropDown //https://github.com/jriosdev/iOSDropDown
 import Firebase
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import Photos
 
 class CreatePostViewController: UIViewController {
     
@@ -13,7 +14,8 @@ class CreatePostViewController: UIViewController {
 
     @IBOutlet weak var workoutTypeDropDown: DropDown!
     @IBOutlet weak var subjectTextView: UITextView!
-    @IBOutlet weak var photoImageVIew: UIImageView!
+    @IBOutlet weak var photoImageView: UIImageView!
+    
     @IBOutlet weak var photoHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var postBodyTextView: UITextView!
     @IBAction func cancelPost(_ sender: Any) {
@@ -73,7 +75,9 @@ class CreatePostViewController: UIViewController {
         return button
     }()
     
-        
+    var imagePickerController = UIImagePickerController()
+    var isImageChanged = false
+    
     static func create() -> CreatePostViewController  {
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         let createPostViewController = storyboard.instantiateViewController(withIdentifier: K.Storyboard.CreatePostViewControllerId) as! CreatePostViewController
@@ -87,6 +91,8 @@ class CreatePostViewController: UIViewController {
         
         initDropDown()
         initTextViewPlaceholders()
+        photoImageView.isHidden = true //photo appears and to adjusted height once uploaded
+        photoHeightConstraint.constant = 0
         addKeyboardMenuAccessory()
     }    
 }
@@ -144,13 +150,50 @@ extension CreatePostViewController {
     
     @objc func openCamera() {
         print("openCamera")
-        //photo.on.rectangle
-        //keyboard
-        //camera
     }
     
     @objc func openPhotoGallery() {
         print("openPhotoGallery")
+        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
+            checkPhotoPermissionsAndShowLib()
+        }
+        
+    }
+    
+    
+    func showPhotoLibraryPicker() {
+       imagePickerController = UIImagePickerController()
+       
+       imagePickerController.delegate = self
+       imagePickerController.sourceType = .savedPhotosAlbum
+       imagePickerController.allowsEditing = false
+       
+       present(imagePickerController, animated: true, completion: nil)
+    }
+    
+    func checkPhotoPermissionsAndShowLib() {
+        let photoAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
+        
+        switch photoAuthorizationStatus {
+        case .authorized:
+            print("Access is granted by user")
+            showPhotoLibraryPicker()
+        case .notDetermined:
+            PHPhotoLibrary.requestAuthorization({ newStatus in
+                print("status is \(newStatus)")
+                if newStatus == PHAuthorizationStatus.authorized {
+                    print("success")
+                    self.showPhotoLibraryPicker()
+                }
+            })
+        case .restricted:
+            print("User do not have access to photo album.")
+        case .denied:
+            print("User has denied the permission.")
+        @unknown default:
+            print("User has unknown authorization to view library")
+        }
+        
     }
     
     func validatePost() -> Bool {
@@ -180,16 +223,45 @@ extension CreatePostViewController {
     func createPost() {
         let db = Firestore.firestore()
         let newDocRef = db.collection(K.Firestore.posts).document()
-        
-        newDocRef.setData([
+        var postDocument = [
             "created-by" : Auth.auth().currentUser?.uid,
             "created-date" : FieldValue.serverTimestamp(),
             "title" : subjectTextView.text!,
             "description" : postBodyTextView.text!,
             "id" : newDocRef.documentID,
             "modified-date" : FieldValue.serverTimestamp()
-        ])
+            ] as [String : Any]
         
+        
+        
+        if (isImageChanged) {
+            print("photo: changed")
+            
+            // Create reference for the new file on Firebase storage under images/
+            let firebaseImagesStorageRef = Storage.storage().reference().child(K.Firestore.Storage.IMAGES_ROOT_DIR)
+            let newImageName = "\(NSUUID().uuidString)" + ".png"
+            let newImageStorageRef = firebaseImagesStorageRef.child(newImageName)
+            
+            postDocument.add(["image-path" : newImageName ])
+            
+            // TODO some checks on image size, loading screen, and promisify....
+            if let uploadData = photoImageView.image?.pngData() {
+                let uploadTask = newImageStorageRef.putData(uploadData, metadata: nil, completion:
+                    { (metadata, error) in
+                        if error != nil {
+                            print(error.debugDescription)
+                            return
+                        }
+                        print("Successful upload")
+                        print(metadata)
+                    })
+            }
+        } else {
+            print("photo: NOTs changed")
+        }
+        
+        print(postDocument)
+        newDocRef.setData(postDocument)
     }
 }
 
@@ -212,5 +284,23 @@ extension CreatePostViewController: UITextViewDelegate {
             }
             textView.textColor = UIColor.lightGray
         }
+    }
+}
+
+extension CreatePostViewController: UINavigationControllerDelegate,UIImagePickerControllerDelegate {
+
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
+       
+       print("info:")
+       print(info)
+               
+       let chosenImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+       
+       isImageChanged = true
+       photoImageView.isHidden = false //photo appears and to adjusted height once uploaded
+       photoHeightConstraint.constant = 200
+       photoImageView.image = chosenImage
+       
+        imagePickerController.dismiss(animated: true, completion: nil)
     }
 }
