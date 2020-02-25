@@ -13,6 +13,8 @@ class CreatePostViewController: UIViewController {
 
     @IBOutlet weak var workoutTypeDropDown: DropDown!
     @IBOutlet weak var subjectTextView: UITextView!
+    @IBOutlet weak var photoImageVIew: UIImageView!
+    @IBOutlet weak var photoHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var postBodyTextView: UITextView!
     @IBAction func cancelPost(_ sender: Any) {
         dismiss(animated: true, completion: nil)
@@ -126,16 +128,6 @@ extension CreatePostViewController {
         keyboardMenuAccessory.addSubview(openPhotoGalleryBtn)
         keyboardMenuAccessory.addSubview(openCameraBtn)
         
-        /*
-        NSLayoutConstraint.activate([
-            openKeyboardBtn.leadingAnchor.constraint(equalTo: keyboardMenuAccessory.leadingAnchor, constant: 20),
-            openKeyboardBtn.centerYAnchor.constraint(equalTo: keyboardMenuAccessory.centerYAnchor),
-            openPhotoGalleryBtn.centerXAnchor.constraint(equalTo: keyboardMenuAccessory.centerXAnchor),
-            openPhotoGalleryBtn.centerYAnchor.constraint(equalTo: keyboardMenuAccessory.centerYAnchor),
-            openCameraBtn.trailingAnchor.constraint(equalTo: keyboardMenuAccessory.trailingAnchor, constant: -20),
-            openCameraBtn.centerYAnchor.constraint(equalTo: keyboardMenuAccessory.centerYAnchor)
-        ])
- */
         NSLayoutConstraint.activate([
             openKeyboardBtn.leadingAnchor.constraint(equalTo: keyboardMenuAccessory.leadingAnchor, constant: 20),
             openKeyboardBtn.centerYAnchor.constraint(equalTo: keyboardMenuAccessory.centerYAnchor),
