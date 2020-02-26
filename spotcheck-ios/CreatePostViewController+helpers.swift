@@ -147,15 +147,20 @@ extension CreatePostViewController {
             
             // Create reference for the new file on Firebase storage under images/
             let firebaseImagesStorageRef = Storage.storage().reference().child(K.Firestore.Storage.IMAGES_ROOT_DIR)
-            let newImageName = "\(NSUUID().uuidString)" + ".png"
+            let newImageName = "\(NSUUID().uuidString)" + ".jpeg"
             let newImageStorageRef = firebaseImagesStorageRef.child(newImageName)
+            let metaData = StorageMetadata()
+            metaData.contentType = "image/jpeg"
             
             postDocument.add(["image-path" : newImageName ])
             
             // TODO some checks on image size, loading screen, and promisify....
-            if let uploadData = photoImageView.image?.pngData() {
-                let uploadTask = newImageStorageRef.putData(uploadData, metadata: nil, completion:
+            //use image?.jpegData(compressionQuality:)
+            if let uploadData = photoImageView.image?.jpegData(compressionQuality: 0.0) {
+            //if let uploadData = photoImageView.image?.pngData() {
+                let uploadTask = newImageStorageRef.putData(uploadData, metadata: metaData, completion:
                     { (metadata, error) in
+                        
                         if error != nil {
                             print(error.debugDescription)
                             return
