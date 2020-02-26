@@ -34,6 +34,12 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate, Valid
     required init?(coder aDecoder: NSCoder) {
         emailAddressTextFieldController = MDCTextInputControllerOutlined(textInput: emailAddressTextField)
         emailAddressTextFieldController.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
+        emailAddressTextFieldController.normalColor  = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
+        emailAddressTextFieldController.activeColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
+        emailAddressTextFieldController.inlinePlaceholderColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
+        emailAddressTextFieldController.floatingPlaceholderNormalColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
+        emailAddressTextFieldController.floatingPlaceholderActiveColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
+        
         validator = Validator()
         super.init(coder: aDecoder)
     }
@@ -63,7 +69,10 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate, Valid
         self.forgotPasswordSubtitle.font = ApplicationScheme.instance.containerScheme.typographyScheme.subtitle1
         self.forgotPasswordSubtitle.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
         self.continueButton.applyContainedTheme(withScheme: ApplicationScheme.instance.containerScheme)
+        self.continueButton.setBackgroundColor(ApplicationScheme.instance.containerScheme.colorScheme.secondaryColor)
+        self.continueButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onSecondaryColor, for: .normal)
         self.cancelButton.applyOutlinedTheme(withScheme: ApplicationScheme.instance.containerScheme)
+        self.cancelButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onSecondaryColor, for: .normal)
     }
     
     private func setupDelegates() {

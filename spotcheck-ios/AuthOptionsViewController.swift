@@ -16,7 +16,7 @@ import FirebaseAuth.FIRAuthErrors
 class AuthOptionsViewController: UIViewController, UITextFieldDelegate, ValidationDelegate {
     let spotcheckHeadline: UILabel = {
        let label = UILabel()
-        label.text = "Spotcheck"
+        label.text = "Spotcheckr"
         label.textAlignment = .center
         label.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
         label.font = ApplicationScheme.instance.containerScheme.typographyScheme.headline4
@@ -126,10 +126,10 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
         passwordTextFieldController = MDCTextInputControllerOutlined(textInput: passwordTextField)
         passwordTextFieldController.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
         passwordTextFieldController.normalColor  = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
-               passwordTextFieldController.activeColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
-               passwordTextFieldController.inlinePlaceholderColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
-               passwordTextFieldController.floatingPlaceholderNormalColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
-               passwordTextFieldController.floatingPlaceholderActiveColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
+        passwordTextFieldController.activeColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
+        passwordTextFieldController.inlinePlaceholderColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
+        passwordTextFieldController.floatingPlaceholderNormalColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
+        passwordTextFieldController.floatingPlaceholderActiveColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
 
         validator = Validator()
         
