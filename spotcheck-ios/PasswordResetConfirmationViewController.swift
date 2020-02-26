@@ -19,5 +19,7 @@ class PasswordResetConfirmationViewController: UIViewController {
         self.confirmationSubtitle.font = ApplicationScheme.instance.containerScheme.typographyScheme.subtitle1
         self.confirmationSubtitle.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
         self.loginReturnButton.applyContainedTheme(withScheme: ApplicationScheme.instance.containerScheme)
+        self.loginReturnButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onSecondaryColor, for: .normal)
+        self.loginReturnButton.setBackgroundColor(ApplicationScheme.instance.containerScheme.colorScheme.secondaryColor)
     }
 }

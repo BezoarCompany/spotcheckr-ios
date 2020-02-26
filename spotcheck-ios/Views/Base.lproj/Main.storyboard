@@ -10,7 +10,7 @@
         <!--Auth Options-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="AuthOptionsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" userLabel="Auth Options" customClass="AuthOptionsViewController" customModule="Spotcheck" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AuthOptionsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" userLabel="Auth Options" customClass="AuthOptionsViewController" customModule="Spotcheckr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -26,7 +26,7 @@
         <!--Sign Up-->
         <scene sceneID="5Q1-li-qaX">
             <objects>
-                <viewController storyboardIdentifier="SignUpViewController" title="Sign Up" id="Ip0-qO-wOV" customClass="SignUpViewController" customModule="Spotcheck" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SignUpViewController" title="Sign Up" id="Ip0-qO-wOV" customClass="SignUpViewController" customModule="Spotcheckr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="H6p-Mk-mOp">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -83,12 +83,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZlX-wq-2qm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="967" y="138"/>
+            <point key="canvasLocation" x="-497" y="-579"/>
         </scene>
         <!--Profile-->
         <scene sceneID="6nE-ZL-oG8">
             <objects>
-                <viewController id="tMw-Fa-6Zf" userLabel="Profile" customClass="ProfileViewController" customModule="Spotcheck" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="tMw-Fa-6Zf" userLabel="Profile" customClass="ProfileViewController" customModule="Spotcheckr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" opaque="NO" contentMode="scaleToFill" id="4mr-Q0-Vdn">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -272,7 +272,7 @@
         <!--HomeFeed-->
         <scene sceneID="TXG-rZ-4K3">
             <objects>
-                <viewController storyboardIdentifier="FeedViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Qfh-fr-ymc" userLabel="HomeFeed" customClass="FeedViewController" customModule="Spotcheck" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FeedViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Qfh-fr-ymc" userLabel="HomeFeed" customClass="FeedViewController" customModule="Spotcheckr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Vs6-4q-xdK">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -330,7 +330,7 @@
         <!--Post Details-->
         <scene sceneID="6dT-Gy-rnv">
             <objects>
-                <viewController storyboardIdentifier="PostDetailViewController" id="M9o-fR-ved" userLabel="Post Details" customClass="PostDetailViewController" customModule="Spotcheck" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PostDetailViewController" id="M9o-fR-ved" userLabel="Post Details" customClass="PostDetailViewController" customModule="Spotcheckr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KGI-Jf-7G6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -376,7 +376,7 @@
         <!--CreatePost-->
         <scene sceneID="lzG-wv-yeJ">
             <objects>
-                <viewController storyboardIdentifier="CreatePostViewController" id="cch-6k-Lhu" userLabel="CreatePost" customClass="CreatePostViewController" customModule="Spotcheck" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CreatePostViewController" id="cch-6k-Lhu" userLabel="CreatePost" customClass="CreatePostViewController" customModule="Spotcheckr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XBn-kA-hyM">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -468,7 +468,7 @@
         <!--CreateAnswer-->
         <scene sceneID="fcI-qE-ADF">
             <objects>
-                <viewController storyboardIdentifier="CreateAnswerViewController" id="Q3E-1v-EnN" userLabel="CreateAnswer" customClass="CreateAnswerViewController" customModule="Spotcheck" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CreateAnswerViewController" id="Q3E-1v-EnN" userLabel="CreateAnswer" customClass="CreateAnswerViewController" customModule="Spotcheckr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hSd-Kg-lJe">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -603,7 +603,7 @@
         <!--Edit Profile-->
         <scene sceneID="fkx-nW-4Oq">
             <objects>
-                <viewController id="qK8-tQ-gZ3" customClass="EditProfileViewController" customModule="Spotcheck" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="qK8-tQ-gZ3" customClass="EditProfileViewController" customModule="Spotcheckr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IUv-L8-UjY">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -618,6 +618,117 @@
             </objects>
             <point key="canvasLocation" x="3709" y="504"/>
         </scene>
+        <!--Forgot Password-->
+        <scene sceneID="zwg-aU-iXJ">
+            <objects>
+                <viewController storyboardIdentifier="ForgotPasswordViewController" title="Forgot Password" id="FNx-nn-rnu" customClass="ForgotPasswordViewController" customModule="Spotcheckr" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="v9y-di-zcl">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forgot your password?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OLt-LM-zpl">
+                                <rect key="frame" x="45" y="89" width="324" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your email to reset your password." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FVc-O0-LDf">
+                                <rect key="frame" x="45" y="124.5" width="309" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hIZ-kt-oei" customClass="MDCButton">
+                                <rect key="frame" x="45" y="460" width="324" height="30"/>
+                                <state key="normal" title="Continue"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ptb-F4-0U6" customClass="MDCFlatButton">
+                                <rect key="frame" x="45" y="522" width="324" height="30"/>
+                                <state key="normal" title="Cancel"/>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="bdw-On-ZHl"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.1333333333" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="hIZ-kt-oei" firstAttribute="leading" secondItem="1EM-bt-Jw0" secondAttribute="leading" constant="45" id="2ob-jv-LiI"/>
+                            <constraint firstItem="1EM-bt-Jw0" firstAttribute="trailing" secondItem="OLt-LM-zpl" secondAttribute="trailing" constant="45" id="5hA-oi-W5q"/>
+                            <constraint firstItem="Ptb-F4-0U6" firstAttribute="leading" secondItem="1EM-bt-Jw0" secondAttribute="leading" constant="45" id="6FJ-AX-i19"/>
+                            <constraint firstItem="1EM-bt-Jw0" firstAttribute="trailing" secondItem="FVc-O0-LDf" secondAttribute="trailing" constant="60" id="9FY-Vd-bVg"/>
+                            <constraint firstItem="Ptb-F4-0U6" firstAttribute="top" secondItem="hIZ-kt-oei" secondAttribute="bottom" constant="25" id="Eeb-eL-R9U"/>
+                            <constraint firstItem="1EM-bt-Jw0" firstAttribute="trailing" secondItem="hIZ-kt-oei" secondAttribute="trailing" constant="45" id="H2n-wW-nVn"/>
+                            <constraint firstItem="FVc-O0-LDf" firstAttribute="top" secondItem="OLt-LM-zpl" secondAttribute="bottom" constant="15" id="KpL-UI-BR2"/>
+                            <constraint firstItem="FVc-O0-LDf" firstAttribute="leading" secondItem="1EM-bt-Jw0" secondAttribute="leading" constant="45" id="Qnc-Qh-Du1"/>
+                            <constraint firstItem="1EM-bt-Jw0" firstAttribute="trailing" secondItem="Ptb-F4-0U6" secondAttribute="trailing" constant="45" id="iSf-sj-69i"/>
+                            <constraint firstItem="OLt-LM-zpl" firstAttribute="leading" secondItem="1EM-bt-Jw0" secondAttribute="leading" constant="45" id="pds-ed-813"/>
+                            <constraint firstItem="OLt-LM-zpl" firstAttribute="top" secondItem="1EM-bt-Jw0" secondAttribute="top" constant="45" id="rKQ-gW-Weg"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="1EM-bt-Jw0"/>
+                    </view>
+                    <connections>
+                        <outlet property="cancelButton" destination="Ptb-F4-0U6" id="T7m-bl-scE"/>
+                        <outlet property="continueButton" destination="hIZ-kt-oei" id="Tdq-GO-IFI"/>
+                        <outlet property="forgotPasswordHeadline" destination="OLt-LM-zpl" id="drt-Nn-3VN"/>
+                        <outlet property="forgotPasswordSubtitle" destination="FVc-O0-LDf" id="cHZ-Kg-PRv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2Wx-TZ-zf3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="288" y="-579"/>
+        </scene>
+        <!--Forgot Password Confirmation-->
+        <scene sceneID="iVS-Z0-i4q">
+            <objects>
+                <viewController storyboardIdentifier="PasswordResetConfirmationViewController" title="Forgot Password Confirmation" id="el3-Oh-o2i" customClass="PasswordResetConfirmationViewController" customModule="Spotcheckr" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="SCn-Sw-ykB">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reset link has been sent." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sqf-4h-AU6">
+                                <rect key="frame" x="45" y="89" width="324" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="An email with instructions to reset your password has been sent to your email address." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bOn-cY-wBm">
+                                <rect key="frame" x="45" y="125" width="309" height="61"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xSa-An-hBf" customClass="MDCButton">
+                                <rect key="frame" x="45" y="216" width="324" height="30"/>
+                                <state key="normal" title="Return to login"/>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="eMl-qN-UBV"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.1333333333" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="xSa-An-hBf" firstAttribute="leading" secondItem="CLs-ur-fsu" secondAttribute="leading" constant="45" id="2wO-TJ-kJa"/>
+                            <constraint firstItem="CLs-ur-fsu" firstAttribute="trailing" secondItem="xSa-An-hBf" secondAttribute="trailing" constant="45" id="7zJ-mb-mmc"/>
+                            <constraint firstItem="xSa-An-hBf" firstAttribute="top" secondItem="bOn-cY-wBm" secondAttribute="bottom" constant="30" id="82I-oa-5Ey"/>
+                            <constraint firstItem="bOn-cY-wBm" firstAttribute="leading" secondItem="CLs-ur-fsu" secondAttribute="leading" constant="45" id="GNL-5G-EPl"/>
+                            <constraint firstItem="CLs-ur-fsu" firstAttribute="trailing" secondItem="sqf-4h-AU6" secondAttribute="trailing" constant="45" id="JPw-4y-9zs"/>
+                            <constraint firstItem="sqf-4h-AU6" firstAttribute="leading" secondItem="CLs-ur-fsu" secondAttribute="leading" constant="45" id="mn7-Jm-M9a"/>
+                            <constraint firstAttribute="trailing" secondItem="bOn-cY-wBm" secondAttribute="trailing" constant="60" id="rmz-FW-Deg"/>
+                            <constraint firstItem="sqf-4h-AU6" firstAttribute="top" secondItem="CLs-ur-fsu" secondAttribute="top" constant="45" id="sUS-4y-eTU"/>
+                            <constraint firstItem="bOn-cY-wBm" firstAttribute="top" secondItem="sqf-4h-AU6" secondAttribute="bottom" constant="15" id="uHK-Qm-A0W"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="CLs-ur-fsu"/>
+                    </view>
+                    <connections>
+                        <outlet property="confirmationHeadline" destination="sqf-4h-AU6" id="lgH-Sq-5DN"/>
+                        <outlet property="confirmationSubtitle" destination="bOn-cY-wBm" id="GOA-EV-tuv"/>
+                        <outlet property="loginReturnButton" destination="xSa-An-hBf" id="Qxi-HR-eY5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pEb-0L-gp1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1049.2753623188407" y="-579.24107142857144"/>
+        </scene>
     </scenes>
     <resources>
         <image name="list.dash" catalog="system" width="64" height="42"/>
@@ -627,4 +738,7 @@
         <image name="person.crop.circle" catalog="system" width="64" height="60"/>
         <image name="person.fill" catalog="system" width="64" height="60"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="bdw-On-ZHl"/>
+    </inferredMetricsTieBreakers>
 </document>
