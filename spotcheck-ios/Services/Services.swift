@@ -3,6 +3,7 @@ class Services {
     private static var userServiceSingleton = UserService()
     private static var exercisePostSingleton = ExercisePostService()
     private static var authenticationServiceSingleton = AuthenticationService()
+    private static var storageSingleton = StorageService()
     
     static var userService: UserService {
         return userServiceSingleton
@@ -14,5 +15,9 @@ class Services {
     
     static var authenticationService: AuthenticationService {
         return authenticationServiceSingleton
+    }
+    
+    static var storageService: StorageService {
+        return storageSingleton
     }
 }

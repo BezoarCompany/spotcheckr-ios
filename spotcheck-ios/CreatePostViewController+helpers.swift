@@ -139,36 +139,19 @@ extension CreatePostViewController {
             "id" : newDocRef.documentID,
             "modified-date" : FieldValue.serverTimestamp()
             ] as [String : Any]
-        
-        
+            
         
         if (isImageChanged) {
-            print("photo: changed")
+            print("photo: changed using ServicePromises v1")
             
             // Create reference for the new file on Firebase storage under images/
-            let firebaseImagesStorageRef = Storage.storage().reference().child(K.Firestore.Storage.IMAGES_ROOT_DIR)
             let newImageName = "\(NSUUID().uuidString)" + ".jpeg"
-            let newImageStorageRef = firebaseImagesStorageRef.child(newImageName)
-            let metaData = StorageMetadata()
-            metaData.contentType = "image/jpeg"
+            
+            //TODO show loading screen, using Notifications thread to monitor status periodically?
+            let uploadTask: StorageUploadTask  =
+                Services.storageService.uploadImage(filename: newImageName, imagetype: .jpeg, uiimage: photoImageView.image!)
             
             postDocument.add(["image-path" : newImageName ])
-            
-            // TODO some checks on image size, loading screen, and promisify....
-            //use image?.jpegData(compressionQuality:)
-            if let uploadData = photoImageView.image?.jpegData(compressionQuality: 0.0) {
-            //if let uploadData = photoImageView.image?.pngData() {
-                let uploadTask = newImageStorageRef.putData(uploadData, metadata: metaData, completion:
-                    { (metadata, error) in
-                        
-                        if error != nil {
-                            print(error.debugDescription)
-                            return
-                        }
-                        print("Successful upload")
-                        print(metadata)
-                    })
-            }
         } else {
             print("photo: NOTs changed")
         }
