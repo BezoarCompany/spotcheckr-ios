@@ -16,7 +16,7 @@ import FirebaseAuth.FIRAuthErrors
 class AuthOptionsViewController: UIViewController, UITextFieldDelegate, ValidationDelegate {
     let spotcheckHeadline: UILabel = {
        let label = UILabel()
-        label.text = "Spotcheck"
+        label.text = "Spotcheckr"
         label.textAlignment = .center
         label.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
         label.font = ApplicationScheme.instance.containerScheme.typographyScheme.headline4
