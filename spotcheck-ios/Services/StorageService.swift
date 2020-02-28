@@ -26,7 +26,7 @@ class StorageService: StorageProtocol {
             metaData.contentType = "image/png"
         }
         
-        let uploadData = uiimage.jpegData(compressionQuality: 0.0)!
+        let uploadData = uiimage.jpegData(compressionQuality: 1.0)!
                                         
         let uploadTask = newImageStorageRef.putData(uploadData, metadata: metaData, completion:
         { (metadata, error) in

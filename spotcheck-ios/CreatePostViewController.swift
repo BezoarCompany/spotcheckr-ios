@@ -26,7 +26,7 @@ class CreatePostViewController: UIViewController {
         
         if(validatePost()) {
             createPost()
-            dismiss(animated: true, completion: nil)
+            //dismiss(animated: true, completion: nil)
         }
         
     }
@@ -75,6 +75,8 @@ class CreatePostViewController: UIViewController {
         return button
     }()
     
+    var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
+    
     var imagePickerController = UIImagePickerController()
     var isImageChanged = false
     
@@ -91,9 +93,13 @@ class CreatePostViewController: UIViewController {
         
         initDropDown()
         initTextViewPlaceholders()
+        initActivityIndicator()
         photoImageView.isHidden = true //photo appears and to adjusted height once uploaded
         photoHeightConstraint.constant = 0
         addKeyboardMenuAccessory()
+        
+        //activityIndicator.startAnimating()
+        
     }    
 }
 
@@ -133,6 +139,6 @@ extension CreatePostViewController: UINavigationControllerDelegate,UIImagePicker
        photoHeightConstraint.constant = 200
        photoImageView.image = chosenImage
        
-        imagePickerController.dismiss(animated: true, completion: nil)
+       imagePickerController.dismiss(animated: true, completion: nil)
     }
 }

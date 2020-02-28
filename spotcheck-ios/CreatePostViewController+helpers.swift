@@ -29,6 +29,13 @@ extension CreatePostViewController {
         postBodyTextView.textColor = UIColor.lightGray
     }
     
+    func initActivityIndicator() {
+        activityIndicator.center = self.view.center
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.style = UIActivityIndicatorView.Style.large
+        self.view.addSubview(activityIndicator)
+    }
+    
     func addKeyboardMenuAccessory() {
         postBodyTextView.inputAccessoryView = keyboardMenuAccessory
         
@@ -152,12 +159,38 @@ extension CreatePostViewController {
                 Services.storageService.uploadImage(filename: newImageName, imagetype: .jpeg, uiimage: photoImageView.image!)
             
             postDocument.add(["image-path" : newImageName ])
+            
+            // Listen for state changes, errors, and completion of the upload.
+            uploadTask.observe(.resume) { snapshot in
+                print("starting upload")
+                //doesn't seem to fire even though docs say it happens of START of download
+                
+                self.activityIndicator.startAnimating()
+            }
+
+            
+            uploadTask.observe( .success) { snapshot in
+                print("successfully finished upload")
+                self.activityIndicator.stopAnimating()
+                //TODO loading screen here?
+                //newDocRef.setData(postDocument)
+            }
+            
+            uploadTask.observe(.progress) { snapshot in
+                
+                let percentComplete = 100.0 * Double(snapshot.progress!.completedUnitCount)
+                  / Double(snapshot.progress!.totalUnitCount)
+                print ("\(percentComplete) %")
+                self.activityIndicator.startAnimating()
+            }
+            
         } else {
             print("photo: NOTs changed")
+            newDocRef.setData(postDocument)
         }
         
         print(postDocument)
-        newDocRef.setData(postDocument)
+        
     }
 }
 
