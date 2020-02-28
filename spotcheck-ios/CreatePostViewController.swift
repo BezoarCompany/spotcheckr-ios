@@ -4,6 +4,7 @@ import Firebase
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Photos
+import PromiseKit
 
 class CreatePostViewController: UIViewController {
     
@@ -25,8 +26,7 @@ class CreatePostViewController: UIViewController {
         print("submitted")
         
         if(validatePost()) {
-            createPost()
-            //dismiss(animated: true, completion: nil)
+            submitPostWorkflow()
         }
         
     }

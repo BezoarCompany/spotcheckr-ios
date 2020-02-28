@@ -441,6 +441,7 @@ class ExercisePostService: ExercisePostProtocol {
             }
         }
     }
+    
     private func mapAnswer(fromData data:[String:Any],
                            metrics: Metrics,
                            createdBy: User) -> Answer {
@@ -469,5 +470,24 @@ class ExercisePostService: ExercisePostProtocol {
         post.exercises = exercises
         post.answers = answers
         return post
+    }
+        
+    func writePost(dict: [String: Any]) -> Promise<Void> {
+        return Promise { promise in
+            
+            let db = Firestore.firestore()
+            let newDocRef = db.collection(K.Firestore.posts).document()
+            
+            var newDict = dict
+            newDict.add(["id" : newDocRef.documentID])
+            
+            newDocRef.setData(newDict) { err in
+                if let err = err {
+                    return promise.reject(err)
+                } else {
+                    promise.fulfill_()
+                }
+            }
+        }
     }
 }

@@ -4,6 +4,7 @@ import Firebase
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Photos
+import PromiseKit
 
 extension CreatePostViewController {
     func initDropDown() {
@@ -135,61 +136,45 @@ extension CreatePostViewController {
     }
     
     // TODO: put in PostService
-    func createPost() {
-        let db = Firestore.firestore()
-        let newDocRef = db.collection(K.Firestore.posts).document()
+    func submitPostWorkflow() {
+                   self.activityIndicator.startAnimating()
+        
         var postDocument = [
             "created-by" : Auth.auth().currentUser?.uid,
             "created-date" : FieldValue.serverTimestamp(),
             "title" : subjectTextView.text!,
             "description" : postBodyTextView.text!,
-            "id" : newDocRef.documentID,
             "modified-date" : FieldValue.serverTimestamp()
             ] as [String : Any]
-            
         
-        if (isImageChanged) {
-            print("photo: changed using ServicePromises v1")
-            
-            // Create reference for the new file on Firebase storage under images/
+        if (isImageChanged) { //store image first, then write Post to firebase (with image name), finally close activityIndicators
             let newImageName = "\(NSUUID().uuidString)" + ".jpeg"
-            
-            //TODO show loading screen, using Notifications thread to monitor status periodically?
-            let uploadTask: StorageUploadTask  =
-                Services.storageService.uploadImage(filename: newImageName, imagetype: .jpeg, uiimage: photoImageView.image!)
-            
+                            
             postDocument.add(["image-path" : newImageName ])
+                            
+            let jpegData = photoImageView.image!.jpegData(compressionQuality: 1.0)
             
-            // Listen for state changes, errors, and completion of the upload.
-            uploadTask.observe(.resume) { snapshot in
-                print("starting upload")
-                //doesn't seem to fire even though docs say it happens of START of download
-                
-                self.activityIndicator.startAnimating()
-            }
-
-            
-            uploadTask.observe( .success) { snapshot in
-                print("successfully finished upload")
+            firstly {
+                Services.storageService.uploadImage(filename: newImageName, imagetype: .jpeg, data: jpegData)
+            }.done {
+                Services.exercisePostService.writePost(dict: postDocument)
+                self.dismiss(animated: true, completion: nil)
+            }.catch { error in
+                print(error)
+            }.finally {
                 self.activityIndicator.stopAnimating()
-                //TODO loading screen here?
-                //newDocRef.setData(postDocument)
             }
-            
-            uploadTask.observe(.progress) { snapshot in
-                
-                let percentComplete = 100.0 * Double(snapshot.progress!.completedUnitCount)
-                  / Double(snapshot.progress!.totalUnitCount)
-                print ("\(percentComplete) %")
-                self.activityIndicator.startAnimating()
-            }
-            
         } else {
-            print("photo: NOTs changed")
-            newDocRef.setData(postDocument)
+            firstly {
+                Services.exercisePostService.writePost(dict: postDocument)
+            }.done {
+                self.dismiss(animated: true, completion: nil)
+            }.catch { error in
+                print(error)
+            }.finally {
+                self.activityIndicator.stopAnimating()
+            }
         }
-        
-        print(postDocument)
         
     }
 }
