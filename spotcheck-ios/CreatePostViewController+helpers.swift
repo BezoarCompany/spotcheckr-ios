@@ -135,9 +135,8 @@ extension CreatePostViewController {
         return true
     }
     
-    // TODO: put in PostService
     func submitPostWorkflow() {
-                   self.activityIndicator.startAnimating()
+        self.activityIndicator.startAnimating()
         
         var postDocument = [
             "created-by" : Auth.auth().currentUser?.uid,
@@ -147,7 +146,7 @@ extension CreatePostViewController {
             "modified-date" : FieldValue.serverTimestamp()
             ] as [String : Any]
         
-        if (isImageChanged) { //store image first, then write Post to firebase (with image name), finally close activityIndicators
+        if (isImageChanged) { //store image first, then write Post (text) to firebase (with image name), finally close activityIndicators
             let newImageName = "\(NSUUID().uuidString)" + ".jpeg"
                             
             postDocument.add(["image-path" : newImageName ])
@@ -164,7 +163,7 @@ extension CreatePostViewController {
             }.finally {
                 self.activityIndicator.stopAnimating()
             }
-        } else {
+        } else {//only write Post (text) to firebase
             firstly {
                 Services.exercisePostService.writePost(dict: postDocument)
             }.done {
@@ -176,24 +175,5 @@ extension CreatePostViewController {
             }
         }
         
-    }
-}
-
-extension UIImage {
-    func resized(withPercentage percentage: CGFloat, isOpaque: Bool = true) -> UIImage? {
-        let canvas = CGSize(width: size.width * percentage, height: size.height * percentage)
-        let format = imageRendererFormat
-        format.opaque = isOpaque
-        return UIGraphicsImageRenderer(size: canvas, format: format).image {
-            _ in draw(in: CGRect(origin: .zero, size: canvas))
-        }
-    }
-    func resized(toWidth width: CGFloat, isOpaque: Bool = true) -> UIImage? {
-        let canvas = CGSize(width: width, height: CGFloat(ceil(width/size.width * size.height)))
-        let format = imageRendererFormat
-        format.opaque = isOpaque
-        return UIGraphicsImageRenderer(size: canvas, format: format).image {
-            _ in draw(in: CGRect(origin: .zero, size: canvas))
-        }
     }
 }
