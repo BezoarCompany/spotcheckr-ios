@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		5627FCA223F0BEB4001B4B5B /* FeedPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5627FCA023F0BEB4001B4B5B /* FeedPostCell.swift */; };
 		5627FCA323F0BEB4001B4B5B /* FeedPostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5627FCA123F0BEB4001B4B5B /* FeedPostCell.xib */; };
+		5644F61D2406435C00A103EF /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5644F61C2406435C00A103EF /* StorageService.swift */; };
+		5644F61F2406459B00A103EF /* StorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5644F61E2406459B00A103EF /* StorageProtocol.swift */; };
 		5645AFE823F51C0700B64D0B /* CreatePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5645AFE723F51C0700B64D0B /* CreatePostViewController.swift */; };
 		5645AFEA23F53CF700B64D0B /* iOSDropDown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5645AFE923F53CF700B64D0B /* iOSDropDown.framework */; };
 		564FA33823FFBF81006017FB /* CreateAnswerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564FA33723FFBF81006017FB /* CreateAnswerViewController.swift */; };
@@ -27,6 +29,7 @@
 		567E9A3223E93EA2004C1B2E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567E9A3123E93EA2004C1B2E /* Constants.swift */; };
 		5681771723FDCE7500CA7AB5 /* DetailedPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5681771523FDCE7500CA7AB5 /* DetailedPostCell.swift */; };
 		5681771823FDCE7500CA7AB5 /* DetailedPostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5681771623FDCE7500CA7AB5 /* DetailedPostCell.xib */; };
+		5686D2E224051C0300E09868 /* CreatePostViewController+helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5686D2E124051C0300E09868 /* CreatePostViewController+helpers.swift */; };
 		568721A323E7EF1100E15F87 /* ApplicationScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568721A223E7EF1100E15F87 /* ApplicationScheme.swift */; };
 		569794D123F11DBC00994B71 /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569794D023F11DBC00994B71 /* PostDetailViewController.swift */; };
 		BA1FB51323F1014900E091B1 /* BodyMeasurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1FB51223F1014900E091B1 /* BodyMeasurement.swift */; };
@@ -89,6 +92,8 @@
 		1BAF183FCC50189FBD943ED6 /* Pods_spotcheck_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_spotcheck_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5627FCA023F0BEB4001B4B5B /* FeedPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedPostCell.swift; sourceTree = "<group>"; };
 		5627FCA123F0BEB4001B4B5B /* FeedPostCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedPostCell.xib; sourceTree = "<group>"; };
+		5644F61C2406435C00A103EF /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
+		5644F61E2406459B00A103EF /* StorageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageProtocol.swift; sourceTree = "<group>"; };
 		5645AFE723F51C0700B64D0B /* CreatePostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostViewController.swift; sourceTree = "<group>"; };
 		5645AFE923F53CF700B64D0B /* iOSDropDown.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = iOSDropDown.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		564FA33723FFBF81006017FB /* CreateAnswerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAnswerViewController.swift; sourceTree = "<group>"; };
@@ -113,6 +118,7 @@
 		567E9A3123E93EA2004C1B2E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		5681771523FDCE7500CA7AB5 /* DetailedPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedPostCell.swift; sourceTree = "<group>"; };
 		5681771623FDCE7500CA7AB5 /* DetailedPostCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailedPostCell.xib; sourceTree = "<group>"; };
+		5686D2E124051C0300E09868 /* CreatePostViewController+helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CreatePostViewController+helpers.swift"; sourceTree = "<group>"; };
 		568721A223E7EF1100E15F87 /* ApplicationScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationScheme.swift; sourceTree = "<group>"; };
 		569794D023F11DBC00994B71 /* PostDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
 		9B3F6A3B5A83E7CE38E189A3 /* Pods-spotcheck-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios.release.xcconfig"; path = "Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios.release.xcconfig"; sourceTree = "<group>"; };
@@ -228,6 +234,7 @@
 				5679533923D988910077BA08 /* ProfileViewController.swift */,
 				5679533723D980E40077BA08 /* FeedViewController.swift */,
 				5645AFE723F51C0700B64D0B /* CreatePostViewController.swift */,
+				5686D2E124051C0300E09868 /* CreatePostViewController+helpers.swift */,
 				569794D023F11DBC00994B71 /* PostDetailViewController.swift */,
 				564FA33723FFBF81006017FB /* CreateAnswerViewController.swift */,
 				5679533323D972F00077BA08 /* AuthOptionsViewController.swift */,
@@ -330,6 +337,8 @@
 				BA1FB52423F116BD00E091B1 /* ExercisePostService.swift */,
 				BA1FB53023F2D29C00E091B1 /* README.md */,
 				BA59197523F92DBA00E8B900 /* Services.swift */,
+				5644F61E2406459B00A103EF /* StorageProtocol.swift */,
+				5644F61C2406435C00A103EF /* StorageService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -571,8 +580,10 @@
 				BA1FB52923F11ADA00E091B1 /* Answer.swift in Sources */,
 				BA1FB51923F1058500E091B1 /* EmailAddress.swift in Sources */,
 				BA1FB52723F119CB00E091B1 /* Metrics.swift in Sources */,
+				5644F61F2406459B00A103EF /* StorageProtocol.swift in Sources */,
 				5645AFE823F51C0700B64D0B /* CreatePostViewController.swift in Sources */,
 				BA733D5524038E4100395895 /* ErrorExtensions.swift in Sources */,
+				5644F61D2406435C00A103EF /* StorageService.swift in Sources */,
 				BA1FB51723F104B400E091B1 /* PhoneNumber.swift in Sources */,
 				BA1FB52523F116BD00E091B1 /* ExercisePostService.swift in Sources */,
 				564FA33823FFBF81006017FB /* CreateAnswerViewController.swift in Sources */,
@@ -592,6 +603,7 @@
 				567E9A3223E93EA2004C1B2E /* Constants.swift in Sources */,
 				BA1FB51B23F106B600E091B1 /* Trainer.swift in Sources */,
 				BA4EE44F23EE91D1003E6D87 /* SignUpViewController.swift in Sources */,
+				5686D2E224051C0300E09868 /* CreatePostViewController+helpers.swift in Sources */,
 				BA4EE45E23EFEC39003E6D87 /* UserProtocol.swift in Sources */,
 				BA4EDA4124025F0D00206267 /* EditProfileViewController.swift in Sources */,
 				BA1FB51323F1014900E091B1 /* BodyMeasurement.swift in Sources */,

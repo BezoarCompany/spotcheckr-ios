@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -403,7 +403,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gJ2-nF-iar" userLabel="lineBreak1">
+                            <view alpha="0.41999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gJ2-nF-iar" userLabel="lineBreak1">
                                 <rect key="frame" x="0.0" y="145" width="414" height="1"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <constraints>
@@ -417,15 +417,22 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FVS-BH-7hE" userLabel="lineBreak2">
+                            <view alpha="0.41999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FVS-BH-7hE" userLabel="lineBreak2">
                                 <rect key="frame" x="0.0" y="218" width="414" height="1"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="L5J-QL-qdN"/>
                                 </constraints>
                             </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="3GY-mJ-ZZG" userLabel="photoView">
+                                <rect key="frame" x="20" y="230" width="374" height="197.5"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="cjr-zq-yDg"/>
+                                </constraints>
+                            </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Write your question" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="9hL-Nu-0us" userLabel="postBodyTextView">
-                                <rect key="frame" x="20" y="239" width="374" height="33"/>
+                                <rect key="frame" x="20" y="439" width="374" height="33"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -448,14 +455,19 @@
                             <constraint firstItem="nnA-Ad-pVx" firstAttribute="top" secondItem="L8l-fi-QXV" secondAttribute="top" id="iB0-H6-2Z2"/>
                             <constraint firstItem="nnA-Ad-pVx" firstAttribute="trailing" secondItem="L8l-fi-QXV" secondAttribute="trailing" id="jA7-nn-gvm"/>
                             <constraint firstItem="1PH-CT-WQj" firstAttribute="trailing" secondItem="L8l-fi-QXV" secondAttribute="trailing" constant="-20" id="kTq-cs-d6L"/>
-                            <constraint firstItem="9hL-Nu-0us" firstAttribute="top" secondItem="FVS-BH-7hE" secondAttribute="bottom" constant="20" id="sHZ-Tn-8Yk"/>
+                            <constraint firstItem="9hL-Nu-0us" firstAttribute="top" secondItem="3GY-mJ-ZZG" secondAttribute="bottom" constant="10" id="mC9-Xu-FnA"/>
+                            <constraint firstItem="3GY-mJ-ZZG" firstAttribute="leading" secondItem="L8l-fi-QXV" secondAttribute="leading" constant="20" id="okt-6k-33a"/>
+                            <constraint firstItem="3GY-mJ-ZZG" firstAttribute="top" secondItem="FVS-BH-7hE" secondAttribute="bottom" constant="10" id="qIv-EH-h4x"/>
                             <constraint firstItem="9hL-Nu-0us" firstAttribute="leading" secondItem="L8l-fi-QXV" secondAttribute="leading" constant="20" id="sYi-5B-Qm5"/>
                             <constraint firstItem="1PH-CT-WQj" firstAttribute="top" secondItem="nnA-Ad-pVx" secondAttribute="bottom" constant="20" id="w2A-70-PSy"/>
                             <constraint firstItem="FVS-BH-7hE" firstAttribute="leading" secondItem="L8l-fi-QXV" secondAttribute="leading" id="wqy-w7-wFs"/>
+                            <constraint firstItem="3GY-mJ-ZZG" firstAttribute="trailing" secondItem="L8l-fi-QXV" secondAttribute="trailing" constant="-20" id="yl4-eT-k9U"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="L8l-fi-QXV"/>
                     </view>
                     <connections>
+                        <outlet property="photoHeightConstraint" destination="cjr-zq-yDg" id="wUB-cg-ZuI"/>                        
+                        <outlet property="photoImageView" destination="3GY-mJ-ZZG" id="PBh-Cm-b2s"/>
                         <outlet property="postBodyTextView" destination="9hL-Nu-0us" id="nek-9U-3Lx"/>
                         <outlet property="subjectTextView" destination="JFf-7J-RBW" id="I9q-rT-81n"/>
                         <outlet property="workoutTypeDropDown" destination="1PH-CT-WQj" id="4MO-CT-cm6"/>
@@ -463,7 +475,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WAM-kd-nHb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4741" y="-503"/>
+            <point key="canvasLocation" x="4740.579710144928" y="-503.57142857142856"/>
         </scene>
         <!--CreateAnswer-->
         <scene sceneID="fcI-qE-ADF">
@@ -737,6 +749,7 @@
         <image name="person" catalog="system" width="64" height="58"/>
         <image name="person.crop.circle" catalog="system" width="64" height="60"/>
         <image name="person.fill" catalog="system" width="64" height="60"/>
+        <image name="photo" catalog="system" width="64" height="46"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="bdw-On-ZHl"/>
