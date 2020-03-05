@@ -277,31 +277,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GyS-8n-2Ns" userLabel="FilterView">
-                                <rect key="frame" x="0.0" y="88" width="414" height="89"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Filter by workout" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cci-Ti-Gwz">
-                                        <rect key="frame" x="20" y="10" width="121" height="20"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="All" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ufk-0Y-yP6">
-                                        <rect key="frame" x="20" y="46" width="19" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="89" id="J44-Bs-hQS"/>
-                                </constraints>
-                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="iTh-5i-sab">
-                                <rect key="frame" x="0.0" y="177" width="414" height="636"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" red="0.1333333333" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="separatorColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
@@ -309,12 +286,9 @@
                         <color key="backgroundColor" red="0.1333333333" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="iTh-5i-sab" firstAttribute="leading" secondItem="TWv-Cy-aLM" secondAttribute="leading" id="0Z9-nE-JEk"/>
-                            <constraint firstItem="GyS-8n-2Ns" firstAttribute="leading" secondItem="TWv-Cy-aLM" secondAttribute="leading" id="99m-oH-vS2"/>
+                            <constraint firstItem="iTh-5i-sab" firstAttribute="top" secondItem="TWv-Cy-aLM" secondAttribute="top" id="9eD-Rf-gT7"/>
                             <constraint firstItem="iTh-5i-sab" firstAttribute="trailing" secondItem="TWv-Cy-aLM" secondAttribute="trailing" id="FGp-dL-qtv"/>
                             <constraint firstItem="iTh-5i-sab" firstAttribute="bottom" secondItem="TWv-Cy-aLM" secondAttribute="bottom" id="ZjH-Ef-1mA"/>
-                            <constraint firstItem="GyS-8n-2Ns" firstAttribute="top" secondItem="TWv-Cy-aLM" secondAttribute="top" id="buX-9E-qA4"/>
-                            <constraint firstItem="GyS-8n-2Ns" firstAttribute="trailing" secondItem="TWv-Cy-aLM" secondAttribute="trailing" id="etq-Yx-6Ce"/>
-                            <constraint firstItem="iTh-5i-sab" firstAttribute="top" secondItem="GyS-8n-2Ns" secondAttribute="bottom" id="hOo-wt-3br"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="TWv-Cy-aLM"/>
                     </view>
@@ -466,7 +440,7 @@
                         <viewLayoutGuide key="safeArea" id="L8l-fi-QXV"/>
                     </view>
                     <connections>
-                        <outlet property="photoHeightConstraint" destination="cjr-zq-yDg" id="wUB-cg-ZuI"/>                        
+                        <outlet property="photoHeightConstraint" destination="cjr-zq-yDg" id="wUB-cg-ZuI"/>
                         <outlet property="photoImageView" destination="3GY-mJ-ZZG" id="PBh-Cm-b2s"/>
                         <outlet property="postBodyTextView" destination="9hL-Nu-0us" id="nek-9U-3Lx"/>
                         <outlet property="subjectTextView" destination="JFf-7J-RBW" id="I9q-rT-81n"/>
