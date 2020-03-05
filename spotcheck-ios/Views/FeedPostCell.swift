@@ -34,4 +34,13 @@ class FeedPostCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        //prevent delayed/lagged loading of image, when cell is being reused.
+        photoView.sd_cancelCurrentImageLoad()
+        photoView.image = UIImage(named:"squat1")!//nil
+        print("preparing ForReuse: ")
+    }
+
 }

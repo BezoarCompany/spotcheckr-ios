@@ -119,7 +119,7 @@ class ExercisePostService: ExercisePostProtocol {
         return Promise { promise in
 
             let db = Firestore.firestore()
-            let docRef = db.collection(K.Firestore.posts)
+            let docRef = db.collection(K.Firestore.posts).order(by: "modified-date")
             
             var resultPosts = [ExercisePost]()
             
