@@ -134,7 +134,10 @@ extension FeedViewController: UITableViewDataSource {
         } 
         
         cell.postBodyLabel.text = pItem.description
-        
+
+        //remove the default highlight which has shining look-gloss effect with the dark theme
+        cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: .greatestFiniteMagnitude)
+        cell.directionalLayoutMargins = .zero
         return cell
     }
 }

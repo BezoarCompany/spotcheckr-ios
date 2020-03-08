@@ -17,6 +17,14 @@ class FeedPostCell: UITableViewCell {
         postLabel.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
         
         postBodyLabel.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
+        
+        //tableview separator
+        let mScreenSize = UIScreen.main.bounds
+        let mSeparatorHeight = CGFloat(4.0)
+        let mAddSeparator = UIView.init(frame: CGRect(x: 0, y: 0, width: mScreenSize.width, height: mSeparatorHeight))
+        mAddSeparator.backgroundColor = UIColor.lightGray.withAlphaComponent(0.33)
+        self.addSubview(mAddSeparator)
+                
         /*
         authorNameLabel.font = ApplicationScheme.instance.containerScheme.typographyScheme.subtitle2
         authorNameLabel.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
