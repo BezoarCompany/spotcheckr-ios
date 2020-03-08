@@ -14,6 +14,8 @@ import PromiseKit
 import FirebaseAuth.FIRAuthErrors
 
 class AuthOptionsViewController: UIViewController, UITextFieldDelegate, ValidationDelegate {
+    var window: UIWindow?
+    
     let spotcheckHeadline: UILabel = {
        let label = UILabel()
         label.text = "Spotcheckr"
@@ -287,6 +289,9 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
     
     @objc private func authenticationFinished() {
         let homeViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: K.Storyboard.MainTabBarControllerId)
-        self.present(homeViewController, animated: true)
+        //self.present(homeViewController, animated: true)
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        self.window?.rootViewController = homeViewController
+        self.window?.makeKeyAndVisible()
     }
 }
