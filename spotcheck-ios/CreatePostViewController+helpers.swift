@@ -9,9 +9,21 @@ import PromiseKit
 extension CreatePostViewController {
     func initDropDown() {
         workoutTypeDropDown.selectedRowColor = .magenta
-        
-        //TODO load from Firebase
-        workoutTypeDropDown.optionArray = ["Bench TEST", "Cardio TEST", "Games Test"]
+        workoutTypeDropDown.textColor = .blue
+        firstly {
+            Services.exercisePostService.getExerciseTypes()
+        }.done { exerciseTypes in
+            
+            var arr = [String]()
+            for et in exerciseTypes {                
+                arr.append(et.value.rawValue)
+            }
+            self.workoutTypeDropDown.optionArray = arr
+        }.catch { err in
+            print(err)
+            self.workoutTypeDropDown.optionArray = ["Strength", "Endurance", "Balance", "Flexibility"]
+        }
+                
         
         workoutTypeDropDown.didSelect{
             (selectedText, index, id) in
