@@ -23,11 +23,17 @@ class ExercisePostService: ExercisePostProtocol {
                     firstly {
                         Services.userService.getUser(withId: userId)
                     }.done { user in
+                        let date = doc.data()?["created-date"] as? Timestamp
+                        
                         let exercisePost = ExercisePost(id: doc.data()?["id"] as! String,
                                                         title: doc.data()?["title"] as! String,
                                                         description: doc.data()?["description"] as! String,
                                                         createdBy: user,
-                                                        imagePath: doc.data()?["image-path"] as? String)
+                                                        dateCreated: date?.dateValue(),
+                                                        imagePath: doc.data()?["image-path"] as? String
+                                                        
+                                            )                        
+                        
                         return promise.fulfill(exercisePost)
                     }.catch { error in
                         return promise.reject(error)
