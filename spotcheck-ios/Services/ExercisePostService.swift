@@ -442,6 +442,28 @@ class ExercisePostService: ExercisePostProtocol {
         }
     }
     
+    func writeAnswer(answer: Answer) -> Promise<Void> {
+        return Promise { promise in
+            let newAnswerRef = Firestore.firestore().collection(self.answerCollection).document()
+            newAnswerRef.setData(self.mapAnswer(from: answer), completion: { error in
+                if let error = error {
+                    return promise.reject(error)
+                }
+                return promise.fulfill_()
+            })
+        }
+    }
+    
+    private func mapAnswer(from: Answer) -> [String:Any] {
+        var firebaseAnswer = [String:Any]()
+        firebaseAnswer["created-by"] = from.createdBy?.id
+        firebaseAnswer["created-date"] = from.dateCreated
+        firebaseAnswer["modified-date"] = from.dateModified
+        firebaseAnswer["text"] = from.text
+        firebaseAnswer["exercise-post"] = from.exercisePost?.id
+        return firebaseAnswer
+    }
+    
     private func mapAnswer(fromData data:[String:Any],
                            metrics: Metrics,
                            createdBy: User) -> Answer {

@@ -5,6 +5,9 @@ import FirebaseFirestoreSwift
 import Foundation
 import MaterialComponents
 import MaterialComponents.MaterialTextFields_TypographyThemer
+import MaterialComponents.MaterialSnackbar
+import MaterialComponents.MaterialSnackbar_TypographyThemer
+import PromiseKit
 
 class CreateAnswerViewController: UIViewController, MDCMultilineTextInputDelegate, MDCMultilineTextInputLayoutDelegate {
     @IBOutlet weak var postButtonBarItem: UIBarButtonItem!
@@ -14,20 +17,31 @@ class CreateAnswerViewController: UIViewController, MDCMultilineTextInputDelegat
         return field
     }()
     var answerTextInputController: MDCTextInputControllerOutlinedTextArea
+    let snackbarMessage: MDCSnackbarMessage = {
+       let message = MDCSnackbarMessage()
+        MDCSnackbarTypographyThemer.applyTypographyScheme(ApplicationScheme.instance.containerScheme.typographyScheme)
+       return message
+    }()
+    
+    var currentUser: User?
     
     @IBAction func cancelAnswer(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
     
     @IBAction func submitAction(_ sender: Any) {
-        print("submitAction")
-        if(validatePost()) {
+        firstly {
             createAnswer()
-            dismiss(animated: true, completion: nil)
+        }.done {
+            self.dismiss(animated: true) {
+                self.snackbarMessage.text = "Answer Posted!"
+                MDCSnackbarManager.show(self.snackbarMessage)
+            }
+        }.catch { error in
+            self.snackbarMessage.text = "Error creating answer"
+            MDCSnackbarManager.show(self.snackbarMessage)
         }
     }
-    
-    static let ANSWER_BODY_TEXT_PLACEHOLDER = "Write your answer"
     
     static func create(post: ExercisePost?) -> CreateAnswerViewController  {
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
@@ -53,6 +67,16 @@ class CreateAnswerViewController: UIViewController, MDCMultilineTextInputDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         initTextViewPlaceholders()
+        firstly {
+            Services.userService.getCurrentUser()
+        }.done { user in
+            self.currentUser = user
+        }.catch { error in
+            self.dismiss(animated: true) {
+                self.snackbarMessage.text = "Unable to retrieve current user information."
+                MDCSnackbarManager.show(self.snackbarMessage)
+            }
+        }
     }
 }
 
@@ -77,27 +101,23 @@ extension CreateAnswerViewController {
         self.postButtonBarItem.isEnabled = multilineTextField.text?.count ?? 0 > 0
     }
     
-    func validatePost() -> Bool {
-        if (self.answerTextField.text?.count ?? 0 > 0) {
-            return false
+    func createAnswer() -> Promise<Void> {
+        var answer = Answer(createdBy: self.currentUser,
+                            dateCreated: Date(),
+                            dateModified: Date(),
+                            exercisePost: ExercisePost(id: self.post!.id),
+                            text: self.answerTextField.text!
+                            )
+        
+        return Promise { promise in
+            firstly {
+                Services.exercisePostService.writeAnswer(answer: answer)
+            }.done {
+                return promise.fulfill_()
+            }
+            .catch { error in
+                return promise.reject(error)
+            }
         }
-        
-        return true
-    }
-    
-    // TODO: put in PostService
-    func createAnswer() {
-        
-        let db = Firestore.firestore()
-        let newDocRef = db.collection(K.Firestore.answers).document()
-        
-        newDocRef.setData([
-            "created-by" : Auth.auth().currentUser?.uid,
-            "created-date" : FieldValue.serverTimestamp(),
-            "text" : self.answerTextField.text!,
-            "exercise-post" : post?.id,
-            "modified-date" : FieldValue.serverTimestamp()
-        ])
-        
     }
 }
