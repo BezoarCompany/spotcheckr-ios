@@ -6,10 +6,12 @@ import FirebaseFirestoreSwift
 import Photos
 import PromiseKit
 
-extension CreatePostViewController {
+extension CreatePostViewController {    
+    
     func initDropDown() {
+        //workoutTypeDropDown.placeholder.color // TODO go into iOSDropdown code to change placeholder color
         workoutTypeDropDown.selectedRowColor = .magenta
-        workoutTypeDropDown.textColor = .blue
+        workoutTypeDropDown.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor//.lightGray
         firstly {
             Services.exercisePostService.getExerciseTypes()
         }.done { exerciseTypes in
@@ -36,10 +38,10 @@ extension CreatePostViewController {
         postBodyTextView.delegate = self
         
         subjectTextView.text = CreatePostViewController.SUBJECT_TEXT_PLACEHOLDER
-        subjectTextView.textColor = UIColor.lightGray
+        subjectTextView.textColor = .lightGray
         
         postBodyTextView.text = CreatePostViewController.POST_BODY_TEXT_PLACEHOLDER
-        postBodyTextView.textColor = UIColor.lightGray
+        postBodyTextView.textColor = .lightGray
     }
     
     func initActivityIndicator() {

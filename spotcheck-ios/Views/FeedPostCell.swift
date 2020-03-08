@@ -16,6 +16,7 @@ class FeedPostCell: UITableViewCell {
         postLabel.font = ApplicationScheme.instance.containerScheme.typographyScheme.headline6
         postLabel.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
         
+        postBodyLabel.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
         /*
         authorNameLabel.font = ApplicationScheme.instance.containerScheme.typographyScheme.subtitle2
         authorNameLabel.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
