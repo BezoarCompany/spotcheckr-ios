@@ -98,7 +98,6 @@ class CreatePostViewController: UIViewController {
         photoHeightConstraint.constant = 0
         addKeyboardMenuAccessory()
         
-        //activityIndicator.startAnimating()
         
     }    
 }
@@ -109,7 +108,7 @@ extension CreatePostViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == UIColor.lightGray {
             textView.text = nil
-            textView.textColor = UIColor.black
+            textView.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
         }
     }
     

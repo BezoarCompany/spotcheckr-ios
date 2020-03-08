@@ -16,6 +16,7 @@ class FeedPostCell: UITableViewCell {
         postLabel.font = ApplicationScheme.instance.containerScheme.typographyScheme.headline6
         postLabel.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
         
+        postBodyLabel.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
         /*
         authorNameLabel.font = ApplicationScheme.instance.containerScheme.typographyScheme.subtitle2
         authorNameLabel.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
@@ -34,4 +35,13 @@ class FeedPostCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        //prevent delayed/lagged loading of image, when cell is being reused.
+        photoView.sd_cancelCurrentImageLoad()
+        photoView.image = UIImage(named:"squat1")!//nil
+        print("preparing ForReuse: ")
+    }
+
 }

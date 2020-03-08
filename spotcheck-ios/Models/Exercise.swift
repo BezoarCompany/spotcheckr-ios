@@ -3,6 +3,9 @@ struct Exercise {
     var type: ExerciseType?
 }
 
-enum ExerciseType {
-    case Strength, Endurance, Flexibility, Balance
+enum ExerciseType: String {
+    case Strength = "Strength"
+    case Endurance = "Endurance"
+    case Flexibility = "Flexibility"
+    case Balance = "Balance"
 }

@@ -122,8 +122,11 @@ extension FeedViewController: UITableViewDataSource {
             let storagePathReference = storage.reference(withPath: pathname)
             
             // Load the image using SDWebImage
-            
             cell.photoView.sd_setImage(with: storagePathReference, placeholderImage: placeholderImage)
+            
+            //Properties must be set everytime/every case so recycled cell values aren't being used
+            cell.photoHeightConstraint.constant = CGFloat(FeedViewController.IMAGE_HEIGHT)
+            cell.photoView.isHidden = false
             
         } else {
             cell.photoHeightConstraint.constant = 0 //CGFloat(FeedViewController.IMAGE_HEIGHT)
