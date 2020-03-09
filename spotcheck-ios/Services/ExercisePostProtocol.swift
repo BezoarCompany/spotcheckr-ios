@@ -3,7 +3,7 @@ import PromiseKit
 protocol ExercisePostProtocol {
     func getPost(withId id: String) -> Promise<ExercisePost>
     func getPosts(success: @escaping ([ExercisePost])->Void) -> Promise<[ExercisePost]>
-    func getPosts(forUserWithId userId: String) -> Promise<[ExercisePost]>
+    func getPosts(forUser user: User) -> Promise<[ExercisePost]>
     func getUpvoteCount(forPostWithId postId: String, collection: String) -> Promise<Int>
     func getDownvoteCount(forPostWithId postId: String, collection: String) -> Promise<Int>
     func getLikesCount(forPostWithId postId: String) -> Promise<Int>
