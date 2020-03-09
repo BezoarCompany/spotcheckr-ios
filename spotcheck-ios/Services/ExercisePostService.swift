@@ -11,8 +11,16 @@ class ExercisePostService: ExercisePostProtocol {
     private let answerCollection = "answers"
     private let exerciseTypeCollection = "exercise-types"
     
+    private let cache = Cache<String, ExercisePost>() // (postID<String>: ExercisePost)
+    
     func getPost(withId id: String) -> Promise<ExercisePost> {
             return Promise { promise in
+                
+                if let post = cache[id] {
+                    print("Cache HIT!!! \(post.id)=> \(post.title)")
+                    return promise.fulfill(post)
+                }
+                
                 let docRef = Firestore.firestore().collection(postsCollection).document(id)
                 docRef.getDocument { doc, error in
                     guard error == nil, let doc = doc, doc.exists else {
@@ -33,6 +41,9 @@ class ExercisePostService: ExercisePostProtocol {
                                                         imagePath: doc.data()?["image-path"] as? String
                                                         
                                             )                        
+                        
+                        //store in cache
+                        self.cache[exercisePost.id] = exercisePost
                         
                         return promise.fulfill(exercisePost)
                     }.catch { error in
@@ -140,7 +151,7 @@ class ExercisePostService: ExercisePostProtocol {
                     firstly {
                         self.getPost(withId:doc.documentID)
                     }.done { post in
-                        print("@getPosts-ServiceCall------resultPosts:")
+                        //print("@getPosts-ServiceCall------resultPosts:")
                         
                         resultPosts.append(post)
                         success(resultPosts)
@@ -333,7 +344,7 @@ class ExercisePostService: ExercisePostProtocol {
     
     func getExerciseTypes() -> Promise<[String:ExerciseType]> {
         return Promise { promise in
-            //TODO: Check if in cache and pull from there.
+            //TODO: pull from cache
             let exerciseTypesRef = Firestore.firestore().collection(exerciseTypeCollection)
             exerciseTypesRef.getDocuments { (typesSnapshot, error) in
                 if let error = error {

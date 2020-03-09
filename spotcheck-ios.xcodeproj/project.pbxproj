@@ -14,6 +14,7 @@
 		5645AFE823F51C0700B64D0B /* CreatePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5645AFE723F51C0700B64D0B /* CreatePostViewController.swift */; };
 		5645AFEA23F53CF700B64D0B /* iOSDropDown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5645AFE923F53CF700B64D0B /* iOSDropDown.framework */; };
 		564FA33823FFBF81006017FB /* CreateAnswerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564FA33723FFBF81006017FB /* CreateAnswerViewController.swift */; };
+		5653ABCF24161921001E9CF0 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5653ABCE24161921001E9CF0 /* Cache.swift */; };
 		5659D9D723FD02980043FA6A /* AnswerPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659D9D523FD02980043FA6A /* AnswerPostCell.swift */; };
 		5659D9D823FD02980043FA6A /* AnswerPostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5659D9D623FD02980043FA6A /* AnswerPostCell.xib */; };
 		567952FE23D806BE0077BA08 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567952FD23D806BE0077BA08 /* AppDelegate.swift */; };
@@ -97,6 +98,7 @@
 		5645AFE723F51C0700B64D0B /* CreatePostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostViewController.swift; sourceTree = "<group>"; };
 		5645AFE923F53CF700B64D0B /* iOSDropDown.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = iOSDropDown.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		564FA33723FFBF81006017FB /* CreateAnswerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAnswerViewController.swift; sourceTree = "<group>"; };
+		5653ABCE24161921001E9CF0 /* Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		5659D9D523FD02980043FA6A /* AnswerPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerPostCell.swift; sourceTree = "<group>"; };
 		5659D9D623FD02980043FA6A /* AnswerPostCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnswerPostCell.xib; sourceTree = "<group>"; };
 		567952FA23D806BE0077BA08 /* Spotcheckr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spotcheckr.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -339,6 +341,7 @@
 				BA59197523F92DBA00E8B900 /* Services.swift */,
 				5644F61E2406459B00A103EF /* StorageProtocol.swift */,
 				5644F61C2406435C00A103EF /* StorageService.swift */,
+				5653ABCE24161921001E9CF0 /* Cache.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -604,6 +607,7 @@
 				BA1FB51B23F106B600E091B1 /* Trainer.swift in Sources */,
 				BA4EE44F23EE91D1003E6D87 /* SignUpViewController.swift in Sources */,
 				5686D2E224051C0300E09868 /* CreatePostViewController+helpers.swift in Sources */,
+				5653ABCF24161921001E9CF0 /* Cache.swift in Sources */,
 				BA4EE45E23EFEC39003E6D87 /* UserProtocol.swift in Sources */,
 				BA4EDA4124025F0D00206267 /* EditProfileViewController.swift in Sources */,
 				BA1FB51323F1014900E091B1 /* BodyMeasurement.swift in Sources */,
