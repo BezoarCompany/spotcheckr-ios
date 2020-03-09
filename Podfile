@@ -9,6 +9,7 @@ target 'spotcheck-ios' do
   pod 'SwiftValidator', :git => 'https://github.com/jpotts18/SwiftValidator.git', :tag => '4.2.0'
   pod 'PromiseKit'
   pod 'SwiftSVG', '~> 2.2.1'
+  pod 'SVGKit', :git => 'https://github.com/SVGKit/SVGKit.git', :branch => '3.x'
   pod 'Fakery'
   
   # UI Elements
