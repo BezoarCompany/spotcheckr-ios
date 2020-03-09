@@ -166,9 +166,9 @@ class ExercisePostService: ExercisePostProtocol {
         }
     }
     
-    func getPosts(forUserWithId userId: String) -> Promise<[ExercisePost]> {
+    func getPosts(forUser user: User) -> Promise<[ExercisePost]> {
         return Promise {promise in
-            let exercisePostRef = Firestore.firestore().collection(postsCollection).whereField("created-by", isEqualTo: userId)
+            let exercisePostRef = Firestore.firestore().collection(postsCollection).whereField("created-by", isEqualTo: user.id!)
             exercisePostRef.getDocuments { (postsSnapshot, error) in
                 if let error = error {
                     return promise.reject(error)
@@ -215,11 +215,12 @@ class ExercisePostService: ExercisePostProtocol {
                                                          currentVoteDirection: voteDirectionResults[voteDirectionIndex])
                                     
                                     let postExercises = exercisesResults[exercisesIndex]
-                                    
-                                    userPosts.append(self.mapExercisePost(fromData: document.data(),
-                                                                         metrics: metrics,
-                                                                         exercises: postExercises,
-                                                                         answers: answerResults[answerIndex]))
+                                    var exercisePost = self.mapExercisePost(fromData: document.data(),
+                                                                           metrics: metrics,
+                                                                           exercises: postExercises,
+                                                                           answers: answerResults[answerIndex])
+                                    exercisePost.createdBy = user
+                                    userPosts.append(exercisePost)
                                     metricsIndex += 4
                                     exercisesIndex += 1
                                     voteDirectionIndex += 1

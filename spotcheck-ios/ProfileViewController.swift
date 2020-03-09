@@ -94,7 +94,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
                 self.populateUserProfileInformation()
                 firstly {
                     //TODO: Show spinner that table data is loading.
-                    when(fulfilled: Services.exercisePostService.getPosts(forUserWithId: self.currentUser!.id!), Services.exercisePostService.getAnswers(byUserWithId: self.currentUser!.id!))
+                    when(fulfilled: Services.exercisePostService.getPosts(forUser: self.currentUser!), Services.exercisePostService.getAnswers(byUserWithId: self.currentUser!.id!))
                 }.done { posts, answers in
                     //TODO: Dismiss spinnner
                     //TODO: Add to table for posts and answers
