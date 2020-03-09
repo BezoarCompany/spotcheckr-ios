@@ -4,12 +4,12 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import FirebaseStorage
 import PromiseKit
-import SVGKit
-import MaterialComponents
+
 
 class FeedViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
+    let exercisePostService = ExercisePostService()
     static let IMAGE_HEIGHT = 200
     
     var db: Firestore!
@@ -19,19 +19,9 @@ class FeedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let plusImage = SVGKImage(named: "plus").uiImage.withRenderingMode(.alwaysTemplate)
-        let addPostButton = MDCFloatingButton()
-        addPostButton.setImage(plusImage, for: .normal)
-        addPostButton.translatesAutoresizingMaskIntoConstraints = false
-        addPostButton.addTarget(self, action: #selector(addTapped), for: .touchUpInside)
-        addPostButton.applySecondaryTheme(withScheme: ApplicationScheme.instance.containerScheme)
-        tableView.addSubview(addPostButton)
         
-        self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: addPostButton.trailingAnchor, constant: 25).isActive = true
-        self.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: addPostButton.bottomAnchor, constant: 25).isActive = true
-        addPostButton.widthAnchor.constraint(equalToConstant: 64).isActive = true
-        addPostButton.heightAnchor.constraint(equalToConstant: 64).isActive = true
-        navigationItem.hidesBackButton = true
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
+         navigationItem.hidesBackButton = true
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -48,21 +38,58 @@ class FeedViewController: UIViewController {
     func getPosts() {
         let completePostsDataSet = { ( argPosts: [ExercisePost]) in
             self.posts = argPosts
+            //self.posts = NSArray(array: argPosts, copyItems: true) as! [ExercisePost]
             self.tableView.reloadData()
         }
         
-        Services.exercisePostService.getPosts(success: completePostsDataSet)
+        self.exercisePostService.getPosts(success: completePostsDataSet)
+        
+        //self.posts = FakeDataFactory.GetExercisePosts(count: 5)
+        /*
+        firstly {
+            //TODO: Replace with call to getPosts(from: Number) which returns all posts since a specific "page length" (e.g. get first 10 posts by created date, scroll, when reached 8/10 posts fetch next 10 posts.
+            //self.exercisePostService.getPost(withId: "dngi33GYXBQU2y6XxklQ")
+            self.exercisePostService.getPost(withId: "egWXkAW15Uwn6ttuMBAS")
+        }.done { post in
+            self.posts = [post]
+            //TODO: Since this is async, we would want the table view data source to refresh after it has been loaded. Maybe there is a way to make Posts an Observable that will automagically update after we set it?
+            self.tableView.reloadData()
+        }.catch { error in
+            //TODO: Do something when post fetching fails
+        }
+        */
+        
+
+        /*
+        firstly {
+            self.exercisePostService.getPosts(success: completePostsDataSet)
+            //self.exercisePostService.getPosts(success: refreshTableView)
+        } .done { argPosts in
+            self.posts = NSArray(array: argPosts, copyItems: true) as! [ExercisePost]
+            print("ViewDidLoad==============================")
+            print(self.posts)
+            self.tableView.reloadData()
+        } .catch { err in
+            //do something
+        }
+        */
     }
     
     @objc func addTapped() {
+        print("tapped Add Post")
+        
         let createPostViewController = CreatePostViewController.create()
+        
         self.present(createPostViewController, animated: true)
+        //self.navigationController?.pushViewController(createPostViewController, animated: true)
     }
     
     @objc func refresh() {
+        print("refresh")
         getPosts()
         refreshControl.endRefreshing()
     }
+    
 }
 
 
@@ -102,7 +129,7 @@ extension FeedViewController: UITableViewDataSource {
             cell.photoView.isHidden = false
             
         } else {
-            cell.photoHeightConstraint.constant = 0
+            cell.photoHeightConstraint.constant = 0 //CGFloat(FeedViewController.IMAGE_HEIGHT)
             cell.photoView.isHidden = true
         } 
         
@@ -122,3 +149,4 @@ extension FeedViewController: UITableViewDelegate {
         self.navigationController?.pushViewController(postDetailViewController, animated: true)
     }
 }
+
