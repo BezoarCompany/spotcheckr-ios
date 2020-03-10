@@ -5,30 +5,40 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Photos
 import PromiseKit
+import MaterialComponents
 
-class CreatePostViewController: UIViewController {
+class CreatePostViewController: UIViewController, UITextFieldDelegate, MDCMultilineTextInputDelegate {
+    let MAX_SUBJECT_LENGTH = 300
     
-    static let SUBJECT_TEXT_PLACEHOLDER = "Subject"
-    static let POST_BODY_TEXT_PLACEHOLDER = "Write your question"
-    static let MIN_SUBJECT_LENGTH = 10
-    static let MIN_POSTBODY_LENGTH = 2
-
+    let subject: MDCTextField = {
+        let field = MDCTextField()
+        field.placeholder = "Title"
+        field.translatesAutoresizingMaskIntoConstraints = false
+        return field
+    }()
+    let subjectTextFieldController: MDCTextInputControllerOutlined
+    
+    let questionTextField: MDCMultilineTextField = {
+        let field = MDCMultilineTextField()
+        field.placeholder = "Question"
+        field.translatesAutoresizingMaskIntoConstraints = false
+        return field
+    }()
+    let questionTextFieldController: MDCTextInputControllerOutlinedTextArea
+    
     @IBOutlet weak var workoutTypeDropDown: DropDown!
-    @IBOutlet weak var subjectTextView: UITextView!
     @IBOutlet weak var photoImageView: UIImageView!
-    
     @IBOutlet weak var photoHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var postBodyTextView: UITextView!
+    @IBOutlet weak var postButton: UIBarButtonItem!
+    
     @IBAction func cancelPost(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
+    
     @IBAction func submitPost(_ sender: Any) {
-        print("submitted")
-        
-        if(validatePost()) {
+       if(validatePost()) {
             submitPostWorkflow()
         }
-        
     }
     
     let keyboardMenuAccessory: UIView = {
@@ -85,11 +95,33 @@ class CreatePostViewController: UIViewController {
         let createPostViewController = storyboard.instantiateViewController(withIdentifier: K.Storyboard.CreatePostViewControllerId) as! CreatePostViewController
                     
         return createPostViewController
-
     }
+    
+    required init?(coder aDecoder: NSCoder) {
+        self.subjectTextFieldController = MDCTextInputControllerOutlined(textInput: subject)
+        self.subjectTextFieldController.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
+        self.subjectTextFieldController.characterCountViewMode = .always
+        self.subjectTextFieldController.characterCountMax = UInt(MAX_SUBJECT_LENGTH)
+        self.subjectTextFieldController.helperText = "Required"
+        self.subjectTextFieldController.floatingPlaceholderNormalColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
+        self.subjectTextFieldController.normalColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
+        self.subjectTextFieldController.activeColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
+        self.subjectTextFieldController.inlinePlaceholderColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
+        self.subjectTextFieldController.floatingPlaceholderActiveColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
+        
+        self.questionTextFieldController = MDCTextInputControllerOutlinedTextArea(textInput: questionTextField)
+        MDCTextFieldTypographyThemer.applyTypographyScheme(ApplicationScheme.instance.containerScheme.typographyScheme, to: self.questionTextFieldController)
+        self.questionTextFieldController.helperText = "Required"
+        self.questionTextFieldController.activeColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
+        self.questionTextFieldController.normalColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
+        self.questionTextFieldController.floatingPlaceholderNormalColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
+        self.questionTextFieldController.floatingPlaceholderActiveColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
+        self.questionTextFieldController.inlinePlaceholderColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
+        super.init(coder: aDecoder)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("CreatePostViewController")
         
         initDropDown()
         initTextViewPlaceholders()
@@ -97,40 +129,12 @@ class CreatePostViewController: UIViewController {
         photoImageView.isHidden = true //photo appears and to adjusted height once uploaded
         photoHeightConstraint.constant = 0
         addKeyboardMenuAccessory()
-        
-        
     }    
-}
-
-//Resetting textview's text to gray and placeholder value if empty,
-//or back to black if non-empty (key press event triggered)
-extension CreatePostViewController: UITextViewDelegate {
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.textColor == UIColor.lightGray {
-            textView.text = nil
-            textView.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
-        }
-    }
-    
-    func textViewDidEndEditing(_ textView: UITextView) {
-        if textView.text.isEmpty {
-            if textView == subjectTextView {
-                textView.text = CreatePostViewController.SUBJECT_TEXT_PLACEHOLDER
-            } else {
-                textView.text = CreatePostViewController.POST_BODY_TEXT_PLACEHOLDER
-            }
-            textView.textColor = UIColor.lightGray
-        }
-    }
 }
 
 extension CreatePostViewController: UINavigationControllerDelegate,UIImagePickerControllerDelegate {
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
-       
-       print("info:")
-       print(info)
-               
        let chosenImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
        
        isImageChanged = true

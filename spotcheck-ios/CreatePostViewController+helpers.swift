@@ -34,14 +34,20 @@ extension CreatePostViewController {
     }
     
     func initTextViewPlaceholders() {
-        subjectTextView.delegate = self
-        postBodyTextView.delegate = self
-        
-        subjectTextView.text = CreatePostViewController.SUBJECT_TEXT_PLACEHOLDER
-        subjectTextView.textColor = .lightGray
-        
-        postBodyTextView.text = CreatePostViewController.POST_BODY_TEXT_PLACEHOLDER
-        postBodyTextView.textColor = .lightGray
+        subject.delegate = self
+        self.view.addSubview(subject)
+        subject.topAnchor.constraint(equalTo: self.workoutTypeDropDown.bottomAnchor, constant: 20).isActive = true
+        subject.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
+        self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: subject.trailingAnchor, constant: 15).isActive = true
+       
+        questionTextField.multilineDelegate = self
+        self.questionTextField.cursorColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
+        self.questionTextField.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
+               
+        self.view.addSubview(questionTextField)
+        questionTextField.topAnchor.constraint(equalTo: self.subject.bottomAnchor, constant: 20).isActive = true
+        questionTextField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
+        self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: questionTextField.trailingAnchor, constant: 15).isActive = true
     }
     
     func initActivityIndicator() {
@@ -52,7 +58,7 @@ extension CreatePostViewController {
     }
     
     func addKeyboardMenuAccessory() {
-        postBodyTextView.inputAccessoryView = keyboardMenuAccessory
+        //questionTextField.inpu = keyboardMenuAccessory
         
         keyboardMenuAccessory.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 45)
         keyboardMenuAccessory.translatesAutoresizingMaskIntoConstraints = false
@@ -87,7 +93,6 @@ extension CreatePostViewController {
         if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
             checkPhotoPermissionsAndShowLib()
         }
-        
     }
     
     
@@ -127,25 +132,23 @@ extension CreatePostViewController {
     }
     
     func validatePost() -> Bool {
-        
         let alert = UIAlertController(title: "Invalid post", message: "You can always access your content by signing back in", preferredStyle: UIAlertController.Style.alert)
 
         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { _ in
             //Cancel Action
         }))
-        
-        if(CreatePostViewController.SUBJECT_TEXT_PLACEHOLDER == subjectTextView.text
-            || subjectTextView.text.count < CreatePostViewController.MIN_SUBJECT_LENGTH
+        //TODO: Remove this validation and use validator.
+        if(subject.text?.count ?? 0 <= 0
             ) {
             alert.message = "Please fill out a valid subject header"
             self.present(alert, animated: true, completion: nil)
             return false
-        } else if (CreatePostViewController.POST_BODY_TEXT_PLACEHOLDER == postBodyTextView.text
-            || postBodyTextView.text.count < CreatePostViewController.MIN_POSTBODY_LENGTH) {
+        } else if (questionTextField.text?.count ?? 0 <= 0) {
             alert.message = "Please fill out a valid post body"
             self.present(alert, animated: true, completion: nil)
             return false
         }
+        
         return true
     }
     
@@ -155,8 +158,8 @@ extension CreatePostViewController {
         var postDocument = [
             "created-by" : Auth.auth().currentUser?.uid,
             "created-date" : FieldValue.serverTimestamp(),
-            "title" : subjectTextView.text!,
-            "description" : postBodyTextView.text!,
+            "title" : subject.text!,
+            "description" : questionTextField.text!,
             "modified-date" : FieldValue.serverTimestamp()
             ] as [String : Any]
         
