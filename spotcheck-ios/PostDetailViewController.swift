@@ -29,6 +29,8 @@ class PostDetailViewController : UIViewController {
     
     var post: ExercisePost?
     let exercisePostService = ExercisePostService()
+    
+    var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
         
         /*
  Post(postId: "a", authorId: "1", authorName: "Miguel", createdAt: "2/2/2020", updatedAt: "2/2/2020", question: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in")
@@ -73,6 +75,7 @@ class PostDetailViewController : UIViewController {
         
         tableView.separatorInset = UIEdgeInsets(top: -10,left: 0,bottom: 0,right: 0)
         
+        initActivityIndicator()
     }
     
     @objc func modifyPost () {
@@ -88,15 +91,28 @@ class PostDetailViewController : UIViewController {
         }))
 
         alert.addAction(UIAlertAction(title: "Delete", style: .default, handler: { _ in
-            //let shareSettingsViewController = ShareSettingsViewController.create(inventoryObj: self.inventoryObj, inventoryRef: self.cursorInventoryRef)
-            //self.navigationController?.pushViewController(shareSettingsViewController, animated: true)
+            let deleteOption = UIAlertAction(title: "Delete", style: UIAlertAction.Style.default, handler: { (action: UIAlertAction!) in
+                
+                self.activityIndicator.startAnimating()
+                
+                firstly {
+                    Services.exercisePostService.deletePost(self.post!)
+                }.done {
+                    self.activityIndicator.stopAnimating()
+                    self.navigationController?.popViewController(animated: true)
+                }.catch { err in
+                    self.activityIndicator.stopAnimating()
+                    print("ERROR deleting post(\(self.post?.id))")
+                    
+                }
+            })
+            deleteOption.setValue(UIColor.systemRed, forKey: "titleTextColor")
+            
             let deleteAlert = UIAlertController(title: "Are you sure you want to delete this post?", message: "This will delete all included answers too", preferredStyle: UIAlertController.Style.alert)
-            deleteAlert.addAction(UIAlertAction(title: "Delete", style: UIAlertAction.Style.default, handler: { (action: UIAlertAction!) in
-                //Add your Action for deleting
-            }))
+            deleteAlert.addAction(deleteOption)
 
             deleteAlert.addAction(UIAlertAction(title: "Cancel",style: .cancel, handler: { (action: UIAlertAction!) in
-                //if anything to do after cancel clicked
+
             }))
             self.present(deleteAlert, animated: true, completion: nil)
             
@@ -106,6 +122,13 @@ class PostDetailViewController : UIViewController {
 
         self.present(alert, animated: true, completion: nil)
     
+    }
+    
+    func initActivityIndicator() {
+        activityIndicator.center = self.view.center
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.style = UIActivityIndicatorView.Style.large
+        self.view.addSubview(activityIndicator)
     }
 
 }
