@@ -62,6 +62,10 @@ class PostDetailViewController : UIViewController {
             //TODO: Do something when post fetching fails
         }
                 
+        //add modify menu
+        let postSettingsBarItem = UIBarButtonItem(image: UIImage(systemName: "square.and.pencil"), style: .plain, target: self, action: #selector(modifyPost))
+        navigationItem.rightBarButtonItem = postSettingsBarItem
+        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UINib(nibName:K.Storyboard.detailedPostNibName , bundle: nil), forCellReuseIdentifier: K.Storyboard.detailedPostCellId)
@@ -69,6 +73,39 @@ class PostDetailViewController : UIViewController {
         
         tableView.separatorInset = UIEdgeInsets(top: -10,left: 0,bottom: 0,right: 0)
         
+    }
+    
+    @objc func modifyPost () {
+        print("clickedModifyPost")
+        let alert = UIAlertController(title: "Choose Action", message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Edit ", style: .default, handler: { _ in
+            //let inventoryListsViewController = InventorySelectionViewController.create(previnventoryuid: self.cursorInventoryUID)
+            
+            //inventoryListsViewController.delegate = self
+                
+            //self.navigationController?.pushViewController(inventoryListsViewController, animated: true)
+            
+        }))
+
+        alert.addAction(UIAlertAction(title: "Delete", style: .default, handler: { _ in
+            //let shareSettingsViewController = ShareSettingsViewController.create(inventoryObj: self.inventoryObj, inventoryRef: self.cursorInventoryRef)
+            //self.navigationController?.pushViewController(shareSettingsViewController, animated: true)
+            let deleteAlert = UIAlertController(title: "Are you sure you want to delete this post?", message: "This will delete all included answers too", preferredStyle: UIAlertController.Style.alert)
+            deleteAlert.addAction(UIAlertAction(title: "Delete", style: UIAlertAction.Style.default, handler: { (action: UIAlertAction!) in
+                //Add your Action for deleting
+            }))
+
+            deleteAlert.addAction(UIAlertAction(title: "Cancel",style: .cancel, handler: { (action: UIAlertAction!) in
+                //if anything to do after cancel clicked
+            }))
+            self.present(deleteAlert, animated: true, completion: nil)
+            
+        }))
+
+        alert.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
+
+        self.present(alert, animated: true, completion: nil)
+    
     }
 
 }
