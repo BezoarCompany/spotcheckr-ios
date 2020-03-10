@@ -17,7 +17,6 @@ class ExercisePostService: ExercisePostProtocol {
             return Promise { promise in
                 
                 if let post = cache[id] {
-                    print("Cache HIT!!! \(post.id)=> \(post.title)")
                     return promise.fulfill(post)
                 }
                 
@@ -154,7 +153,6 @@ class ExercisePostService: ExercisePostProtocol {
                         resultPosts.append(post)
                         success(resultPosts)
                     }.catch { err in
-                        print("[ERROR]: looping through getPosts document ")
                         return promise.reject(err)                        
                     }
                 }                
