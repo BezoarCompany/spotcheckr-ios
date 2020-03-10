@@ -89,7 +89,6 @@ class CreatePostViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("CreatePostViewController")
         
         initDropDown()
         initTextViewPlaceholders()
