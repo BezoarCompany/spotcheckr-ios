@@ -81,7 +81,7 @@ extension CreatePostViewController {
         self.bodyTextField.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
                
         self.view.addSubview(bodyTextField)
-        bodyTextField.topAnchor.constraint(equalTo: self.subjectTextField.bottomAnchor, constant: 25).isActive = true
+        bodyTextField.topAnchor.constraint(equalTo: self.subjectTextField.bottomAnchor, constant: 15).isActive = true
         bodyTextField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
         self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: bodyTextField.trailingAnchor, constant: 15).isActive = true
     }
