@@ -374,11 +374,6 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Select workout type" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1PH-CT-WQj" userLabel="WorkoutTypeDropDown" customClass="DropDown" customModule="iOSDropDown">
-                                <rect key="frame" x="20" y="101" width="374" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="photo" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="3GY-mJ-ZZG" userLabel="photoView">
                                 <rect key="frame" x="20" y="230" width="374" height="197.5"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -390,12 +385,9 @@
                         <color key="backgroundColor" red="0.1764735281" green="0.17646530269999999" blue="0.1764708757" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="nnA-Ad-pVx" firstAttribute="leading" secondItem="L8l-fi-QXV" secondAttribute="leading" id="S2H-xd-taP"/>
-                            <constraint firstItem="1PH-CT-WQj" firstAttribute="leading" secondItem="L8l-fi-QXV" secondAttribute="leading" constant="20" id="TuG-dP-zsM"/>
                             <constraint firstItem="nnA-Ad-pVx" firstAttribute="top" secondItem="L8l-fi-QXV" secondAttribute="top" id="iB0-H6-2Z2"/>
                             <constraint firstItem="nnA-Ad-pVx" firstAttribute="trailing" secondItem="L8l-fi-QXV" secondAttribute="trailing" id="jA7-nn-gvm"/>
-                            <constraint firstItem="1PH-CT-WQj" firstAttribute="trailing" secondItem="L8l-fi-QXV" secondAttribute="trailing" constant="-20" id="kTq-cs-d6L"/>
                             <constraint firstItem="3GY-mJ-ZZG" firstAttribute="leading" secondItem="L8l-fi-QXV" secondAttribute="leading" constant="20" id="okt-6k-33a"/>
-                            <constraint firstItem="1PH-CT-WQj" firstAttribute="top" secondItem="nnA-Ad-pVx" secondAttribute="bottom" constant="20" id="w2A-70-PSy"/>
                             <constraint firstItem="3GY-mJ-ZZG" firstAttribute="trailing" secondItem="L8l-fi-QXV" secondAttribute="trailing" constant="-20" id="yl4-eT-k9U"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="L8l-fi-QXV"/>
@@ -404,7 +396,6 @@
                         <outlet property="photoHeightConstraint" destination="cjr-zq-yDg" id="wUB-cg-ZuI"/>
                         <outlet property="photoImageView" destination="3GY-mJ-ZZG" id="PBh-Cm-b2s"/>
                         <outlet property="postButton" destination="ujP-IS-SBP" id="bHJ-Rc-zzn"/>
-                        <outlet property="workoutTypeDropDown" destination="1PH-CT-WQj" id="4MO-CT-cm6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WAM-kd-nHb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

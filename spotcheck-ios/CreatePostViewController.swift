@@ -1,5 +1,5 @@
 import UIKit
-import iOSDropDown //https://github.com/jriosdev/iOSDropDown
+import DropDown
 import Firebase
 import FirebaseFirestore
 import FirebaseFirestoreSwift
@@ -7,10 +7,11 @@ import Photos
 import PromiseKit
 import MaterialComponents
 import SwiftValidator
+import SwiftSVG
 
 class CreatePostViewController: UIViewController, MDCMultilineTextInputDelegate {
     let MAX_SUBJECT_LENGTH = 300
-    @IBOutlet weak var workoutTypeDropDown: DropDown!
+    
     @IBOutlet weak var photoImageView: UIImageView!
     @IBOutlet weak var photoHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var postButton: UIBarButtonItem!
@@ -66,6 +67,25 @@ class CreatePostViewController: UIViewController, MDCMultilineTextInputDelegate 
         button.showsTouchWhenHighlighted = true
         return button
     }()
+    
+    let workoutTypeDropDown: DropDown = {
+        let dropdown = DropDown()
+        return dropdown
+    }()
+    
+    let chevronUp: UIImageView
+    let chevronDown: UIImageView
+    
+    let workoutTypeTextField: MDCTextField = {
+        let field = MDCTextField()
+        field.placeholder = "Select Workout Type"
+        field.cursorColor = .none
+        
+        field.translatesAutoresizingMaskIntoConstraints = false
+        return field
+    }()
+    let workoutTypeTextFieldController: MDCTextInputControllerFilled
+    
     let subjectTextField: MDCTextField = {
         let field = MDCTextField()
         field.placeholder = "Title"
@@ -117,6 +137,22 @@ class CreatePostViewController: UIViewController, MDCMultilineTextInputDelegate 
         self.bodyTextFieldController.floatingPlaceholderActiveColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
         self.bodyTextFieldController.inlinePlaceholderColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
         
+        self.workoutTypeTextFieldController = MDCTextInputControllerFilled(textInput: workoutTypeTextField)
+        self.workoutTypeTextFieldController.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
+        self.workoutTypeTextFieldController.isFloatingEnabled = false
+        
+        self.chevronUp = UIImageView(SVGNamed: "chevron-up") {
+            (svgLayer) in
+            svgLayer.fillColor = .none
+            svgLayer.strokeColor = UIColor.white.cgColor
+        }
+        
+        self.chevronDown = UIImageView(SVGNamed: "chevron-down"){
+            (svgLayer) in
+            svgLayer.fillColor = .none
+            svgLayer.strokeColor = UIColor.white.cgColor
+        }
+        
         self.validator = Validator()
         super.init(coder: aDecoder)
     }
@@ -153,6 +189,7 @@ extension CreatePostViewController: ValidationDelegate {
         
         self.subjectTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
         self.bodyTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
+        self.workoutTypeTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
         
         submitPostWorkflow()
     }
@@ -162,6 +199,9 @@ extension CreatePostViewController: ValidationDelegate {
             if let field = field as? MDCTextField {
                 if field == self.subjectTextField {
                     self.subjectTextFieldController.setErrorText(error.errorMessage, errorAccessibilityValue: error.errorMessage)
+                }
+                else if field == self.workoutTypeTextField {
+                    self.workoutTypeTextFieldController.setErrorText(error.errorMessage, errorAccessibilityValue: error.errorMessage)
                 }
             }
             else if let field = field as? MDCIntrinsicHeightTextView {
@@ -175,10 +215,25 @@ extension CreatePostViewController: ValidationDelegate {
     private func setupValidation() {
         validator.registerField(self.subjectTextField, rules: [RequiredRule(message: "Required")])
         validator.registerField(self.bodyTextField.textView!, rules: [RequiredRule(message: "Required")])
+        validator.registerField(self.workoutTypeTextField, rules: [RequiredRule(message: "Required")])
     }
 }
 
 extension CreatePostViewController: UITextFieldDelegate {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        if textField as? MDCTextField == self.workoutTypeTextField {
+            if self.workoutTypeDropDown.isHidden {
+                self.workoutTypeDropDown.show()
+            } else {
+                self.workoutTypeDropDown.hide()
+            }
+            self.toggleWorkoutTypeIcon()
+            return false
+        }
+        
+        return true
+    }
+    
     func textFieldDidChangeSelection(_ textField: UITextField) {
         if textField as? MDCTextField == self.subjectTextField && self.subjectTextFieldController.errorText != nil {
             self.subjectTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
