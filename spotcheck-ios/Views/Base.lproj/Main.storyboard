@@ -366,7 +366,7 @@
                                                 <action selector="cancelPost:" destination="cch-6k-Lhu" id="XAo-nl-9Lr"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Post" id="ujP-IS-SBP">
+                                        <barButtonItem key="rightBarButtonItem" title="Post" id="ujP-IS-SBP">
                                             <connections>
                                                 <action selector="submitPost:" destination="cch-6k-Lhu" id="CCT-TY-Uxe"/>
                                             </connections>

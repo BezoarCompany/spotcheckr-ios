@@ -34,20 +34,20 @@ extension CreatePostViewController {
     }
     
     func initTextViewPlaceholders() {
-        subject.delegate = self
-        self.view.addSubview(subject)
-        subject.topAnchor.constraint(equalTo: self.workoutTypeDropDown.bottomAnchor, constant: 20).isActive = true
-        subject.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
-        self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: subject.trailingAnchor, constant: 15).isActive = true
+        subjectTextField.delegate = self
+        self.view.addSubview(subjectTextField)
+        subjectTextField.topAnchor.constraint(equalTo: self.workoutTypeDropDown.bottomAnchor, constant: 20).isActive = true
+        subjectTextField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
+        self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: subjectTextField.trailingAnchor, constant: 15).isActive = true
        
-        questionTextField.multilineDelegate = self
-        self.questionTextField.cursorColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
-        self.questionTextField.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
+        bodyTextField.multilineDelegate = self
+        self.bodyTextField.cursorColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
+        self.bodyTextField.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
                
-        self.view.addSubview(questionTextField)
-        questionTextField.topAnchor.constraint(equalTo: self.subject.bottomAnchor, constant: 20).isActive = true
-        questionTextField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
-        self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: questionTextField.trailingAnchor, constant: 15).isActive = true
+        self.view.addSubview(bodyTextField)
+        bodyTextField.topAnchor.constraint(equalTo: self.subjectTextField.bottomAnchor, constant: 25).isActive = true
+        bodyTextField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
+        self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: bodyTextField.trailingAnchor, constant: 15).isActive = true
     }
     
     func initActivityIndicator() {
@@ -58,8 +58,6 @@ extension CreatePostViewController {
     }
     
     func addKeyboardMenuAccessory() {
-        //questionTextField.inpu = keyboardMenuAccessory
-        
         keyboardMenuAccessory.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 45)
         keyboardMenuAccessory.translatesAutoresizingMaskIntoConstraints = false
         openKeyboardBtn.translatesAutoresizingMaskIntoConstraints = false
@@ -78,6 +76,7 @@ extension CreatePostViewController {
             openCameraBtn.leadingAnchor.constraint(equalTo: openPhotoGalleryBtn.trailingAnchor, constant: 20),
             openCameraBtn.centerYAnchor.constraint(equalTo: keyboardMenuAccessory.centerYAnchor)
         ])
+        bodyTextField.textView?.inputAccessoryView = keyboardMenuAccessory
     }
     
     @objc func keyboardBtnTapped() {
@@ -138,12 +137,12 @@ extension CreatePostViewController {
             //Cancel Action
         }))
         //TODO: Remove this validation and use validator.
-        if(subject.text?.count ?? 0 <= 0
+        if(subjectTextField.text?.count ?? 0 <= 0
             ) {
             alert.message = "Please fill out a valid subject header"
             self.present(alert, animated: true, completion: nil)
             return false
-        } else if (questionTextField.text?.count ?? 0 <= 0) {
+        } else if (bodyTextField.text?.count ?? 0 <= 0) {
             alert.message = "Please fill out a valid post body"
             self.present(alert, animated: true, completion: nil)
             return false
@@ -158,8 +157,8 @@ extension CreatePostViewController {
         var postDocument = [
             "created-by" : Auth.auth().currentUser?.uid,
             "created-date" : FieldValue.serverTimestamp(),
-            "title" : subject.text!,
-            "description" : questionTextField.text!,
+            "title" : subjectTextField.text!,
+            "description" : bodyTextField.text!,
             "modified-date" : FieldValue.serverTimestamp()
             ] as [String : Any]
         
