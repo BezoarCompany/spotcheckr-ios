@@ -12,7 +12,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         styleNavigationBar()
         styleTabBar()
-        styleKeyboard()
         configureServices()
         setStartingViewController()
         DropDown.startListeningToKeyboard()
@@ -31,10 +30,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func styleTabBar() {
         UITabBar.appearance().barTintColor = ApplicationScheme.instance.containerScheme.colorScheme.primaryColor
         UITabBar.appearance().tintColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
-    }
-    
-    private func styleKeyboard() {
-        UITextField.appearance().keyboardAppearance = UIKeyboardAppearance.dark
     }
     
     private func configureServices() {
