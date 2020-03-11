@@ -95,6 +95,7 @@ extension CreatePostViewController {
     
     func addKeyboardMenuAccessory() {
         keyboardMenuAccessory.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 45)
+        keyboardMenuAccessory.backgroundColor = ApplicationScheme.instance.containerScheme.colorScheme.backgroundColor
         keyboardMenuAccessory.translatesAutoresizingMaskIntoConstraints = false
         openKeyboardBtn.translatesAutoresizingMaskIntoConstraints = false
         openPhotoGalleryBtn.translatesAutoresizingMaskIntoConstraints = false

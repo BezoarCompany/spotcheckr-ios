@@ -35,11 +35,12 @@ class CreatePostViewController: UIViewController, MDCMultilineTextInputDelegate 
         let button = UIButton(type: .custom)
         button.setTitleColor(UIColor.red, for: .normal)
         var cameraImg = UIImage(systemName: "keyboard")
-        cameraImg = cameraImg?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+        cameraImg = cameraImg?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
         button.setImage(cameraImg, for: .normal)
         button.addTarget(self, action:
         #selector(keyboardBtnTapped), for: .touchUpInside)
         button.showsTouchWhenHighlighted = true
+        button.tintColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
         return button
     }()
     
@@ -48,11 +49,12 @@ class CreatePostViewController: UIViewController, MDCMultilineTextInputDelegate 
         let button = UIButton(type: .custom)
         button.setTitleColor(UIColor.red, for: .normal)
         var cameraImg = UIImage(systemName: "photo.on.rectangle")
-        cameraImg = cameraImg?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+        cameraImg = cameraImg?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
         button.setImage(cameraImg, for: .normal)
         button.addTarget(self, action:
         #selector(openPhotoGallery), for: .touchUpInside)
         button.showsTouchWhenHighlighted = true
+        button.tintColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
         return button
     }()
     
@@ -60,11 +62,12 @@ class CreatePostViewController: UIViewController, MDCMultilineTextInputDelegate 
         let button = UIButton(type: .custom)
         button.setTitleColor(UIColor.red, for: .normal)
         var cameraImg = UIImage(systemName: "camera")
-        cameraImg = cameraImg?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+        cameraImg = cameraImg?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
         button.setImage(cameraImg, for: .normal)
         button.addTarget(self, action:
         #selector(openCamera), for: .touchUpInside)
         button.showsTouchWhenHighlighted = true
+        button.tintColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
         return button
     }()
     
