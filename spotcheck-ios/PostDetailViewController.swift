@@ -82,12 +82,8 @@ class PostDetailViewController : UIViewController {
         print("clickedModifyPost")
         let alert = UIAlertController(title: "Choose Action", message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Edit ", style: .default, handler: { _ in
-            //let inventoryListsViewController = InventorySelectionViewController.create(previnventoryuid: self.cursorInventoryUID)
-            
-            //inventoryListsViewController.delegate = self
-                
-            //self.navigationController?.pushViewController(inventoryListsViewController, animated: true)
-            
+            let createPostViewController = CreatePostViewController.create(updatePostMode: .edit, post: self.post)
+            self.present(createPostViewController, animated: true)
         }))
 
         alert.addAction(UIAlertAction(title: "Delete", style: .default, handler: { _ in

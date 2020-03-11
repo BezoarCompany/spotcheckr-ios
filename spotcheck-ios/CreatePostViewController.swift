@@ -6,12 +6,18 @@ import FirebaseFirestoreSwift
 import Photos
 import PromiseKit
 
+enum UpdatePostMode {
+    case add
+    case edit
+}
+
 class CreatePostViewController: UIViewController {
     
     static let SUBJECT_TEXT_PLACEHOLDER = "Subject"
     static let POST_BODY_TEXT_PLACEHOLDER = "Write your question"
     static let MIN_SUBJECT_LENGTH = 10
     static let MIN_POSTBODY_LENGTH = 2
+    static let PHOTO_HEIGHT = 200
 
     @IBOutlet weak var workoutTypeDropDown: DropDown!
     @IBOutlet weak var subjectTextView: UITextView!
@@ -80,24 +86,40 @@ class CreatePostViewController: UIViewController {
     var imagePickerController = UIImagePickerController()
     var isImageChanged = false
     
-    static func create() -> CreatePostViewController  {
+    var updatePostMode: UpdatePostMode = .add
+    var exercisePost: ExercisePost?
+    
+    static func create(updatePostMode: UpdatePostMode = .add, post: ExercisePost? = nil) -> CreatePostViewController  {
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         let createPostViewController = storyboard.instantiateViewController(withIdentifier: K.Storyboard.CreatePostViewControllerId) as! CreatePostViewController
+        
+        createPostViewController.updatePostMode = updatePostMode
+        createPostViewController.exercisePost = post
                     
         return createPostViewController
-
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        initDropDown()
-        initTextViewPlaceholders()
-        initActivityIndicator()
-        photoImageView.isHidden = true //photo appears and to adjusted height once uploaded
-        photoHeightConstraint.constant = 0
         addKeyboardMenuAccessory()
         
-        
+        if (updatePostMode == .edit) {
+            subjectTextView.text = self.exercisePost?.title
+            postBodyTextView.text = self.exercisePost?.description
+            if let img = exercisePost?.imagePath {
+                photoImageView.isHidden = false
+                photoHeightConstraint.constant = CGFloat(CreatePostViewController.PHOTO_HEIGHT)
+                //TODO load image
+            }
+            //TODO also have some textview placeholder code? for when it's deleted
+        } else {
+            initDropDown()
+            initTextViewPlaceholders()
+            initActivityIndicator()
+            photoImageView.isHidden = true //photo appears and to adjusted height once uploaded
+            photoHeightConstraint.constant = 0
+        }
     }    
 }
 
@@ -126,9 +148,6 @@ extension CreatePostViewController: UITextViewDelegate {
 extension CreatePostViewController: UINavigationControllerDelegate,UIImagePickerControllerDelegate {
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
-       
-       print("info:")
-       print(info)
                
        let chosenImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
        
