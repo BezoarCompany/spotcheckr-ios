@@ -126,10 +126,7 @@ class CreatePostViewController: UIViewController, MDCMultilineTextInputDelegate 
         self.subjectTextFieldController.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
         self.subjectTextFieldController.characterCountViewMode = .always
         self.subjectTextFieldController.characterCountMax = UInt(MAX_SUBJECT_LENGTH)
-        self.subjectTextFieldController.floatingPlaceholderNormalColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
-        self.subjectTextFieldController.normalColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
         self.subjectTextFieldController.activeColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
-        self.subjectTextFieldController.inlinePlaceholderColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
         self.subjectTextFieldController.floatingPlaceholderActiveColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
         self.subjectTextFieldController.trailingUnderlineLabelTextColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
         
@@ -137,10 +134,8 @@ class CreatePostViewController: UIViewController, MDCMultilineTextInputDelegate 
          MDCTextFieldTypographyThemer.applyTypographyScheme(ApplicationScheme.instance.containerScheme.typographyScheme, to: self.bodyTextFieldController)
         self.bodyTextFieldController.errorColor = ApplicationScheme.instance.containerScheme.colorScheme.errorColor
         self.bodyTextFieldController.activeColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
-        self.bodyTextFieldController.normalColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
-        self.bodyTextFieldController.floatingPlaceholderNormalColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
         self.bodyTextFieldController.floatingPlaceholderActiveColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
-        self.bodyTextFieldController.inlinePlaceholderColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
+        self.bodyTextFieldController.inlinePlaceholderColor = ApplicationScheme.instance.containerScheme.colorScheme.primaryColorVariant
         
         self.workoutTypeTextFieldController = MDCTextInputControllerFilled(textInput: workoutTypeTextField)
         self.workoutTypeTextFieldController.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)

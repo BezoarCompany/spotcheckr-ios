@@ -51,7 +51,7 @@ class ApplicationScheme: NSObject {
         let scheme = MDCSemanticColorScheme()
         
         scheme.primaryColor = UIColor(red:0.13, green:0.13, blue:0.13, alpha:1)
-        scheme.primaryColorVariant = UIColor(red: 0.29, green: 0.29, blue: 0.29, alpha: 1.00)
+        scheme.primaryColorVariant = UIColor(red: 0.65, green: 0.65, blue: 0.65, alpha: 1.00)
         scheme.onPrimaryColor = UIColor(red: 1.00, green: 1.00, blue: 1.00, alpha: 1.00)
         
         scheme.secondaryColor = UIColor(red: 0.19, green: 0.24, blue: 0.69, alpha: 1.00)
