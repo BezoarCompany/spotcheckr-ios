@@ -94,7 +94,7 @@ class CreatePostViewController: UIViewController, MDCMultilineTextInputDelegate 
         field.translatesAutoresizingMaskIntoConstraints = false
         return field
     }()
-    let subjectTextFieldController: MDCTextInputControllerOutlined
+    let subjectTextFieldController: MDCTextInputControllerFilled
     
     let bodyTextField: MDCMultilineTextField = {
         let field = MDCMultilineTextField()
@@ -119,7 +119,7 @@ class CreatePostViewController: UIViewController, MDCMultilineTextInputDelegate 
     }
     
     required init?(coder aDecoder: NSCoder) {
-        self.subjectTextFieldController = MDCTextInputControllerOutlined(textInput: subjectTextField)
+        self.subjectTextFieldController = MDCTextInputControllerFilled(textInput: subjectTextField)
         self.subjectTextFieldController.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
         self.subjectTextFieldController.characterCountViewMode = .always
         self.subjectTextFieldController.characterCountMax = UInt(MAX_SUBJECT_LENGTH)
@@ -128,7 +128,7 @@ class CreatePostViewController: UIViewController, MDCMultilineTextInputDelegate 
         self.subjectTextFieldController.activeColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
         self.subjectTextFieldController.inlinePlaceholderColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
         self.subjectTextFieldController.floatingPlaceholderActiveColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
-        
+        self.subjectTextFieldController.trailingUnderlineLabelTextColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
         self.bodyTextFieldController = MDCTextInputControllerOutlinedTextArea(textInput: bodyTextField)
         MDCTextFieldTypographyThemer.applyTypographyScheme(ApplicationScheme.instance.containerScheme.typographyScheme, to: self.bodyTextFieldController)
         self.bodyTextFieldController.activeColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
