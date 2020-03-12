@@ -12,8 +12,10 @@ extension CreatePostViewController {
     func initDropDown() {
         self.workoutTypeTextField.delegate = self
         self.workoutTypeTextField.trailingView = Images.chevronUp
-        //self.workoutTypeTextField.trailingViewMode = .always
+        self.workoutTypeTextField.trailingViewMode = .always
         self.workoutTypeTextField.trailingView?.isUserInteractionEnabled = true
+        self.workoutTypeTextField.trailingView?.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        self.workoutTypeTextField.trailingView?.widthAnchor.constraint(equalToConstant: 30).isActive = true
         self.view.addSubview(self.workoutTypeTextField)
         self.workoutTypeTextField.trailingView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(workoutTypeIconOnClick(sender:))))
         
@@ -64,6 +66,8 @@ extension CreatePostViewController {
             self.workoutTypeTextField.trailingView = Images.chevronDown
             self.workoutTypeDropDown.show()
         }
+        self.workoutTypeTextField.trailingView?.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        self.workoutTypeTextField.trailingView?.widthAnchor.constraint(equalToConstant: 30).isActive = true
     }
 
  
