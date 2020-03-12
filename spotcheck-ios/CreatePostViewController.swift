@@ -160,10 +160,10 @@ class CreatePostViewController: UIViewController, MDCMultilineTextInputDelegate 
         initDropDown()
         initTextViewPlaceholders()
         initActivityIndicator()
-        
-        photoImageView.isHidden = true //photo appears and to adjusted height once uploaded
+        self.activityIndicator.startAnimating()
+        photoImageView.isUserInteractionEnabled = true
+        photoImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openPhotoGallery)))
         self.view.addSubview(photoImageView)
-        //photoHeightConstraint.constant = 0
         
         applyConstraints()
         addKeyboardMenuAccessory()
@@ -176,8 +176,6 @@ extension CreatePostViewController: UINavigationControllerDelegate,UIImagePicker
        let chosenImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
        
        isImageChanged = true
-       photoImageView.isHidden = false //photo appears and to adjusted height once uploaded
-       photoHeightConstraint.constant = 200
        photoImageView.image = chosenImage
        
        imagePickerController.dismiss(animated: true, completion: nil)
