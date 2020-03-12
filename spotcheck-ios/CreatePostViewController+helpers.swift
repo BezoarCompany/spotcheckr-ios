@@ -12,19 +12,26 @@ extension CreatePostViewController {
     func initDropDowns() {
         self.workoutTypeTextField.delegate = self
         self.workoutTypeTextField.trailingView = Images.chevronUp
-        self.workoutTypeTextField.trailingViewMode = .always
+        //self.workoutTypeTextField.trailingViewMode = .always
         self.workoutTypeTextField.trailingView?.isUserInteractionEnabled = true
         self.workoutTypeTextField.trailingView?.heightAnchor.constraint(equalToConstant: 20).isActive = true
         self.workoutTypeTextField.trailingView?.widthAnchor.constraint(equalToConstant: 30).isActive = true
         self.view.addSubview(self.workoutTypeTextField)
+        //self.workoutTypeTextField.trailingView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(workoutTypeIconOnClick(sender:))))
         self.workoutTypeTextField.trailingView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.workoutTypeIconOnClick(textField:dropdown:))))
+        self.workoutTypeTextField.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 75).isActive = true
+        self.workoutTypeTextField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
+        self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: self.workoutTypeTextField.trailingAnchor, constant: 15).isActive = true
+        
         
         self.workoutTypeDropDown.anchorView = self.workoutTypeTextField
         self.workoutTypeDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
-            self.toggleWorkoutTypeIcon(field: self.workoutTypeTextField, dropdown: self.workoutTypeDropDown)
+            //self.toggleWorkoutTypeIcon()
             self.workoutTypeTextField.text = item
+            self.toggleWorkoutTypeIcon(field: self.workoutTypeTextField, dropdown: self.workoutTypeDropDown)
         }
         self.workoutTypeDropDown.cancelAction = { [unowned self] in
+            //self.toggleWorkoutTypeIcon()
             self.toggleWorkoutTypeIcon(field: self.workoutTypeTextField, dropdown: self.workoutTypeDropDown)
         }
         self.workoutTypeDropDown.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
@@ -34,22 +41,25 @@ extension CreatePostViewController {
         self.workoutTypeDropDown.direction = .bottom
         self.workoutTypeDropDown.bottomOffset = CGPoint(x: 0, y:(self.workoutTypeDropDown.anchorView?.plainView.bounds.height)! - 25)
         
+///////
+        
         self.exercisesTextField.delegate = self
         self.exercisesTextField.trailingView = Images.chevronUp
-        self.exercisesTextField.trailingViewMode = .always
+        //self.exercisesTextField.trailingViewMode = .always //breaks
         self.exercisesTextField.trailingView?.isUserInteractionEnabled = true
         self.exercisesTextField.trailingView?.heightAnchor.constraint(equalToConstant: 20).isActive = true
         self.exercisesTextField.trailingView?.widthAnchor.constraint(equalToConstant: 30).isActive = true
         self.view.addSubview(self.exercisesTextField)
-        self.exercisesTextField.trailingView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.workoutTypeIconOnClick(textField:dropdown:))))
+        /*
+        //self.exercisesTextField.trailingView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.workoutTypeIconOnClick(textField:dropdown:))))
         
         self.exerciseDropDown.anchorView = self.exercisesTextField
         self.exerciseDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
-            self.toggleWorkoutTypeIcon(field: self.exercisesTextField, dropdown: self.exerciseDropDown)
+            //self.toggleWorkoutTypeIcon(field: self.exercisesTextField, dropdown: self.exerciseDropDown)
             self.exercisesTextField.text = item
         }
         self.exerciseDropDown.cancelAction = { [unowned self] in
-            self.toggleWorkoutTypeIcon(field: self.exercisesTextField, dropdown: self.exerciseDropDown)
+            //self.toggleWorkoutTypeIcon(field: self.exercisesTextField, dropdown: self.exerciseDropDown)
         }
 
         self.exerciseDropDown.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
@@ -58,25 +68,37 @@ extension CreatePostViewController {
         self.exerciseDropDown.selectedTextColor = ApplicationScheme.instance.containerScheme.colorScheme.onSecondaryColor
         self.exerciseDropDown.direction = .bottom
         self.exerciseDropDown.bottomOffset = CGPoint(x: 0, y:(self.exerciseDropDown.anchorView?.plainView.bounds.height)! - 25)
+ */
         self.exerciseDropDown.dataSource = ["test"]
         
+        
+        //////////
         firstly {
             Services.exercisePostService.getExerciseTypes()
         }.done { exerciseTypes in
             
             var arr = [String]()
+            arr.append("hi")
             for et in exerciseTypes {                
                 arr.append(et.value.rawValue)
             }
             self.workoutTypeDropDown.dataSource = arr
         }.catch { err in
-            self.workoutTypeDropDown.dataSource = ["Strength", "Endurance", "Balance", "Flexibility"]
+            self.workoutTypeDropDown.dataSource = ["Strength", "Endurance", "Balance", "Flexibxility"]
         }
     }
+    
     
     @objc func workoutTypeIconOnClick(textField: MDCTextField, dropdown: DropDown) {
         self.toggleWorkoutTypeIcon(field: textField, dropdown: dropdown)
     }
+    /*
+    @objc func workoutTypeIconOnClick(sender: Any) {
+        self.toggleWorkoutTypeIcon()
+    }
+ --------*/
+        
+        
     
     func toggleWorkoutTypeIcon(field: MDCTextField, dropdown: DropDown) {
         if field.trailingView == Images.chevronDown {
@@ -93,7 +115,25 @@ extension CreatePostViewController {
         field.trailingView?.heightAnchor.constraint(equalToConstant: 20).isActive = true
         field.trailingView?.widthAnchor.constraint(equalToConstant: 30).isActive = true
     }
-    
+  
+    /*
+    func toggleWorkoutTypeIcon() {
+        if self.workoutTypeTextField.trailingView == Images.chevronDown {
+            self.workoutTypeTextField.trailingView = Images.chevronUp
+            self.workoutTypeDropDown.hide()
+        }
+        else {
+            self.workoutTypeTextField.trailingView = Images.chevronDown
+            self.workoutTypeDropDown.show()
+        }
+        //self.workoutTypeTextField.trailingView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(workoutTypeIconOnClick(sender:))))
+        self.workoutTypeTextField.trailingViewMode = .always
+        self.workoutTypeTextField.trailingView?.isUserInteractionEnabled = true
+        self.workoutTypeTextField.trailingView?.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        self.workoutTypeTextField.trailingView?.widthAnchor.constraint(equalToConstant: 30).isActive = true
+    }
+ */
+ 
     func initTextViewPlaceholders() {
         subjectTextField.delegate = self
         self.view.addSubview(subjectTextField)
@@ -129,6 +169,7 @@ extension CreatePostViewController {
         self.bodyTextField.topAnchor.constraint(equalTo: self.subjectTextField.bottomAnchor, constant: 15).isActive = true
         self.bodyTextField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
         self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: bodyTextField.trailingAnchor, constant: 15).isActive = true
+        
     }
     
     func addKeyboardMenuAccessory() {

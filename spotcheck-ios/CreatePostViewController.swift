@@ -193,7 +193,7 @@ extension CreatePostViewController: ValidationDelegate {
         self.subjectTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
         self.bodyTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
         self.workoutTypeTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
-//        self.exerciseTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
+        self.exerciseTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)//
         
         submitPostWorkflow()
     }
@@ -207,9 +207,9 @@ extension CreatePostViewController: ValidationDelegate {
                 else if field == self.workoutTypeTextField {
                     self.workoutTypeTextFieldController.setErrorText(error.errorMessage, errorAccessibilityValue: error.errorMessage)
                 }
-//                else if field == self.exercisesTextField {
-//                   self.exerciseTextFieldController.setErrorText(error.errorMessage, errorAccessibilityValue: error.errorMessage)
-//                }
+                else if field == self.exercisesTextField {//
+                   self.exerciseTextFieldController.setErrorText(error.errorMessage, errorAccessibilityValue: error.errorMessage)
+                }
             }
             else if let field = field as? MDCIntrinsicHeightTextView {
                 if field == self.bodyTextField.textView! {
@@ -235,18 +235,20 @@ extension CreatePostViewController: UITextFieldDelegate {
             } else {
                 self.workoutTypeDropDown.hide()
             }
+            //self.toggleWorkoutTypeIcon()
             self.toggleWorkoutTypeIcon(field: self.workoutTypeTextField, dropdown: self.workoutTypeDropDown)
             return false
         }
-//        else if textField as? MDCTextField == self.exercisesTextField {
-//            if self.exerciseDropDown.isHidden {
-//                self.exerciseDropDown.show()
-//            } else {
-//                self.exerciseDropDown.hide()
-//            }
-//            self.toggleWorkoutTypeIcon(field: self.exercisesTextField, dropdown: self.exerciseDropDown)
-//            return false
-//        }
+        else if textField as? MDCTextField == self.exercisesTextField {
+            if self.exerciseDropDown.isHidden {
+                self.exerciseDropDown.show()
+            } else {
+                self.exerciseDropDown.hide()
+            }
+            //self.toggleWorkoutTypeIcon()
+            self.toggleWorkoutTypeIcon(field: self.exercisesTextField, dropdown: self.exerciseDropDown)
+            return false
+        }
         
         return true
     }

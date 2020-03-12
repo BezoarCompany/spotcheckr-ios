@@ -135,16 +135,15 @@ class ExercisePostService: ExercisePostProtocol {
                 }
                 
                 for doc in querySnapshot.documents {
-                    print("\(doc.documentID) => \(doc.data())")
+                    //print("\(doc.documentID) => \(doc.data())")
                     
                     firstly {
                         self.getPost(withId:doc.documentID)
                     }.done { post in
-                        print("@getPosts-ServiceCall------resultPosts:")
                         
                         resultPosts.append(post)
                         success(resultPosts)
-                        print(resultPosts)
+
                     }.catch { err in
                         print("[ERROR]: looping through getPosts document ")
                         return promise.reject(err)                        
