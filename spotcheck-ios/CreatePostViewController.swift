@@ -12,7 +12,6 @@ import SwiftSVG
 class CreatePostViewController: UIViewController, MDCMultilineTextInputDelegate {
     let MAX_SUBJECT_LENGTH = 300
     
-    @IBOutlet weak var photoImageView: UIImageView!
     @IBOutlet weak var photoHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var postButton: UIBarButtonItem!
     
@@ -23,6 +22,15 @@ class CreatePostViewController: UIViewController, MDCMultilineTextInputDelegate 
     @IBAction func submitPost(_ sender: Any) {
         self.validator.validate(self)
     }
+        
+    
+    var photoImageView: UIImageView = {
+        let piv = UIImageView()
+        piv.image = UIImage(systemName: "photo")
+        piv.translatesAutoresizingMaskIntoConstraints = false //You need to call this property so the image is added to your view
+        return piv
+    }()
+    
     
     let keyboardMenuAccessory: UIView = {
         let accessoryView = UIView(frame: .zero)
@@ -152,9 +160,12 @@ class CreatePostViewController: UIViewController, MDCMultilineTextInputDelegate 
         initDropDown()
         initTextViewPlaceholders()
         initActivityIndicator()
-        applyConstraints()
+        
         photoImageView.isHidden = true //photo appears and to adjusted height once uploaded
-        photoHeightConstraint.constant = 0
+        self.view.addSubview(photoImageView)
+        //photoHeightConstraint.constant = 0
+        
+        applyConstraints()
         addKeyboardMenuAccessory()
         setupValidation()
     }    

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -374,27 +374,16 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="photo" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="3GY-mJ-ZZG" userLabel="photoView">
-                                <rect key="frame" x="20" y="230" width="374" height="197.5"/>
-                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="cjr-zq-yDg"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.1764735281" green="0.17646530269999999" blue="0.1764708757" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="nnA-Ad-pVx" firstAttribute="leading" secondItem="L8l-fi-QXV" secondAttribute="leading" id="S2H-xd-taP"/>
                             <constraint firstItem="nnA-Ad-pVx" firstAttribute="top" secondItem="L8l-fi-QXV" secondAttribute="top" id="iB0-H6-2Z2"/>
                             <constraint firstItem="nnA-Ad-pVx" firstAttribute="trailing" secondItem="L8l-fi-QXV" secondAttribute="trailing" id="jA7-nn-gvm"/>
-                            <constraint firstItem="3GY-mJ-ZZG" firstAttribute="leading" secondItem="L8l-fi-QXV" secondAttribute="leading" constant="20" id="okt-6k-33a"/>
-                            <constraint firstItem="3GY-mJ-ZZG" firstAttribute="trailing" secondItem="L8l-fi-QXV" secondAttribute="trailing" constant="-20" id="yl4-eT-k9U"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="L8l-fi-QXV"/>
                     </view>
                     <connections>
-                        <outlet property="photoHeightConstraint" destination="cjr-zq-yDg" id="wUB-cg-ZuI"/>
-                        <outlet property="photoImageView" destination="3GY-mJ-ZZG" id="PBh-Cm-b2s"/>
                         <outlet property="postButton" destination="ujP-IS-SBP" id="bHJ-Rc-zzn"/>
                     </connections>
                 </viewController>
@@ -642,7 +631,6 @@
         <image name="person" catalog="system" width="64" height="58"/>
         <image name="person.crop.circle" catalog="system" width="64" height="60"/>
         <image name="person.fill" catalog="system" width="64" height="60"/>
-        <image name="photo" catalog="system" width="64" height="46"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="g51-UX-Uzl"/>

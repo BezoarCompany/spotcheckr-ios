@@ -179,27 +179,6 @@ extension CreatePostViewController {
         
     }
     
-    func validatePost() -> Bool {
-        let alert = UIAlertController(title: "Invalid post", message: "You can always access your content by signing back in", preferredStyle: UIAlertController.Style.alert)
-
-        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { _ in
-            //Cancel Action
-        }))
-        //TODO: Remove this validation and use validator.
-        if(subjectTextField.text?.count ?? 0 <= 0
-            ) {
-            alert.message = "Please fill out a valid subject header"
-            self.present(alert, animated: true, completion: nil)
-            return false
-        } else if (bodyTextField.text?.count ?? 0 <= 0) {
-            alert.message = "Please fill out a valid post body"
-            self.present(alert, animated: true, completion: nil)
-            return false
-        }
-        
-        return true
-    }
-    
     func submitPostWorkflow() {
         self.activityIndicator.startAnimating()
         
