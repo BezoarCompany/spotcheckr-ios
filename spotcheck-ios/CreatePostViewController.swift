@@ -182,7 +182,20 @@ class CreatePostViewController: UIViewController {
             
             if let img = exercisePost?.imagePath {
                 print("image exists!")
-                //TODO load image
+                
+                // Set default image for placeholder
+                let placeholderImage = UIImage(named:"squat1")!
+                
+                // Get a reference to the storage service using the default Firebase App
+                let storage = Storage.storage()
+                let pathname = K.Firestore.Storage.IMAGES_ROOT_DIR + "/" + (exercisePost?.imagePath ?? "")
+                
+                // Create a reference with an initial file path and name
+                let storagePathReference = storage.reference(withPath: pathname)
+                
+                // Load the image using SDWebImage
+                
+                photoImageView.sd_setImage(with: storagePathReference, placeholderImage: placeholderImage)
             }
         } else {
 
