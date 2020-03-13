@@ -64,10 +64,17 @@ class PostDetailViewController : UIViewController {
             //TODO: Do something when post fetching fails
         }
                 
-        //add modify menu
-        let postSettingsBarItem = UIBarButtonItem(image: UIImage(systemName: "square.and.pencil"), style: .plain, target: self, action: #selector(modifyPost))
-        navigationItem.rightBarButtonItem = postSettingsBarItem
-        
+        //access control for the modify menu
+        firstly {
+            Services.userService.getCurrentUser()
+        }.done { user in
+            if let postUserId = self.post?.createdBy?.id, postUserId == user.id{
+                let postSettingsBarItem = UIBarButtonItem(image: UIImage(systemName: "pencil"), style: .plain, target: self, action: #selector(self.modifyPost))
+                       
+                self.navigationItem.rightBarButtonItem = postSettingsBarItem
+            }
+        }
+                
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UINib(nibName:K.Storyboard.detailedPostNibName , bundle: nil), forCellReuseIdentifier: K.Storyboard.detailedPostCellId)
