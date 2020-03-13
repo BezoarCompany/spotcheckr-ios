@@ -159,13 +159,14 @@ class CreatePostViewController: UIViewController, MDCMultilineTextInputDelegate 
         
         initDropDown()
         initTextViewPlaceholders()
-        initActivityIndicator()
-        self.activityIndicator.startAnimating()
+        
         photoImageView.isUserInteractionEnabled = true
         photoImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openPhotoGallery)))
         self.view.addSubview(photoImageView)
         
         applyConstraints()
+        
+        initActivityIndicator()        
         addKeyboardMenuAccessory()
         setupValidation()
     }    

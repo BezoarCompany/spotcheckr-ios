@@ -85,9 +85,8 @@ extension CreatePostViewController {
     
     func initActivityIndicator() {
         activityIndicator.center = self.view.center
-        activityIndicator.backgroundColor = (UIColor (white: 0.8, alpha: 0.8)) 
         activityIndicator.hidesWhenStopped = true
-        activityIndicator.style = UIActivityIndicatorView.Style.large
+        activityIndicator.style = UIActivityIndicatorView.Style.whiteLarge        
         self.view.addSubview(activityIndicator)
     }
     
