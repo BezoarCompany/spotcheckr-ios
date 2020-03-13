@@ -1,6 +1,7 @@
 import UIKit
 import Firebase
 import FirebaseUI
+import DropDown
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -13,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         styleTabBar()
         configureServices()
         setStartingViewController()
-        
+        DropDown.startListeningToKeyboard()
         return true
     }
     

@@ -123,7 +123,7 @@ class PostDetailViewController : UIViewController {
     func initActivityIndicator() {
         activityIndicator.center = self.view.center
         activityIndicator.hidesWhenStopped = true
-        activityIndicator.style = UIActivityIndicatorView.Style.large
+        activityIndicator.style = UIActivityIndicatorView.Style.whiteLarge
         self.view.addSubview(activityIndicator)
     }
 

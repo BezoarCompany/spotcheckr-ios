@@ -1,41 +1,41 @@
 import UIKit
-import iOSDropDown //https://github.com/jriosdev/iOSDropDown
+import DropDown
 import Firebase
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Photos
 import PromiseKit
+import MaterialComponents
+import SwiftValidator
+import SwiftSVG
 
 enum UpdatePostMode {
     case add
     case edit
 }
 
-class CreatePostViewController: UIViewController {
-    
-    static let SUBJECT_TEXT_PLACEHOLDER = "Subject"
-    static let POST_BODY_TEXT_PLACEHOLDER = "Write your question"
-    static let MIN_SUBJECT_LENGTH = 10
-    static let MIN_POSTBODY_LENGTH = 2
-    static let PHOTO_HEIGHT = 200
-
-    @IBOutlet weak var workoutTypeDropDown: DropDown!
-    @IBOutlet weak var subjectTextView: UITextView!
-    @IBOutlet weak var photoImageView: UIImageView!
+class CreatePostViewController: UIViewController, MDCMultilineTextInputDelegate {
+    let MAX_SUBJECT_LENGTH = 300
     
     @IBOutlet weak var photoHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var postBodyTextView: UITextView!
+    @IBOutlet weak var postButton: UIBarButtonItem!
+    
     @IBAction func cancelPost(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
+    
     @IBAction func submitPost(_ sender: Any) {
-        print("submitted")
-        
-        if(validatePost()) {
-            submitPostWorkflow()
-        }
-        
+        self.validator.validate(self)
     }
+        
+    
+    var photoImageView: UIImageView = {
+        let piv = UIImageView()
+        piv.image = UIImage(systemName: "photo")
+        piv.translatesAutoresizingMaskIntoConstraints = false //You need to call this property so the image is added to your view
+        return piv
+    }()
+    
     
     let keyboardMenuAccessory: UIView = {
         let accessoryView = UIView(frame: .zero)
@@ -48,11 +48,12 @@ class CreatePostViewController: UIViewController {
         let button = UIButton(type: .custom)
         button.setTitleColor(UIColor.red, for: .normal)
         var cameraImg = UIImage(systemName: "keyboard")
-        cameraImg = cameraImg?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+        cameraImg = cameraImg?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
         button.setImage(cameraImg, for: .normal)
         button.addTarget(self, action:
         #selector(keyboardBtnTapped), for: .touchUpInside)
         button.showsTouchWhenHighlighted = true
+        button.tintColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
         return button
     }()
     
@@ -61,11 +62,12 @@ class CreatePostViewController: UIViewController {
         let button = UIButton(type: .custom)
         button.setTitleColor(UIColor.red, for: .normal)
         var cameraImg = UIImage(systemName: "photo.on.rectangle")
-        cameraImg = cameraImg?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+        cameraImg = cameraImg?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
         button.setImage(cameraImg, for: .normal)
         button.addTarget(self, action:
         #selector(openPhotoGallery), for: .touchUpInside)
         button.showsTouchWhenHighlighted = true
+        button.tintColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
         return button
     }()
     
@@ -73,13 +75,48 @@ class CreatePostViewController: UIViewController {
         let button = UIButton(type: .custom)
         button.setTitleColor(UIColor.red, for: .normal)
         var cameraImg = UIImage(systemName: "camera")
-        cameraImg = cameraImg?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+        cameraImg = cameraImg?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
         button.setImage(cameraImg, for: .normal)
         button.addTarget(self, action:
         #selector(openCamera), for: .touchUpInside)
         button.showsTouchWhenHighlighted = true
+        button.tintColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
         return button
     }()
+    
+    let workoutTypeDropDown: DropDown = {
+        let dropdown = DropDown()
+        return dropdown
+    }()
+    
+    let workoutTypeTextField: MDCTextField = {
+        let field = MDCTextField()
+        field.placeholder = "Select Workout Type (Optional)"
+        field.cursorColor = .none
+        field.translatesAutoresizingMaskIntoConstraints = false
+        return field
+    }()
+    let workoutTypeTextFieldController: MDCTextInputControllerFilled
+    
+    let subjectTextField: MDCTextField = {
+        let field = MDCTextField()
+        field.placeholder = "Title"
+        field.keyboardType = .alphabet
+        field.returnKeyType = .next
+        field.translatesAutoresizingMaskIntoConstraints = false
+        return field
+    }()
+    let subjectTextFieldController: MDCTextInputControllerFilled
+    
+    let bodyTextField: MDCMultilineTextField = {
+        let field = MDCMultilineTextField()
+        field.placeholder = "Description"
+        field.clearButtonMode = .never
+        field.translatesAutoresizingMaskIntoConstraints = false
+        return field
+    }()
+    let bodyTextFieldController: MDCTextInputControllerOutlinedTextArea
+    let validator: Validator
     
     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
     
@@ -98,64 +135,139 @@ class CreatePostViewController: UIViewController {
                     
         return createPostViewController
     }
+
+    required init?(coder aDecoder: NSCoder) {
+        self.subjectTextFieldController = MDCTextInputControllerFilled(textInput: subjectTextField)
+        self.subjectTextFieldController.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
+        self.subjectTextFieldController.characterCountViewMode = .always
+        self.subjectTextFieldController.characterCountMax = UInt(MAX_SUBJECT_LENGTH)
+        self.subjectTextFieldController.activeColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
+        self.subjectTextFieldController.floatingPlaceholderActiveColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
+        self.subjectTextFieldController.trailingUnderlineLabelTextColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
+        
+        self.bodyTextFieldController = MDCTextInputControllerOutlinedTextArea(textInput: bodyTextField)
+         MDCTextFieldTypographyThemer.applyTypographyScheme(ApplicationScheme.instance.containerScheme.typographyScheme, to: self.bodyTextFieldController)
+        self.bodyTextFieldController.errorColor = ApplicationScheme.instance.containerScheme.colorScheme.errorColor
+        self.bodyTextFieldController.activeColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
+        self.bodyTextFieldController.floatingPlaceholderActiveColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
+        self.bodyTextFieldController.inlinePlaceholderColor = ApplicationScheme.instance.containerScheme.colorScheme.primaryColorVariant
+        
+        self.workoutTypeTextFieldController = MDCTextInputControllerFilled(textInput: workoutTypeTextField)
+        self.workoutTypeTextFieldController.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
+        self.workoutTypeTextFieldController.isFloatingEnabled = false
+                 
+        self.validator = Validator()
+        super.init(coder: aDecoder)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        initDropDown()
+        initTextViewPlaceholders()
+        
+        photoImageView.isUserInteractionEnabled = true
+        photoImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openPhotoGallery)))
+        self.view.addSubview(photoImageView)
+        
+        applyConstraints()
+        
+        initActivityIndicator()        
         addKeyboardMenuAccessory()
+        setupValidation()
         
         if (updatePostMode == .edit) {
-            subjectTextView.text = self.exercisePost?.title
-            postBodyTextView.text = self.exercisePost?.description
+            subjectTextField.text = self.exercisePost?.title
+            bodyTextField.text = self.exercisePost?.description
+            
             if let img = exercisePost?.imagePath {
-                photoImageView.isHidden = false
-                photoHeightConstraint.constant = CGFloat(CreatePostViewController.PHOTO_HEIGHT)
+                print("image exists!")
                 //TODO load image
             }
-            //TODO also have some textview placeholder code? for when it's deleted
         } else {
-            initDropDown()
-            initTextViewPlaceholders()
-            initActivityIndicator()
-            photoImageView.isHidden = true //photo appears and to adjusted height once uploaded
-            photoHeightConstraint.constant = 0
+
         }
     }    
 }
 
-//Resetting textview's text to gray and placeholder value if empty,
-//or back to black if non-empty (key press event triggered)
-extension CreatePostViewController: UITextViewDelegate {
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.textColor == UIColor.lightGray {
-            textView.text = nil
-            textView.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
-        }
-    }
-    
-    func textViewDidEndEditing(_ textView: UITextView) {
-        if textView.text.isEmpty {
-            if textView == subjectTextView {
-                textView.text = CreatePostViewController.SUBJECT_TEXT_PLACEHOLDER
-            } else {
-                textView.text = CreatePostViewController.POST_BODY_TEXT_PLACEHOLDER
-            }
-            textView.textColor = UIColor.lightGray
-        }
-    }
-}
-
 extension CreatePostViewController: UINavigationControllerDelegate,UIImagePickerControllerDelegate {
-
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
-               
+
        let chosenImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
        
        isImageChanged = true
-       photoImageView.isHidden = false //photo appears and to adjusted height once uploaded
-       photoHeightConstraint.constant = 200
        photoImageView.image = chosenImage
        
        imagePickerController.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension CreatePostViewController: ValidationDelegate {
+    func validationSuccessful() {
+        self.postButton.isEnabled = false
+        
+        self.subjectTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
+        self.bodyTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
+        self.workoutTypeTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
+        
+        submitPostWorkflow()
+    }
+    
+    func validationFailed(_ errors: [(Validatable, ValidationError)]) {
+        for (field, error) in errors {
+            if let field = field as? MDCTextField {
+                if field == self.subjectTextField {
+                    self.subjectTextFieldController.setErrorText(error.errorMessage, errorAccessibilityValue: error.errorMessage)
+                }
+                else if field == self.workoutTypeTextField {
+                    self.workoutTypeTextFieldController.setErrorText(error.errorMessage, errorAccessibilityValue: error.errorMessage)
+                }
+            }
+            else if let field = field as? MDCIntrinsicHeightTextView {
+                if field == self.bodyTextField.textView! {
+                    self.bodyTextFieldController.setErrorText(error.errorMessage, errorAccessibilityValue: error.errorMessage)
+                }
+            }
+        }
+    }
+    
+    private func setupValidation() {
+        validator.registerField(self.subjectTextField, rules: [RequiredRule(message: "Required")])
+        validator.registerField(self.bodyTextField.textView!, rules: [RequiredRule(message: "Required")])
+        //validator.registerField(self.workoutTypeTextField, rules: [RequiredRule(message: "Required")])
+    }
+}
+
+extension CreatePostViewController: UITextFieldDelegate {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        if textField as? MDCTextField == self.workoutTypeTextField {
+            if self.workoutTypeDropDown.isHidden {
+                self.workoutTypeDropDown.show()
+            } else {
+                self.workoutTypeDropDown.hide()
+            }
+            self.toggleWorkoutTypeIcon()
+            
+            return false
+        }
+        
+        return true
+    }
+    
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        if textField as? MDCTextField == self.subjectTextField && self.subjectTextFieldController.errorText != nil {
+            self.subjectTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        validator.validateField(textField) { error in
+            if textField as? MDCTextField == self.subjectTextField {
+                self.bodyTextField.becomeFirstResponder()
+                self.subjectTextFieldController.setErrorText(error?.errorMessage, errorAccessibilityValue: error?.errorMessage)
+            }
+        }
+        
+        return true
     }
 }
