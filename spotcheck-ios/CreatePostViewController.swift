@@ -14,10 +14,9 @@ enum UpdatePostMode {
     case edit
 }
 
-class CreatePostViewController: UIViewController, MDCMultilineTextInputDelegate {
+class CreatePostViewController: UIViewController {
     let MAX_SUBJECT_LENGTH = 300
     
-    @IBOutlet weak var photoHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var postButton: UIBarButtonItem!
     
     @IBAction func cancelPost(_ sender: Any) {
@@ -27,16 +26,14 @@ class CreatePostViewController: UIViewController, MDCMultilineTextInputDelegate 
     @IBAction func submitPost(_ sender: Any) {
         self.validator.validate(self)
     }
-        
-    
+            
     var photoImageView: UIImageView = {
         let piv = UIImageView()
         piv.image = UIImage(systemName: "photo")
         piv.translatesAutoresizingMaskIntoConstraints = false //You need to call this property so the image is added to your view
         return piv
     }()
-    
-    
+        
     let keyboardMenuAccessory: UIView = {
         let accessoryView = UIView(frame: .zero)
         accessoryView.backgroundColor = .lightGray
@@ -188,6 +185,10 @@ class CreatePostViewController: UIViewController, MDCMultilineTextInputDelegate 
 
         }
     }    
+}
+
+extension CreatePostViewController: MDCMultilineTextInputDelegate {
+    //the description text view requires a delegate
 }
 
 extension CreatePostViewController: UINavigationControllerDelegate,UIImagePickerControllerDelegate {
