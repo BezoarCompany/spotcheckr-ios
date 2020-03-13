@@ -17,6 +17,7 @@ enum UpdatePostMode {
 class CreatePostViewController: UIViewController {
     let MAX_SUBJECT_LENGTH = 300
     
+    @IBOutlet weak var navbar: UINavigationItem!
     @IBOutlet weak var postButton: UIBarButtonItem!
     
     @IBAction func cancelPost(_ sender: Any) {
@@ -176,6 +177,8 @@ class CreatePostViewController: UIViewController {
         if (updatePostMode == .edit) {
             subjectTextField.text = self.exercisePost?.title
             bodyTextField.text = self.exercisePost?.description
+            navbar.title  = "Edit Question"
+            postButton.title = "Save"
             
             if let img = exercisePost?.imagePath {
                 print("image exists!")
