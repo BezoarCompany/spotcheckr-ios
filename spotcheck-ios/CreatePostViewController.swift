@@ -227,7 +227,13 @@ extension CreatePostViewController: ValidationDelegate {
         self.bodyTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
         self.workoutTypeTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
         
-        submitPostWorkflow()
+        if(updatePostMode == .edit) {
+            updatePostWorkflow(post: self.exercisePost)
+        } else {
+            submitPostWorkflow()
+        }
+        
+        
     }
     
     func validationFailed(_ errors: [(Validatable, ValidationError)]) {

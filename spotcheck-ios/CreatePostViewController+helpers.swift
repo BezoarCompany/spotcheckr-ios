@@ -186,6 +186,56 @@ extension CreatePostViewController {
         
     }
     
+    //for modifying an existing post
+    func updatePostWorkflow(post: ExercisePost?) {
+        guard let id = post?.id else {
+            print ("@updatePostWorkflow -> invalid post args")
+            return
+        }
+        self.activityIndicator.startAnimating()
+        
+        var postDocument = [
+            "modified-date" : FieldValue.serverTimestamp(),
+            "title" : subjectTextField.text!,
+            "description" : bodyTextField.text!
+        ] as [String : Any]
+        
+        //queue up parallel execution of storage delete old image, storage-upload-new image, and firestore-update post
+        var voidPromises = [Promise<Void>]()
+
+        if (isImageChanged) { //store image first, then write Post (text) to firebase (with image name), finally close activityIndicators
+            let newImageName = "\(NSUUID().uuidString)" + ".jpeg"
+                            
+            postDocument.add(["image-path" : newImageName ])
+                            
+            let jpegData = photoImageView.image!.jpegData(compressionQuality: 1.0)
+            
+            voidPromises.append(Services.storageService.uploadImage(filename: newImageName, imagetype: .jpeg, data: jpegData))
+            
+            //post had previous image, so delete that
+            if let imagefilename = post?.imagePath {
+                voidPromises.append(Services.storageService.deleteImage(filename: imagefilename))
+            }
+        }
+                   
+        voidPromises.append(Services.exercisePostService.updatePost(withId: id, dict: postDocument))
+        
+        firstly {
+            //execute all promises in parallel!
+            when(fulfilled: voidPromises)
+        }.done { _ in
+            print("success updating Post")
+            self.dismiss(animated: true, completion: nil)
+        }.catch { err in
+            print("error executing updatePostWorflow promises!")
+            print(err)
+        }.finally {
+            self.activityIndicator.stopAnimating()
+        }
+        
+    }
+    
+    //for creating new Posts
     func submitPostWorkflow() {
         self.activityIndicator.startAnimating()
         
