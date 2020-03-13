@@ -20,6 +20,8 @@ protocol ExercisePostProtocol {
     func writePost(dict: [String: Any]) -> Promise<Void>
     func writeAnswer(answer: Answer) -> Promise<Void>
     
+    func updatePost(withId id:String, dict: [String: Any]) -> Promise<Void>
+    
     func deletePost(_ post: ExercisePost) -> Promise<Void>
     func deleteAnswers(forPostWithId postId: String) -> Promise<Void>
     func deleteAnswer(withId id: String) -> Promise<Void>
