@@ -203,21 +203,20 @@ extension CreatePostViewController {
         //queue up parallel execution of storage delete old image, storage-upload-new image, and firestore-update post
         var voidPromises = [Promise<Void>]()
 
-        if (isImageChanged) { //store image first, then write Post (text) to firebase (with image name), finally close activityIndicators
+        if (isImageChanged) {
             let newImageName = "\(NSUUID().uuidString)" + ".jpeg"
-                            
             postDocument.add(["image-path" : newImageName ])
-                            
             let jpegData = photoImageView.image!.jpegData(compressionQuality: 1.0)
             
             voidPromises.append(Services.storageService.uploadImage(filename: newImageName, imagetype: .jpeg, data: jpegData))
             
-            //post had previous image, so delete that
+            //post had previous image, so create promise to delete that
             if let imagefilename = post?.imagePath {
                 voidPromises.append(Services.storageService.deleteImage(filename: imagefilename))
             }
         }
                    
+        //queue up firestore write call
         voidPromises.append(Services.exercisePostService.updatePost(withId: id, dict: postDocument))
         
         firstly {
@@ -231,8 +230,7 @@ extension CreatePostViewController {
             print(err)
         }.finally {
             self.activityIndicator.stopAnimating()
-        }
-        
+        }        
     }
     
     //for creating new Posts
@@ -247,34 +245,30 @@ extension CreatePostViewController {
             "modified-date" : FieldValue.serverTimestamp()
             ] as [String : Any]
         
-        if (isImageChanged) { //store image first, then write Post (text) to firebase (with image name), finally close activityIndicators
+        //queue up parallel execution of storage delete old image, storage-upload-new image, and firestore-update post
+        var voidPromises = [Promise<Void>]()
+
+        if (isImageChanged) {
             let newImageName = "\(NSUUID().uuidString)" + ".jpeg"
-                            
             postDocument.add(["image-path" : newImageName ])
-                            
             let jpegData = photoImageView.image!.jpegData(compressionQuality: 1.0)
             
-            firstly {
-                Services.storageService.uploadImage(filename: newImageName, imagetype: .jpeg, data: jpegData)
-            }.done {
-                Services.exercisePostService.writePost(dict: postDocument)
-                self.dismiss(animated: true, completion: nil)
-            }.catch { error in
-                print(error)
-            }.finally {
-                self.activityIndicator.stopAnimating()
-            }
-        } else {//only write Post (text) to firebase
-            firstly {
-                Services.exercisePostService.writePost(dict: postDocument)
-            }.done {
-                self.dismiss(animated: true, completion: nil)
-            }.catch { error in
-                print(error)
-            }.finally {
-                self.activityIndicator.stopAnimating()
-            }
+            voidPromises.append(Services.storageService.uploadImage(filename: newImageName, imagetype: .jpeg, data: jpegData))
         }
         
+        voidPromises.append(Services.exercisePostService.writePost(dict: postDocument))
+        
+        firstly {
+            //execute all promises in parallel!
+            when(fulfilled: voidPromises)
+        }.done { _ in
+            print("success updating Post")
+            self.dismiss(animated: true, completion: nil)
+        }.catch { err in
+            print("error executing updatePostWorflow promises!")
+            print(err)
+        }.finally {
+            self.activityIndicator.stopAnimating()
+        }
     }
 }
