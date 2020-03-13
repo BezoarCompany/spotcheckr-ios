@@ -1,17 +1,44 @@
 import UIKit
-import iOSDropDown //https://github.com/jriosdev/iOSDropDown
 import Firebase
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Photos
 import PromiseKit
+import MaterialComponents
+import DropDown
 
 extension CreatePostViewController {    
     
     func initDropDown() {
-        //workoutTypeDropDown.placeholder.color // TODO go into iOSDropdown code to change placeholder color
-        workoutTypeDropDown.selectedRowColor = .magenta
-        workoutTypeDropDown.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor//.lightGray
+        self.workoutTypeTextField.delegate = self
+        self.workoutTypeTextField.trailingView = Images.chevronUp
+        self.workoutTypeTextField.trailingViewMode = .always
+        self.workoutTypeTextField.trailingView?.isUserInteractionEnabled = true
+        self.workoutTypeTextField.trailingView?.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        self.workoutTypeTextField.trailingView?.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        self.view.addSubview(self.workoutTypeTextField)
+        self.workoutTypeTextField.trailingView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(workoutTypeIconOnClick(sender:))))
+        
+        self.workoutTypeTextField.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 75).isActive = true
+        self.workoutTypeTextField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
+        self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: self.workoutTypeTextField.trailingAnchor, constant: 15).isActive = true
+                
+        self.workoutTypeDropDown.anchorView = self.workoutTypeTextField
+        self.workoutTypeDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+            self.toggleWorkoutTypeIcon()
+            self.workoutTypeTextField.text = item
+        }
+        self.workoutTypeDropDown.cancelAction = { [unowned self] in
+            self.toggleWorkoutTypeIcon()
+        }
+        
+        self.workoutTypeDropDown.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
+        self.workoutTypeDropDown.backgroundColor = ApplicationScheme.instance.containerScheme.colorScheme.backgroundColor
+        self.workoutTypeDropDown.selectionBackgroundColor = ApplicationScheme.instance.containerScheme.colorScheme.secondaryColor
+        self.workoutTypeDropDown.selectedTextColor = ApplicationScheme.instance.containerScheme.colorScheme.onSecondaryColor
+        self.workoutTypeDropDown.direction = .bottom
+        
+
         firstly {
             Services.exercisePostService.getExerciseTypes()
         }.done { exerciseTypes in
@@ -20,41 +47,74 @@ extension CreatePostViewController {
             for et in exerciseTypes {                
                 arr.append(et.value.rawValue)
             }
-            self.workoutTypeDropDown.optionArray = arr
+            self.workoutTypeDropDown.dataSource = arr
         }.catch { err in
-            print(err)
-            self.workoutTypeDropDown.optionArray = ["Strength", "Endurance", "Balance", "Flexibility"]
-        }
-                
-        
-        workoutTypeDropDown.didSelect{
-            (selectedText, index, id) in
-            print("\(selectedText) @ index: \(index)")
+            self.workoutTypeDropDown.dataSource = ["Strength", "Endurance", "Balance", "Flexibxility"]
         }
     }
-    
+        
+    @objc func workoutTypeIconOnClick(sender: Any) {
+        self.toggleWorkoutTypeIcon()
+    }
+ 
+    func toggleWorkoutTypeIcon() {
+        if self.workoutTypeTextField.trailingView == Images.chevronDown {
+            self.workoutTypeTextField.trailingView = Images.chevronUp
+            self.workoutTypeDropDown.hide()
+        }
+        else {
+            self.workoutTypeTextField.trailingView = Images.chevronDown
+            self.workoutTypeDropDown.show()
+        }
+        self.workoutTypeTextField.trailingView?.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        self.workoutTypeTextField.trailingView?.widthAnchor.constraint(equalToConstant: 30).isActive = true
+    }
+
+ 
     func initTextViewPlaceholders() {
-        subjectTextView.delegate = self
-        postBodyTextView.delegate = self
+        subjectTextField.delegate = self
+        self.view.addSubview(subjectTextField)
+       
+        bodyTextField.multilineDelegate = self
+        self.bodyTextField.cursorColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
+        self.bodyTextField.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
+               
+        self.view.addSubview(bodyTextField)
         
-        subjectTextView.text = CreatePostViewController.SUBJECT_TEXT_PLACEHOLDER
-        subjectTextView.textColor = .lightGray
-        
-        postBodyTextView.text = CreatePostViewController.POST_BODY_TEXT_PLACEHOLDER
-        postBodyTextView.textColor = .lightGray
     }
     
     func initActivityIndicator() {
         activityIndicator.center = self.view.center
         activityIndicator.hidesWhenStopped = true
-        activityIndicator.style = UIActivityIndicatorView.Style.large
+        activityIndicator.style = UIActivityIndicatorView.Style.whiteLarge        
         self.view.addSubview(activityIndicator)
     }
     
-    func addKeyboardMenuAccessory() {
-        postBodyTextView.inputAccessoryView = keyboardMenuAccessory
+    func applyConstraints() {
+        self.workoutTypeTextField.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 75).isActive = true
+        self.workoutTypeTextField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
+        self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: self.workoutTypeTextField.trailingAnchor, constant: 15).isActive = true
         
+        self.subjectTextField.topAnchor.constraint(equalTo: self.workoutTypeTextField.bottomAnchor, constant: 15).isActive = true
+        self.subjectTextField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
+        self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: subjectTextField.trailingAnchor, constant: 15).isActive = true
+                
+        self.photoImageView.topAnchor.constraint(equalTo: self.subjectTextField.bottomAnchor, constant: 15).isActive = true
+        self.photoImageView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
+        self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: photoImageView.trailingAnchor, constant: 15).isActive = true
+        self.photoImageView.heightAnchor.constraint(equalToConstant: CGFloat(200)).isActive = true
+        self.photoImageView.contentMode = .scaleAspectFit
+        self.photoImageView.clipsToBounds = true
+        
+        self.bodyTextField.topAnchor.constraint(equalTo: self.photoImageView.bottomAnchor, constant: 15).isActive = true
+        self.bodyTextField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
+        self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: bodyTextField.trailingAnchor, constant: 15).isActive = true
+        
+    }
+    
+    func addKeyboardMenuAccessory() {
         keyboardMenuAccessory.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 45)
+        keyboardMenuAccessory.backgroundColor = ApplicationScheme.instance.containerScheme.colorScheme.backgroundColor
         keyboardMenuAccessory.translatesAutoresizingMaskIntoConstraints = false
         openKeyboardBtn.translatesAutoresizingMaskIntoConstraints = false
         openPhotoGalleryBtn.translatesAutoresizingMaskIntoConstraints = false
@@ -72,6 +132,7 @@ extension CreatePostViewController {
             openCameraBtn.leadingAnchor.constraint(equalTo: openPhotoGalleryBtn.trailingAnchor, constant: 20),
             openCameraBtn.centerYAnchor.constraint(equalTo: keyboardMenuAccessory.centerYAnchor)
         ])
+        bodyTextField.textView?.inputAccessoryView = keyboardMenuAccessory
     }
     
     @objc func keyboardBtnTapped() {
@@ -87,7 +148,6 @@ extension CreatePostViewController {
         if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
             checkPhotoPermissionsAndShowLib()
         }
-        
     }
     
     
@@ -126,68 +186,89 @@ extension CreatePostViewController {
         
     }
     
-    func validatePost() -> Bool {
-        
-        let alert = UIAlertController(title: "Invalid post", message: "You can always access your content by signing back in", preferredStyle: UIAlertController.Style.alert)
-
-        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { _ in
-            //Cancel Action
-        }))
-        
-        if(CreatePostViewController.SUBJECT_TEXT_PLACEHOLDER == subjectTextView.text
-            || subjectTextView.text.count < CreatePostViewController.MIN_SUBJECT_LENGTH
-            ) {
-            alert.message = "Please fill out a valid subject header"
-            self.present(alert, animated: true, completion: nil)
-            return false
-        } else if (CreatePostViewController.POST_BODY_TEXT_PLACEHOLDER == postBodyTextView.text
-            || postBodyTextView.text.count < CreatePostViewController.MIN_POSTBODY_LENGTH) {
-            alert.message = "Please fill out a valid post body"
-            self.present(alert, animated: true, completion: nil)
-            return false
+    //for modifying an existing post
+    func updatePostWorkflow(post: ExercisePost?) {
+        guard let id = post?.id else {
+            print ("@updatePostWorkflow -> invalid post args")
+            return
         }
-        return true
+        self.activityIndicator.startAnimating()
+        
+        var postDocument = [
+            "modified-date" : FieldValue.serverTimestamp(),
+            "title" : subjectTextField.text!,
+            "description" : bodyTextField.text!
+        ] as [String : Any]
+        
+        //queue up parallel execution of storage delete old image, storage-upload-new image, and firestore-update post
+        var voidPromises = [Promise<Void>]()
+
+        if (isImageChanged) {
+            let newImageName = "\(NSUUID().uuidString)" + ".jpeg"
+            postDocument.add(["image-path" : newImageName ])
+            let jpegData = photoImageView.image!.jpegData(compressionQuality: 1.0)
+            
+            voidPromises.append(Services.storageService.uploadImage(filename: newImageName, imagetype: .jpeg, data: jpegData))
+            
+            //post had previous image, so create promise to delete that
+            if let imagefilename = post?.imagePath {
+                voidPromises.append(Services.storageService.deleteImage(filename: imagefilename))
+            }
+        }
+                   
+        //queue up firestore write call
+        voidPromises.append(Services.exercisePostService.updatePost(withId: id, dict: postDocument))
+        
+        firstly {
+            //execute all promises in parallel!
+            when(fulfilled: voidPromises)
+        }.done { _ in
+            print("success updating Post")
+            self.dismiss(animated: true, completion: nil)
+        }.catch { err in
+            print("error executing updatePostWorflow promises!")
+            print(err)
+        }.finally {
+            self.activityIndicator.stopAnimating()
+        }        
     }
     
+    //for creating new Posts
     func submitPostWorkflow() {
         self.activityIndicator.startAnimating()
         
         var postDocument = [
             "created-by" : Auth.auth().currentUser?.uid,
             "created-date" : FieldValue.serverTimestamp(),
-            "title" : subjectTextView.text!,
-            "description" : postBodyTextView.text!,
+            "title" : subjectTextField.text!,
+            "description" : bodyTextField.text!,
             "modified-date" : FieldValue.serverTimestamp()
             ] as [String : Any]
         
-        if (isImageChanged) { //store image first, then write Post (text) to firebase (with image name), finally close activityIndicators
+        //queue up parallel execution of storage delete old image, storage-upload-new image, and firestore-update post
+        var voidPromises = [Promise<Void>]()
+
+        if (isImageChanged) {
             let newImageName = "\(NSUUID().uuidString)" + ".jpeg"
-                            
             postDocument.add(["image-path" : newImageName ])
-                            
             let jpegData = photoImageView.image!.jpegData(compressionQuality: 1.0)
             
-            firstly {
-                Services.storageService.uploadImage(filename: newImageName, imagetype: .jpeg, data: jpegData)
-            }.done {
-                Services.exercisePostService.writePost(dict: postDocument)
-                self.dismiss(animated: true, completion: nil)
-            }.catch { error in
-                print(error)
-            }.finally {
-                self.activityIndicator.stopAnimating()
-            }
-        } else {//only write Post (text) to firebase
-            firstly {
-                Services.exercisePostService.writePost(dict: postDocument)
-            }.done {
-                self.dismiss(animated: true, completion: nil)
-            }.catch { error in
-                print(error)
-            }.finally {
-                self.activityIndicator.stopAnimating()
-            }
+            voidPromises.append(Services.storageService.uploadImage(filename: newImageName, imagetype: .jpeg, data: jpegData))
         }
         
+        voidPromises.append(Services.exercisePostService.writePost(dict: postDocument))
+        
+        firstly {
+            //execute all promises in parallel!
+            when(fulfilled: voidPromises)
+        }.done { _ in
+            print("success updating Post")
+            self.dismiss(animated: true, completion: nil)
+        }.catch { err in
+            print("error executing updatePostWorflow promises!")
+            print(err)
+        }.finally {
+            self.activityIndicator.stopAnimating()
+        }
     }
 }

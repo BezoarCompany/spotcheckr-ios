@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -360,13 +360,13 @@
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nnA-Ad-pVx">
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                                 <items>
-                                    <navigationItem title="Add a question" id="gFt-Qt-MS2">
-                                        <barButtonItem key="leftBarButtonItem" image="multiply" catalog="system" id="YE0-Od-SSy">
+                                    <navigationItem title="New Question" id="gFt-Qt-MS2">
+                                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="YE0-Od-SSy">
                                             <connections>
                                                 <action selector="cancelPost:" destination="cch-6k-Lhu" id="XAo-nl-9Lr"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" title="Submit" id="ujP-IS-SBP">
+                                        <barButtonItem key="rightBarButtonItem" title="Post" id="ujP-IS-SBP">
                                             <connections>
                                                 <action selector="submitPost:" destination="cch-6k-Lhu" id="CCT-TY-Uxe"/>
                                             </connections>
@@ -374,79 +374,18 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Select workout type" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1PH-CT-WQj" userLabel="WorkoutTypeDropDown" customClass="DropDown" customModule="iOSDropDown">
-                                <rect key="frame" x="20" y="101" width="374" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <view alpha="0.41999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gJ2-nF-iar" userLabel="lineBreak1">
-                                <rect key="frame" x="0.0" y="145" width="414" height="1"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="dED-ms-p4u"/>
-                                </constraints>
-                            </view>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Subject" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="JFf-7J-RBW" userLabel="subjectTextview">
-                                <rect key="frame" x="20" y="165" width="374" height="33"/>
-                                <color key="backgroundColor" red="0.1764735281" green="0.17646530269999999" blue="0.1764708757" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <view alpha="0.41999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FVS-BH-7hE" userLabel="lineBreak2">
-                                <rect key="frame" x="0.0" y="218" width="414" height="1"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="L5J-QL-qdN"/>
-                                </constraints>
-                            </view>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="3GY-mJ-ZZG" userLabel="photoView">
-                                <rect key="frame" x="20" y="230" width="374" height="197.5"/>
-                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="cjr-zq-yDg"/>
-                                </constraints>
-                            </imageView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Write your question" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="9hL-Nu-0us" userLabel="postBodyTextView">
-                                <rect key="frame" x="20" y="439" width="374" height="33"/>
-                                <color key="backgroundColor" red="0.1764735281" green="0.17646530269999999" blue="0.1764708757" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                         </subviews>
                         <color key="backgroundColor" red="0.1764735281" green="0.17646530269999999" blue="0.1764708757" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstItem="9hL-Nu-0us" firstAttribute="trailing" secondItem="L8l-fi-QXV" secondAttribute="trailing" constant="-20" id="1Kz-FT-6Vd"/>
-                            <constraint firstItem="JFf-7J-RBW" firstAttribute="leading" secondItem="L8l-fi-QXV" secondAttribute="leading" constant="20" id="1hn-nW-LNJ"/>
-                            <constraint firstItem="FVS-BH-7hE" firstAttribute="top" secondItem="JFf-7J-RBW" secondAttribute="bottom" constant="20" id="8eL-Iq-Uxp"/>
-                            <constraint firstItem="JFf-7J-RBW" firstAttribute="top" secondItem="gJ2-nF-iar" secondAttribute="top" constant="20" id="8jA-1N-b5j"/>
-                            <constraint firstItem="JFf-7J-RBW" firstAttribute="trailing" secondItem="L8l-fi-QXV" secondAttribute="trailing" constant="-20" id="9bC-07-esX"/>
-                            <constraint firstItem="gJ2-nF-iar" firstAttribute="trailing" secondItem="L8l-fi-QXV" secondAttribute="trailing" id="JtR-4L-3Ac"/>
-                            <constraint firstItem="gJ2-nF-iar" firstAttribute="leading" secondItem="L8l-fi-QXV" secondAttribute="leading" id="MBl-EU-x3Y"/>
                             <constraint firstItem="nnA-Ad-pVx" firstAttribute="leading" secondItem="L8l-fi-QXV" secondAttribute="leading" id="S2H-xd-taP"/>
-                            <constraint firstItem="1PH-CT-WQj" firstAttribute="leading" secondItem="L8l-fi-QXV" secondAttribute="leading" constant="20" id="TuG-dP-zsM"/>
-                            <constraint firstItem="FVS-BH-7hE" firstAttribute="trailing" secondItem="L8l-fi-QXV" secondAttribute="trailing" id="Yqn-hk-gpU"/>
-                            <constraint firstItem="gJ2-nF-iar" firstAttribute="top" secondItem="1PH-CT-WQj" secondAttribute="bottom" constant="20" id="cFD-lK-aHB"/>
                             <constraint firstItem="nnA-Ad-pVx" firstAttribute="top" secondItem="L8l-fi-QXV" secondAttribute="top" id="iB0-H6-2Z2"/>
                             <constraint firstItem="nnA-Ad-pVx" firstAttribute="trailing" secondItem="L8l-fi-QXV" secondAttribute="trailing" id="jA7-nn-gvm"/>
-                            <constraint firstItem="1PH-CT-WQj" firstAttribute="trailing" secondItem="L8l-fi-QXV" secondAttribute="trailing" constant="-20" id="kTq-cs-d6L"/>
-                            <constraint firstItem="9hL-Nu-0us" firstAttribute="top" secondItem="3GY-mJ-ZZG" secondAttribute="bottom" constant="10" id="mC9-Xu-FnA"/>
-                            <constraint firstItem="3GY-mJ-ZZG" firstAttribute="leading" secondItem="L8l-fi-QXV" secondAttribute="leading" constant="20" id="okt-6k-33a"/>
-                            <constraint firstItem="3GY-mJ-ZZG" firstAttribute="top" secondItem="FVS-BH-7hE" secondAttribute="bottom" constant="10" id="qIv-EH-h4x"/>
-                            <constraint firstItem="9hL-Nu-0us" firstAttribute="leading" secondItem="L8l-fi-QXV" secondAttribute="leading" constant="20" id="sYi-5B-Qm5"/>
-                            <constraint firstItem="1PH-CT-WQj" firstAttribute="top" secondItem="nnA-Ad-pVx" secondAttribute="bottom" constant="20" id="w2A-70-PSy"/>
-                            <constraint firstItem="FVS-BH-7hE" firstAttribute="leading" secondItem="L8l-fi-QXV" secondAttribute="leading" id="wqy-w7-wFs"/>
-                            <constraint firstItem="3GY-mJ-ZZG" firstAttribute="trailing" secondItem="L8l-fi-QXV" secondAttribute="trailing" constant="-20" id="yl4-eT-k9U"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="L8l-fi-QXV"/>
                     </view>
                     <connections>
-                        <outlet property="photoHeightConstraint" destination="cjr-zq-yDg" id="wUB-cg-ZuI"/>
-                        <outlet property="photoImageView" destination="3GY-mJ-ZZG" id="PBh-Cm-b2s"/>
-                        <outlet property="postBodyTextView" destination="9hL-Nu-0us" id="nek-9U-3Lx"/>
-                        <outlet property="subjectTextView" destination="JFf-7J-RBW" id="I9q-rT-81n"/>
-                        <outlet property="workoutTypeDropDown" destination="1PH-CT-WQj" id="4MO-CT-cm6"/>
+                        <outlet property="navbar" destination="gFt-Qt-MS2" id="NsP-Pm-RYM"/>
+                        <outlet property="postButton" destination="ujP-IS-SBP" id="bHJ-Rc-zzn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WAM-kd-nHb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -689,12 +628,10 @@
     </scenes>
     <resources>
         <image name="list.dash" catalog="system" width="64" height="42"/>
-        <image name="multiply" catalog="system" width="64" height="54"/>
         <image name="pencil" catalog="system" width="64" height="56"/>
         <image name="person" catalog="system" width="64" height="58"/>
         <image name="person.crop.circle" catalog="system" width="64" height="60"/>
         <image name="person.fill" catalog="system" width="64" height="60"/>
-        <image name="photo" catalog="system" width="64" height="46"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="g51-UX-Uzl"/>

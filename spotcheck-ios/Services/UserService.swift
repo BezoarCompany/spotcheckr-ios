@@ -27,7 +27,7 @@ class UserService: UserProtocol {
     func getUser(withId id: String) -> Promise<User> {
         return Promise { promise in
             if let user = cache[id] {
-                print("Cache HIT!!! \(user.id)=> \(user.username)")
+                //print("Cache HIT!!! \(user.id)=> \(user.username)")
                 return promise.fulfill(user)
             }
 
@@ -130,12 +130,16 @@ class UserService: UserProtocol {
     
     func getCurrentUser() -> Promise<User> {
         return Promise { promise in
-            //TODO: Fetch from cache instead and store in there too.
+            
             let userId = Auth.auth().currentUser?.uid
             
+            if let user = cache[userId!] {
+                return promise.fulfill(user)
+            }
             firstly {
                 self.getUser(withId: userId!)
             }.done { user in
+                self.cache[user.id!] = user
                 return promise.fulfill(user)
             }.catch { error in
                 return promise.reject(error)

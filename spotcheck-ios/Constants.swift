@@ -1,6 +1,7 @@
 struct K {
     struct App {
         static let BundleId = "com.spotcheck"
+        static let CacheLifespanSeconds = 1 * 60 * 60
     }
     
     struct Storyboard {

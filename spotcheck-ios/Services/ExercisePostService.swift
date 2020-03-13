@@ -17,7 +17,6 @@ class ExercisePostService: ExercisePostProtocol {
             return Promise { promise in
                 
                 if let post = cache[id] {
-                    print("Cache HIT!!! \(post.id)=> \(post.title)")
                     return promise.fulfill(post)
                 }
                 
@@ -146,18 +145,14 @@ class ExercisePostService: ExercisePostProtocol {
                 }
                 
                 for doc in querySnapshot.documents {
-                    print("\(doc.documentID) => \(doc.data())")
+                    //print("\(doc.documentID) => \(doc.data())")
                     
                     firstly {
                         self.getPost(withId:doc.documentID)
                     }.done { post in
-                        //print("@getPosts-ServiceCall------resultPosts:")
-                        
                         resultPosts.append(post)
                         success(resultPosts)
-                        print(resultPosts)
                     }.catch { err in
-                        print("[ERROR]: looping through getPosts document ")
                         return promise.reject(err)                        
                     }
                 }                
@@ -527,6 +522,113 @@ class ExercisePostService: ExercisePostProtocol {
                 } else {
                     promise.fulfill_()
                 }
+            }
+        }
+    }
+    
+    //Will merge attributes of the dictionary arg with the existing Firebase document. That way we're only updating the delta
+    //merge:true allows this merge with previous data
+    //merge:false does a full overwrite of a document
+    func updatePost(withId id:String, dict: [String: Any]) -> Promise<Void> {
+        return Promise { promise in
+            
+            //invalidate cache item
+            if let tmp = cache[id] {
+                cache[id] = nil
+            }
+            
+            let db = Firestore.firestore()
+            let docRef = db.collection(K.Firestore.posts).document(id)
+            
+            docRef.setData(dict, merge:true) { err in
+                if let err = err {
+                    return promise.reject(err)
+                } else {
+                    promise.fulfill_()
+                }
+            }            
+        }
+    }
+    
+    //Deletes ExercisePost document, after first deleting it's images (if any), and corresponding answers
+    func deletePost(_ post: ExercisePost) -> Promise<Void> {
+        return Promise { promise in
+            
+            let id = post.id
+            
+            //invalidate cache item
+            if let tmp = cache[id] {
+                cache[id] = nil
+            }
+            
+            let docRef = Firestore.firestore().collection(postsCollection).document(id)
+            
+            //setup execution the firestore delete answers request, and storage-delete-request in parallel
+            var voidPromises = [Promise<Void>]()
+            voidPromises.append(self.deleteAnswers(forPostWithId: id))
+            
+            if let imagefilename = post.imagePath {
+                voidPromises.append(Services.storageService.deleteImage(filename: imagefilename))
+            }
+            
+            firstly {
+                when(fulfilled: voidPromises)
+            }.done { _ in
+                docRef.delete() { error in
+                    if let error = error {
+                        promise.reject(error)
+                    } else {
+                        promise.fulfill_()
+                    }
+                }
+            }.catch { err in
+                promise.reject(err)
+            }
+        }
+    }
+    
+    //Recursively deletes all the answer(documents) for a given PostID
+    func deleteAnswers(forPostWithId postId: String) -> Promise<Void> {
+    
+        return Promise { promise in
+            let answersRef = Firestore.firestore().collection(answerCollection).whereField("exercise-post", isEqualTo: postId)
+            answersRef.getDocuments { (answersSnapshot, error) in
+                if let error = error {
+                    return promise.reject(error)
+                }
+                
+                var answersDeletePromises = [Promise<Void>]()
+                for document in answersSnapshot!.documents {
+                    answersDeletePromises.append(self.deleteAnswer(withId: document.documentID))
+                }
+                
+                firstly {
+                    when(fulfilled: answersDeletePromises)
+                }.done { _ in
+                    return promise.fulfill_()
+                }.catch { err in
+                    print("deleteAnswers: Failed to delete all answers for given Post:\(postId)")
+                    return promise.reject(err)
+                }
+            }
+        }
+    }
+    
+    //TODO: Create delete policy: because deleting answer only deletes document at Answers (not a recurse delete on collection its subcollections. NOT the subcollection documents like VOTES-
+    //so it'll look like an nil intermediate node
+    func deleteAnswer(withId id: String) -> Promise<Void> {
+        return Promise { promise in
+            let answerRef = Firestore.firestore().collection(answerCollection).document(id)
+            
+            answerRef.delete() { err in
+                if let error = err {
+                    print("deleteAnswer: failure delete answer(\(id))")
+                    return promise.reject(error)
+                } else {
+                    print("deleteAnswer: success delete answer(\(id))")
+                    return promise.fulfill_()
+                }
+                
             }
         }
     }

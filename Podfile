@@ -13,7 +13,7 @@ target 'spotcheck-ios' do
   pod 'Fakery'
   
   # UI Elements
-  pod 'iOSDropDown', '~> 0.3.4'
+  pod 'DropDown', '2.3.13'
   
   # Firebase dependencies
   pod 'Firebase/Core'

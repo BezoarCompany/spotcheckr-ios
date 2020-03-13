@@ -40,4 +40,21 @@ class StorageService: StorageProtocol {
             }
         }
     }
+    
+    func deleteImage(filename: String) -> Promise<Void> {
+        return Promise { promise in
+            let firebaseImagesStorageRef = Storage.storage().reference().child(K.Firestore.Storage.IMAGES_ROOT_DIR)
+            let imageStorageRef = firebaseImagesStorageRef.child(filename)
+
+            imageStorageRef.delete { err in
+                if let error = err {
+                    return promise.reject(error)
+                } else {
+                    return promise.fulfill_()
+                }
+                
+            }
+        }
+    }
+    
 }
