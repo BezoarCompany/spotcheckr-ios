@@ -76,7 +76,6 @@ extension CreatePostViewController {
         bodyTextField.multilineDelegate = self
         self.bodyTextField.cursorColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
         self.bodyTextField.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
-               
         self.view.addSubview(bodyTextField)
         
     }
@@ -134,7 +133,7 @@ extension CreatePostViewController {
     }
     
     @objc func keyboardBtnTapped() {
-        print("keyboard")
+         self.bodyTextField.textView!.resignFirstResponder()
     }
     
     @objc func openCamera() {
@@ -147,7 +146,6 @@ extension CreatePostViewController {
             checkPhotoPermissionsAndShowLib()
         }
     }
-    
     
     func showPhotoLibraryPicker() {
        imagePickerController = UIImagePickerController()
