@@ -71,26 +71,12 @@ class CreatePostViewController: UIViewController, MDCMultilineTextInputDelegate 
         return button
     }()
     
-    let workoutTypeDropDown: DropDown = {
+    let exerciseDropdown: DropDown = {
         let dropdown = DropDown()
         return dropdown
     }()
     
-    let workoutTypeTextField: MDCTextField = {
-        let field = MDCTextField()
-        field.placeholder = "Select Workout Type"
-        field.cursorColor = .none
-        field.translatesAutoresizingMaskIntoConstraints = false
-        return field
-    }()
-    let workoutTypeTextFieldController: MDCTextInputControllerFilled
-    
-    let exerciseDropDown: DropDown = {
-        let dropdown = DropDown()
-        return dropdown
-    }()
-
-    let exercisesTextField: MDCTextField = {
+    let exerciseTextField: MDCTextField = {
         let field = MDCTextField()
         field.placeholder = "Select Exercise"
         field.cursorColor = .none
@@ -147,11 +133,7 @@ class CreatePostViewController: UIViewController, MDCMultilineTextInputDelegate 
         self.bodyTextFieldController.floatingPlaceholderActiveColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
         self.bodyTextFieldController.inlinePlaceholderColor = ApplicationScheme.instance.containerScheme.colorScheme.primaryColorVariant
         
-        self.workoutTypeTextFieldController = MDCTextInputControllerFilled(textInput: workoutTypeTextField)
-        self.workoutTypeTextFieldController.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
-        self.workoutTypeTextFieldController.isFloatingEnabled = false
-        
-        self.exerciseTextFieldController = MDCTextInputControllerFilled(textInput: exercisesTextField)
+        self.exerciseTextFieldController = MDCTextInputControllerFilled(textInput: exerciseTextField)
         self.exerciseTextFieldController.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
         self.exerciseTextFieldController.isFloatingEnabled = false
         
@@ -192,8 +174,6 @@ extension CreatePostViewController: ValidationDelegate {
         
         self.subjectTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
         self.bodyTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
-        self.workoutTypeTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
-//        self.exerciseTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
         
         submitPostWorkflow()
     }
@@ -204,12 +184,6 @@ extension CreatePostViewController: ValidationDelegate {
                 if field == self.subjectTextField {
                     self.subjectTextFieldController.setErrorText(error.errorMessage, errorAccessibilityValue: error.errorMessage)
                 }
-                else if field == self.workoutTypeTextField {
-                    self.workoutTypeTextFieldController.setErrorText(error.errorMessage, errorAccessibilityValue: error.errorMessage)
-                }
-//                else if field == self.exercisesTextField {
-//                   self.exerciseTextFieldController.setErrorText(error.errorMessage, errorAccessibilityValue: error.errorMessage)
-//                }
             }
             else if let field = field as? MDCIntrinsicHeightTextView {
                 if field == self.bodyTextField.textView! {
@@ -222,31 +196,20 @@ extension CreatePostViewController: ValidationDelegate {
     private func setupValidation() {
         validator.registerField(self.subjectTextField, rules: [RequiredRule(message: "Required")])
         validator.registerField(self.bodyTextField.textView!, rules: [RequiredRule(message: "Required")])
-        validator.registerField(self.workoutTypeTextField, rules: [RequiredRule(message: "Required")])
-//        validator.registerField(self.exercisesTextField, rules: [RequiredRule(message: "Required")])
     }
 }
 
 extension CreatePostViewController: UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        if textField as? MDCTextField == self.workoutTypeTextField {
-            if self.workoutTypeDropDown.isHidden {
-                self.workoutTypeDropDown.show()
+        if textField as? MDCTextField == self.exerciseTextField {
+            if self.exerciseDropdown.isHidden {
+                self.exerciseDropdown.show()
             } else {
-                self.workoutTypeDropDown.hide()
+                self.exerciseDropdown.hide()
             }
-            self.toggleWorkoutTypeIcon(field: self.workoutTypeTextField, dropdown: self.workoutTypeDropDown)
+            self.toggleDropdownIcon()
             return false
         }
-//        else if textField as? MDCTextField == self.exercisesTextField {
-//            if self.exerciseDropDown.isHidden {
-//                self.exerciseDropDown.show()
-//            } else {
-//                self.exerciseDropDown.hide()
-//            }
-//            self.toggleWorkoutTypeIcon(field: self.exercisesTextField, dropdown: self.exerciseDropDown)
-//            return false
-//        }
         
         return true
     }

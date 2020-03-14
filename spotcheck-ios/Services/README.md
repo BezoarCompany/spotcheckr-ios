@@ -1,3 +1,0 @@
-Each service interacts with the other service. For example, the ExercisePost service will use the UserService when it needs to get information for a User object. Only these two types of services should be enough as long as the collections they interact with don't overlap (i.e. "posts" shouldn't be declared in the UserService and "users" shouldn't be declared in the exerciseService). UserService handles everything related to users (phone numbers, emails, certifications, genders, etc.) and exercisePostService for exercises (e.g. media, metrics, answers, exercises, exercise-types, etc.)
-
-When writing methods that get information, prefer to pass in a collection (e.g. func getPosts(ids: [String]) instead of a single ID)

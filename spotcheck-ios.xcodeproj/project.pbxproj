@@ -45,6 +45,9 @@
 		BA1FB52923F11ADA00E091B1 /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1FB52823F11ADA00E091B1 /* Answer.swift */; };
 		BA1FB52B23F11B5100E091B1 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1FB52A23F11B5100E091B1 /* Media.swift */; };
 		BA1FB52F23F11C3400E091B1 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1FB52E23F11C3400E091B1 /* Exercise.swift */; };
+		BA3DDD2B241CB1F600692100 /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3DDD2A241CB1F600692100 /* AnalyticsService.swift */; };
+		BA3DDD2D241CB20F00692100 /* AnalyticsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3DDD2C241CB20F00692100 /* AnalyticsProtocol.swift */; };
+		BA3DDD2F241CB33600692100 /* AnalyticsEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3DDD2E241CB33600692100 /* AnalyticsEvent.swift */; };
 		BA49213623E6289B00A74A73 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA49212F23E6289A00A74A73 /* Roboto-Regular.ttf */; };
 		BA49213723E6289B00A74A73 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA49213023E6289A00A74A73 /* Roboto-Medium.ttf */; };
 		BA49213823E6289B00A74A73 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA49213123E6289B00A74A73 /* Roboto-Light.ttf */; };
@@ -140,7 +143,9 @@
 		BA1FB52823F11ADA00E091B1 /* Answer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
 		BA1FB52A23F11B5100E091B1 /* Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
 		BA1FB52E23F11C3400E091B1 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
-		BA1FB53023F2D29C00E091B1 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		BA3DDD2A241CB1F600692100 /* AnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
+		BA3DDD2C241CB20F00692100 /* AnalyticsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsProtocol.swift; sourceTree = "<group>"; };
+		BA3DDD2E241CB33600692100 /* AnalyticsEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsEvent.swift; sourceTree = "<group>"; };
 		BA49212F23E6289A00A74A73 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		BA49213023E6289A00A74A73 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		BA49213123E6289B00A74A73 /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
@@ -309,6 +314,7 @@
 				BA1FB52823F11ADA00E091B1 /* Answer.swift */,
 				BA1FB52A23F11B5100E091B1 /* Media.swift */,
 				BA1FB52E23F11C3400E091B1 /* Exercise.swift */,
+				BA3DDD2E241CB33600692100 /* AnalyticsEvent.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -341,10 +347,11 @@
 				BA4EE45F23EFEC7B003E6D87 /* UserService.swift */,
 				BA1FB52223F116AE00E091B1 /* ExercisePostProtocol.swift */,
 				BA1FB52423F116BD00E091B1 /* ExercisePostService.swift */,
-				BA1FB53023F2D29C00E091B1 /* README.md */,
 				BA59197523F92DBA00E8B900 /* Services.swift */,
 				5644F61E2406459B00A103EF /* StorageProtocol.swift */,
 				5644F61C2406435C00A103EF /* StorageService.swift */,
+				BA3DDD2A241CB1F600692100 /* AnalyticsService.swift */,
+				BA3DDD2C241CB20F00692100 /* AnalyticsProtocol.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -588,10 +595,12 @@
 			files = (
 				567952FE23D806BE0077BA08 /* AppDelegate.swift in Sources */,
 				569794D123F11DBC00994B71 /* PostDetailViewController.swift in Sources */,
+				BA3DDD2B241CB1F600692100 /* AnalyticsService.swift in Sources */,
 				BA1FB51523F1047A00E091B1 /* Contact.swift in Sources */,
 				BA4EE42823E94BBF003E6D87 /* AuthenticationProtocol.swift in Sources */,
 				BA1FB52923F11ADA00E091B1 /* Answer.swift in Sources */,
 				BA1FB51923F1058500E091B1 /* EmailAddress.swift in Sources */,
+				BA3DDD2F241CB33600692100 /* AnalyticsEvent.swift in Sources */,
 				BA1FB52723F119CB00E091B1 /* Metrics.swift in Sources */,
 				5644F61F2406459B00A103EF /* StorageProtocol.swift in Sources */,
 				5645AFE823F51C0700B64D0B /* CreatePostViewController.swift in Sources */,
@@ -613,6 +622,7 @@
 				5679533823D980E40077BA08 /* FeedViewController.swift in Sources */,
 				5679533A23D988910077BA08 /* ProfileViewController.swift in Sources */,
 				BA1FB51F23F1071000E091B1 /* Organization.swift in Sources */,
+				BA3DDD2D241CB20F00692100 /* AnalyticsProtocol.swift in Sources */,
 				BA1FB52323F116AE00E091B1 /* ExercisePostProtocol.swift in Sources */,
 				567E9A3223E93EA2004C1B2E /* Constants.swift in Sources */,
 				BA1FB51B23F106B600E091B1 /* Trainer.swift in Sources */,

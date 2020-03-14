@@ -312,61 +312,18 @@ class ExercisePostService: ExercisePostProtocol {
             let exercisesRef = Firestore.firestore().collection(exerciseCollection)
             exercisesRef.getDocuments { (exercisesSnapshot, error) in
                 if let error = error {
+                    try? Services.analyticsService.logEvent(event: AnalyticsEvent(name: "get", parameters: [
+                        "service": "ExercisePostService",
+                        "method": "getExercises",
+                        "error": error.localizedDescription]))
                     return promise.reject(error)
                 }
                 
                 var exercises: [String:Exercise] = [:]
-                
-                firstly {
-                    self.getExerciseTypes()
-                }.done { exerciseTypes in
-                    for document in exercisesSnapshot!.documents {
-                        exercises[document.documentID] = Exercise(name: document.data()["name"] as! String,
-                                                                  type: exerciseTypes[(document.data()["type"] as! DocumentReference).documentID])
-                    }
-                    
-                    //TODO: Store in cache
-                    return promise.fulfill(exercises)
+                for document in exercisesSnapshot!.documents {
+                    exercises[document.documentID] = Exercise(name: document.data()["name"] as! String)
                 }
-            }
-        }
-    }
-    
-    func getExerciseTypes() -> Promise<[String:ExerciseType]> {
-        return Promise { promise in
-            //TODO: Check if in cache and pull from there.
-            let exerciseTypesRef = Firestore.firestore().collection(exerciseTypeCollection)
-            exerciseTypesRef.getDocuments { (typesSnapshot, error) in
-                if let error = error {
-                    return promise.reject(error)
-                }
-                
-                var  exerciseTypes: [String:ExerciseType] = [:]
-                
-                for document in typesSnapshot!.documents {
-                    var exerciseType: ExerciseType
-                    switch document.data()["name"] as! String {
-                    case "Strength":
-                        exerciseType =  .Strength
-                        break
-                    case "Endurance":
-                        exerciseType = .Endurance
-                        break
-                    case "Flexibility":
-                        exerciseType = .Flexibility
-                        break
-                    case "Balance":
-                        exerciseType = .Balance
-                        break
-                    default:
-                        return promise.reject(NSError()) //Unrecognized exercise type
-                    }
-                    
-                    exerciseTypes[document.documentID] = exerciseType
-                }
-                
-                //TODO: Store in cache
-                return promise.fulfill(exerciseTypes)
+                return promise.fulfill(exercises)
             }
         }
     }

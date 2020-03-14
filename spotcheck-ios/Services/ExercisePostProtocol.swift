@@ -10,7 +10,6 @@ protocol ExercisePostProtocol {
     func getViewsCount(forPostWithId postId: String) -> Promise<Int>
     func getExercises(forPostWithId postId: String) -> Promise<[Exercise]>
     func getExercises() -> Promise<[String:Exercise]>
-    func getExerciseTypes() -> Promise<[String:ExerciseType]>
     func getAnswers(byUserWithId userId: String) -> Promise<[Answer]>
     func getAnswers(forPostWithId postId: String) -> Promise<[Answer]>
     func votePost(postId: String, userId: String, direction: VoteDirection) -> Promise<Void>
