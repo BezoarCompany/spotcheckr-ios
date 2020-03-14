@@ -114,6 +114,13 @@ class CreatePostViewController: UIViewController {
         return field
     }()
     let bodyTextFieldController: MDCTextInputControllerOutlinedTextArea
+    
+    let snackbarMessage: MDCSnackbarMessage = {
+       let message = MDCSnackbarMessage()
+        MDCSnackbarTypographyThemer.applyTypographyScheme(ApplicationScheme.instance.containerScheme.typographyScheme)
+       return message
+    }()
+    
     let validator: Validator
     
     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()

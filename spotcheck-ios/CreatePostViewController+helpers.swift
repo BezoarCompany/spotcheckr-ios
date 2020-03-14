@@ -261,9 +261,9 @@ extension CreatePostViewController {
         firstly {
             when(fulfilled: voidPromises)
         }.done { _ in
-            print("success updating Post")
             self.dismiss(animated: true) {
-                //TODO: Show snackbar after success.
+                self.snackbarMessage.text = "Post created!"
+                MDCSnackbarManager.show(self.snackbarMessage)
             }
         }.catch { err in
             //TODO: Show snackbar error message.
