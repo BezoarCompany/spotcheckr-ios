@@ -352,12 +352,9 @@
 				BA59197523F92DBA00E8B900 /* Services.swift */,
 				5644F61E2406459B00A103EF /* StorageProtocol.swift */,
 				5644F61C2406435C00A103EF /* StorageService.swift */,
-<<<<<<< HEAD
 				BA3DDD2A241CB1F600692100 /* AnalyticsService.swift */,
 				BA3DDD2C241CB20F00692100 /* AnalyticsProtocol.swift */,
-=======
 				5653ABCE24161921001E9CF0 /* Cache.swift */,
->>>>>>> master
 			);
 			path = Services;
 			sourceTree = "<group>";

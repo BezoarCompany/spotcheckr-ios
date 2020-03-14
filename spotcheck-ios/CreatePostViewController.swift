@@ -87,24 +87,14 @@ class CreatePostViewController: UIViewController {
         return dropdown
     }()
     
-<<<<<<< HEAD
     let exerciseTextField: MDCTextField = {
         let field = MDCTextField()
         field.placeholder = "Select Exercise"
-=======
-    let workoutTypeTextField: MDCTextField = {
-        let field = MDCTextField()
-        field.placeholder = "Select Workout Type (Optional)"
->>>>>>> master
         field.cursorColor = .none
         field.translatesAutoresizingMaskIntoConstraints = false
         return field
     }()
-<<<<<<< HEAD
     let exerciseTextFieldController: MDCTextInputControllerFilled
-=======
-    let workoutTypeTextFieldController: MDCTextInputControllerFilled
->>>>>>> master
     
     let subjectTextField: MDCTextField = {
         let field = MDCTextField()
@@ -160,17 +150,10 @@ class CreatePostViewController: UIViewController {
         self.bodyTextFieldController.floatingPlaceholderActiveColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
         self.bodyTextFieldController.inlinePlaceholderColor = ApplicationScheme.instance.containerScheme.colorScheme.primaryColorVariant
         
-<<<<<<< HEAD
         self.exerciseTextFieldController = MDCTextInputControllerFilled(textInput: exerciseTextField)
         self.exerciseTextFieldController.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
         self.exerciseTextFieldController.isFloatingEnabled = false
         
-=======
-        self.workoutTypeTextFieldController = MDCTextInputControllerFilled(textInput: workoutTypeTextField)
-        self.workoutTypeTextFieldController.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
-        self.workoutTypeTextFieldController.isFloatingEnabled = false
-                 
->>>>>>> master
         self.validator = Validator()
         super.init(coder: aDecoder)
     }
@@ -242,10 +225,6 @@ extension CreatePostViewController: ValidationDelegate {
         
         self.subjectTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
         self.bodyTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
-<<<<<<< HEAD
-=======
-        self.workoutTypeTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
->>>>>>> master
         
         if(updatePostMode == .edit) {
             updatePostWorkflow(post: self.exercisePost)
@@ -262,12 +241,6 @@ extension CreatePostViewController: ValidationDelegate {
                 if field == self.subjectTextField {
                     self.subjectTextFieldController.setErrorText(error.errorMessage, errorAccessibilityValue: error.errorMessage)
                 }
-<<<<<<< HEAD
-=======
-                else if field == self.workoutTypeTextField {
-                    self.workoutTypeTextFieldController.setErrorText(error.errorMessage, errorAccessibilityValue: error.errorMessage)
-                }
->>>>>>> master
             }
             else if let field = field as? MDCIntrinsicHeightTextView {
                 if field == self.bodyTextField.textView! {
@@ -280,10 +253,6 @@ extension CreatePostViewController: ValidationDelegate {
     private func setupValidation() {
         validator.registerField(self.subjectTextField, rules: [RequiredRule(message: "Required")])
         validator.registerField(self.bodyTextField.textView!, rules: [RequiredRule(message: "Required")])
-<<<<<<< HEAD
-=======
-        //validator.registerField(self.workoutTypeTextField, rules: [RequiredRule(message: "Required")])
->>>>>>> master
     }
 }
 
@@ -295,12 +264,7 @@ extension CreatePostViewController: UITextFieldDelegate {
             } else {
                 self.exerciseDropdown.hide()
             }
-<<<<<<< HEAD
             self.toggleDropdownIcon()
-=======
-            self.toggleWorkoutTypeIcon()
-            
->>>>>>> master
             return false
         }
         
