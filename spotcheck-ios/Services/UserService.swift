@@ -12,6 +12,8 @@ class UserService: UserProtocol {
     private let certificationCollection = "certifications"
     private let salutationCollection = "salutations"
     
+    private let cache = Cache<String, User>() // (userID<String>: User)
+    
     func createUser(id: String) -> Promise<Void> {
         return Promise { promise in
             Firestore.firestore().collection(userCollection).document(id).setData([
@@ -24,6 +26,11 @@ class UserService: UserProtocol {
     
     func getUser(withId id: String) -> Promise<User> {
         return Promise { promise in
+            if let user = cache[id] {
+                //print("Cache HIT!!! \(user.id)=> \(user.username)")
+                return promise.fulfill(user)
+            }
+
             let docRef = Firestore.firestore().collection(userCollection).document(id)
             docRef.getDocument { doc, error in
                 guard error == nil, let doc = doc, doc.exists else {
@@ -81,13 +88,14 @@ class UserService: UserProtocol {
                         trainer.occupationCompany = data?.keys.contains("occupation-company") != nil ? data?["occupation-company"] as! String : ""
                         trainer.certifications = userCertifications
                     }
+                    //store in cache
+                    self.cache[user.id!] = user
                     
                     return promise.fulfill(user)
                 }
                 
                 //TODO: Get more complex information about the user.
-                //TODO: Store in the cache afterwards.
-                
+                                
             }
         }
     }
@@ -122,12 +130,16 @@ class UserService: UserProtocol {
     
     func getCurrentUser() -> Promise<User> {
         return Promise { promise in
-            //TODO: Fetch from cache instead and store in there too.
+            
             let userId = Auth.auth().currentUser?.uid
             
+            if let user = cache[userId!] {
+                return promise.fulfill(user)
+            }
             firstly {
                 self.getUser(withId: userId!)
             }.done { user in
+                self.cache[user.id!] = user
                 return promise.fulfill(user)
             }.catch { error in
                 return promise.reject(error)

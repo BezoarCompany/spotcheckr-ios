@@ -9,6 +9,7 @@ import DropDown
 
 extension CreatePostViewController {    
     
+<<<<<<< HEAD
     func initDropDowns() {
         self.exerciseTextField.delegate = self
         self.exerciseTextField.trailingView = Images.chevronUp
@@ -34,6 +35,38 @@ extension CreatePostViewController {
         self.exerciseDropdown.direction = .bottom
         self.exerciseDropdown.bottomOffset = CGPoint(x: 0, y:(self.exerciseDropdown.anchorView?.plainView.bounds.height)! - 25)
         self.exerciseDropdown.dataSource = []
+=======
+    func initDropDown() {
+        self.workoutTypeTextField.delegate = self
+        self.workoutTypeTextField.trailingView = Images.chevronUp
+        self.workoutTypeTextField.trailingViewMode = .always
+        self.workoutTypeTextField.trailingView?.isUserInteractionEnabled = true
+        self.workoutTypeTextField.trailingView?.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        self.workoutTypeTextField.trailingView?.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        self.view.addSubview(self.workoutTypeTextField)
+        self.workoutTypeTextField.trailingView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(workoutTypeIconOnClick(sender:))))
+        
+        self.workoutTypeTextField.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 75).isActive = true
+        self.workoutTypeTextField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
+        self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: self.workoutTypeTextField.trailingAnchor, constant: 15).isActive = true
+                
+        self.workoutTypeDropDown.anchorView = self.workoutTypeTextField
+        self.workoutTypeDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+            self.toggleWorkoutTypeIcon()
+            self.workoutTypeTextField.text = item
+        }
+        self.workoutTypeDropDown.cancelAction = { [unowned self] in
+            self.toggleWorkoutTypeIcon()
+        }
+        
+        self.workoutTypeDropDown.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
+        self.workoutTypeDropDown.backgroundColor = ApplicationScheme.instance.containerScheme.colorScheme.backgroundColor
+        self.workoutTypeDropDown.selectionBackgroundColor = ApplicationScheme.instance.containerScheme.colorScheme.secondaryColor
+        self.workoutTypeDropDown.selectedTextColor = ApplicationScheme.instance.containerScheme.colorScheme.onSecondaryColor
+        self.workoutTypeDropDown.direction = .bottom
+        
+
+>>>>>>> master
         firstly {
             Services.exercisePostService.getExercises()
         }.done { exercises in
@@ -42,6 +75,7 @@ extension CreatePostViewController {
             for exercise in exercises {
                 arr.append(exercise.value.name)
             }
+<<<<<<< HEAD
             arr = arr.sorted()
             
             self.exerciseDropdown.dataSource = arr
@@ -66,8 +100,32 @@ extension CreatePostViewController {
         self.exerciseTextField.trailingView?.isUserInteractionEnabled = true
         self.exerciseTextField.trailingView?.heightAnchor.constraint(equalToConstant: 20).isActive = true
         self.exerciseTextField.trailingView?.widthAnchor.constraint(equalToConstant: 30).isActive = true
+=======
+            self.workoutTypeDropDown.dataSource = arr
+        }.catch { err in
+            self.workoutTypeDropDown.dataSource = ["Strength", "Endurance", "Balance", "Flexibxility"]
+        }
     }
-    
+        
+    @objc func workoutTypeIconOnClick(sender: Any) {
+        self.toggleWorkoutTypeIcon()
+    }
+ 
+    func toggleWorkoutTypeIcon() {
+        if self.workoutTypeTextField.trailingView == Images.chevronDown {
+            self.workoutTypeTextField.trailingView = Images.chevronUp
+            self.workoutTypeDropDown.hide()
+        }
+        else {
+            self.workoutTypeTextField.trailingView = Images.chevronDown
+            self.workoutTypeDropDown.show()
+        }
+        self.workoutTypeTextField.trailingView?.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        self.workoutTypeTextField.trailingView?.widthAnchor.constraint(equalToConstant: 30).isActive = true
+>>>>>>> master
+    }
+
+ 
     func initTextViewPlaceholders() {
         subjectTextField.delegate = self
         self.view.addSubview(subjectTextField)
@@ -83,22 +141,38 @@ extension CreatePostViewController {
     func initActivityIndicator() {
         activityIndicator.center = self.view.center
         activityIndicator.hidesWhenStopped = true
-        activityIndicator.style = UIActivityIndicatorView.Style.large
+        activityIndicator.style = UIActivityIndicatorView.Style.whiteLarge        
         self.view.addSubview(activityIndicator)
     }
     
     func applyConstraints() {
+<<<<<<< HEAD
         self.exerciseTextField.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 75).isActive = true
         self.exerciseTextField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
         self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: self.exerciseTextField.trailingAnchor, constant: 15).isActive = true
         
         self.subjectTextField.topAnchor.constraint(equalTo: self.exerciseTextField.bottomAnchor, constant: 15).isActive = true
+=======
+        self.workoutTypeTextField.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 75).isActive = true
+        self.workoutTypeTextField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
+        self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: self.workoutTypeTextField.trailingAnchor, constant: 15).isActive = true
+        
+        self.subjectTextField.topAnchor.constraint(equalTo: self.workoutTypeTextField.bottomAnchor, constant: 15).isActive = true
+>>>>>>> master
         self.subjectTextField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
         self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: subjectTextField.trailingAnchor, constant: 15).isActive = true
+                
+        self.photoImageView.topAnchor.constraint(equalTo: self.subjectTextField.bottomAnchor, constant: 15).isActive = true
+        self.photoImageView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
+        self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: photoImageView.trailingAnchor, constant: 15).isActive = true
+        self.photoImageView.heightAnchor.constraint(equalToConstant: CGFloat(200)).isActive = true
+        self.photoImageView.contentMode = .scaleAspectFit
+        self.photoImageView.clipsToBounds = true
         
-        self.bodyTextField.topAnchor.constraint(equalTo: self.subjectTextField.bottomAnchor, constant: 15).isActive = true
+        self.bodyTextField.topAnchor.constraint(equalTo: self.photoImageView.bottomAnchor, constant: 15).isActive = true
         self.bodyTextField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
         self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: bodyTextField.trailingAnchor, constant: 15).isActive = true
+        
     }
     
     func addKeyboardMenuAccessory() {
@@ -175,27 +249,54 @@ extension CreatePostViewController {
         
     }
     
-    func validatePost() -> Bool {
-        let alert = UIAlertController(title: "Invalid post", message: "You can always access your content by signing back in", preferredStyle: UIAlertController.Style.alert)
-
-        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { _ in
-            //Cancel Action
-        }))
-        //TODO: Remove this validation and use validator.
-        if(subjectTextField.text?.count ?? 0 <= 0
-            ) {
-            alert.message = "Please fill out a valid subject header"
-            self.present(alert, animated: true, completion: nil)
-            return false
-        } else if (bodyTextField.text?.count ?? 0 <= 0) {
-            alert.message = "Please fill out a valid post body"
-            self.present(alert, animated: true, completion: nil)
-            return false
+    //for modifying an existing post
+    func updatePostWorkflow(post: ExercisePost?) {
+        guard let id = post?.id else {
+            print ("@updatePostWorkflow -> invalid post args")
+            return
         }
+        self.activityIndicator.startAnimating()
         
-        return true
+        var postDocument = [
+            "modified-date" : FieldValue.serverTimestamp(),
+            "title" : subjectTextField.text!,
+            "description" : bodyTextField.text!
+        ] as [String : Any]
+        
+        //queue up parallel execution of storage delete old image, storage-upload-new image, and firestore-update post
+        var voidPromises = [Promise<Void>]()
+
+        if (isImageChanged) {
+            let newImageName = "\(NSUUID().uuidString)" + ".jpeg"
+            postDocument.add(["image-path" : newImageName ])
+            let jpegData = photoImageView.image!.jpegData(compressionQuality: 1.0)
+            
+            voidPromises.append(Services.storageService.uploadImage(filename: newImageName, imagetype: .jpeg, data: jpegData))
+            
+            //post had previous image, so create promise to delete that
+            if let imagefilename = post?.imagePath {
+                voidPromises.append(Services.storageService.deleteImage(filename: imagefilename))
+            }
+        }
+                   
+        //queue up firestore write call
+        voidPromises.append(Services.exercisePostService.updatePost(withId: id, dict: postDocument))
+        
+        firstly {
+            //execute all promises in parallel!
+            when(fulfilled: voidPromises)
+        }.done { _ in
+            print("success updating Post")
+            self.dismiss(animated: true, completion: nil)
+        }.catch { err in
+            print("error executing updatePostWorflow promises!")
+            print(err)
+        }.finally {
+            self.activityIndicator.stopAnimating()
+        }        
     }
     
+    //for creating new Posts
     func submitPostWorkflow() {
         self.activityIndicator.startAnimating()
         
@@ -207,34 +308,30 @@ extension CreatePostViewController {
             "modified-date" : FieldValue.serverTimestamp()
             ] as [String : Any]
         
-        if (isImageChanged) { //store image first, then write Post (text) to firebase (with image name), finally close activityIndicators
+        //queue up parallel execution of storage delete old image, storage-upload-new image, and firestore-update post
+        var voidPromises = [Promise<Void>]()
+
+        if (isImageChanged) {
             let newImageName = "\(NSUUID().uuidString)" + ".jpeg"
-                            
             postDocument.add(["image-path" : newImageName ])
-                            
             let jpegData = photoImageView.image!.jpegData(compressionQuality: 1.0)
             
-            firstly {
-                Services.storageService.uploadImage(filename: newImageName, imagetype: .jpeg, data: jpegData)
-            }.done {
-                Services.exercisePostService.writePost(dict: postDocument)
-                self.dismiss(animated: true, completion: nil)
-            }.catch { error in
-                print(error)
-            }.finally {
-                self.activityIndicator.stopAnimating()
-            }
-        } else {//only write Post (text) to firebase
-            firstly {
-                Services.exercisePostService.writePost(dict: postDocument)
-            }.done {
-                self.dismiss(animated: true, completion: nil)
-            }.catch { error in
-                print(error)
-            }.finally {
-                self.activityIndicator.stopAnimating()
-            }
+            voidPromises.append(Services.storageService.uploadImage(filename: newImageName, imagetype: .jpeg, data: jpegData))
         }
         
+        voidPromises.append(Services.exercisePostService.writePost(dict: postDocument))
+        
+        firstly {
+            //execute all promises in parallel!
+            when(fulfilled: voidPromises)
+        }.done { _ in
+            print("success updating Post")
+            self.dismiss(animated: true, completion: nil)
+        }.catch { err in
+            print("error executing updatePostWorflow promises!")
+            print(err)
+        }.finally {
+            self.activityIndicator.stopAnimating()
+        }
     }
 }

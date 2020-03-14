@@ -117,7 +117,6 @@ extension FeedViewController: UITableViewDataSource {
 
 extension FeedViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(indexPath.row)
         let postDetailViewController = PostDetailViewController.create(post: posts[indexPath.row])
         self.navigationController?.pushViewController(postDetailViewController, animated: true)
     }
