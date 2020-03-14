@@ -9,65 +9,65 @@ import DropDown
 
 extension CreatePostViewController {    
     
-    func initDropDown() {
-        self.workoutTypeTextField.delegate = self
-        self.workoutTypeTextField.trailingView = Images.chevronUp
-        self.workoutTypeTextField.trailingViewMode = .always
-        self.workoutTypeTextField.trailingView?.isUserInteractionEnabled = true
-        self.workoutTypeTextField.trailingView?.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        self.workoutTypeTextField.trailingView?.widthAnchor.constraint(equalToConstant: 30).isActive = true
-        self.view.addSubview(self.workoutTypeTextField)
-        self.workoutTypeTextField.trailingView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(workoutTypeIconOnClick(sender:))))
+    func initDropDowns() {
+        self.exerciseTextField.delegate = self
+        self.exerciseTextField.trailingView = Images.chevronUp
+        self.exerciseTextField.trailingViewMode = .always
+        self.exerciseTextField.trailingView?.isUserInteractionEnabled = true
+        self.exerciseTextField.trailingView?.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        self.exerciseTextField.trailingView?.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        self.view.addSubview(self.exerciseTextField)
+        self.exerciseTextField.trailingView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.dropdownIconOnClick(sender:))))
         
-        self.workoutTypeTextField.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 75).isActive = true
-        self.workoutTypeTextField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
-        self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: self.workoutTypeTextField.trailingAnchor, constant: 15).isActive = true
-                
-        self.workoutTypeDropDown.anchorView = self.workoutTypeTextField
-        self.workoutTypeDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
-            self.toggleWorkoutTypeIcon()
-            self.workoutTypeTextField.text = item
+        self.exerciseDropdown.anchorView = self.exerciseTextField
+        self.exerciseDropdown.selectionAction = { [unowned self] (index: Int, item: String) in
+            self.toggleDropdownIcon()
+            self.exerciseTextField.text = item
+            self.selectedExercise = self.exercises[index]
         }
-        self.workoutTypeDropDown.cancelAction = { [unowned self] in
-            self.toggleWorkoutTypeIcon()
+        self.exerciseDropdown.cancelAction = { [unowned self] in
+            self.toggleDropdownIcon()
         }
-        
-        self.workoutTypeDropDown.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
-        self.workoutTypeDropDown.backgroundColor = ApplicationScheme.instance.containerScheme.colorScheme.backgroundColor
-        self.workoutTypeDropDown.selectionBackgroundColor = ApplicationScheme.instance.containerScheme.colorScheme.secondaryColor
-        self.workoutTypeDropDown.selectedTextColor = ApplicationScheme.instance.containerScheme.colorScheme.onSecondaryColor
-        self.workoutTypeDropDown.direction = .bottom
-        
-
+        self.exerciseDropdown.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
+        self.exerciseDropdown.backgroundColor = ApplicationScheme.instance.containerScheme.colorScheme.backgroundColor
+        self.exerciseDropdown.selectionBackgroundColor = ApplicationScheme.instance.containerScheme.colorScheme.secondaryColor
+        self.exerciseDropdown.selectedTextColor = ApplicationScheme.instance.containerScheme.colorScheme.onSecondaryColor
+        self.exerciseDropdown.direction = .bottom
+        self.exerciseDropdown.bottomOffset = CGPoint(x: 0, y:(self.exerciseDropdown.anchorView?.plainView.bounds.height)! - 25)
+        self.exerciseDropdown.dataSource = []
         firstly {
-            Services.exercisePostService.getExerciseTypes()
-        }.done { exerciseTypes in
+            Services.exercisePostService.getExercises()
+        }.done { exercises in
             
             var arr = [String]()
-            for et in exerciseTypes {                
-                arr.append(et.value.rawValue)
+            for exercise in exercises {
+                self.exercises.append(exercise.value)
+                arr.append(exercise.value.name)
             }
-            self.workoutTypeDropDown.dataSource = arr
-        }.catch { err in
-            self.workoutTypeDropDown.dataSource = ["Strength", "Endurance", "Balance", "Flexibxility"]
+            arr = arr.sorted()
+            
+            self.exerciseDropdown.dataSource = arr
         }
     }
-        
-    @objc func workoutTypeIconOnClick(sender: Any) {
-        self.toggleWorkoutTypeIcon()
+    
+    @objc func dropdownIconOnClick(sender: Any) {
+        self.toggleDropdownIcon()
     }
- 
-    func toggleWorkoutTypeIcon() {
-        if self.workoutTypeTextField.trailingView == Images.chevronDown {
-            self.workoutTypeTextField.trailingView = Images.chevronUp
-            self.workoutTypeDropDown.hide()
+    
+    func toggleDropdownIcon() {
+        if self.exerciseTextField.trailingView == Images.chevronDown {
+            self.exerciseTextField.trailingView = Images.chevronUp
+            self.exerciseDropdown.hide()
         }
         else {
-            self.workoutTypeTextField.trailingView = Images.chevronDown
-            self.workoutTypeDropDown.show()
+            self.exerciseTextField.trailingView = Images.chevronDown
+            self.exerciseDropdown.show()
         }
-        self.workoutTypeTextField.trailingView?.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        self.workoutTypeTextField.trailingView?.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        self.exerciseTextField.trailingView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dropdownIconOnClick(sender:))))
+        self.exerciseTextField.trailingViewMode = .always
+        self.exerciseTextField.trailingView?.isUserInteractionEnabled = true
+        self.exerciseTextField.trailingView?.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        self.exerciseTextField.trailingView?.widthAnchor.constraint(equalToConstant: 30).isActive = true
     }
 
  
@@ -78,7 +78,6 @@ extension CreatePostViewController {
         bodyTextField.multilineDelegate = self
         self.bodyTextField.cursorColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
         self.bodyTextField.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
-               
         self.view.addSubview(bodyTextField)
         
     }
@@ -91,11 +90,11 @@ extension CreatePostViewController {
     }
     
     func applyConstraints() {
-        self.workoutTypeTextField.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 75).isActive = true
-        self.workoutTypeTextField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
-        self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: self.workoutTypeTextField.trailingAnchor, constant: 15).isActive = true
+        self.exerciseTextField.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 75).isActive = true
+        self.exerciseTextField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
+        self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: self.exerciseTextField.trailingAnchor, constant: 15).isActive = true
         
-        self.subjectTextField.topAnchor.constraint(equalTo: self.workoutTypeTextField.bottomAnchor, constant: 15).isActive = true
+        self.subjectTextField.topAnchor.constraint(equalTo: self.exerciseTextField.bottomAnchor, constant: 15).isActive = true
         self.subjectTextField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
         self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: subjectTextField.trailingAnchor, constant: 15).isActive = true
                 
@@ -136,7 +135,7 @@ extension CreatePostViewController {
     }
     
     @objc func keyboardBtnTapped() {
-        print("keyboard")
+         self.bodyTextField.textView!.resignFirstResponder()
     }
     
     @objc func openCamera() {
@@ -149,7 +148,6 @@ extension CreatePostViewController {
             checkPhotoPermissionsAndShowLib()
         }
     }
-    
     
     func showPhotoLibraryPicker() {
        imagePickerController = UIImagePickerController()
@@ -233,38 +231,49 @@ extension CreatePostViewController {
         }        
     }
     
-    //for creating new Posts
     func submitPostWorkflow() {
         self.activityIndicator.startAnimating()
         
-        var postDocument = [
-            "created-by" : Auth.auth().currentUser?.uid,
-            "created-date" : FieldValue.serverTimestamp(),
-            "title" : subjectTextField.text!,
-            "description" : bodyTextField.text!,
-            "modified-date" : FieldValue.serverTimestamp()
-            ] as [String : Any]
-        
         //queue up parallel execution of storage delete old image, storage-upload-new image, and firestore-update post
         var voidPromises = [Promise<Void>]()
-
-        if (isImageChanged) {
-            let newImageName = "\(NSUUID().uuidString)" + ".jpeg"
-            postDocument.add(["image-path" : newImageName ])
-            let jpegData = photoImageView.image!.jpegData(compressionQuality: 1.0)
-            
-            voidPromises.append(Services.storageService.uploadImage(filename: newImageName, imagetype: .jpeg, data: jpegData))
+        
+        var exercises = [Exercise]()
+        if (self.selectedExercise != nil ) {
+            exercises.append(self.selectedExercise!)
+        }
+        var exercisePost = ExercisePost(title: subjectTextField.text!,
+                                       description: bodyTextField.text!,
+                                       createdBy: self.currentUser,
+                                       dateCreated: Date(),
+                                       dateModified: Date(),
+                                       exercises: exercises)
+        var uploadImagePromise: Promise<Void> =  Promise<Void> {promise in
+            return promise.fulfill_()
         }
         
-        voidPromises.append(Services.exercisePostService.writePost(dict: postDocument))
+        if (isImageChanged) {
+            let newImageName = "\(NSUUID().uuidString)" + ".jpeg"
+            exercisePost.imagePath = newImageName
+            
+            let jpegData = photoImageView.image!.jpegData(compressionQuality: 1.0)
+            uploadImagePromise = Services.storageService.uploadImage(filename: newImageName, imagetype: .jpeg, data: jpegData)
+        }
         
         firstly {
-            //execute all promises in parallel!
-            when(fulfilled: voidPromises)
-        }.done { _ in
-            print("success updating Post")
-            self.dismiss(animated: true, completion: nil)
+            when(fulfilled: uploadImagePromise, Services.exercisePostService.createPost(post: exercisePost))
+        }.done { voidResult, newPost in
+            self.dismiss(animated: true) {
+                self.snackbarMessage.text = "Post created."
+                let action = MDCSnackbarMessageAction()
+                action.handler = {() in
+                    self.createdPostHandler!(newPost)
+                }
+                action.title = "View Post"
+                self.snackbarMessage.action = action
+                MDCSnackbarManager.show(self.snackbarMessage)
+            }
         }.catch { err in
+            //TODO: Show snackbar error message.
             print("error executing updatePostWorflow promises!")
             print(err)
         }.finally {

@@ -1,6 +1,7 @@
 import Foundation
 
 //Wooo copy paste babeh!
+//This is the way.
 //https://www.swiftbysundell.com/articles/caching-in-swift/
 
 final class Cache<Key: Hashable, Value> {
@@ -14,9 +15,9 @@ final class Cache<Key: Hashable, Value> {
         self.entryLifetime = entryLifetime
     }
     
-    func insert(_ value: Value, forKey key: Key) {
+    func insert(_ value: Value, forKey key: Key, expiration: Date? = nil) {
         let date = dateProvider().addingTimeInterval(entryLifetime)
-        let entry = Entry(value: value, expirationDate: date)
+        let entry = Entry(value: value, expirationDate: expiration ?? date)
         wrapped.setObject(entry, forKey: WrappedKey(key))
     }
 

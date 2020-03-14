@@ -82,19 +82,19 @@ class CreatePostViewController: UIViewController {
         return button
     }()
     
-    let workoutTypeDropDown: DropDown = {
+    let exerciseDropdown: DropDown = {
         let dropdown = DropDown()
         return dropdown
     }()
     
-    let workoutTypeTextField: MDCTextField = {
+    let exerciseTextField: MDCTextField = {
         let field = MDCTextField()
-        field.placeholder = "Select Workout Type (Optional)"
+        field.placeholder = "Select Exercise"
         field.cursorColor = .none
         field.translatesAutoresizingMaskIntoConstraints = false
         return field
     }()
-    let workoutTypeTextFieldController: MDCTextInputControllerFilled
+    let exerciseTextFieldController: MDCTextInputControllerFilled
     
     let subjectTextField: MDCTextField = {
         let field = MDCTextField()
@@ -114,6 +114,13 @@ class CreatePostViewController: UIViewController {
         return field
     }()
     let bodyTextFieldController: MDCTextInputControllerOutlinedTextArea
+    
+    let snackbarMessage: MDCSnackbarMessage = {
+       let message = MDCSnackbarMessage()
+        MDCSnackbarTypographyThemer.applyTypographyScheme(ApplicationScheme.instance.containerScheme.typographyScheme)
+        return message
+    }()
+    
     let validator: Validator
     
     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
@@ -123,14 +130,17 @@ class CreatePostViewController: UIViewController {
     
     var updatePostMode: UpdatePostMode = .add
     var exercisePost: ExercisePost?
-    
-    static func create(updatePostMode: UpdatePostMode = .add, post: ExercisePost? = nil) -> CreatePostViewController  {
+    var currentUser: User?
+    var exercises = [Exercise]()
+    var selectedExercise: Exercise?
+    var createdPostHandler: ((_ post:ExercisePost) -> Any)?
+    static func create(updatePostMode: UpdatePostMode = .add, post: ExercisePost? = nil, createdPostHandler: ((_ post:ExercisePost) -> Void)? = nil) -> CreatePostViewController  {
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         let createPostViewController = storyboard.instantiateViewController(withIdentifier: K.Storyboard.CreatePostViewControllerId) as! CreatePostViewController
         
         createPostViewController.updatePostMode = updatePostMode
         createPostViewController.exercisePost = post
-                    
+        createPostViewController.createdPostHandler = createdPostHandler
         return createPostViewController
     }
 
@@ -150,18 +160,26 @@ class CreatePostViewController: UIViewController {
         self.bodyTextFieldController.floatingPlaceholderActiveColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
         self.bodyTextFieldController.inlinePlaceholderColor = ApplicationScheme.instance.containerScheme.colorScheme.primaryColorVariant
         
-        self.workoutTypeTextFieldController = MDCTextInputControllerFilled(textInput: workoutTypeTextField)
-        self.workoutTypeTextFieldController.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
-        self.workoutTypeTextFieldController.isFloatingEnabled = false
-                 
+        self.exerciseTextFieldController = MDCTextInputControllerFilled(textInput: exerciseTextField)
+        self.exerciseTextFieldController.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
+        self.exerciseTextFieldController.isFloatingEnabled = false
+        
         self.validator = Validator()
+        
         super.init(coder: aDecoder)
     }
     
     override func viewDidLoad() {
+        try? Services.analyticsService.logEvent(event: AnalyticsEvent(name: "view", parameters: ["page": "Create Post"]))
         super.viewDidLoad()
         
-        initDropDown()
+        firstly {
+            Services.userService.getCurrentUser()
+        }.done { user in
+            self.currentUser = user
+        }
+        
+        initDropDowns()
         initTextViewPlaceholders()
         
         photoImageView.isUserInteractionEnabled = true
@@ -197,8 +215,6 @@ class CreatePostViewController: UIViewController {
                 
                 photoImageView.sd_setImage(with: storagePathReference, placeholderImage: placeholderImage)
             }
-        } else {
-
         }
     }    
 }
@@ -225,7 +241,6 @@ extension CreatePostViewController: ValidationDelegate {
         
         self.subjectTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
         self.bodyTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
-        self.workoutTypeTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
         
         if(updatePostMode == .edit) {
             updatePostWorkflow(post: self.exercisePost)
@@ -242,9 +257,6 @@ extension CreatePostViewController: ValidationDelegate {
                 if field == self.subjectTextField {
                     self.subjectTextFieldController.setErrorText(error.errorMessage, errorAccessibilityValue: error.errorMessage)
                 }
-                else if field == self.workoutTypeTextField {
-                    self.workoutTypeTextFieldController.setErrorText(error.errorMessage, errorAccessibilityValue: error.errorMessage)
-                }
             }
             else if let field = field as? MDCIntrinsicHeightTextView {
                 if field == self.bodyTextField.textView! {
@@ -257,20 +269,18 @@ extension CreatePostViewController: ValidationDelegate {
     private func setupValidation() {
         validator.registerField(self.subjectTextField, rules: [RequiredRule(message: "Required")])
         validator.registerField(self.bodyTextField.textView!, rules: [RequiredRule(message: "Required")])
-        //validator.registerField(self.workoutTypeTextField, rules: [RequiredRule(message: "Required")])
     }
 }
 
 extension CreatePostViewController: UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        if textField as? MDCTextField == self.workoutTypeTextField {
-            if self.workoutTypeDropDown.isHidden {
-                self.workoutTypeDropDown.show()
+        if textField as? MDCTextField == self.exerciseTextField {
+            if self.exerciseDropdown.isHidden {
+                self.exerciseDropdown.show()
             } else {
-                self.workoutTypeDropDown.hide()
+                self.exerciseDropdown.hide()
             }
-            self.toggleWorkoutTypeIcon()
-            
+            self.toggleDropdownIcon()
             return false
         }
         

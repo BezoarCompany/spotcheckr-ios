@@ -9,9 +9,9 @@ class ExercisePostService: ExercisePostProtocol {
     private let exerciseCollection = "exercises"
     private let viewsCollection = "views"
     private let answerCollection = "answers"
-    private let exerciseTypeCollection = "exercise-types"
     
-    private let cache = Cache<String, ExercisePost>() // (postID<String>: ExercisePost)
+    private let cache = Cache<String, ExercisePost>()
+    private let firebaseMappingCache = Cache<String, Any>() //Used to hold firebase document ids to internal domain object like Exercise
     
     func getPost(withId id: String) -> Promise<ExercisePost> {
             return Promise { promise in
@@ -77,7 +77,7 @@ class ExercisePostService: ExercisePostProtocol {
                         var metricsIndex = 0
                         
                         for document in answersSnapshot!.documents {
-                            answers.append(self.mapAnswer(fromData: document.data(),
+                            answers.append(FirebaseToDomainMapper.mapAnswer(fromData: document.data(),
                                                           metrics: Metrics(upvotes: metricsResults[metricsIndex],
                                                                            downvotes: metricsResults[metricsIndex + 1]),
                                                           createdBy: userDetails))
@@ -115,7 +115,7 @@ class ExercisePostService: ExercisePostProtocol {
                         var usersIndex = 0
                         var metricsIndex = 0
                         for document in answersSnapshot!.documents {
-                            answers.append(self.mapAnswer(fromData: document.data(),
+                            answers.append(FirebaseToDomainMapper.mapAnswer(fromData: document.data(),
                                                           metrics: Metrics(upvotes: metricsResults[metricsIndex],
                                                                            downvotes: metricsResults[metricsIndex + 1]),
                                                           createdBy: createdByResults[usersIndex]))
@@ -210,7 +210,7 @@ class ExercisePostService: ExercisePostProtocol {
                                                          currentVoteDirection: voteDirectionResults[voteDirectionIndex])
                                     
                                     let postExercises = exercisesResults[exercisesIndex]
-                                    var exercisePost = self.mapExercisePost(fromData: document.data(),
+                                    var exercisePost = FirebaseToDomainMapper.mapExercisePost(fromData: document.data(),
                                                                            metrics: metrics,
                                                                            exercises: postExercises,
                                                                            answers: answerResults[answerIndex])
@@ -314,65 +314,28 @@ class ExercisePostService: ExercisePostProtocol {
     
     func getExercises() -> Promise<[String:Exercise]> {
         return Promise { promise in
-            //TODO: Pull from cache
+            if let exercises = firebaseMappingCache["exercises"] as? [String:Exercise] {
+                return promise.fulfill(exercises)
+            }
+            
             let exercisesRef = Firestore.firestore().collection(exerciseCollection)
             exercisesRef.getDocuments { (exercisesSnapshot, error) in
                 if let error = error {
+                    try? Services.analyticsService.logEvent(event: AnalyticsEvent(name: "get", parameters: [
+                        "service": "ExercisePostService",
+                        "method": "getExercises",
+                        "error": error.localizedDescription]))
                     return promise.reject(error)
                 }
                 
                 var exercises: [String:Exercise] = [:]
-                
-                firstly {
-                    self.getExerciseTypes()
-                }.done { exerciseTypes in
-                    for document in exercisesSnapshot!.documents {
-                        exercises[document.documentID] = Exercise(name: document.data()["name"] as! String,
-                                                                  type: exerciseTypes[(document.data()["type"] as! DocumentReference).documentID])
-                    }
-                    
-                    //TODO: Store in cache
-                    return promise.fulfill(exercises)
+                for document in exercisesSnapshot!.documents {
+                    exercises[document.documentID] = Exercise(id: document.documentID,
+                                                              name: document.data()["name"] as! String
+                                                            )
                 }
-            }
-        }
-    }
-    
-    func getExerciseTypes() -> Promise<[String:ExerciseType]> {
-        return Promise { promise in
-            //TODO: pull from cache
-            let exerciseTypesRef = Firestore.firestore().collection(exerciseTypeCollection)
-            exerciseTypesRef.getDocuments { (typesSnapshot, error) in
-                if let error = error {
-                    return promise.reject(error)
-                }
-                
-                var  exerciseTypes: [String:ExerciseType] = [:]
-                
-                for document in typesSnapshot!.documents {
-                    var exerciseType: ExerciseType
-                    switch document.data()["name"] as! String {
-                    case "Strength":
-                        exerciseType =  .Strength
-                        break
-                    case "Endurance":
-                        exerciseType = .Endurance
-                        break
-                    case "Flexibility":
-                        exerciseType = .Flexibility
-                        break
-                    case "Balance":
-                        exerciseType = .Balance
-                        break
-                    default:
-                        return promise.reject(NSError()) //Unrecognized exercise type
-                    }
-                    
-                    exerciseTypes[document.documentID] = exerciseType
-                }
-                
-                //TODO: Store in cache
-                return promise.fulfill(exerciseTypes)
+                self.firebaseMappingCache.insert(exercises, forKey: "exercises")
+                return promise.fulfill(exercises)
             }
         }
     }
@@ -458,7 +421,7 @@ class ExercisePostService: ExercisePostProtocol {
     func writeAnswer(answer: Answer) -> Promise<Void> {
         return Promise { promise in
             let newAnswerRef = Firestore.firestore().collection(self.answerCollection).document()
-            newAnswerRef.setData(self.mapAnswer(from: answer), completion: { error in
+            newAnswerRef.setData(DomainToFirebaseMapper.mapAnswer(from: answer), completion: { error in
                 if let error = error {
                     return promise.reject(error)
                 }
@@ -467,46 +430,6 @@ class ExercisePostService: ExercisePostProtocol {
         }
     }
     
-    private func mapAnswer(from: Answer) -> [String:Any] {
-        var firebaseAnswer = [String:Any]()
-        firebaseAnswer["created-by"] = from.createdBy?.id
-        firebaseAnswer["created-date"] = from.dateCreated
-        firebaseAnswer["modified-date"] = from.dateModified
-        firebaseAnswer["text"] = from.text
-        firebaseAnswer["exercise-post"] = from.exercisePost?.id
-        return firebaseAnswer
-    }
-    
-    private func mapAnswer(fromData data:[String:Any],
-                           metrics: Metrics,
-                           createdBy: User) -> Answer {
-        var answer = Answer()
-        answer.text = data.keys.contains("text") ? data["text"] as! String : ""
-        answer.upvotes = metrics.upvotes
-        answer.downvotes = metrics.downvotes
-        answer.dateCreated = data.keys.contains("created-date") ? (data["created-date"] as! Timestamp).dateValue() : nil
-        answer.dateModified = data.keys.contains("modified-date") ? (data["modified-date"] as! Timestamp).dateValue() : nil
-        answer.createdBy = createdBy
-        return answer
-    }
-    
-    //TODO: Figure out a better way to map from Firebase -> Model.
-    private func mapExercisePost(fromData data:[String: Any],
-                                 metrics: Metrics,
-                                 exercises: [Exercise],
-                                 answers: [Answer] = [Answer]()) -> ExercisePost {
-        var post = ExercisePost()
-        post.id = data.keys.contains("id") ? data["id"] as! String : ""
-        post.title = data.keys.contains("title") ? data["title"] as! String : ""
-        post.description = data.keys.contains("description") ? data["description"] as! String : ""
-        post.dateCreated = data.keys.contains("created-date") ? (data["created-date"] as! Timestamp).dateValue() : nil
-        post.dateModified = data.keys.contains("modified-date") ? (data["modified-date"] as! Timestamp).dateValue() : nil
-        post.metrics = metrics
-        post.exercises = exercises
-        post.answers = answers
-        return post
-    }
-        
     func writePost(dict: [String: Any]) -> Promise<Void> {
         return Promise { promise in
             
@@ -522,6 +445,27 @@ class ExercisePostService: ExercisePostProtocol {
                 } else {
                     promise.fulfill_()
                 }
+            }
+        }
+    }
+    
+    func createPost(post: ExercisePost) -> Promise<ExercisePost> {
+        return Promise { promise in
+            let newDocRef = Firestore.firestore().collection(postsCollection).document()
+            var newPost = post
+            newPost.id = newDocRef.documentID
+            
+            newDocRef.setData(DomainToFirebaseMapper.mapExercisePost(post: newPost)) { error in
+                if let error = error {
+                    return promise.reject(error)
+                }
+            }
+            
+            newDocRef.collection("exercises").addDocument(data: ["exercise": Firestore.firestore().document("/\(exerciseCollection)/\(post.exercises[0].id)")]) { error in
+                if let error = error {
+                    return promise.reject(error)
+                }
+                return promise.fulfill(newPost)
             }
         }
     }

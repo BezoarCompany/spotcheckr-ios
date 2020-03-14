@@ -16,6 +16,11 @@ class FeedViewController: UIViewController {
     
     var posts = [ExercisePost]()
     var refreshControl = UIRefreshControl()
+    func viewPostHandler(exercisePost: ExercisePost)  {
+                       let postDetailViewController = PostDetailViewController.create(post: exercisePost)
+
+                       self.navigationController?.pushViewController(postDetailViewController, animated: true)
+                   }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,7 +60,7 @@ class FeedViewController: UIViewController {
     }
     
     @objc func addTapped() {
-        let createPostViewController = CreatePostViewController.create()
+        let createPostViewController = CreatePostViewController.create(createdPostHandler: self.viewPostHandler)
         self.present(createPostViewController, animated: true)
     }
     
