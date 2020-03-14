@@ -161,7 +161,7 @@ class CreatePostViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        initDropDown()
+        initDropDowns()
         initTextViewPlaceholders()
         
         photoImageView.isUserInteractionEnabled = true
