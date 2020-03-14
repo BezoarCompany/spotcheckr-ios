@@ -118,7 +118,7 @@ class CreatePostViewController: UIViewController {
     let snackbarMessage: MDCSnackbarMessage = {
        let message = MDCSnackbarMessage()
         MDCSnackbarTypographyThemer.applyTypographyScheme(ApplicationScheme.instance.containerScheme.typographyScheme)
-       return message
+        return message
     }()
     
     let validator: Validator
@@ -133,14 +133,14 @@ class CreatePostViewController: UIViewController {
     var currentUser: User?
     var exercises = [Exercise]()
     var selectedExercise: Exercise?
-    
-    static func create(updatePostMode: UpdatePostMode = .add, post: ExercisePost? = nil) -> CreatePostViewController  {
+    var createdPostHandler: ((_ post:ExercisePost) -> Any)?
+    static func create(updatePostMode: UpdatePostMode = .add, post: ExercisePost? = nil, createdPostHandler: ((_ post:ExercisePost) -> Void)? = nil) -> CreatePostViewController  {
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         let createPostViewController = storyboard.instantiateViewController(withIdentifier: K.Storyboard.CreatePostViewControllerId) as! CreatePostViewController
         
         createPostViewController.updatePostMode = updatePostMode
         createPostViewController.exercisePost = post
-                    
+        createPostViewController.createdPostHandler = createdPostHandler
         return createPostViewController
     }
 
@@ -170,6 +170,7 @@ class CreatePostViewController: UIViewController {
     }
     
     override func viewDidLoad() {
+        try? Services.analyticsService.logEvent(event: AnalyticsEvent(name: "view", parameters: ["page": "Create Post"]))
         super.viewDidLoad()
         
         firstly {

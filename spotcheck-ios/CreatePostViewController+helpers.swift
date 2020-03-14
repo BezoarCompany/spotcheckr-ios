@@ -247,22 +247,29 @@ extension CreatePostViewController {
                                        dateCreated: Date(),
                                        dateModified: Date(),
                                        exercises: exercises)
+        var uploadImagePromise: Promise<Void> =  Promise<Void> {promise in
+            return promise.fulfill_()
+        }
         
         if (isImageChanged) {
             let newImageName = "\(NSUUID().uuidString)" + ".jpeg"
             exercisePost.imagePath = newImageName
             
             let jpegData = photoImageView.image!.jpegData(compressionQuality: 1.0)
-            voidPromises.append(Services.storageService.uploadImage(filename: newImageName, imagetype: .jpeg, data: jpegData))
+            uploadImagePromise = Services.storageService.uploadImage(filename: newImageName, imagetype: .jpeg, data: jpegData)
         }
         
-        voidPromises.append(Services.exercisePostService.createPost(post: exercisePost))
-        
         firstly {
-            when(fulfilled: voidPromises)
-        }.done { _ in
+            when(fulfilled: uploadImagePromise, Services.exercisePostService.createPost(post: exercisePost))
+        }.done { voidResult, newPost in
             self.dismiss(animated: true) {
-                self.snackbarMessage.text = "Post created!"
+                self.snackbarMessage.text = "Post created."
+                let action = MDCSnackbarMessageAction()
+                action.handler = {() in
+                    self.createdPostHandler!(newPost)
+                }
+                action.title = "View Post"
+                self.snackbarMessage.action = action
                 MDCSnackbarManager.show(self.snackbarMessage)
             }
         }.catch { err in

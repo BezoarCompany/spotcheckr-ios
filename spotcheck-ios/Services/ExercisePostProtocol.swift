@@ -17,7 +17,7 @@ protocol ExercisePostProtocol {
     func getVoteDirection(forPostWithId: String) -> Promise<VoteDirection>
     
     func writePost(dict: [String: Any]) -> Promise<Void>
-    func createPost(post: ExercisePost) -> Promise<Void>
+    func createPost(post: ExercisePost) -> Promise<ExercisePost>
     func writeAnswer(answer: Answer) -> Promise<Void>
     
     func updatePost(withId id:String, dict: [String: Any]) -> Promise<Void>

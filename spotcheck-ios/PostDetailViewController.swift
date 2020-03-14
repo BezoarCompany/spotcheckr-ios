@@ -36,7 +36,7 @@ class PostDetailViewController : UIViewController {
  Post(postId: "a", authorId: "1", authorName: "Miguel", createdAt: "2/2/2020", updatedAt: "2/2/2020", question: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in")
     */
     static func create(post: ExercisePost?) -> PostDetailViewController {
-        
+        print("create")
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         let postDetailViewController = storyboard.instantiateViewController(withIdentifier: K.Storyboard.PostDetailViewControllerId) as! PostDetailViewController
         
@@ -48,7 +48,7 @@ class PostDetailViewController : UIViewController {
     // MARK: UIViewController Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print("entered")
         //post?.answers = FakeDataFactory.GetAnswersPosts(count: 5)
             
         firstly {

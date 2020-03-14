@@ -449,7 +449,7 @@ class ExercisePostService: ExercisePostProtocol {
         }
     }
     
-    func createPost(post: ExercisePost) -> Promise<Void> {
+    func createPost(post: ExercisePost) -> Promise<ExercisePost> {
         return Promise { promise in
             let newDocRef = Firestore.firestore().collection(postsCollection).document()
             var newPost = post
@@ -465,7 +465,7 @@ class ExercisePostService: ExercisePostProtocol {
                 if let error = error {
                     return promise.reject(error)
                 }
-                return promise.fulfill_()
+                return promise.fulfill(newPost)
             }
         }
     }
