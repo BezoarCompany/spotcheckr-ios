@@ -23,6 +23,7 @@ extension CreatePostViewController {
         self.exerciseDropdown.selectionAction = { [unowned self] (index: Int, item: String) in
             self.toggleDropdownIcon()
             self.exerciseTextField.text = item
+            self.selectedExercise = self.exercises[index]
         }
         self.exerciseDropdown.cancelAction = { [unowned self] in
             self.toggleDropdownIcon()
@@ -40,6 +41,7 @@ extension CreatePostViewController {
             
             var arr = [String]()
             for exercise in exercises {
+                self.exercises.append(exercise.value)
                 arr.append(exercise.value.name)
             }
             arr = arr.sorted()
@@ -229,38 +231,42 @@ extension CreatePostViewController {
         }        
     }
     
-    //for creating new Posts
     func submitPostWorkflow() {
         self.activityIndicator.startAnimating()
         
-        var postDocument = [
-            "created-by" : Auth.auth().currentUser?.uid,
-            "created-date" : FieldValue.serverTimestamp(),
-            "title" : subjectTextField.text!,
-            "description" : bodyTextField.text!,
-            "modified-date" : FieldValue.serverTimestamp()
-            ] as [String : Any]
-        
         //queue up parallel execution of storage delete old image, storage-upload-new image, and firestore-update post
         var voidPromises = [Promise<Void>]()
-
+        
+        var exercises = [Exercise]()
+        if (self.selectedExercise != nil ) {
+            exercises.append(self.selectedExercise!)
+        }
+        var exercisePost = ExercisePost(title: subjectTextField.text!,
+                                       description: bodyTextField.text!,
+                                       createdBy: self.currentUser,
+                                       dateCreated: Date(),
+                                       dateModified: Date(),
+                                       exercises: exercises)
+        
         if (isImageChanged) {
             let newImageName = "\(NSUUID().uuidString)" + ".jpeg"
-            postDocument.add(["image-path" : newImageName ])
-            let jpegData = photoImageView.image!.jpegData(compressionQuality: 1.0)
+            exercisePost.imagePath = newImageName
             
+            let jpegData = photoImageView.image!.jpegData(compressionQuality: 1.0)
             voidPromises.append(Services.storageService.uploadImage(filename: newImageName, imagetype: .jpeg, data: jpegData))
         }
         
-        voidPromises.append(Services.exercisePostService.writePost(dict: postDocument))
+        voidPromises.append(Services.exercisePostService.createPost(post: exercisePost))
         
         firstly {
-            //execute all promises in parallel!
             when(fulfilled: voidPromises)
         }.done { _ in
             print("success updating Post")
-            self.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: true) {
+                //TODO: Show snackbar after success.
+            }
         }.catch { err in
+            //TODO: Show snackbar error message.
             print("error executing updatePostWorflow promises!")
             print(err)
         }.finally {

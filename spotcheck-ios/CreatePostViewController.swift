@@ -123,6 +123,9 @@ class CreatePostViewController: UIViewController {
     
     var updatePostMode: UpdatePostMode = .add
     var exercisePost: ExercisePost?
+    var currentUser: User?
+    var exercises = [Exercise]()
+    var selectedExercise: Exercise?
     
     static func create(updatePostMode: UpdatePostMode = .add, post: ExercisePost? = nil) -> CreatePostViewController  {
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
@@ -155,11 +158,18 @@ class CreatePostViewController: UIViewController {
         self.exerciseTextFieldController.isFloatingEnabled = false
         
         self.validator = Validator()
+        
         super.init(coder: aDecoder)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        firstly {
+            Services.userService.getCurrentUser()
+        }.done { user in
+            self.currentUser = user
+        }
         
         initDropDowns()
         initTextViewPlaceholders()
@@ -197,8 +207,6 @@ class CreatePostViewController: UIViewController {
                 
                 photoImageView.sd_setImage(with: storagePathReference, placeholderImage: placeholderImage)
             }
-        } else {
-
         }
     }    
 }
