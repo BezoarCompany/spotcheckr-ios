@@ -6,6 +6,7 @@ import FirebaseStorage
 import PromiseKit
 import SVGKit
 import MaterialComponents
+import IGListKit
 
 class FeedViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
@@ -16,11 +17,27 @@ class FeedViewController: UIViewController {
     
     var posts = [ExercisePost]()
     var refreshControl = UIRefreshControl()
+    
+    func dynamicReloadTableHandler(argPosts: [ExercisePost]) {
+
+        //new data comes in `argPosts`
+        let results = ListDiffPaths(fromSection: 0, toSection: 0, oldArray: self.posts, newArray: argPosts, option: .equality)
+
+        self.posts = argPosts // set arg data into exiting array before updating tableview
+        self.tableView.beginUpdates()
+        self.tableView.deleteRows(at: results.deletes, with: .fade)
+        self.tableView.insertRows(at: results.inserts, with: .automatic)
+        self.tableView.reloadRows(at: results.updates, with: .none)
+        self.tableView.endUpdates()
+    }
+    
     func viewPostHandler(exercisePost: ExercisePost)  {
                        let postDetailViewController = PostDetailViewController.create(post: exercisePost)
 
                        self.navigationController?.pushViewController(postDetailViewController, animated: true)
                    }
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
