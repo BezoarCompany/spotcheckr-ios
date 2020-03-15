@@ -114,6 +114,15 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
        return message
     }()
     
+    var activityIndicator: MDCActivityIndicator = {
+        let indicator = MDCActivityIndicator()
+        indicator.sizeToFit()
+        indicator.indicatorMode = .indeterminate
+        indicator.cycleColors = [ApplicationScheme.instance.containerScheme.colorScheme.onSecondaryColor]
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        return indicator
+    }()
+    
     let authenticationService: AuthenticationProtocol = AuthenticationService()
     let validator: Validator
     
@@ -232,9 +241,17 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
     }
         
     func validationSuccessful() {
-        signInButton.setEnabled(false, animated: true)
+        signInButton.addSubview(activityIndicator)
+        NSLayoutConstraint.activate([
+            activityIndicator.centerYAnchor.constraint(equalTo: signInButton.centerYAnchor),
+            activityIndicator.centerXAnchor.constraint(equalTo: signInButton.centerXAnchor)
+        ])
+        signInButton.setTitle("", for: .normal)
+        
+        signInButton.isUserInteractionEnabled = false
         emailAddressTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
         passwordTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
+        activityIndicator.startAnimating()
         firstly {
             authenticationService.signIn(emailAddress: emailAddressTextField.text!, password: passwordTextField.text!)
         }.done { _ in
@@ -265,7 +282,9 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
             self.errorLabel.text = errorMessage
             self.errorLabel.isHidden = false
         }.finally {
-            self.signInButton.setEnabled(true, animated: true)
+            self.activityIndicator.stopAnimating()
+            self.signInButton.setTitle("Sign In", for: .normal)
+            self.signInButton.isUserInteractionEnabled = true
         }
     }
     
