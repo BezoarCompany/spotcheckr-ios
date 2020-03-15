@@ -176,7 +176,6 @@ class CreatePostViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        try? Services.analyticsService.logEvent(event: AnalyticsEvent(name: "view", parameters: ["page": "Create Post"]))
         super.viewDidLoad()
         
         firstly {
