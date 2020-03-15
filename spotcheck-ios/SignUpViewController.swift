@@ -48,6 +48,15 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, ValidationDel
           return message
        }()
     
+    var activityIndicator: MDCActivityIndicator = {
+        let indicator = MDCActivityIndicator()
+        indicator.sizeToFit()
+        indicator.indicatorMode = .indeterminate
+        indicator.cycleColors = [ApplicationScheme.instance.containerScheme.colorScheme.onSecondaryColor]
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        return indicator
+    }()
+    
     let authenticationService: AuthenticationProtocol = AuthenticationService()
     let validator: Validator
     
@@ -184,9 +193,17 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, ValidationDel
     }
     
     internal func validationSuccessful() {
-        createAccountButton.setEnabled(false, animated: true)
+        createAccountButton.addSubview(activityIndicator)
+        NSLayoutConstraint.activate([
+            activityIndicator.centerYAnchor.constraint(equalTo: createAccountButton.centerYAnchor),
+            activityIndicator.centerXAnchor.constraint(equalTo: createAccountButton.centerXAnchor)
+        ])
+        createAccountButton.setTitle("", for: .normal)
+        
+        createAccountButton.isUserInteractionEnabled = false
         emailAddressTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
         passwordTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
+        activityIndicator.startAnimating()
         firstly {
             authenticationService.signUp(emailAddress: emailAddressTextField.text!, password: passwordTextField.text!)
         }.done {
@@ -203,7 +220,9 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, ValidationDel
             
             MDCSnackbarManager.show(self.snackbarMessage)
         }.finally {
-            self.createAccountButton.setEnabled(true, animated: true)
+            self.activityIndicator.stopAnimating()
+            self.createAccountButton.setTitle("Create Account", for: .normal)
+            self.createAccountButton.isUserInteractionEnabled = false
         }
     }
     

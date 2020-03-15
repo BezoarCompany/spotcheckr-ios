@@ -45,7 +45,7 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ppw-83-A6n" customClass="MDCButton">
                                 <rect key="frame" x="40" y="460" width="334" height="30"/>
-                                <state key="normal" title="Create account"/>
+                                <state key="normal" title="Create Account"/>
                                 <connections>
                                     <action selector="createAccountOnClick:" destination="Ip0-qO-wOV" eventType="touchUpInside" id="sKF-LT-qD8"/>
                                 </connections>

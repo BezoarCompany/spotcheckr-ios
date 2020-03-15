@@ -118,7 +118,7 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
         let indicator = MDCActivityIndicator()
         indicator.sizeToFit()
         indicator.indicatorMode = .indeterminate
-        indicator.cycleColors = [.white]
+        indicator.cycleColors = [ApplicationScheme.instance.containerScheme.colorScheme.onSecondaryColor]
         indicator.translatesAutoresizingMaskIntoConstraints = false
         return indicator
     }()
