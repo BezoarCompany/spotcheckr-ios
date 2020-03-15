@@ -78,13 +78,24 @@ class FeedViewController: UIViewController {
     
     @objc func addTapped() {
         let createPostViewController = CreatePostViewController.create(createdPostHandler: self.viewPostHandler)
-        self.present(createPostViewController, animated: true)
+        //self.present(createPostViewController, animated: true)
+        var post = ExercisePost(id: "String", title: "This is a title", description: "desc")
+                
+        var newArray: [ExercisePost] = []
+        for el in self.posts {
+            newArray.append(el)
+        }
+        newArray.append(post)
+        
+        dynamicReloadTableHandler(argPosts: newArray)
+        
     }
     
     @objc func refresh() {
         getPosts()
         refreshControl.endRefreshing()
     }
+    
 }
 
 
