@@ -14,7 +14,6 @@ class AnalyticsService: AnalyticsProtocol {
         if event.parameters?.count ?? 0 > maxParametersCount {
             throw String("There cannot be more than \(maxParametersCount) parameters.")
         }
-        
         Analytics.logEvent(event.name, parameters: event.parameters)
     }
 }

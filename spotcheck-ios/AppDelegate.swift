@@ -2,10 +2,10 @@ import UIKit
 import Firebase
 import FirebaseUI
 import DropDown
+import IQKeyboardManagerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -15,6 +15,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         configureServices()
         setStartingViewController()
         DropDown.startListeningToKeyboard()
+        IQKeyboardManager.shared.enable = true
+        IQKeyboardManager.shared.enableAutoToolbar = false
         return true
     }
     

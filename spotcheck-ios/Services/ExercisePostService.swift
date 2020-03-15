@@ -461,12 +461,15 @@ class ExercisePostService: ExercisePostProtocol {
                 }
             }
             
-            newDocRef.collection("exercises").addDocument(data: ["exercise": Firestore.firestore().document("/\(exerciseCollection)/\(post.exercises[0].id)")]) { error in
-                if let error = error {
-                    return promise.reject(error)
+            if post.exercises.count > 0 {
+                newDocRef.collection("exercises").addDocument(data: ["exercise": Firestore.firestore().document("/\(exerciseCollection)/\(post.exercises[0].id)")]) { error in
+                    if let error = error {
+                        return promise.reject(error)
+                    }
+                    return promise.fulfill(newPost)
                 }
-                return promise.fulfill(newPost)
             }
+            return promise.fulfill(newPost)
         }
     }
     

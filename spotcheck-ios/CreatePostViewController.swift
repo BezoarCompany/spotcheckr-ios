@@ -19,12 +19,10 @@ class CreatePostViewController: UIViewController {
     
     @IBOutlet weak var navbar: UINavigationItem!
     @IBOutlet weak var postButton: UIBarButtonItem!
-    
-    @IBAction func cancelPost(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
-    }
-    
+    @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBAction func submitPost(_ sender: Any) {
+        self.postButton.customView = self.activityIndicator
+        self.activityIndicator.startAnimating()
         self.validator.validate(self)
     }
             
@@ -120,10 +118,17 @@ class CreatePostViewController: UIViewController {
         MDCSnackbarTypographyThemer.applyTypographyScheme(ApplicationScheme.instance.containerScheme.typographyScheme)
         return message
     }()
+    let cancelAlertController = MDCAlertController(title: "Cancel?", message: "You will lose all entered data.")
     
     let validator: Validator
     
-    var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
+    var activityIndicator: MDCActivityIndicator = {
+        let indicator = MDCActivityIndicator()
+        indicator.sizeToFit()
+        indicator.indicatorMode = .indeterminate
+        indicator.cycleColors = [ApplicationScheme.instance.containerScheme.colorScheme.secondaryColor]
+        return indicator
+    }()
     
     var imagePickerController = UIImagePickerController()
     var isImageChanged = false
@@ -158,6 +163,7 @@ class CreatePostViewController: UIViewController {
         self.bodyTextFieldController.errorColor = ApplicationScheme.instance.containerScheme.colorScheme.errorColor
         self.bodyTextFieldController.activeColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
         self.bodyTextFieldController.floatingPlaceholderActiveColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
+        self.bodyTextFieldController.floatingPlaceholderNormalColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
         self.bodyTextFieldController.inlinePlaceholderColor = ApplicationScheme.instance.containerScheme.colorScheme.primaryColorVariant
         
         self.exerciseTextFieldController = MDCTextInputControllerFilled(textInput: exerciseTextField)
@@ -170,7 +176,6 @@ class CreatePostViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        try? Services.analyticsService.logEvent(event: AnalyticsEvent(name: "view", parameters: ["page": "Create Post"]))
         super.viewDidLoad()
         
         firstly {
@@ -187,8 +192,7 @@ class CreatePostViewController: UIViewController {
         self.view.addSubview(photoImageView)
         
         applyConstraints()
-        
-        initActivityIndicator()        
+        initButtonBarItems()
         addKeyboardMenuAccessory()
         setupValidation()
         
@@ -247,8 +251,6 @@ extension CreatePostViewController: ValidationDelegate {
         } else {
             submitPostWorkflow()
         }
-        
-        
     }
     
     func validationFailed(_ errors: [(Validatable, ValidationError)]) {
@@ -264,6 +266,8 @@ extension CreatePostViewController: ValidationDelegate {
                 }
             }
         }
+
+        self.postButton.customView = nil
     }
     
     private func setupValidation() {

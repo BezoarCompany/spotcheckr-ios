@@ -8,7 +8,6 @@ import MaterialComponents
 import DropDown
 
 extension CreatePostViewController {    
-    
     func initDropDowns() {
         self.exerciseTextField.delegate = self
         self.exerciseTextField.trailingView = Images.chevronUp
@@ -82,11 +81,30 @@ extension CreatePostViewController {
         
     }
     
-    func initActivityIndicator() {
-        activityIndicator.center = self.view.center
-        activityIndicator.hidesWhenStopped = true
-        activityIndicator.style = UIActivityIndicatorView.Style.whiteLarge        
-        self.view.addSubview(activityIndicator)
+    func initButtonBarItems() {
+        let yesAction = MDCAlertAction(title: "Yes", emphasis: .high) { (action) in
+            self.dismiss(animated: true)
+        }
+        let noAction = MDCAlertAction(title:"No", emphasis: .high)
+        
+        self.cancelAlertController.addAction(yesAction)
+        self.cancelAlertController.addAction(noAction)
+        self.cancelAlertController.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
+        self.cancelButton.action = #selector(cancelButtonOnClick(sender:))
+    }
+    
+    @objc func cancelButtonOnClick(sender: Any) {
+        let formIsDirty = {() -> Bool in
+            return self.selectedExercise != nil ||
+            (self.title != nil && self.title!.trim().count > 0) ||
+            (self.bodyTextField.text != nil && self.bodyTextField.text!.trim().count > 0)
+        }
+       
+        if formIsDirty() {
+            present(self.cancelAlertController, animated: true)
+        } else {
+            self.dismiss(animated: true)
+        }
     }
     
     func applyConstraints() {
@@ -121,15 +139,16 @@ extension CreatePostViewController {
         
         keyboardMenuAccessory.addSubview(openKeyboardBtn)
         keyboardMenuAccessory.addSubview(openPhotoGalleryBtn)
-        keyboardMenuAccessory.addSubview(openCameraBtn)
+        //TODO: Enable in the future.
+        //keyboardMenuAccessory.addSubview(openCameraBtn)
         
         NSLayoutConstraint.activate([
             openKeyboardBtn.leadingAnchor.constraint(equalTo: keyboardMenuAccessory.leadingAnchor, constant: 20),
             openKeyboardBtn.centerYAnchor.constraint(equalTo: keyboardMenuAccessory.centerYAnchor),
             openPhotoGalleryBtn.leadingAnchor.constraint(equalTo: openKeyboardBtn.trailingAnchor, constant: 20),
             openPhotoGalleryBtn.centerYAnchor.constraint(equalTo: keyboardMenuAccessory.centerYAnchor),
-            openCameraBtn.leadingAnchor.constraint(equalTo: openPhotoGalleryBtn.trailingAnchor, constant: 20),
-            openCameraBtn.centerYAnchor.constraint(equalTo: keyboardMenuAccessory.centerYAnchor)
+//            openCameraBtn.leadingAnchor.constraint(equalTo: openPhotoGalleryBtn.trailingAnchor, constant: 20),
+//            openCameraBtn.centerYAnchor.constraint(equalTo: keyboardMenuAccessory.centerYAnchor)
         ])
         bodyTextField.textView?.inputAccessoryView = keyboardMenuAccessory
     }
@@ -231,12 +250,8 @@ extension CreatePostViewController {
         }        
     }
     
-    func submitPostWorkflow() {
-        self.activityIndicator.startAnimating()
-        
+    func submitPostWorkflow() {        
         //queue up parallel execution of storage delete old image, storage-upload-new image, and firestore-update post
-        var voidPromises = [Promise<Void>]()
-        
         var exercises = [Exercise]()
         if (self.selectedExercise != nil ) {
             exercises.append(self.selectedExercise!)

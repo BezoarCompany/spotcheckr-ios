@@ -361,11 +361,7 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                                 <items>
                                     <navigationItem title="New Question" id="gFt-Qt-MS2">
-                                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="YE0-Od-SSy">
-                                            <connections>
-                                                <action selector="cancelPost:" destination="cch-6k-Lhu" id="XAo-nl-9Lr"/>
-                                            </connections>
-                                        </barButtonItem>
+                                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="YE0-Od-SSy"/>
                                         <barButtonItem key="rightBarButtonItem" title="Post" id="ujP-IS-SBP">
                                             <connections>
                                                 <action selector="submitPost:" destination="cch-6k-Lhu" id="CCT-TY-Uxe"/>
@@ -384,6 +380,7 @@
                         <viewLayoutGuide key="safeArea" id="L8l-fi-QXV"/>
                     </view>
                     <connections>
+                        <outlet property="cancelButton" destination="YE0-Od-SSy" id="PJX-UK-rJA"/>
                         <outlet property="navbar" destination="gFt-Qt-MS2" id="NsP-Pm-RYM"/>
                         <outlet property="postButton" destination="ujP-IS-SBP" id="bHJ-Rc-zzn"/>
                     </connections>

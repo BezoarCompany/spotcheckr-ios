@@ -14,6 +14,7 @@ target 'spotcheck-ios' do
   
   # UI Elements
   pod 'DropDown', '2.3.13'
+  pod 'IQKeyboardManagerSwift'
   
   # Firebase dependencies
   pod 'Firebase/Core'
@@ -36,4 +37,7 @@ target 'spotcheck-ios' do
   pod 'MaterialComponents/Buttons+Theming'
   pod 'MaterialComponents/schemes/Color'
   pod 'MaterialComponents/schemes/Typography'
+  pod 'MaterialComponents/Dialogs'
+  pod 'MaterialComponents/Dialogs+Theming'
+  pod 'MaterialComponents/ActivityIndicator'
 end
