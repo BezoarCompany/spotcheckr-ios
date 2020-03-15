@@ -14,6 +14,7 @@ target 'spotcheck-ios' do
   
   # UI Elements
   pod 'DropDown', '2.3.13'
+  pod 'IQKeyboardManagerSwift'
   
   # Firebase dependencies
   pod 'Firebase/Core'
