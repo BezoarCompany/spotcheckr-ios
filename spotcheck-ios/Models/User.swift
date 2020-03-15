@@ -9,7 +9,7 @@ class User {
     var contactInformation: Contact?
     var exercisePosts = [ExercisePost]()
     
-    init(id: String) {
+    init(id: String?) {
         self.id = id
     }
 }

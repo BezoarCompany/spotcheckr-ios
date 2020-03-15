@@ -42,6 +42,18 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, ValidationDel
     }()
     let passwordTextFieldController: MDCTextInputControllerOutlined
     
+    let isTrainerSwitch: UISwitch = {
+        let trainerSwitch = UIElementFactory.getSwitch()
+        trainerSwitch.translatesAutoresizingMaskIntoConstraints = false
+        return trainerSwitch
+    }()
+    let isTrainerLabel: UILabel = {
+        let label = UIElementFactory.getLabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Are you a certified personal trainer?"
+        return label
+    }()
+    
     let snackbarMessage: MDCSnackbarMessage = {
           let message = MDCSnackbarMessage()
            MDCSnackbarTypographyThemer.applyTypographyScheme(ApplicationScheme.instance.containerScheme.typographyScheme)
@@ -98,6 +110,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, ValidationDel
     private func addSubviews() {
         self.view.addSubview(emailAddressTextField)
         self.view.addSubview(passwordTextField)
+        self.view.addSubview(isTrainerLabel)
+        self.view.addSubview(isTrainerSwitch)
     }
     
     private func setGestures() {
@@ -131,8 +145,16 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, ValidationDel
         self.passwordTextField.topAnchor.constraint(equalTo: emailAddressTextField.bottomAnchor, constant: 15).isActive = true
         self.passwordTextField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 40).isActive = true
         self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: passwordTextField.trailingAnchor, constant: 40).isActive = true
-            
-        self.createAccountButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 20).isActive = true
+        
+        self.isTrainerLabel.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 15).isActive = true
+        self.isTrainerLabel.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 40).isActive = true
+        self.isTrainerLabel.trailingAnchor.constraint(equalTo: isTrainerSwitch.leadingAnchor, constant: 20).isActive = true
+        self.isTrainerSwitch.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 15).isActive = true
+        
+        self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: isTrainerSwitch.trailingAnchor, constant: 40).isActive = true
+        
+        self.createAccountButton.topAnchor.constraint(equalTo: isTrainerLabel.bottomAnchor, constant: 20).isActive = true
+        self.createAccountButton.topAnchor.constraint(equalTo: isTrainerSwitch.bottomAnchor, constant: 20).isActive = true
     }
     
     private func setupValidation() {
@@ -204,8 +226,12 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, ValidationDel
         emailAddressTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
         passwordTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
         activityIndicator.startAnimating()
+        
         firstly {
-            authenticationService.signUp(emailAddress: emailAddressTextField.text!, password: passwordTextField.text!)
+            authenticationService.signUp(emailAddress: emailAddressTextField.text!,
+                                         password: passwordTextField.text!,
+                                         isTrainer: isTrainerSwitch.isOn
+                                        )
         }.done {
             self.authenticationFinished()
         }.catch { error in

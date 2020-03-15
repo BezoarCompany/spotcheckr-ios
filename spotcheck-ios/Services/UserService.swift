@@ -13,13 +13,25 @@ class UserService: UserProtocol {
     private let salutationCollection = "salutations"
     
     private let cache = Cache<String, User>() // (userID<String>: User)
+    private let firebaseMapCache = Cache<String, Any>()
     
-    func createUser(id: String) -> Promise<Void> {
+    func createUser(user: User) -> Promise<Void> {
         return Promise { promise in
-            Firestore.firestore().collection(userCollection).document(id).setData([
-                "id": id
-            ]){ error in
-                return error != nil ? promise.reject(error!) : promise.fulfill_()
+            firstly {
+                getUserTypes()
+            }.done { userTypes in
+                let userType: String = user is Trainer ? "Trainer" : "User"
+                let userTypePath = (userTypes as NSDictionary).allKeys(for: userType)[0] as! String
+                let userTypeDocRef = Firestore.firestore().document("\(userTypePath)")
+                
+                Firestore.firestore().collection(self.userCollection).document(user.id!).setData([
+                    "id": user.id!,
+                    "type": userTypeDocRef
+                ]){ error in
+                    return error != nil ? promise.reject(error!) : promise.fulfill_()
+                }
+            }.catch { error in
+                return promise.reject(error)
             }
         }
     }
@@ -65,27 +77,27 @@ class UserService: UserProtocol {
                     let userIsTrainer = data?.keys.contains("type") != nil && userTypes[(data?["type"] as! DocumentReference).path] == "Trainer"
                     
                     user = userIsTrainer ? Trainer(id: userId) : User(id: userId)
-                    user.username = data?.keys.contains("username") != nil ? data?["username"] as! String : ""
-                    user.profilePictureUrl = data?.keys.contains("profile-picture-url") != nil ? URL(string: data?["profile-picture-url"] as! String) : nil
+                    user.username = (data?.keys.contains("username"))! ? data?["username"] as! String : ""
+                    user.profilePictureUrl = (data?.keys.contains("profile-picture-url"))! ? URL(string: data?["profile-picture-url"] as! String) : nil
                     user.information = Identity(
-                        salutation: data?.keys.contains("salutation") != nil ? salutations[(data?["salutation"] as! DocumentReference).path]! : "",
-                        firstName: data?.keys.contains("first-name") != nil ? data?["first-name"] as! String : "",
-                        middleName: data?.keys.contains("middle-name") != nil ? data?["middle-name"] as! String : "",
-                        lastName: data?.keys.contains("last-name") != nil ? data?["last-name"] as! String : "",
-                        gender: data?.keys.contains("gender") != nil ? genders[(data?["gender"] as! DocumentReference).path]! : "",
-                        birthDate: data?.keys.contains("birthdate") != nil ? (data?["birthdate"] as! Timestamp).dateValue() : nil
+                        salutation: (data?.keys.contains("salutation"))! ? salutations[(data?["salutation"] as! DocumentReference).path]! : "",
+                        firstName: (data?.keys.contains("first-name"))! ? data?["first-name"] as! String : "",
+                        middleName: (data?.keys.contains("middle-name"))! ? data?["middle-name"] as! String : "",
+                        lastName: (data?.keys.contains("last-name"))! ? data?["last-name"] as! String : "",
+                        gender: (data?.keys.contains("gender"))! ? genders[(data?["gender"] as! DocumentReference).path]! : "",
+                        birthDate: (data?.keys.contains("birthdate"))! ? (data?["birthdate"] as! Timestamp).dateValue() : nil
                     )
                     user.measurement = BodyMeasurement(
-                        height: data?.keys.contains("height") != nil ? Int(data?["height"] as! String) : 0,
-                        weight: data?.keys.contains("weight") != nil ? Int(data?["weight"] as! String) : 0
+                        height: (data?.keys.contains("height"))! ? Int(data?["height"] as! String) : 0,
+                        weight: (data?.keys.contains("weight"))! ? Int(data?["weight"] as! String) : 0
                     )
                     
                     if userIsTrainer {
                         let trainer = user as! Trainer
 
-                        trainer.website = data?.keys.contains("website") != nil ? URL(string: data?["website"] as! String) : nil
-                        trainer.occupationTitle = data?.keys.contains("occupation-title") != nil ? data?["occupation-title"] as! String : ""
-                        trainer.occupationCompany = data?.keys.contains("occupation-company") != nil ? data?["occupation-company"] as! String : ""
+                        trainer.website = (data?.keys.contains("website"))! ? URL(string: data?["website"] as! String) : nil
+                        trainer.occupationTitle = (data?.keys.contains("occupation-title"))! ? data?["occupation-title"] as! String : ""
+                        trainer.occupationCompany = (data?.keys.contains("occupation-company"))! ? data?["occupation-company"] as! String : ""
                         trainer.certifications = userCertifications
                     }
                     //store in cache
@@ -150,6 +162,10 @@ class UserService: UserProtocol {
     
     func getUserTypes() -> Promise<[String: String]>{
         return Promise { promise in
+            if let userTypes = firebaseMapCache["user-types"] as? [String:String] {
+                return promise.fulfill(userTypes)
+            }
+            
             Firestore.firestore().collection(userTypeCollection).getDocuments { (querySnapshot, error) in
                 if let error = error {
                     promise.reject(error)
@@ -160,6 +176,7 @@ class UserService: UserProtocol {
                     userTypes[document.reference.path] = document.data()["name"] as? String
                 }
                 
+                self.firebaseMapCache.insert(userTypes, forKey: "user-types")
                 return promise.fulfill(userTypes)
             }
         }
