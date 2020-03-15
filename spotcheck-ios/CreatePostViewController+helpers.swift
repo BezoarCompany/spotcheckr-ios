@@ -241,6 +241,8 @@ extension CreatePostViewController {
             when(fulfilled: voidPromises)
         }.done { _ in
             print("success updating Post")
+            //will update the Feed View's UI
+            //self.diffedPostsDataClosure!(.edit, post!)
             self.dismiss(animated: true, completion: nil)
         }.catch { err in
             print("error executing updatePostWorflow promises!")
@@ -277,11 +279,15 @@ extension CreatePostViewController {
         firstly {
             when(fulfilled: uploadImagePromise, Services.exercisePostService.createPost(post: exercisePost))
         }.done { voidResult, newPost in
+            
+            if let updateTableView = self.diffedPostsDataClosure {
+                updateTableView(.add, newPost)
+            }
             self.dismiss(animated: true) {
                 self.snackbarMessage.text = "Post created."
                 let action = MDCSnackbarMessageAction()
                 action.handler = {() in
-                    self.createdPostHandler!(newPost)
+                    self.createdPostDetailClosure!(newPost)
                 }
                 action.title = "View Post"
                 self.snackbarMessage.action = action

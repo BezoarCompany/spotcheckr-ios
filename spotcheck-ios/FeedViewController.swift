@@ -8,6 +8,7 @@ import SVGKit
 import MaterialComponents
 import IGListKit
 
+
 class FeedViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
@@ -18,7 +19,8 @@ class FeedViewController: UIViewController {
     var posts = [ExercisePost]()
     var refreshControl = UIRefreshControl()
     
-    func dynamicReloadTableHandler(argPosts: [ExercisePost]) {
+    //Renders the changes between self's posts[] and the arg's posts[]
+    func diffedTableViewRenderer(argPosts: [ExercisePost]) {
 
         //new data comes in `argPosts`
         let results = ListDiffPaths(fromSection: 0, toSection: 0, oldArray: self.posts, newArray: argPosts, option: .equality)
@@ -31,14 +33,35 @@ class FeedViewController: UIViewController {
         self.tableView.endUpdates()
     }
     
-    func viewPostHandler(exercisePost: ExercisePost)  {
-                       let postDetailViewController = PostDetailViewController.create(post: exercisePost)
+    //Will manipulate the data source for edits, and deletes. Then call the diffedTableViewRenderer to render the changes in the table view
+    func diffedPostsHandler(diffType: DiffType, exercisePost: ExercisePost) {
+        var newPostsCopy: [ExercisePost] = []
+        
+        var indexFound = -1
+        for (i, val) in self.posts.enumerated() {
+            if (val.id == exercisePost.id) {
+                indexFound = i
+            }
+            newPostsCopy.append(val)
+        }
+        
+        if(diffType == .add) {
+            newPostsCopy.insert(exercisePost, at: 0)
+        } else if (diffType == .edit) {
+            newPostsCopy[indexFound] = exercisePost
+        } else if (diffType == .delete) {
+            newPostsCopy.remove(at: indexFound)
+        }
 
-                       self.navigationController?.pushViewController(postDetailViewController, animated: true)
-                   }
+        diffedTableViewRenderer(argPosts: newPostsCopy)
+    }
     
+    func viewPostHandler(exercisePost: ExercisePost)  {
+        let postDetailViewController = PostDetailViewController.create(post: exercisePost)
+        self.navigationController?.pushViewController(postDetailViewController, animated: true)
+   }
     
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         let plusImage = SVGKImage(named: "plus").uiImage.withRenderingMode(.alwaysTemplate)
@@ -77,18 +100,9 @@ class FeedViewController: UIViewController {
     }
     
     @objc func addTapped() {
-        let createPostViewController = CreatePostViewController.create(createdPostHandler: self.viewPostHandler)
-        //self.present(createPostViewController, animated: true)
-        var post = ExercisePost(id: "String", title: "This is a title", description: "desc")
-                
-        var newArray: [ExercisePost] = []
-        for el in self.posts {
-            newArray.append(el)
-        }
-        newArray.append(post)
+        let createPostViewController = CreatePostViewController.create(createdPostDetailClosure: self.viewPostHandler, diffedPostsDataClosure: self.diffedPostsHandler )
         
-        dynamicReloadTableHandler(argPosts: newArray)
-        
+        self.present(createPostViewController, animated: true)
     }
     
     @objc func refresh() {
