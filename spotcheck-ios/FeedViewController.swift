@@ -44,10 +44,12 @@ class FeedViewController: UIViewController {
             }
             newPostsCopy.append(val)
         }
+                
         
         if(diffType == .add) {
             newPostsCopy.insert(exercisePost, at: 0)
         } else if (diffType == .edit) {
+            print("EDIT!!")
             newPostsCopy[indexFound] = exercisePost
         } else if (diffType == .delete) {
             newPostsCopy.remove(at: indexFound)
@@ -57,7 +59,7 @@ class FeedViewController: UIViewController {
     }
     
     func viewPostHandler(exercisePost: ExercisePost)  {
-        let postDetailViewController = PostDetailViewController.create(post: exercisePost)
+        let postDetailViewController = PostDetailViewController.create(post: exercisePost, diffedPostsDataClosure: self.diffedPostsHandler  )
         self.navigationController?.pushViewController(postDetailViewController, animated: true)
    }
     
@@ -164,7 +166,7 @@ extension FeedViewController: UITableViewDataSource {
 
 extension FeedViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let postDetailViewController = PostDetailViewController.create(post: posts[indexPath.row])
+        let postDetailViewController = PostDetailViewController.create(post: posts[indexPath.row], diffedPostsDataClosure: self.diffedPostsHandler )
         self.navigationController?.pushViewController(postDetailViewController, animated: true)
     }
 }

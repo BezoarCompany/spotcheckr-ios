@@ -24,14 +24,18 @@ class PostDetailViewController : UIViewController {
     
     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
         
-        /*
- Post(postId: "a", authorId: "1", authorName: "Miguel", createdAt: "2/2/2020", updatedAt: "2/2/2020", question: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in")
-    */
-    static func create(post: ExercisePost?) -> PostDetailViewController {
+
+    typealias DiffedPostsDataUpdateClosureType = ((_ diffType: DiffType, _ post: ExercisePost) -> Void) //takes diff type, and post to be modified
+
+    var diffedPostsDataClosure: DiffedPostsDataUpdateClosureType? //To dynamically update UITableView with the new post
+    
+    static func create(post: ExercisePost?, diffedPostsDataClosure: DiffedPostsDataUpdateClosureType? = nil) -> PostDetailViewController {
        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         let postDetailViewController = storyboard.instantiateViewController(withIdentifier: K.Storyboard.PostDetailViewControllerId) as! PostDetailViewController
         
         postDetailViewController.post = post
+        postDetailViewController.diffedPostsDataClosure = diffedPostsDataClosure
+        
         return postDetailViewController
         
     }
@@ -51,6 +55,9 @@ class PostDetailViewController : UIViewController {
             //TODO: Do something when post fetching fails
         }
                 
+        let postSettingsBarItem = UIBarButtonItem(image: UIImage(systemName: "pencil"), style: .plain, target: self, action: #selector(self.modifyPost))
+               
+        self.navigationItem.rightBarButtonItem = postSettingsBarItem
         //access control for the modify menu
         firstly {
             Services.userService.getCurrentUser()
@@ -76,7 +83,9 @@ class PostDetailViewController : UIViewController {
         print("clickedModifyPost")
         let alert = UIAlertController(title: "Choose Action", message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Edit ", style: .default, handler: { _ in
-            let createPostViewController = CreatePostViewController.create(updatePostMode: .edit, post: self.post)
+            let createPostViewController = CreatePostViewController.create(updatePostMode: .edit, post: self.post, diffedPostsDataClosure: self.diffedPostsDataClosure )
+            
+            //TODO: Update PostDetail after edit, as well as in Feed TableView
             self.present(createPostViewController, animated: true)
         }))
 
@@ -89,6 +98,11 @@ class PostDetailViewController : UIViewController {
                     Services.exercisePostService.deletePost(self.post!)
                 }.done {
                     self.activityIndicator.stopAnimating()
+                    
+                    if let updateTableView = self.diffedPostsDataClosure {
+                        updateTableView(.delete, self.post!)
+                    }
+                    
                     self.navigationController?.popViewController(animated: true)
                 }.catch { err in
                     self.activityIndicator.stopAnimating()

@@ -51,12 +51,11 @@ extension ExercisePost: ListDiffable {
             return false
         }
         
-        var isDifferent = true
         
         if (self.dateModified != b.dateModified) {
-          isDifferent = false
+            return false
         }
         
-        return !isDifferent
+        return true
     }
 }
