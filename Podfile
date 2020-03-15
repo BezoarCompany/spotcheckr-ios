@@ -38,5 +38,5 @@ target 'spotcheck-ios' do
   pod 'MaterialComponents/schemes/Typography'
   pod 'MaterialComponents/Dialogs'
   pod 'MaterialComponents/Dialogs+Theming'
-  pod 'MaterialComponents/Dialogs+DialogThemer'
+  pod 'MaterialComponents/ActivityIndicator'
 end

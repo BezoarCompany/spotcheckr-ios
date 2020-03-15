@@ -20,8 +20,9 @@ class CreatePostViewController: UIViewController {
     @IBOutlet weak var navbar: UINavigationItem!
     @IBOutlet weak var postButton: UIBarButtonItem!
     @IBOutlet weak var cancelButton: UIBarButtonItem!
-    
     @IBAction func submitPost(_ sender: Any) {
+        self.postButton.customView = self.activityIndicator
+        self.activityIndicator.startAnimating()
         self.validator.validate(self)
     }
             
@@ -121,7 +122,13 @@ class CreatePostViewController: UIViewController {
     
     let validator: Validator
     
-    var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
+    var activityIndicator: MDCActivityIndicator = {
+        let indicator = MDCActivityIndicator()
+        indicator.sizeToFit()
+        indicator.indicatorMode = .indeterminate
+        indicator.cycleColors = [ApplicationScheme.instance.containerScheme.colorScheme.secondaryColor]
+        return indicator
+    }()
     
     var imagePickerController = UIImagePickerController()
     var isImageChanged = false
@@ -186,7 +193,6 @@ class CreatePostViewController: UIViewController {
         
         applyConstraints()
         initButtonBarItems()
-        initActivityIndicator()        
         addKeyboardMenuAccessory()
         setupValidation()
         
@@ -245,8 +251,6 @@ extension CreatePostViewController: ValidationDelegate {
         } else {
             submitPostWorkflow()
         }
-        
-        
     }
     
     func validationFailed(_ errors: [(Validatable, ValidationError)]) {
@@ -262,6 +266,8 @@ extension CreatePostViewController: ValidationDelegate {
                 }
             }
         }
+
+        self.postButton.customView = nil
     }
     
     private func setupValidation() {

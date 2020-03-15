@@ -107,13 +107,6 @@ extension CreatePostViewController {
         }
     }
     
-    func initActivityIndicator() {
-        activityIndicator.center = self.view.center
-        activityIndicator.hidesWhenStopped = true
-        activityIndicator.style = UIActivityIndicatorView.Style.whiteLarge        
-        self.view.addSubview(activityIndicator)
-    }
-    
     func applyConstraints() {
         self.exerciseTextField.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 75).isActive = true
         self.exerciseTextField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
@@ -257,12 +250,8 @@ extension CreatePostViewController {
         }        
     }
     
-    func submitPostWorkflow() {
-        self.activityIndicator.startAnimating()
-        
+    func submitPostWorkflow() {        
         //queue up parallel execution of storage delete old image, storage-upload-new image, and firestore-update post
-        var voidPromises = [Promise<Void>]()
-        
         var exercises = [Exercise]()
         if (self.selectedExercise != nil ) {
             exercises.append(self.selectedExercise!)

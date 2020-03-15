@@ -300,8 +300,16 @@ PODS:
   - gRPC-Core/Interface (1.21.0)
   - GTMSessionFetcher/Core (1.3.1)
   - leveldb-library (1.22)
-  - MaterialComponents/AnimationTiming (103.1.0)
-  - MaterialComponents/Buttons (103.1.0):
+  - MaterialComponents/ActivityIndicator (93.3.0):
+    - MaterialComponents/Palettes
+    - MaterialComponents/private/Application
+    - MDFInternationalization
+    - MotionAnimator (~> 2.0)
+  - "MaterialComponents/ActivityIndicator+ColorThemer (93.3.0)":
+    - MaterialComponents/ActivityIndicator
+    - MaterialComponents/schemes/Color
+  - MaterialComponents/AnimationTiming (93.3.0)
+  - MaterialComponents/Buttons (93.3.0):
     - MaterialComponents/Elevation
     - MaterialComponents/Ink
     - MaterialComponents/private/Math
@@ -312,29 +320,23 @@ PODS:
     - MaterialComponents/Typography
     - MDFInternationalization
     - MDFTextAccessibility
-  - "MaterialComponents/Buttons+ButtonThemer (103.1.0)":
-    - MaterialComponents/Buttons
-    - "MaterialComponents/Buttons+ColorThemer"
-    - "MaterialComponents/Buttons+ShapeThemer"
-    - "MaterialComponents/Buttons+TypographyThemer"
-    - MaterialComponents/Palettes
-  - "MaterialComponents/Buttons+ColorThemer (103.1.0)":
+  - "MaterialComponents/Buttons+ColorThemer (93.3.0)":
     - MaterialComponents/Buttons
     - MaterialComponents/schemes/Color
-  - "MaterialComponents/Buttons+ShapeThemer (103.1.0)":
+  - "MaterialComponents/Buttons+ShapeThemer (93.3.0)":
     - MaterialComponents/Buttons
     - MaterialComponents/schemes/Shape
-  - "MaterialComponents/Buttons+Theming (103.1.0)":
+  - "MaterialComponents/Buttons+Theming (93.3.0)":
     - MaterialComponents/Buttons
     - "MaterialComponents/Buttons+ColorThemer"
     - "MaterialComponents/Buttons+ShapeThemer"
     - "MaterialComponents/Buttons+TypographyThemer"
     - MaterialComponents/schemes/Container
     - MaterialComponents/ShadowElevations
-  - "MaterialComponents/Buttons+TypographyThemer (103.1.0)":
+  - "MaterialComponents/Buttons+TypographyThemer (93.3.0)":
     - MaterialComponents/Buttons
     - MaterialComponents/schemes/Typography
-  - MaterialComponents/Dialogs (103.1.0):
+  - MaterialComponents/Dialogs (93.3.0):
     - MaterialComponents/Buttons
     - MaterialComponents/Elevation
     - MaterialComponents/private/KeyboardWatcher
@@ -343,71 +345,64 @@ PODS:
     - MaterialComponents/ShadowLayer
     - MaterialComponents/Typography
     - MDFInternationalization
-  - "MaterialComponents/Dialogs+ColorThemer (103.1.0)":
+  - "MaterialComponents/Dialogs+ColorThemer (93.3.0)":
     - "MaterialComponents/Buttons+ColorThemer"
     - MaterialComponents/Dialogs
     - MaterialComponents/Themes
-  - "MaterialComponents/Dialogs+DialogThemer (103.1.0)":
-    - "MaterialComponents/Buttons+ButtonThemer"
-    - MaterialComponents/Dialogs
-    - "MaterialComponents/Dialogs+ColorThemer"
-    - "MaterialComponents/Dialogs+TypographyThemer"
-  - "MaterialComponents/Dialogs+Theming (103.1.0)":
+  - "MaterialComponents/Dialogs+Theming (93.3.0)":
     - "MaterialComponents/Buttons+Theming"
     - MaterialComponents/Dialogs
     - "MaterialComponents/Dialogs+ColorThemer"
     - "MaterialComponents/Dialogs+TypographyThemer"
     - MaterialComponents/schemes/Container
     - MaterialComponents/ShadowElevations
-  - "MaterialComponents/Dialogs+TypographyThemer (103.1.0)":
+  - "MaterialComponents/Dialogs+TypographyThemer (93.3.0)":
     - "MaterialComponents/Buttons+TypographyThemer"
     - MaterialComponents/Dialogs
     - MaterialComponents/schemes/Typography
-  - MaterialComponents/Elevation (103.1.0):
+  - MaterialComponents/Elevation (93.3.0):
     - MaterialComponents/private/Color
     - MaterialComponents/private/Math
-  - MaterialComponents/Ink (103.1.0):
+  - MaterialComponents/Ink (93.3.0):
     - MaterialComponents/private/Color
     - MaterialComponents/private/Math
-  - MaterialComponents/OverlayWindow (103.1.0):
+  - MaterialComponents/OverlayWindow (93.3.0):
     - MaterialComponents/private/Application
-  - MaterialComponents/Palettes (103.1.0)
-  - MaterialComponents/private/Application (103.1.0)
-  - MaterialComponents/private/Color (103.1.0)
-  - MaterialComponents/private/KeyboardWatcher (103.1.0):
+  - MaterialComponents/Palettes (93.3.0)
+  - MaterialComponents/private/Application (93.3.0)
+  - MaterialComponents/private/Color (93.3.0)
+  - MaterialComponents/private/KeyboardWatcher (93.3.0):
     - MaterialComponents/private/Application
-  - MaterialComponents/private/Math (103.1.0)
-  - MaterialComponents/private/Overlay (103.1.0)
-  - MaterialComponents/Ripple (103.1.0):
+  - MaterialComponents/private/Math (93.3.0)
+  - MaterialComponents/private/Overlay (93.3.0)
+  - MaterialComponents/Ripple (93.3.0):
     - MaterialComponents/AnimationTiming
     - MaterialComponents/private/Color
     - MaterialComponents/private/Math
-  - MaterialComponents/schemes/Color (103.1.0):
+  - MaterialComponents/schemes/Color (93.3.0):
     - MaterialComponents/private/Color
-  - MaterialComponents/schemes/Container (103.1.0):
+  - MaterialComponents/schemes/Container (93.3.0):
     - MaterialComponents/schemes/Color
     - MaterialComponents/schemes/Shape
     - MaterialComponents/schemes/Typography
-  - MaterialComponents/schemes/Shape (103.1.0):
+  - MaterialComponents/schemes/Shape (93.3.0):
     - MaterialComponents/ShapeLibrary
     - MaterialComponents/Shapes
-  - MaterialComponents/schemes/Typography (103.1.0):
+  - MaterialComponents/schemes/Typography (93.3.0):
     - "MaterialComponents/schemes/Typography+BasicFontScheme"
-    - "MaterialComponents/schemes/Typography+Scheming"
     - MaterialComponents/Typography
-  - "MaterialComponents/schemes/Typography+BasicFontScheme (103.1.0)"
-  - "MaterialComponents/schemes/Typography+Scheming (103.1.0)"
-  - MaterialComponents/ShadowElevations (103.1.0)
-  - MaterialComponents/ShadowLayer (103.1.0):
+  - "MaterialComponents/schemes/Typography+BasicFontScheme (93.3.0)"
+  - MaterialComponents/ShadowElevations (93.3.0)
+  - MaterialComponents/ShadowLayer (93.3.0):
     - MaterialComponents/ShadowElevations
-  - MaterialComponents/ShapeLibrary (103.1.0):
+  - MaterialComponents/ShapeLibrary (93.3.0):
     - MaterialComponents/private/Math
     - MaterialComponents/Shapes
-  - MaterialComponents/Shapes (103.1.0):
+  - MaterialComponents/Shapes (93.3.0):
     - MaterialComponents/private/Color
     - MaterialComponents/private/Math
     - MaterialComponents/ShadowLayer
-  - MaterialComponents/Snackbar (103.1.0):
+  - MaterialComponents/Snackbar (93.3.0):
     - MaterialComponents/AnimationTiming
     - MaterialComponents/Buttons
     - MaterialComponents/Elevation
@@ -419,36 +414,38 @@ PODS:
     - MaterialComponents/ShadowElevations
     - MaterialComponents/ShadowLayer
     - MaterialComponents/Typography
-  - "MaterialComponents/Snackbar+TypographyThemer (103.1.0)":
+  - "MaterialComponents/Snackbar+TypographyThemer (93.3.0)":
     - MaterialComponents/schemes/Typography
     - MaterialComponents/Snackbar
-  - MaterialComponents/TextFields (103.1.0):
+  - MaterialComponents/TextFields (93.3.0):
     - MaterialComponents/AnimationTiming
-    - MaterialComponents/Buttons
     - MaterialComponents/Elevation
     - MaterialComponents/Palettes
     - MaterialComponents/private/Math
     - MaterialComponents/Typography
     - MDFInternationalization
-  - "MaterialComponents/TextFields+ColorThemer (103.1.0)":
+  - "MaterialComponents/TextFields+ColorThemer (93.3.0)":
     - MaterialComponents/TextFields
     - MaterialComponents/Themes
-  - "MaterialComponents/TextFields+Theming (103.1.0)":
+  - "MaterialComponents/TextFields+Theming (93.3.0)":
     - MaterialComponents/schemes/Container
     - MaterialComponents/TextFields
     - "MaterialComponents/TextFields+ColorThemer"
     - "MaterialComponents/TextFields+TypographyThemer"
-  - "MaterialComponents/TextFields+TypographyThemer (103.1.0)":
+  - "MaterialComponents/TextFields+TypographyThemer (93.3.0)":
     - MaterialComponents/schemes/Typography
     - MaterialComponents/TextFields
-  - MaterialComponents/Themes (103.1.0):
+  - MaterialComponents/Themes (93.3.0):
     - MaterialComponents/schemes/Color
     - MaterialComponents/schemes/Typography
-  - MaterialComponents/Typography (103.1.0):
+  - MaterialComponents/Typography (93.3.0):
     - MaterialComponents/private/Application
     - MaterialComponents/private/Math
   - MDFInternationalization (2.0.0)
   - MDFTextAccessibility (2.0.0)
+  - MotionAnimator (2.8.1):
+    - MotionInterchange (~> 1.6)
+  - MotionInterchange (1.6.0)
   - nanopb (0.3.9011):
     - nanopb/decode (= 0.3.9011)
     - nanopb/encode (= 0.3.9011)
@@ -484,10 +481,11 @@ DEPENDENCIES:
   - FirebaseFirestoreSwift
   - FirebaseUI/Auth
   - FirebaseUI/Storage
+  - MaterialComponents/ActivityIndicator
+  - "MaterialComponents/ActivityIndicator+ColorThemer"
   - MaterialComponents/Buttons
   - "MaterialComponents/Buttons+Theming"
   - MaterialComponents/Dialogs
-  - "MaterialComponents/Dialogs+DialogThemer"
   - "MaterialComponents/Dialogs+Theming"
   - MaterialComponents/schemes/Color
   - MaterialComponents/schemes/Typography
@@ -533,6 +531,8 @@ SPEC REPOS:
     - MaterialComponents
     - MDFInternationalization
     - MDFTextAccessibility
+    - MotionAnimator
+    - MotionInterchange
     - nanopb
     - PromiseKit
     - PromisesObjC
@@ -583,9 +583,11 @@ SPEC CHECKSUMS:
   gRPC-Core: c9aef9a261a1247e881b18059b84d597293c9947
   GTMSessionFetcher: cea130bbfe5a7edc8d06d3f0d17288c32ffe9925
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
-  MaterialComponents: 0312a643d1aed5e5f10cba4be06a6aa62bd07c14
+  MaterialComponents: 6b2eb24aa0c1d1a6453f05a6bbe3ed6c80843161
   MDFInternationalization: 010097556d6b09d2c4ea38e0820ea6d37be6a314
   MDFTextAccessibility: 85c09a1bd9c321f494348e632a25063bcda35a53
+  MotionAnimator: ee16aa30567c5bae0fb2750c132915829cfaaf8a
+  MotionInterchange: ead0e3ae1f3a5fb539e289debbc7ae036160a10d
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   PromiseKit: 28fda91c973cc377875d8c0ea4f973013c05b6db
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
@@ -594,6 +596,6 @@ SPEC CHECKSUMS:
   SwiftSVG: e55084e4c5534f3f25743003a6a3a88580cacfb0
   SwiftValidator: 249b6b3ae3b294266c5b9de134d94f18f2d5aa47
 
-PODFILE CHECKSUM: 90de2ba77faa7916b302666e4dc8860a038502e8
+PODFILE CHECKSUM: 6559be1188c29b7e1f28b48ae5e4ae79d6b1050d
 
 COCOAPODS: 1.8.4
