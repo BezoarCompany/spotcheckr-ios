@@ -146,15 +146,16 @@ extension CreatePostViewController {
         
         keyboardMenuAccessory.addSubview(openKeyboardBtn)
         keyboardMenuAccessory.addSubview(openPhotoGalleryBtn)
-        keyboardMenuAccessory.addSubview(openCameraBtn)
+        //TODO: Enable in the future.
+        //keyboardMenuAccessory.addSubview(openCameraBtn)
         
         NSLayoutConstraint.activate([
             openKeyboardBtn.leadingAnchor.constraint(equalTo: keyboardMenuAccessory.leadingAnchor, constant: 20),
             openKeyboardBtn.centerYAnchor.constraint(equalTo: keyboardMenuAccessory.centerYAnchor),
             openPhotoGalleryBtn.leadingAnchor.constraint(equalTo: openKeyboardBtn.trailingAnchor, constant: 20),
             openPhotoGalleryBtn.centerYAnchor.constraint(equalTo: keyboardMenuAccessory.centerYAnchor),
-            openCameraBtn.leadingAnchor.constraint(equalTo: openPhotoGalleryBtn.trailingAnchor, constant: 20),
-            openCameraBtn.centerYAnchor.constraint(equalTo: keyboardMenuAccessory.centerYAnchor)
+//            openCameraBtn.leadingAnchor.constraint(equalTo: openPhotoGalleryBtn.trailingAnchor, constant: 20),
+//            openCameraBtn.centerYAnchor.constraint(equalTo: keyboardMenuAccessory.centerYAnchor)
         ])
         bodyTextField.textView?.inputAccessoryView = keyboardMenuAccessory
     }
