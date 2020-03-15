@@ -312,6 +312,12 @@ PODS:
     - MaterialComponents/Typography
     - MDFInternationalization
     - MDFTextAccessibility
+  - "MaterialComponents/Buttons+ButtonThemer (103.1.0)":
+    - MaterialComponents/Buttons
+    - "MaterialComponents/Buttons+ColorThemer"
+    - "MaterialComponents/Buttons+ShapeThemer"
+    - "MaterialComponents/Buttons+TypographyThemer"
+    - MaterialComponents/Palettes
   - "MaterialComponents/Buttons+ColorThemer (103.1.0)":
     - MaterialComponents/Buttons
     - MaterialComponents/schemes/Color
@@ -327,6 +333,35 @@ PODS:
     - MaterialComponents/ShadowElevations
   - "MaterialComponents/Buttons+TypographyThemer (103.1.0)":
     - MaterialComponents/Buttons
+    - MaterialComponents/schemes/Typography
+  - MaterialComponents/Dialogs (103.1.0):
+    - MaterialComponents/Buttons
+    - MaterialComponents/Elevation
+    - MaterialComponents/private/KeyboardWatcher
+    - MaterialComponents/private/Math
+    - MaterialComponents/ShadowElevations
+    - MaterialComponents/ShadowLayer
+    - MaterialComponents/Typography
+    - MDFInternationalization
+  - "MaterialComponents/Dialogs+ColorThemer (103.1.0)":
+    - "MaterialComponents/Buttons+ColorThemer"
+    - MaterialComponents/Dialogs
+    - MaterialComponents/Themes
+  - "MaterialComponents/Dialogs+DialogThemer (103.1.0)":
+    - "MaterialComponents/Buttons+ButtonThemer"
+    - MaterialComponents/Dialogs
+    - "MaterialComponents/Dialogs+ColorThemer"
+    - "MaterialComponents/Dialogs+TypographyThemer"
+  - "MaterialComponents/Dialogs+Theming (103.1.0)":
+    - "MaterialComponents/Buttons+Theming"
+    - MaterialComponents/Dialogs
+    - "MaterialComponents/Dialogs+ColorThemer"
+    - "MaterialComponents/Dialogs+TypographyThemer"
+    - MaterialComponents/schemes/Container
+    - MaterialComponents/ShadowElevations
+  - "MaterialComponents/Dialogs+TypographyThemer (103.1.0)":
+    - "MaterialComponents/Buttons+TypographyThemer"
+    - MaterialComponents/Dialogs
     - MaterialComponents/schemes/Typography
   - MaterialComponents/Elevation (103.1.0):
     - MaterialComponents/private/Color
@@ -451,6 +486,9 @@ DEPENDENCIES:
   - FirebaseUI/Storage
   - MaterialComponents/Buttons
   - "MaterialComponents/Buttons+Theming"
+  - MaterialComponents/Dialogs
+  - "MaterialComponents/Dialogs+DialogThemer"
+  - "MaterialComponents/Dialogs+Theming"
   - MaterialComponents/schemes/Color
   - MaterialComponents/schemes/Typography
   - MaterialComponents/Snackbar
@@ -556,6 +594,6 @@ SPEC CHECKSUMS:
   SwiftSVG: e55084e4c5534f3f25743003a6a3a88580cacfb0
   SwiftValidator: 249b6b3ae3b294266c5b9de134d94f18f2d5aa47
 
-PODFILE CHECKSUM: e17fe632ee327226f50d3d7e87a9ad6c0b143098
+PODFILE CHECKSUM: 90de2ba77faa7916b302666e4dc8860a038502e8
 
 COCOAPODS: 1.8.4

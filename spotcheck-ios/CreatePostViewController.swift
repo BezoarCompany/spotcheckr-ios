@@ -19,10 +19,7 @@ class CreatePostViewController: UIViewController {
     
     @IBOutlet weak var navbar: UINavigationItem!
     @IBOutlet weak var postButton: UIBarButtonItem!
-    
-    @IBAction func cancelPost(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
-    }
+    @IBOutlet weak var cancelButton: UIBarButtonItem!
     
     @IBAction func submitPost(_ sender: Any) {
         self.validator.validate(self)
@@ -120,6 +117,7 @@ class CreatePostViewController: UIViewController {
         MDCSnackbarTypographyThemer.applyTypographyScheme(ApplicationScheme.instance.containerScheme.typographyScheme)
         return message
     }()
+    let cancelAlertController = MDCAlertController(title: "Cancel?", message: "You will lose all entered data.")
     
     let validator: Validator
     
@@ -187,7 +185,7 @@ class CreatePostViewController: UIViewController {
         self.view.addSubview(photoImageView)
         
         applyConstraints()
-        
+        initButtonBarItems()
         initActivityIndicator()        
         addKeyboardMenuAccessory()
         setupValidation()

@@ -1,11 +1,3 @@
-//
-//  PostDetailViewController.swift
-//  spotcheck-ios
-//
-//  Created by Miguel Paysan on 2/9/20.
-//  Copyright © 2020 Miguel Paysan. All rights reserved.
-//
-
 import Foundation
 import FirebaseCore
 import FirebaseFirestore
@@ -36,8 +28,7 @@ class PostDetailViewController : UIViewController {
  Post(postId: "a", authorId: "1", authorName: "Miguel", createdAt: "2/2/2020", updatedAt: "2/2/2020", question: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in")
     */
     static func create(post: ExercisePost?) -> PostDetailViewController {
-        print("create")
-        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+       let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         let postDetailViewController = storyboard.instantiateViewController(withIdentifier: K.Storyboard.PostDetailViewControllerId) as! PostDetailViewController
         
         postDetailViewController.post = post
@@ -48,13 +39,9 @@ class PostDetailViewController : UIViewController {
     // MARK: UIViewController Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("entered")
-        //post?.answers = FakeDataFactory.GetAnswersPosts(count: 5)
             
         firstly {
             //TODO: Replace with call to getAnswers(from: Number) which returns all answers since a specific "page length" (e.g. get first 10 posts by created date, scroll, when reached 8/10 posts fetch next 10 posts.
-            
-            //self.exercisePostService.getAnswers(forPostWithId : "yGL2u8fzSccPSghpke5w" )
             self.exercisePostService.getAnswers(forPostWithId : post?.id ?? "" )
         }.done { answers in
             self.post?.answers = answers

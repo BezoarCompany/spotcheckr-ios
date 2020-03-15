@@ -8,7 +8,6 @@ import MaterialComponents
 import DropDown
 
 extension CreatePostViewController {    
-    
     func initDropDowns() {
         self.exerciseTextField.delegate = self
         self.exerciseTextField.trailingView = Images.chevronUp
@@ -80,6 +79,32 @@ extension CreatePostViewController {
         self.bodyTextField.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
         self.view.addSubview(bodyTextField)
         
+    }
+    
+    func initButtonBarItems() {
+        let yesAction = MDCAlertAction(title: "Yes", emphasis: .high) { (action) in
+            self.dismiss(animated: true)
+        }
+        let noAction = MDCAlertAction(title:"No", emphasis: .high)
+        
+        self.cancelAlertController.addAction(yesAction)
+        self.cancelAlertController.addAction(noAction)
+        self.cancelAlertController.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
+        self.cancelButton.action = #selector(cancelButtonOnClick(sender:))
+    }
+    
+    @objc func cancelButtonOnClick(sender: Any) {
+        let formIsDirty = {() -> Bool in
+            return self.selectedExercise != nil ||
+            (self.title != nil && self.title!.trim().count > 0) ||
+            (self.bodyTextField.text != nil && self.bodyTextField.text!.trim().count > 0)
+        }
+       
+        if formIsDirty() {
+            present(self.cancelAlertController, animated: true)
+        } else {
+            self.dismiss(animated: true)
+        }
     }
     
     func initActivityIndicator() {
