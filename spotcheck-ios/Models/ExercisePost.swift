@@ -36,6 +36,7 @@ class ExercisePost {
         self.answersCount = answersCount
         self.imagePath = imagePath
     }
+    
 }
 
 extension ExercisePost: ListDiffable {
@@ -52,7 +53,10 @@ extension ExercisePost: ListDiffable {
         }
         
         
-        if (self.dateModified != b.dateModified) {
+        if (self.dateModified != b.dateModified
+            || self.title != b.title
+            || self.description != b.description
+            || self.imagePath != self.imagePath) {
             return false
         }
         

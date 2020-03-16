@@ -49,8 +49,17 @@ class FeedViewController: UIViewController {
         if(diffType == .add) {
             newPostsCopy.insert(exercisePost, at: 0)
         } else if (diffType == .edit) {
-            print("EDIT!!")
+            print("############# EDIT!!  \(newPostsCopy[indexFound].title)  : \(exercisePost.title)")
+            
+            let elem = self.posts[indexFound]
             newPostsCopy[indexFound] = exercisePost
+                /*ExercisePost(id: elem.id,
+                                                    title: elem.title,
+                                                    description: elem.description,
+                                                    createdBy: elem.createdBy,
+                                                    imagePath: elem.imagePath
+            )*/
+            
         } else if (diffType == .delete) {
             newPostsCopy.remove(at: indexFound)
         }

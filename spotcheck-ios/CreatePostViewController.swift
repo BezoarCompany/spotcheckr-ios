@@ -146,9 +146,12 @@ class CreatePostViewController: UIViewController {
     var createdPostDetailClosure: CreatedPostDetailClosureType? //From the Snackbar Action in FeedView, enter the Post Detail page with newly created Post (b/c Snackbar action created in CreatePost page)...Think React data flowing DOWN Stream
     
     var diffedPostsDataClosure: DiffedPostsDataUpdateClosureType? //To dynamically update UITableView with the new post
+    var updatePostDetailClosure: CreatedPostDetailClosureType? //To refresh Post Detail page
     
-    static func create(updatePostMode: DiffType = .add, post: ExercisePost? = nil, createdPostDetailClosure: CreatedPostDetailClosureType? = nil,
-                       diffedPostsDataClosure: DiffedPostsDataUpdateClosureType? = nil) -> CreatePostViewController  {
+    static func create(updatePostMode: DiffType = .add, post: ExercisePost? = nil,
+                       createdPostDetailClosure: CreatedPostDetailClosureType? = nil,
+                       diffedPostsDataClosure: DiffedPostsDataUpdateClosureType? = nil,
+                       updatePostDetailClosure: CreatedPostDetailClosureType? = nil) -> CreatePostViewController  {
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         let createPostViewController = storyboard.instantiateViewController(withIdentifier: K.Storyboard.CreatePostViewControllerId) as! CreatePostViewController
         
@@ -156,6 +159,8 @@ class CreatePostViewController: UIViewController {
         createPostViewController.exercisePost = post
         createPostViewController.createdPostDetailClosure = createdPostDetailClosure
         createPostViewController.diffedPostsDataClosure = diffedPostsDataClosure
+        createPostViewController.updatePostDetailClosure = updatePostDetailClosure
+        
         return createPostViewController
     }
 

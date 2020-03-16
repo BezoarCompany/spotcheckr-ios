@@ -26,8 +26,17 @@ class PostDetailViewController : UIViewController {
         
 
     typealias DiffedPostsDataUpdateClosureType = ((_ diffType: DiffType, _ post: ExercisePost) -> Void) //takes diff type, and post to be modified
-
     var diffedPostsDataClosure: DiffedPostsDataUpdateClosureType? //To dynamically update UITableView with the new post
+    
+    func updatePostDetail(argPost: ExercisePost) {
+        self.post = argPost
+        print("PostDetail.updatePostDetail() \(argPost.title)")
+        let idxPath = IndexPath(row: 0, section: 0)
+        
+        self.tableView.beginUpdates()
+        self.tableView.reloadRows(at: [idxPath], with: .automatic)
+        self.tableView.endUpdates()
+    }
     
     static func create(post: ExercisePost?, diffedPostsDataClosure: DiffedPostsDataUpdateClosureType? = nil) -> PostDetailViewController {
        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
@@ -83,7 +92,8 @@ class PostDetailViewController : UIViewController {
         print("clickedModifyPost")
         let alert = UIAlertController(title: "Choose Action", message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Edit ", style: .default, handler: { _ in
-            let createPostViewController = CreatePostViewController.create(updatePostMode: .edit, post: self.post, diffedPostsDataClosure: self.diffedPostsDataClosure )
+            let createPostViewController = CreatePostViewController.create(updatePostMode: .edit, post: self.post, diffedPostsDataClosure: self.diffedPostsDataClosure,
+                                                                           updatePostDetailClosure: self.updatePostDetail )
             
             //TODO: Update PostDetail after edit, as well as in Feed TableView
             self.present(createPostViewController, animated: true)
