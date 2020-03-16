@@ -40,4 +40,6 @@ target 'spotcheck-ios' do
   pod 'MaterialComponents/Dialogs'
   pod 'MaterialComponents/Dialogs+Theming'
   pod 'MaterialComponents/ActivityIndicator'
+  pod 'MaterialComponents/BottomNavigation'
+  pod 'MaterialComponents/BottomNavigation+Theming'
 end
