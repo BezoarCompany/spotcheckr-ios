@@ -52,6 +52,9 @@
 		BA49213623E6289B00A74A73 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA49212F23E6289A00A74A73 /* Roboto-Regular.ttf */; };
 		BA49213723E6289B00A74A73 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA49213023E6289A00A74A73 /* Roboto-Medium.ttf */; };
 		BA49213823E6289B00A74A73 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA49213123E6289B00A74A73 /* Roboto-Light.ttf */; };
+		BA49A013241ED21300BB4BD8 /* list.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA49A012241ED21300BB4BD8 /* list.svg */; };
+		BA49A015241ED56300BB4BD8 /* user.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA49A014241ED56300BB4BD8 /* user.svg */; };
+		BA49A017241F488500BB4BD8 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA49A016241F488500BB4BD8 /* TabBarController.swift */; };
 		BA4EDA4124025F0D00206267 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4EDA4024025F0D00206267 /* EditProfileViewController.swift */; };
 		BA4EDA4324026CE200206267 /* IntExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4EDA4224026CE200206267 /* IntExtensions.swift */; };
 		BA4EDA452402909A00206267 /* ProfilePostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA4EDA442402909A00206267 /* ProfilePostCell.xib */; };
@@ -155,6 +158,9 @@
 		BA49212F23E6289A00A74A73 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		BA49213023E6289A00A74A73 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		BA49213123E6289B00A74A73 /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
+		BA49A012241ED21300BB4BD8 /* list.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = list.svg; sourceTree = "<group>"; };
+		BA49A014241ED56300BB4BD8 /* user.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = user.svg; sourceTree = "<group>"; };
+		BA49A016241F488500BB4BD8 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		BA4EDA4024025F0D00206267 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		BA4EDA4224026CE200206267 /* IntExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntExtensions.swift; sourceTree = "<group>"; };
 		BA4EDA442402909A00206267 /* ProfilePostCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfilePostCell.xib; sourceTree = "<group>"; };
@@ -268,6 +274,7 @@
 				BA4EE45923EF1408003E6D87 /* ForgotPasswordViewController.swift */,
 				BA4EE45B23EF6814003E6D87 /* PasswordResetConfirmationViewController.swift */,
 				BA4EDA4024025F0D00206267 /* EditProfileViewController.swift */,
+				BA49A016241F488500BB4BD8 /* TabBarController.swift */,
 			);
 			path = "spotcheck-ios";
 			sourceTree = "<group>";
@@ -372,6 +379,8 @@
 		BA4EE45023EECE5D003E6D87 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				BA49A014241ED56300BB4BD8 /* user.svg */,
+				BA49A012241ED21300BB4BD8 /* list.svg */,
 				BA5DE70D241888FE002C98E6 /* chevron-down.svg */,
 				BA5DE70B241888F2002C98E6 /* chevron-up.svg */,
 				BA5DE7092415D2E8002C98E6 /* plus.svg */,
@@ -510,12 +519,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				BA5DE70C241888F2002C98E6 /* chevron-up.svg in Resources */,
+				BA49A015241ED56300BB4BD8 /* user.svg in Resources */,
 				BA4EDA452402909A00206267 /* ProfilePostCell.xib in Resources */,
 				BA4EE45423EECE84003E6D87 /* eye-off.svg in Resources */,
 				BA4EE45323EECE84003E6D87 /* eye.svg in Resources */,
 				BA49213723E6289B00A74A73 /* Roboto-Medium.ttf in Resources */,
 				5679530A23D806C00077BA08 /* LaunchScreen.storyboard in Resources */,
 				BA49213623E6289B00A74A73 /* Roboto-Regular.ttf in Resources */,
+				BA49A013241ED21300BB4BD8 /* list.svg in Resources */,
 				BA5DE70A2415D2E8002C98E6 /* plus.svg in Resources */,
 				BA5DE70E241888FE002C98E6 /* chevron-down.svg in Resources */,
 				5679533623D97EDD0077BA08 /* GoogleService-Info.plist in Resources */,
@@ -611,6 +622,7 @@
 				567952FE23D806BE0077BA08 /* AppDelegate.swift in Sources */,
 				569794D123F11DBC00994B71 /* PostDetailViewController.swift in Sources */,
 				BA3DDD2B241CB1F600692100 /* AnalyticsService.swift in Sources */,
+				BA49A017241F488500BB4BD8 /* TabBarController.swift in Sources */,
 				BA1FB51523F1047A00E091B1 /* Contact.swift in Sources */,
 				BA4EE42823E94BBF003E6D87 /* AuthenticationProtocol.swift in Sources */,
 				BA1FB52923F11ADA00E091B1 /* Answer.swift in Sources */,

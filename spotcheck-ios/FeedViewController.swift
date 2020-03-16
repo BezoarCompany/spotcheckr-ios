@@ -17,10 +17,9 @@ class FeedViewController: UIViewController {
     var posts = [ExercisePost]()
     var refreshControl = UIRefreshControl()
     func viewPostHandler(exercisePost: ExercisePost)  {
-                       let postDetailViewController = PostDetailViewController.create(post: exercisePost)
-
-                       self.navigationController?.pushViewController(postDetailViewController, animated: true)
-                   }
+        let postDetailViewController = PostDetailViewController.create(post: exercisePost)
+        self.navigationController?.pushViewController(postDetailViewController, animated: true)
+   }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +32,7 @@ class FeedViewController: UIViewController {
         tableView.addSubview(addPostButton)
         
         self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: addPostButton.trailingAnchor, constant: 25).isActive = true
-        self.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: addPostButton.bottomAnchor, constant: 25).isActive = true
+        self.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: addPostButton.bottomAnchor, constant: 75).isActive = true
         addPostButton.widthAnchor.constraint(equalToConstant: 64).isActive = true
         addPostButton.heightAnchor.constraint(equalToConstant: 64).isActive = true
         navigationItem.hidesBackButton = true

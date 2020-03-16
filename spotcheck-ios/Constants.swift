@@ -6,6 +6,9 @@ struct K {
     
     struct Storyboard {
         static let MainTabBarControllerId = "MainTabBarController"
+        static let TabBarControllerId = "TabBarViewController"
+        static let FeedViewControllerId = "FeedViewController"
+        static let ProfileViewControllerId = "ProfileViewController"
         static let AuthOptionViewControllerId = "AuthOptionsViewController"
         static let PostDetailViewControllerId = "PostDetailViewController"        
         static let SignUpViewControllerId =  "SignUpViewController"
