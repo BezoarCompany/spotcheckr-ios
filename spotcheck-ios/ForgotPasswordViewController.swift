@@ -26,6 +26,14 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate, Valid
         MDCSnackbarTypographyThemer.applyTypographyScheme(ApplicationScheme.instance.containerScheme.typographyScheme)
        return message
     }()
+    var activityIndicator: MDCActivityIndicator = {
+        let indicator = MDCActivityIndicator()
+        indicator.sizeToFit()
+        indicator.indicatorMode = .indeterminate
+        indicator.cycleColors = [ApplicationScheme.instance.containerScheme.colorScheme.onSecondaryColor]
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        return indicator
+    }()
     
     let emailAddressTextFieldController: MDCTextInputControllerOutlined
     let validator: Validator
@@ -113,8 +121,16 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate, Valid
     }
     
     internal func validationSuccessful() {
-        self.continueButton.setEnabled(false, animated: true)
+        continueButton.addSubview(activityIndicator)
+        NSLayoutConstraint.activate([
+            activityIndicator.centerYAnchor.constraint(equalTo: continueButton.centerYAnchor),
+            activityIndicator.centerXAnchor.constraint(equalTo: continueButton.centerXAnchor)
+        ])
+        continueButton.setTitle("", for: .normal)
+        
+        continueButton.isUserInteractionEnabled = false
         emailAddressTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
+        activityIndicator.startAnimating()
         
         firstly {
             authenticationService.sendResetPasswordEmail(emailAddress: emailAddressTextField.text!)
@@ -124,7 +140,9 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate, Valid
             self.snackbarMessage.text = error.localizedDescription
             MDCSnackbarManager.show(self.snackbarMessage)
         }.finally {
-            self.continueButton.setEnabled(true, animated: true)
+            self.activityIndicator.stopAnimating()
+            self.continueButton.setTitle("Continue", for: .normal)
+            self.continueButton.isUserInteractionEnabled = true
         }
     }
     

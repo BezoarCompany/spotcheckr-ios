@@ -32,6 +32,7 @@ class FeedViewController: UIViewController {
         self.tableView.reloadRows(at: results.updates, with: .none)
         self.tableView.endUpdates()
     }
+
     
     //Will manipulate the data source for edits, and deletes. Then call the diffedTableViewRenderer to render the changes in the table view
     func diffedPostsHandler(diffType: DiffType, exercisePost: ExercisePost) {
@@ -84,7 +85,7 @@ class FeedViewController: UIViewController {
         tableView.addSubview(addPostButton)
         
         self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: addPostButton.trailingAnchor, constant: 25).isActive = true
-        self.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: addPostButton.bottomAnchor, constant: 25).isActive = true
+        self.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: addPostButton.bottomAnchor, constant: 75).isActive = true
         addPostButton.widthAnchor.constraint(equalToConstant: 64).isActive = true
         addPostButton.heightAnchor.constraint(equalToConstant: 64).isActive = true
         navigationItem.hidesBackButton = true

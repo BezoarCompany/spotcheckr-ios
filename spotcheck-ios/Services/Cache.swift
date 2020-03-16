@@ -6,6 +6,7 @@ import Foundation
 
 final class Cache<Key: Hashable, Value> {
     private let wrapped = NSCache<WrappedKey, Entry>()
+    private var items = 0
     private let dateProvider: () -> Date
     private let entryLifetime: TimeInterval
     
@@ -19,6 +20,7 @@ final class Cache<Key: Hashable, Value> {
         let date = dateProvider().addingTimeInterval(entryLifetime)
         let entry = Entry(value: value, expirationDate: expiration ?? date)
         wrapped.setObject(entry, forKey: WrappedKey(key))
+        self.items += 1
     }
 
     func value(forKey key: Key) -> Value? {
@@ -37,6 +39,11 @@ final class Cache<Key: Hashable, Value> {
     
     func removeValue(forKey key: Key) {
         wrapped.removeObject(forKey: WrappedKey(key))
+        self.items -= 1
+    }
+    
+    func isEmpty() -> Bool {
+        return self.items > 0
     }
 }
 
