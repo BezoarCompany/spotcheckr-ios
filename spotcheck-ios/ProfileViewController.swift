@@ -23,6 +23,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
        return message
     }()
     
+
     var currentUser: User?
     var receivedUser: User?
     
@@ -33,8 +34,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         super.viewDidLoad()
         
         self.postsTableView.register(UINib(nibName:K.Storyboard.profilPostNibName, bundle: nil), forCellReuseIdentifier: K.Storyboard.profilePostCellId)
-        //TODO: Remove, only for testing purposes
-        //setupTestUser()
+        
         resolveProfileUser()
         applyStyles()
     }
@@ -55,6 +55,23 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         cell.postId = post.id
         cell.voteDirection = post.metrics.currentVoteDirection
         cell.answersCountLabel.text = "\(post.answers.count)"
+        let moreIconActionSheet = UIElementFactory.getActionSheet()
+        let deleteAction = MDCActionSheetAction(title: "Delete", image: Images.trash, handler: { (MDCActionSheetHandler) in
+            firstly {
+                Services.exercisePostService.deletePost(post)
+            }.done {
+                self.snackbarMessage.text = "Post deleted."
+                MDCSnackbarManager.show(self.snackbarMessage)
+            }
+            .catch { error in
+                self.snackbarMessage.text = "Failed to delete post."
+                MDCSnackbarManager.show(self.snackbarMessage)
+            }
+        })
+        moreIconActionSheet.addAction(deleteAction)
+        cell.onMoreIconClick = {
+            self.present(moreIconActionSheet, animated: true, completion: nil)
+        }
         return cell
     }
     

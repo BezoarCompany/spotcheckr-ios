@@ -1,5 +1,6 @@
 import UIKit
 import PromiseKit
+import MaterialComponents
 
 class ProfilePostCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
@@ -8,24 +9,32 @@ class ProfilePostCell: UITableViewCell {
     @IBOutlet weak var voteTotalLabel: UILabel!
     @IBOutlet weak var answersLabel: UILabel!
     @IBOutlet weak var answersCountLabel: UILabel!
-    
-    
     @IBOutlet weak var upvoteButton: UIButton!
     @IBOutlet weak var downvoteButton: UIButton!
     
-
     var postId: String?
     var votingUserId: String?
     var voteDirection: VoteDirection?
     let upvoteColor = UIColor(red: 1.00, green: 0.16, blue: 0.00, alpha: 1.00)
     let downvoteColor = UIColor(red: 0.42, green: 0.57, blue: 1.00, alpha: 1.00)
     let neutralColor: UIColor = .white
-    
+    let moreIcon: UIImageView = {
+        let icon = UIImageView()
+        icon.isUserInteractionEnabled = true
+        icon.translatesAutoresizingMaskIntoConstraints = false
+        icon.image = Images.moreHorizontal
+        return icon
+    }()
+    var onMoreIconClick: (() -> Void)? = nil
+
     override func awakeFromNib() {
         super.awakeFromNib()
         applyStyles()
+        addSubviews()
+        applyConstraints()
+        addEvents()
     }
-    
+
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
@@ -119,5 +128,25 @@ class ProfilePostCell: UITableViewCell {
         self.answersCountLabel.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
         self.answersLabel.font = ApplicationScheme.instance.containerScheme.typographyScheme.body1
         self.answersLabel.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
+        self.moreIcon.tintColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
+    }
+    
+    private func applyConstraints() {
+        moreIcon.topAnchor.constraint(equalTo: self.descriptionLabel.bottomAnchor, constant: 12).isActive = true
+        self.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: self.moreIcon.bottomAnchor, constant: 8).isActive = true
+        self.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: moreIcon.trailingAnchor, constant: 12).isActive = true
+    }
+    
+    private func addSubviews() {
+        self.addSubview(self.moreIcon)
+    }
+    
+    private func addEvents() {
+        let moreIconTap = UITapGestureRecognizer(target: self, action: #selector(self.moreIconOnClick(sender:)))
+        self.moreIcon.addGestureRecognizer(moreIconTap)
+    }
+    
+    @objc func moreIconOnClick(sender: Any) {
+        self.onMoreIconClick!()
     }
 }
