@@ -3,7 +3,7 @@ import Firebase
 import PromiseKit
 import MaterialComponents.MDCFlatButton
 
-class ProfileViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ProfileViewController: UIViewController {
     @IBOutlet weak var logoutButton: UIBarButtonItem!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var certificationsHeadingLabel: UILabel!
@@ -16,6 +16,37 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var answersButton: MDCFlatButton!
     @IBOutlet weak var editProfileButton: MDCFlatButton!
     @IBOutlet weak var postsTableView: UITableView!
+    @IBOutlet weak var answersTableView: UITableView!
+    
+    @IBAction func postsButtonOnClick(_ sender: Any) {
+        self.postsTableView.isHidden = false
+        self.answersTableView.isHidden = true
+        self.postsButton.setBackgroundColor(ApplicationScheme.instance.containerScheme.colorScheme.secondaryColor)
+        self.postsButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onSecondaryColor, for: .normal)
+        self.answersButton.setBackgroundColor(ApplicationScheme.instance.containerScheme.colorScheme.primaryColor)
+        self.answersButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor, for: .normal)
+    }
+    
+    @IBAction func answersButtonOnClick(_ sender: Any) {
+        self.answersTableView.isHidden = false
+        self.postsTableView.isHidden = true
+        self.answersButton.setBackgroundColor(ApplicationScheme.instance.containerScheme.colorScheme.secondaryColor)
+        self.answersButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onSecondaryColor, for: .normal)
+        self.postsButton.setBackgroundColor(ApplicationScheme.instance.containerScheme.colorScheme.primaryColor)
+        self.postsButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor, for: .normal)
+    }
+    
+    @IBAction func logoutTapped(_ sender: Any) {
+        do {
+            try Services.userService.signOut()
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let baseViewController = storyboard.instantiateViewController(withIdentifier: K.Storyboard.AuthOptionViewControllerId )
+            UIApplication.shared.keyWindow?.rootViewController = baseViewController
+        } catch {
+            self.snackbarMessage.text = "An error occurred signing out."
+            MDCSnackbarManager.show(self.snackbarMessage)
+        }
+    }
     
     let snackbarMessage: MDCSnackbarMessage = {
        let message = MDCSnackbarMessage()
@@ -23,7 +54,6 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
        return message
     }()
     
-
     var currentUser: User?
     var receivedUser: User?
     
@@ -33,61 +63,9 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.postsTableView.register(UINib(nibName:K.Storyboard.profilPostNibName, bundle: nil), forCellReuseIdentifier: K.Storyboard.profilePostCellId)
-        
+        initTableViews()
         resolveProfileUser()
         applyStyles()
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.posts.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let post = posts[indexPath.row]
-        let cell = self.postsTableView.dequeueReusableCell(withIdentifier: K.Storyboard.profilePostCellId, for: indexPath) as! ProfilePostCell
-            
-        cell.titleLabel.text = post.title
-        cell.descriptionLabel.text = post.description
-        cell.datePostedLabel.text = post.dateCreated?.toDisplayFormat()
-        cell.voteTotalLabel.text = "\(post.metrics.totalVotes)"
-        cell.votingUserId = self.currentUser?.id
-        cell.postId = post.id
-        cell.voteDirection = post.metrics.currentVoteDirection
-        cell.answersCountLabel.text = "\(post.answers.count)"
-        let moreIconActionSheet = UIElementFactory.getActionSheet()
-        let deleteAction = MDCActionSheetAction(title: "Delete", image: Images.trash, handler: { (MDCActionSheetHandler) in
-            firstly {
-                Services.exercisePostService.deletePost(post)
-            }.done {
-                self.snackbarMessage.text = "Post deleted."
-                MDCSnackbarManager.show(self.snackbarMessage)
-            }
-            .catch { error in
-                self.snackbarMessage.text = "Failed to delete post."
-                MDCSnackbarManager.show(self.snackbarMessage)
-            }
-        })
-        moreIconActionSheet.addAction(deleteAction)
-        cell.onMoreIconClick = {
-            self.present(moreIconActionSheet, animated: true, completion: nil)
-        }
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let cell = cell as! ProfilePostCell
-        cell.adjustVotingControls()
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let postDetailViewController = PostDetailViewController.create(post: posts[indexPath.row])
-        self.navigationController?.pushViewController(postDetailViewController, animated: true)
-    }
-    
-    private func setupTestUser() {
-        self.currentUser = FakeDataFactory.GetTrainers(count: 1)[0]
-        populateUserProfileInformation()
     }
     
     private func resolveProfileUser() {
@@ -121,31 +99,13 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
                     self.posts = posts
                     
                     self.postsTableView.reloadData()
-                    print(posts)
-                    print(answers)
+                    self.answersTableView.reloadData()
+                    
                 }.catch {error in
                     //TODO: Show error message on the table view for failing to fetch posts/answers
                 }
             }
         }
-    }
-    
-    @IBAction func postsButtonOnClick(_ sender: Any) {
-        self.postsTableView.isHidden = false
-        //self.answersTableView.isHidden = true
-        self.postsButton.setBackgroundColor(ApplicationScheme.instance.containerScheme.colorScheme.secondaryColor)
-        self.postsButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onSecondaryColor, for: .normal)
-        self.answersButton.setBackgroundColor(ApplicationScheme.instance.containerScheme.colorScheme.primaryColor)
-        self.answersButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor, for: .normal)
-    }
-    
-    @IBAction func answersButtonOnClick(_ sender: Any) {
-        //self.answersTableView.isHidden = false
-        self.postsTableView.isHidden = true
-        self.answersButton.setBackgroundColor(ApplicationScheme.instance.containerScheme.colorScheme.secondaryColor)
-        self.answersButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onSecondaryColor, for: .normal)
-        self.postsButton.setBackgroundColor(ApplicationScheme.instance.containerScheme.colorScheme.primaryColor)
-        self.postsButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor, for: .normal)
     }
     
     private func showCurrentUserOnlyControls() {
@@ -202,18 +162,92 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         answersButton.applyOutlinedTheme(withScheme: ApplicationScheme.instance.containerScheme)
         answersButton.setTitleFont(ApplicationScheme.instance.containerScheme.typographyScheme.button, for: .normal)
         answersButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor, for: .normal)
-    
+    }
+}
+
+extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tableView == self.postsTableView ? self.posts.count : self.answers.count
     }
     
-    @IBAction func logoutTapped(_ sender: Any) {
-        do {
-            try Services.userService.signOut()
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let baseViewController = storyboard.instantiateViewController(withIdentifier: K.Storyboard.AuthOptionViewControllerId )
-            UIApplication.shared.keyWindow?.rootViewController = baseViewController
-        } catch {
-            self.snackbarMessage.text = "An error occurred signing out."
-            MDCSnackbarManager.show(self.snackbarMessage)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if tableView == self.postsTableView {
+            let post = posts[indexPath.row]
+            let cell = self.postsTableView.dequeueReusableCell(withIdentifier: K.Storyboard.profilePostCellId, for: indexPath) as! ProfilePostCell
+                
+            cell.titleLabel.text = post.title
+            cell.descriptionLabel.text = post.description
+            cell.datePostedLabel.text = post.dateCreated?.toDisplayFormat()
+            cell.voteTotalLabel.text = "\(post.metrics.totalVotes)"
+            cell.votingUserId = self.currentUser?.id
+            cell.postId = post.id
+            cell.voteDirection = post.metrics.currentVoteDirection
+            cell.answersCountLabel.text = "\(post.answers.count)"
+            let moreIconActionSheet = UIElementFactory.getActionSheet()
+            let deleteAction = MDCActionSheetAction(title: "Delete", image: Images.trash, handler: { (MDCActionSheetHandler) in
+                firstly {
+                    Services.exercisePostService.deletePost(post)
+                }.done {
+                    self.snackbarMessage.text = "Post deleted."
+                    MDCSnackbarManager.show(self.snackbarMessage)
+                }
+                .catch { error in
+                    self.snackbarMessage.text = "Failed to delete post."
+                    MDCSnackbarManager.show(self.snackbarMessage)
+                }
+            })
+            moreIconActionSheet.addAction(deleteAction)
+            cell.onMoreIconClick = {
+                self.present(moreIconActionSheet, animated: true, completion: nil)
+            }
+            return cell
         }
+        
+        let answer = answers[indexPath.row]
+        let cell = self.answersTableView.dequeueReusableCell(withIdentifier: K.Storyboard.profilePostCellId, for: indexPath) as! ProfilePostCell
+            
+        cell.descriptionLabel.text = answer.text
+        cell.datePostedLabel.text = answer.dateCreated?.toDisplayFormat()
+        cell.voteTotalLabel.text = "\(answer.metrics!.totalVotes)"
+        cell.votingUserId = self.currentUser?.id
+        cell.voteDirection = answer.metrics?.currentVoteDirection
+        cell.hideAnswers = true
+        let moreIconActionSheet = UIElementFactory.getActionSheet()
+        let deleteAction = MDCActionSheetAction(title: "Delete", image: Images.trash, handler: { (MDCActionSheetHandler) in
+            firstly {
+                Services.exercisePostService.deleteAnswer(withId: answer.id!)
+            }.done {
+                self.snackbarMessage.text = "Answer deleted."
+                MDCSnackbarManager.show(self.snackbarMessage)
+            }
+            .catch { error in
+                self.snackbarMessage.text = "Failed to delete answer."
+                MDCSnackbarManager.show(self.snackbarMessage)
+            }
+        })
+        moreIconActionSheet.addAction(deleteAction)
+        cell.onMoreIconClick = {
+            self.present(moreIconActionSheet, animated: true, completion: nil)
+        }
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let cell = cell as! ProfilePostCell
+        cell.adjustVotingControls()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if tableView == self.postsTableView {
+            let postDetailViewController = PostDetailViewController.create(post: posts[indexPath.row])
+            self.navigationController?.pushViewController(postDetailViewController, animated: true)
+        }
+    }
+    
+    private func initTableViews() {
+        self.postsTableView.tableFooterView = UIView()
+        self.postsTableView.register(UINib(nibName:K.Storyboard.profilPostNibName, bundle: nil), forCellReuseIdentifier: K.Storyboard.profilePostCellId)
+        self.answersTableView.tableFooterView = UIView()
+        self.answersTableView.register(UINib(nibName:K.Storyboard.profilPostNibName, bundle: nil), forCellReuseIdentifier: K.Storyboard.profilePostCellId)
     }
 }

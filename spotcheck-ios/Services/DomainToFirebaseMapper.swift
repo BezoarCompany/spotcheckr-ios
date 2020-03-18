@@ -3,6 +3,7 @@ import Firebase
 class DomainToFirebaseMapper {
     static func mapAnswer(from: Answer) -> [String:Any] {
         var firebaseAnswer = [String:Any]()
+        firebaseAnswer["id"] = from.id
         firebaseAnswer["created-by"] = from.createdBy?.id
         firebaseAnswer["created-date"] = from.dateCreated
         firebaseAnswer["modified-date"] = from.dateModified

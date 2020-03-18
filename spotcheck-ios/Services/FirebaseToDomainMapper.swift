@@ -5,9 +5,9 @@ class FirebaseToDomainMapper {
                            metrics: Metrics,
                            createdBy: User) -> Answer {
         var answer = Answer()
+        answer.id = data.keys.contains("id") ? data["id"] as? String : nil
         answer.text = data.keys.contains("text") ? data["text"] as! String : ""
-        answer.upvotes = metrics.upvotes
-        answer.downvotes = metrics.downvotes
+        answer.metrics = metrics
         answer.dateCreated = data.keys.contains("created-date") ? (data["created-date"] as! Timestamp).dateValue() : nil
         answer.dateModified = data.keys.contains("modified-date") ? (data["modified-date"] as! Timestamp).dateValue() : nil
         answer.createdBy = createdBy

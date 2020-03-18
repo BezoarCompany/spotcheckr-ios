@@ -304,10 +304,10 @@
 		567E9A3323E93F15004C1B2E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5627FCA123F0BEB4001B4B5B /* FeedPostCell.xib */,
 				5679530323D806BE0077BA08 /* Main.storyboard */,
 				568721A223E7EF1100E15F87 /* ApplicationScheme.swift */,
 				5627FCA023F0BEB4001B4B5B /* FeedPostCell.swift */,
-				5627FCA123F0BEB4001B4B5B /* FeedPostCell.xib */,
 				5659D9D523FD02980043FA6A /* AnswerPostCell.swift */,
 				5659D9D623FD02980043FA6A /* AnswerPostCell.xib */,
 				5681771523FDCE7500CA7AB5 /* DetailedPostCell.swift */,

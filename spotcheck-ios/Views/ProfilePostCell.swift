@@ -8,6 +8,7 @@ class ProfilePostCell: UITableViewCell {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var voteTotalLabel: UILabel!
     @IBOutlet weak var answersLabel: UILabel!
+    @IBOutlet weak var answersIcon: UIImageView!
     @IBOutlet weak var answersCountLabel: UILabel!
     @IBOutlet weak var upvoteButton: UIButton!
     @IBOutlet weak var downvoteButton: UIButton!
@@ -26,6 +27,7 @@ class ProfilePostCell: UITableViewCell {
         return icon
     }()
     var onMoreIconClick: (() -> Void)? = nil
+    var hideAnswers = false
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -33,6 +35,7 @@ class ProfilePostCell: UITableViewCell {
         addSubviews()
         applyConstraints()
         addEvents()
+        toggleControls()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -148,5 +151,13 @@ class ProfilePostCell: UITableViewCell {
     
     @objc func moreIconOnClick(sender: Any) {
         self.onMoreIconClick!()
+    }
+    
+    private func toggleControls() {
+        if self.hideAnswers {
+            self.answersIcon.isHidden = true
+            self.answersLabel.isHidden = true
+            self.answersCountLabel.isHidden = true
+        }
     }
 }

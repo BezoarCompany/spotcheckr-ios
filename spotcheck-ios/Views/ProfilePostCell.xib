@@ -102,6 +102,7 @@
             <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
             <connections>
                 <outlet property="answersCountLabel" destination="pct-wb-gDQ" id="aRr-TC-UXC"/>
+                <outlet property="answersIcon" destination="isL-rN-byO" id="adJ-KN-mgW"/>
                 <outlet property="answersLabel" destination="oe5-46-tsi" id="BRR-zH-vI3"/>
                 <outlet property="datePostedLabel" destination="hl2-SM-Hw8" id="dJh-5D-iGy"/>
                 <outlet property="descriptionLabel" destination="E5m-nu-NgA" id="lQH-x1-N37"/>
