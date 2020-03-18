@@ -241,11 +241,10 @@ extension CreatePostViewController {
             when(fulfilled: voidPromises )
         }.done { _ in
             print("success updating Post")
-            
-            //will update the Feed View's UI
-            if let updateTableView = self.diffedPostsDataClosure {
-                updateTableView(.edit, copyPost)
-            }
+                     
+            let postMap:[String: ExercisePost] = ["post": copyPost]
+            //will update the Feed View's UI via Notification center
+            NotificationCenter.default.post(name: K.Notifications.ExercisePostEdits, object: nil, userInfo: postMap )
             
             //refresh Post Details UI
             if let updatePostDetailView = self.updatePostDetailClosure {
@@ -258,6 +257,7 @@ extension CreatePostViewController {
         }.catch { err in
             print("error executing updatePostWorflow promises!")
             print(err)
+            //TODO: Error updating post from no image to new image
         }.finally {
             self.activityIndicator.stopAnimating()
         }        

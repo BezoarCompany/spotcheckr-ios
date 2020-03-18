@@ -18,64 +18,13 @@ class FeedViewController: UIViewController {
     
     var posts = [ExercisePost]()
     var refreshControl = UIRefreshControl()
-    
-    //Renders the changes between self's posts[] and the arg's posts[]
-    func diffedTableViewRenderer(argPosts: [ExercisePost]) {
 
-        //new data comes in `argPosts`
-        let results = ListDiffPaths(fromSection: 0, toSection: 0, oldArray: self.posts, newArray: argPosts, option: .equality)
-
-        self.posts = argPosts // set arg data into exiting array before updating tableview
-        self.tableView.beginUpdates()
-        self.tableView.deleteRows(at: results.deletes, with: .fade)
-        self.tableView.insertRows(at: results.inserts, with: .automatic)
-        self.tableView.reloadRows(at: results.updates, with: .none)
-        self.tableView.endUpdates()
-    }
-
-    
-    //Will manipulate the data source for edits, and deletes. Then call the diffedTableViewRenderer to render the changes in the table view
-    func diffedPostsHandler(diffType: DiffType, exercisePost: ExercisePost) {
-        var newPostsCopy: [ExercisePost] = []
-        
-        var indexFound = -1
-        for (i, val) in self.posts.enumerated() {
-            if (val.id == exercisePost.id) {
-                indexFound = i
-            }
-            newPostsCopy.append(val)
-        }
-                
-        
-        if(diffType == .add) {
-            newPostsCopy.insert(exercisePost, at: 0)
-        } else if (diffType == .edit) {
-            print("############# EDIT!!  \(newPostsCopy[indexFound].title)  : \(exercisePost.title)")
-            
-            let elem = self.posts[indexFound]
-            newPostsCopy[indexFound] = exercisePost
-                /*ExercisePost(id: elem.id,
-                                                    title: elem.title,
-                                                    description: elem.description,
-                                                    createdBy: elem.createdBy,
-                                                    imagePath: elem.imagePath
-            )*/
-            
-        } else if (diffType == .delete) {
-            newPostsCopy.remove(at: indexFound)
-        }
-
-        diffedTableViewRenderer(argPosts: newPostsCopy)
-    }
-    
-    func viewPostHandler(exercisePost: ExercisePost)  {
-        let postDetailViewController = PostDetailViewController.create(post: exercisePost, diffedPostsDataClosure: self.diffedPostsHandler  )
-        self.navigationController?.pushViewController(postDetailViewController, animated: true)
-   }
-    
         
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateTableViewEdittedPost), name: K.Notifications.ExercisePostEdits, object: nil)
+        
         let plusImage = SVGKImage(named: "plus").uiImage.withRenderingMode(.alwaysTemplate)
         let addPostButton = MDCFloatingButton()
         addPostButton.setImage(plusImage, for: .normal)
@@ -122,6 +71,73 @@ class FeedViewController: UIViewController {
         refreshControl.endRefreshing()
     }
     
+}
+
+extension FeedViewController {
+    
+    //Renders the changes between self's posts[] and the arg's posts[]
+    func diffedTableViewRenderer(argPosts: [ExercisePost]) {
+
+      //new data comes in `argPosts`
+      let results = ListDiffPaths(fromSection: 0, toSection: 0, oldArray: self.posts, newArray: argPosts, option: .equality)
+
+      self.posts = argPosts // set arg data into exiting array before updating tableview
+      self.tableView.beginUpdates()
+      self.tableView.deleteRows(at: results.deletes, with: .fade)
+      self.tableView.insertRows(at: results.inserts, with: .automatic)
+      //self.tableView.reloadRows(at: results.updates, with: .automatic)
+      self.tableView.endUpdates()
+    }
+
+
+    //Will manipulate the data source for edits, and deletes. Then call the diffedTableViewRenderer to render the changes in the table view
+    func diffedPostsHandler(diffType: DiffType, exercisePost: ExercisePost) {
+      var newPostsCopy: [ExercisePost] = []
+      
+      var indexFound = -1
+      for (i, val) in self.posts.enumerated() {
+          if (val.id == exercisePost.id) {
+              indexFound = i
+          }
+          
+          newPostsCopy.append(val)
+      }
+              
+      
+      if(diffType == .add) {
+          newPostsCopy.insert(exercisePost, at: 0)
+      } else if (diffType == .edit) { //using Notification center to get the updated post. DiffTool isn't detecting changes b/c Old Post is same as New Posts, as if it were strongly refenced/changed.
+          print("############# EDIT!!  \(posts[indexFound].title) ? \(newPostsCopy[indexFound].title)  : \(exercisePost.title)")
+          print("index Found: \(indexFound)")
+          
+          newPostsCopy[indexFound] = exercisePost
+        
+          
+          self.tableView.beginUpdates()
+          let idxPath = IndexPath(row: indexFound, section: 0)
+          self.tableView.reloadRows(at: [idxPath], with: .automatic)
+          self.tableView.endUpdates()
+
+          
+      } else if (diffType == .delete) {
+          newPostsCopy.remove(at: indexFound)
+      }
+
+      diffedTableViewRenderer(argPosts: newPostsCopy)
+    }
+
+    @objc func updateTableViewEdittedPost(notif: Notification) {
+        print("hi from updateTableViewEdittedPost!")
+        if let post = notif.userInfo?["post"] as? ExercisePost {
+            diffedPostsHandler(diffType: .edit, exercisePost: post)
+        }
+    }
+    
+    func viewPostHandler(exercisePost: ExercisePost)  {
+      let postDetailViewController = PostDetailViewController.create(post: exercisePost, diffedPostsDataClosure: self.diffedPostsHandler  )
+      self.navigationController?.pushViewController(postDetailViewController, animated: true)
+    }
+      
 }
 
 
