@@ -5,6 +5,9 @@ target 'spotcheck-ios' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
+  # Dynamic Collection Views and Diff tool
+  pod 'IGListKit', '~> 4.0.0'
+  
   # Form validation
   pod 'SwiftValidator', :git => 'https://github.com/jpotts18/SwiftValidator.git', :tag => '4.2.0'
   pod 'PromiseKit'

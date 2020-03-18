@@ -299,6 +299,9 @@ PODS:
     - nanopb (~> 0.3)
   - gRPC-Core/Interface (1.21.0)
   - GTMSessionFetcher/Core (1.3.1)
+  - IGListDiffKit (4.0.0)
+  - IGListKit (4.0.0):
+    - IGListDiffKit (= 4.0.0)
   - IQKeyboardManagerSwift (6.5.5)
   - leveldb-library (1.22)
   - MaterialComponents/ActionSheet (103.1.0):
@@ -538,6 +541,7 @@ DEPENDENCIES:
   - FirebaseFirestoreSwift
   - FirebaseUI/Auth
   - FirebaseUI/Storage
+  - IGListKit (~> 4.0.0)
   - IQKeyboardManagerSwift
   - MaterialComponents/ActionSheet
   - "MaterialComponents/ActionSheet+Theming"
@@ -590,6 +594,8 @@ SPEC REPOS:
     - "gRPC-C++"
     - gRPC-Core
     - GTMSessionFetcher
+    - IGListDiffKit
+    - IGListKit
     - IQKeyboardManagerSwift
     - leveldb-library
     - MaterialComponents
@@ -646,6 +652,8 @@ SPEC CHECKSUMS:
   "gRPC-C++": 9dfe7b44821e7b3e44aacad2af29d2c21f7cde83
   gRPC-Core: c9aef9a261a1247e881b18059b84d597293c9947
   GTMSessionFetcher: cea130bbfe5a7edc8d06d3f0d17288c32ffe9925
+  IGListDiffKit: 665d6cf43ce726e676013db9c7d6c4294259b6b2
+  IGListKit: fd5a5d21935298f5849fa49d426843cff97b77c7
   IQKeyboardManagerSwift: 0fb93310284665245591f50f7a5e38de615960b7
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   MaterialComponents: 0312a643d1aed5e5f10cba4be06a6aa62bd07c14

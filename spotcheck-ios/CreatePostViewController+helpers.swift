@@ -205,46 +205,59 @@ extension CreatePostViewController {
     
     //for modifying an existing post
     func updatePostWorkflow(post: ExercisePost?) {
-        guard let id = post?.id else {
+        guard let post = post
+            else {
             print ("@updatePostWorkflow -> invalid post args")
             return
         }
         self.activityIndicator.startAnimating()
-        
-        var postDocument = [
-            "modified-date" : FieldValue.serverTimestamp(),
-            "title" : subjectTextField.text!,
-            "description" : bodyTextField.text!
-        ] as [String : Any]
+
+        let copyPost = post
+        copyPost.dateModified = Date()
+        copyPost.title = subjectTextField.text!
+        copyPost.description = bodyTextField.text!
         
         //queue up parallel execution of storage delete old image, storage-upload-new image, and firestore-update post
         var voidPromises = [Promise<Void>]()
 
         if (isImageChanged) {
             let newImageName = "\(NSUUID().uuidString)" + ".jpeg"
-            postDocument.add(["image-path" : newImageName ])
+            copyPost.imagePath = newImageName
             let jpegData = photoImageView.image!.jpegData(compressionQuality: 1.0)
             
             voidPromises.append(Services.storageService.uploadImage(filename: newImageName, imagetype: .jpeg, data: jpegData))
             
             //post had previous image, so create promise to delete that
-            if let imagefilename = post?.imagePath {
+            if let imagefilename = post.imagePath {
                 voidPromises.append(Services.storageService.deleteImage(filename: imagefilename))
             }
         }
-                   
+                     
         //queue up firestore write call
-        voidPromises.append(Services.exercisePostService.updatePost(withId: id, dict: postDocument))
+        voidPromises.append(Services.exercisePostService.updatePost(post: copyPost))
         
         firstly {
             //execute all promises in parallel!
-            when(fulfilled: voidPromises)
+            when(fulfilled: voidPromises )
         }.done { _ in
             print("success updating Post")
-            self.dismiss(animated: true, completion: nil)
+                     
+            let postMap:[String: ExercisePost] = ["post": copyPost]
+            //will update the Feed View's UI via Notification center
+            NotificationCenter.default.post(name: K.Notifications.ExercisePostEdits, object: nil, userInfo: postMap )
+            
+            //refresh Post Details UI
+            if let updatePostDetailView = self.updatePostDetailClosure {
+                updatePostDetailView(copyPost)
+            }
+            self.dismiss(animated: true) {
+                self.snackbarMessage.text = "Post Updated."
+                MDCSnackbarManager.show(self.snackbarMessage)
+            }
         }.catch { err in
             print("error executing updatePostWorflow promises!")
             print(err)
+            //TODO: Error updating post from no image to new image
         }.finally {
             self.activityIndicator.stopAnimating()
         }        
@@ -277,11 +290,15 @@ extension CreatePostViewController {
         firstly {
             when(fulfilled: uploadImagePromise, Services.exercisePostService.createPost(post: exercisePost))
         }.done { voidResult, newPost in
+            
+            if let updateTableView = self.diffedPostsDataClosure {
+                updateTableView(.add, newPost)
+            }
             self.dismiss(animated: true) {
                 self.snackbarMessage.text = "Post created."
                 let action = MDCSnackbarMessageAction()
                 action.handler = {() in
-                    self.createdPostHandler!(newPost)
+                    self.createdPostDetailClosure!(newPost)
                 }
                 action.title = "View Post"
                 self.snackbarMessage.action = action

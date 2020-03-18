@@ -9,9 +9,10 @@ import MaterialComponents
 import SwiftValidator
 import SwiftSVG
 
-enum UpdatePostMode {
+enum DiffType {
     case add
     case edit
+    case delete
 }
 
 class CreatePostViewController: UIViewController {
@@ -133,19 +134,33 @@ class CreatePostViewController: UIViewController {
     var imagePickerController = UIImagePickerController()
     var isImageChanged = false
     
-    var updatePostMode: UpdatePostMode = .add
+    var updatePostMode: DiffType = .add
     var exercisePost: ExercisePost?
     var currentUser: User?
     var exercises = [Exercise]()
     var selectedExercise: Exercise?
-    var createdPostHandler: ((_ post:ExercisePost) -> Any)?
-    static func create(updatePostMode: UpdatePostMode = .add, post: ExercisePost? = nil, createdPostHandler: ((_ post:ExercisePost) -> Void)? = nil) -> CreatePostViewController  {
+        
+    typealias CreatedPostDetailClosureType = ((_ post:ExercisePost) -> Void)
+    typealias DiffedPostsDataUpdateClosureType = ((_ diffType: DiffType, _ post: ExercisePost) -> Void) //takes diff type, and post to be modified
+    
+    var createdPostDetailClosure: CreatedPostDetailClosureType? //From the Snackbar Action in FeedView, enter the Post Detail page with newly created Post (b/c Snackbar action created in CreatePost page)...Think React data flowing DOWN Stream
+    
+    var diffedPostsDataClosure: DiffedPostsDataUpdateClosureType? //To dynamically update UITableView with the new post
+    var updatePostDetailClosure: CreatedPostDetailClosureType? //To refresh Post Detail page
+    
+    static func create(updatePostMode: DiffType = .add, post: ExercisePost? = nil,
+                       createdPostDetailClosure: CreatedPostDetailClosureType? = nil,
+                       diffedPostsDataClosure: DiffedPostsDataUpdateClosureType? = nil,
+                       updatePostDetailClosure: CreatedPostDetailClosureType? = nil) -> CreatePostViewController  {
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         let createPostViewController = storyboard.instantiateViewController(withIdentifier: K.Storyboard.CreatePostViewControllerId) as! CreatePostViewController
         
         createPostViewController.updatePostMode = updatePostMode
         createPostViewController.exercisePost = post
-        createPostViewController.createdPostHandler = createdPostHandler
+        createPostViewController.createdPostDetailClosure = createdPostDetailClosure
+        createPostViewController.diffedPostsDataClosure = diffedPostsDataClosure
+        createPostViewController.updatePostDetailClosure = updatePostDetailClosure
+        
         return createPostViewController
     }
 
