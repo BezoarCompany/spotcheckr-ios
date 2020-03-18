@@ -19,8 +19,8 @@ protocol ExercisePostProtocol {
     func writePost(dict: [String: Any]) -> Promise<Void>
     func createPost(post: ExercisePost) -> Promise<ExercisePost>
     func writeAnswer(answer: Answer) -> Promise<Void>
-    
-    func updatePost(withId id:String, dict: [String: Any]) -> Promise<Void>
+        
+    func updatePost(post: ExercisePost) -> Promise<Void>
     
     func deletePost(_ post: ExercisePost) -> Promise<Void>
     func deleteAnswers(forPostWithId postId: String) -> Promise<Void>

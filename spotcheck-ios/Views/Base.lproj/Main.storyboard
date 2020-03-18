@@ -309,7 +309,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Cvp-oP-4nj">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Cvp-oP-4nj">
                                 <rect key="frame" x="0.0" y="44" width="414" height="780"/>
                                 <color key="backgroundColor" red="0.1764735281" green="0.17646530269999999" blue="0.1764708757" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="sectionIndexColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -334,6 +334,7 @@
                             <constraint firstItem="lD3-Ee-8VS" firstAttribute="leading" secondItem="qMF-pz-b0p" secondAttribute="leading" id="8Vf-iI-9fI"/>
                             <constraint firstItem="lD3-Ee-8VS" firstAttribute="trailing" secondItem="qMF-pz-b0p" secondAttribute="trailing" id="HQC-qc-aow"/>
                             <constraint firstItem="Cvp-oP-4nj" firstAttribute="top" secondItem="qMF-pz-b0p" secondAttribute="top" id="ISC-kS-e9u"/>
+                            <constraint firstItem="qMF-pz-b0p" firstAttribute="bottom" secondItem="Cvp-oP-4nj" secondAttribute="bottom" constant="38" id="Niw-Yo-QwP"/>
                             <constraint firstItem="qMF-pz-b0p" firstAttribute="bottom" secondItem="lD3-Ee-8VS" secondAttribute="bottom" constant="72" id="O2I-xe-1ZN"/>
                             <constraint firstItem="Cvp-oP-4nj" firstAttribute="trailing" secondItem="qMF-pz-b0p" secondAttribute="trailing" id="SZK-Ft-kUE"/>
                             <constraint firstItem="Cvp-oP-4nj" firstAttribute="leading" secondItem="qMF-pz-b0p" secondAttribute="leading" id="jvI-A4-xuI"/>

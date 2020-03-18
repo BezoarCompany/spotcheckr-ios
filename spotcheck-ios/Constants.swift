@@ -1,7 +1,13 @@
+import Foundation
+
 struct K {
     struct App {
         static let BundleId = "com.spotcheck"
         static let CacheLifespanSeconds = 1 * 60 * 60
+    }
+    
+    struct Notifications {
+        static let ExercisePostEdits = Notification.Name("ExercisePostEdits")
     }
     
     struct Storyboard {
