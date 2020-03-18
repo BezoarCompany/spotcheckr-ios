@@ -1,7 +1,7 @@
 import Foundation
 import Firebase
 import PromiseKit
-import MaterialComponents.MDCFlatButton
+import MaterialComponents
 
 class ProfileViewController: UIViewController {
     @IBOutlet weak var logoutButton: UIBarButtonItem!
@@ -12,29 +12,9 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var heightLabel: UILabel!
     @IBOutlet weak var weightLabel: UILabel!
     @IBOutlet weak var profilePictureImageView: UIImageView!
-    @IBOutlet weak var postsButton: MDCFlatButton!
-    @IBOutlet weak var answersButton: MDCFlatButton!
     @IBOutlet weak var editProfileButton: MDCFlatButton!
     @IBOutlet weak var postsTableView: UITableView!
     @IBOutlet weak var answersTableView: UITableView!
-    
-    @IBAction func postsButtonOnClick(_ sender: Any) {
-        self.postsTableView.isHidden = false
-        self.answersTableView.isHidden = true
-        self.postsButton.setBackgroundColor(ApplicationScheme.instance.containerScheme.colorScheme.secondaryColor)
-        self.postsButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onSecondaryColor, for: .normal)
-        self.answersButton.setBackgroundColor(ApplicationScheme.instance.containerScheme.colorScheme.primaryColor)
-        self.answersButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor, for: .normal)
-    }
-    
-    @IBAction func answersButtonOnClick(_ sender: Any) {
-        self.answersTableView.isHidden = false
-        self.postsTableView.isHidden = true
-        self.answersButton.setBackgroundColor(ApplicationScheme.instance.containerScheme.colorScheme.secondaryColor)
-        self.answersButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onSecondaryColor, for: .normal)
-        self.postsButton.setBackgroundColor(ApplicationScheme.instance.containerScheme.colorScheme.primaryColor)
-        self.postsButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor, for: .normal)
-    }
     
     @IBAction func logoutTapped(_ sender: Any) {
         do {
@@ -48,6 +28,8 @@ class ProfileViewController: UIViewController {
         }
     }
     
+    var tabBar: MDCTabBar?
+    let tabBarView = UIView()
     let snackbarMessage: MDCSnackbarMessage = {
        let message = MDCSnackbarMessage()
         MDCSnackbarTypographyThemer.applyTypographyScheme(ApplicationScheme.instance.containerScheme.typographyScheme)
@@ -63,9 +45,16 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        initTabBar()
         initTableViews()
+        addSubviews()
         resolveProfileUser()
         applyStyles()
+        applyConstraints()
+    }
+    
+    private func addSubviews() {
+        self.view.addSubview(self.tabBar!)
     }
     
     private func resolveProfileUser() {
@@ -93,14 +82,13 @@ class ProfileViewController: UIViewController {
                 }.done { posts, answers in
                     //TODO: Dismiss spinnner
                     //TODO: Add to table for posts and answers
-                    self.postsButton.setTitle("\(posts.count) Posts", for: .normal)
-                    self.answersButton.setTitle("\(answers.count) Answers", for: .normal)
+                    self.tabBar?.items[0].title = "\(posts.count) Posts"
+                    self.tabBar?.items[1].title = "\(answers.count) Answers"
                     self.answers = answers
                     self.posts = posts
                     
                     self.postsTableView.reloadData()
                     self.answersTableView.reloadData()
-                    
                 }.catch {error in
                     //TODO: Show error message on the table view for failing to fetch posts/answers
                 }
@@ -154,14 +142,16 @@ class ProfileViewController: UIViewController {
         heightLabel.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
         weightLabel.font = ApplicationScheme.instance.containerScheme.typographyScheme.body1
         weightLabel.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
-        
-        postsButton.applyOutlinedTheme(withScheme: ApplicationScheme.instance.containerScheme)
-        postsButton.setTitleFont(ApplicationScheme.instance.containerScheme.typographyScheme.button, for: .normal)
-        postsButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onSecondaryColor, for: .normal)
-        postsButton.setBackgroundColor(ApplicationScheme.instance.containerScheme.colorScheme.secondaryColor)
-        answersButton.applyOutlinedTheme(withScheme: ApplicationScheme.instance.containerScheme)
-        answersButton.setTitleFont(ApplicationScheme.instance.containerScheme.typographyScheme.button, for: .normal)
-        answersButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor, for: .normal)
+    }
+    
+    private func applyConstraints() {
+        self.tabBar?.translatesAutoresizingMaskIntoConstraints = false
+        self.tabBar?.topAnchor.constraint(equalTo: self.weightLabel.bottomAnchor, constant: 10).isActive = true
+        //self.tabBar?.bottomAnchor.constraint(equalTo: self.answersTableView.topAnchor, constant: 0).isActive = true
+        self.tabBar?.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 0).isActive = true
+        self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: self.tabBar!.trailingAnchor, constant: 0).isActive = true
+        self.answersTableView.topAnchor.constraint(equalTo: self.tabBar!.bottomAnchor, constant: 0).isActive = true
+        self.postsTableView.topAnchor.constraint(equalTo: self.tabBar!.bottomAnchor, constant: 0).isActive = true
     }
 }
 
@@ -249,5 +239,37 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         self.postsTableView.register(UINib(nibName:K.Storyboard.profilPostNibName, bundle: nil), forCellReuseIdentifier: K.Storyboard.profilePostCellId)
         self.answersTableView.tableFooterView = UIView()
         self.answersTableView.register(UINib(nibName:K.Storyboard.profilPostNibName, bundle: nil), forCellReuseIdentifier: K.Storyboard.profilePostCellId)
+    }
+}
+
+extension ProfileViewController: MDCTabBarDelegate {
+    private func initTabBar() {
+        self.tabBar = MDCTabBar(frame: self.view.bounds)
+        self.tabBar?.delegate = self
+        self.tabBar?.items = [
+            UITabBarItem(title: "\(posts.count) Posts", image: nil, tag: 0),
+            UITabBarItem(title: "\(answers.count) Answers", image: nil, tag: 1)
+        ]
+        self.tabBar?.itemAppearance = .titles
+        self.tabBar?.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
+        self.tabBar?.sizeToFit()
+        self.tabBar?.applyPrimaryTheme(withScheme: ApplicationScheme.instance.containerScheme)
+    }
+    
+    func position(for bar: UIBarPositioning) -> UIBarPosition {
+        return .any
+    }
+    
+    func tabBar(_ tabBar: MDCTabBar, didSelect item: UITabBarItem) {
+        switch tabBar.tag {
+        case 0:
+            tabBar.selectedItem = tabBar.items[0]
+        case 1:
+            tabBar.selectedItem = tabBar.items[1]
+        default:
+            break
+        }
+        self.postsTableView.isHidden = !self.postsTableView.isHidden
+        self.answersTableView.isHidden = !self.answersTableView.isHidden
     }
 }
