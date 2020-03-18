@@ -218,8 +218,7 @@ extension PostDetailViewController: UITableViewDataSource {
             cell.answerBodyLabel.text = answer?.text
             cell.answererNameLabel.text = answer?.createdBy?.information?.fullName
             cell.answererInfoLabel.text = answer?.createdBy?.information?.salutation
-            
-            cell.likeCountLabel.text = "\(answer?.upvotes ?? 0)"
+            //TODO: Do something with like count label since that is gone @Miguel. Perhaps show total votes instead?
             
             return cell
         }

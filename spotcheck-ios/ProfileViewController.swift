@@ -1,9 +1,9 @@
 import Foundation
 import Firebase
 import PromiseKit
-import MaterialComponents.MDCFlatButton
+import MaterialComponents
 
-class ProfileViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ProfileViewController: UIViewController {
     @IBOutlet weak var logoutButton: UIBarButtonItem!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var certificationsHeadingLabel: UILabel!
@@ -12,11 +12,24 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var heightLabel: UILabel!
     @IBOutlet weak var weightLabel: UILabel!
     @IBOutlet weak var profilePictureImageView: UIImageView!
-    @IBOutlet weak var postsButton: MDCFlatButton!
-    @IBOutlet weak var answersButton: MDCFlatButton!
     @IBOutlet weak var editProfileButton: MDCFlatButton!
     @IBOutlet weak var postsTableView: UITableView!
+    @IBOutlet weak var answersTableView: UITableView!
     
+    @IBAction func logoutTapped(_ sender: Any) {
+        do {
+            try Services.userService.signOut()
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let baseViewController = storyboard.instantiateViewController(withIdentifier: K.Storyboard.AuthOptionViewControllerId )
+            UIApplication.shared.keyWindow?.rootViewController = baseViewController
+        } catch {
+            self.snackbarMessage.text = "An error occurred signing out."
+            MDCSnackbarManager.show(self.snackbarMessage)
+        }
+    }
+    
+    var tabBar: MDCTabBar?
+    let tabBarView = UIView()
     let snackbarMessage: MDCSnackbarMessage = {
        let message = MDCSnackbarMessage()
         MDCSnackbarTypographyThemer.applyTypographyScheme(ApplicationScheme.instance.containerScheme.typographyScheme)
@@ -32,45 +45,16 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.postsTableView.register(UINib(nibName:K.Storyboard.profilPostNibName, bundle: nil), forCellReuseIdentifier: K.Storyboard.profilePostCellId)
-        //TODO: Remove, only for testing purposes
-        //setupTestUser()
+        initTabBar()
+        initTableViews()
+        addSubviews()
         resolveProfileUser()
         applyStyles()
+        applyConstraints()
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.posts.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let post = posts[indexPath.row]
-        let cell = self.postsTableView.dequeueReusableCell(withIdentifier: K.Storyboard.profilePostCellId, for: indexPath) as! ProfilePostCell
-            
-        cell.titleLabel.text = post.title
-        cell.descriptionLabel.text = post.description
-        cell.datePostedLabel.text = post.dateCreated?.toDisplayFormat()
-        cell.voteTotalLabel.text = "\(post.metrics.totalVotes)"
-        cell.votingUserId = self.currentUser?.id
-        cell.postId = post.id
-        cell.voteDirection = post.metrics.currentVoteDirection
-        cell.answersCountLabel.text = "\(post.answers.count)"
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let cell = cell as! ProfilePostCell
-        cell.adjustVotingControls()
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let postDetailViewController = PostDetailViewController.create(post: posts[indexPath.row])
-        self.navigationController?.pushViewController(postDetailViewController, animated: true)
-    }
-    
-    private func setupTestUser() {
-        self.currentUser = FakeDataFactory.GetTrainers(count: 1)[0]
-        populateUserProfileInformation()
+    private func addSubviews() {
+        self.view.addSubview(self.tabBar!)
     }
     
     private func resolveProfileUser() {
@@ -98,37 +82,18 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
                 }.done { posts, answers in
                     //TODO: Dismiss spinnner
                     //TODO: Add to table for posts and answers
-                    self.postsButton.setTitle("\(posts.count) Posts", for: .normal)
-                    self.answersButton.setTitle("\(answers.count) Answers", for: .normal)
+                    self.tabBar?.items[0].title = "\(posts.count) Posts"
+                    self.tabBar?.items[1].title = "\(answers.count) Answers"
                     self.answers = answers
                     self.posts = posts
                     
                     self.postsTableView.reloadData()
-                    print(posts)
-                    print(answers)
+                    self.answersTableView.reloadData()
                 }.catch {error in
                     //TODO: Show error message on the table view for failing to fetch posts/answers
                 }
             }
         }
-    }
-    
-    @IBAction func postsButtonOnClick(_ sender: Any) {
-        self.postsTableView.isHidden = false
-        //self.answersTableView.isHidden = true
-        self.postsButton.setBackgroundColor(ApplicationScheme.instance.containerScheme.colorScheme.secondaryColor)
-        self.postsButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onSecondaryColor, for: .normal)
-        self.answersButton.setBackgroundColor(ApplicationScheme.instance.containerScheme.colorScheme.primaryColor)
-        self.answersButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor, for: .normal)
-    }
-    
-    @IBAction func answersButtonOnClick(_ sender: Any) {
-        //self.answersTableView.isHidden = false
-        self.postsTableView.isHidden = true
-        self.answersButton.setBackgroundColor(ApplicationScheme.instance.containerScheme.colorScheme.secondaryColor)
-        self.answersButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onSecondaryColor, for: .normal)
-        self.postsButton.setBackgroundColor(ApplicationScheme.instance.containerScheme.colorScheme.primaryColor)
-        self.postsButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor, for: .normal)
     }
     
     private func showCurrentUserOnlyControls() {
@@ -177,26 +142,134 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         heightLabel.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
         weightLabel.font = ApplicationScheme.instance.containerScheme.typographyScheme.body1
         weightLabel.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
-        
-        postsButton.applyOutlinedTheme(withScheme: ApplicationScheme.instance.containerScheme)
-        postsButton.setTitleFont(ApplicationScheme.instance.containerScheme.typographyScheme.button, for: .normal)
-        postsButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onSecondaryColor, for: .normal)
-        postsButton.setBackgroundColor(ApplicationScheme.instance.containerScheme.colorScheme.secondaryColor)
-        answersButton.applyOutlinedTheme(withScheme: ApplicationScheme.instance.containerScheme)
-        answersButton.setTitleFont(ApplicationScheme.instance.containerScheme.typographyScheme.button, for: .normal)
-        answersButton.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor, for: .normal)
-    
     }
     
-    @IBAction func logoutTapped(_ sender: Any) {
-        do {
-            try Services.userService.signOut()
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let baseViewController = storyboard.instantiateViewController(withIdentifier: K.Storyboard.AuthOptionViewControllerId )
-            UIApplication.shared.keyWindow?.rootViewController = baseViewController
-        } catch {
-            self.snackbarMessage.text = "An error occurred signing out."
-            MDCSnackbarManager.show(self.snackbarMessage)
+    private func applyConstraints() {
+        self.tabBar?.translatesAutoresizingMaskIntoConstraints = false
+        self.tabBar?.topAnchor.constraint(equalTo: self.weightLabel.bottomAnchor, constant: 10).isActive = true
+        //self.tabBar?.bottomAnchor.constraint(equalTo: self.answersTableView.topAnchor, constant: 0).isActive = true
+        self.tabBar?.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 0).isActive = true
+        self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: self.tabBar!.trailingAnchor, constant: 0).isActive = true
+        self.answersTableView.topAnchor.constraint(equalTo: self.tabBar!.bottomAnchor, constant: 0).isActive = true
+        self.postsTableView.topAnchor.constraint(equalTo: self.tabBar!.bottomAnchor, constant: 0).isActive = true
+    }
+}
+
+extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tableView == self.postsTableView ? self.posts.count : self.answers.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if tableView == self.postsTableView {
+            let post = posts[indexPath.row]
+            let cell = self.postsTableView.dequeueReusableCell(withIdentifier: K.Storyboard.profilePostCellId, for: indexPath) as! ProfilePostCell
+                
+            cell.titleLabel.text = post.title
+            cell.descriptionLabel.text = post.description
+            cell.datePostedLabel.text = post.dateCreated?.toDisplayFormat()
+            cell.voteTotalLabel.text = "\(post.metrics.totalVotes)"
+            cell.votingUserId = self.currentUser?.id
+            cell.postId = post.id
+            cell.voteDirection = post.metrics.currentVoteDirection
+            cell.answersCountLabel.text = "\(post.answers.count)"
+            let moreIconActionSheet = UIElementFactory.getActionSheet()
+            let deleteAction = MDCActionSheetAction(title: "Delete", image: Images.trash, handler: { (MDCActionSheetHandler) in
+                firstly {
+                    Services.exercisePostService.deletePost(post)
+                }.done {
+                    self.snackbarMessage.text = "Post deleted."
+                    MDCSnackbarManager.show(self.snackbarMessage)
+                }
+                .catch { error in
+                    self.snackbarMessage.text = "Failed to delete post."
+                    MDCSnackbarManager.show(self.snackbarMessage)
+                }
+            })
+            moreIconActionSheet.addAction(deleteAction)
+            cell.onMoreIconClick = {
+                self.present(moreIconActionSheet, animated: true, completion: nil)
+            }
+            return cell
         }
+        
+        let answer = answers[indexPath.row]
+        let cell = self.answersTableView.dequeueReusableCell(withIdentifier: K.Storyboard.profilePostCellId, for: indexPath) as! ProfilePostCell
+            
+        cell.descriptionLabel.text = answer.text
+        cell.datePostedLabel.text = answer.dateCreated?.toDisplayFormat()
+        cell.voteTotalLabel.text = "\(answer.metrics!.totalVotes)"
+        cell.votingUserId = self.currentUser?.id
+        cell.voteDirection = answer.metrics?.currentVoteDirection
+        cell.hideAnswers = true
+        let moreIconActionSheet = UIElementFactory.getActionSheet()
+        let deleteAction = MDCActionSheetAction(title: "Delete", image: Images.trash, handler: { (MDCActionSheetHandler) in
+            firstly {
+                Services.exercisePostService.deleteAnswer(withId: answer.id!)
+            }.done {
+                self.snackbarMessage.text = "Answer deleted."
+                MDCSnackbarManager.show(self.snackbarMessage)
+            }
+            .catch { error in
+                self.snackbarMessage.text = "Failed to delete answer."
+                MDCSnackbarManager.show(self.snackbarMessage)
+            }
+        })
+        moreIconActionSheet.addAction(deleteAction)
+        cell.onMoreIconClick = {
+            self.present(moreIconActionSheet, animated: true, completion: nil)
+        }
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let cell = cell as! ProfilePostCell
+        cell.adjustVotingControls()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if tableView == self.postsTableView {
+            let postDetailViewController = PostDetailViewController.create(post: posts[indexPath.row])
+            self.navigationController?.pushViewController(postDetailViewController, animated: true)
+        }
+    }
+    
+    private func initTableViews() {
+        self.postsTableView.tableFooterView = UIView()
+        self.postsTableView.register(UINib(nibName:K.Storyboard.profilPostNibName, bundle: nil), forCellReuseIdentifier: K.Storyboard.profilePostCellId)
+        self.answersTableView.tableFooterView = UIView()
+        self.answersTableView.register(UINib(nibName:K.Storyboard.profilPostNibName, bundle: nil), forCellReuseIdentifier: K.Storyboard.profilePostCellId)
+    }
+}
+
+extension ProfileViewController: MDCTabBarDelegate {
+    private func initTabBar() {
+        self.tabBar = MDCTabBar(frame: self.view.bounds)
+        self.tabBar?.delegate = self
+        self.tabBar?.items = [
+            UITabBarItem(title: "\(posts.count) Posts", image: nil, tag: 0),
+            UITabBarItem(title: "\(answers.count) Answers", image: nil, tag: 1)
+        ]
+        self.tabBar?.itemAppearance = .titles
+        self.tabBar?.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
+        self.tabBar?.sizeToFit()
+        self.tabBar?.applyPrimaryTheme(withScheme: ApplicationScheme.instance.containerScheme)
+    }
+    
+    func position(for bar: UIBarPositioning) -> UIBarPosition {
+        return .any
+    }
+    
+    func tabBar(_ tabBar: MDCTabBar, didSelect item: UITabBarItem) {
+        switch tabBar.tag {
+        case 0:
+            tabBar.selectedItem = tabBar.items[0]
+        case 1:
+            tabBar.selectedItem = tabBar.items[1]
+        default:
+            break
+        }
+        self.postsTableView.isHidden = !self.postsTableView.isHidden
+        self.answersTableView.isHidden = !self.answersTableView.isHidden
     }
 }

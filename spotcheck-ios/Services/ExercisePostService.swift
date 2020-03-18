@@ -177,7 +177,6 @@ class ExercisePostService: ExercisePostProtocol {
                 for document in postsSnapshot!.documents {
                     metricsPromises.append(self.getUpvoteCount(forPostWithId: document.documentID, collection: self.postsCollection))
                     metricsPromises.append(self.getDownvoteCount(forPostWithId: document.documentID, collection: self.postsCollection))
-                    metricsPromises.append(self.getLikesCount(forPostWithId: document.documentID))
                     metricsPromises.append(self.getViewsCount(forPostWithId: document.documentID))
                     exercisePromises.append(self.getExercises(forPostWithId: document.documentID))
                     voteDirectionPromises.append(self.getVoteDirection(forPostWithId: document.documentID))
@@ -203,8 +202,7 @@ class ExercisePostService: ExercisePostProtocol {
                                 var voteDirectionIndex = 0
                                 var answerIndex = 0
                                 for document in postsSnapshot!.documents {
-                                    let metrics = Metrics(views: metricsResults[metricsIndex + 3],
-                                                         likes: metricsResults[metricsIndex + 2],
+                                    let metrics = Metrics(views: metricsResults[metricsIndex + 2],
                                                          upvotes: metricsResults[metricsIndex],
                                                          downvotes: metricsResults[metricsIndex + 1],
                                                          currentVoteDirection: voteDirectionResults[voteDirectionIndex])
@@ -216,7 +214,7 @@ class ExercisePostService: ExercisePostProtocol {
                                                                            answers: answerResults[answerIndex])
                                     exercisePost.createdBy = user
                                     userPosts.append(exercisePost)
-                                    metricsIndex += 4
+                                    metricsIndex += 3
                                     exercisesIndex += 1
                                     voteDirectionIndex += 1
                                     answerIndex += 1
@@ -255,20 +253,6 @@ class ExercisePostService: ExercisePostProtocol {
                 }
                 //TODO: Store in cache. When a post/answer is downvoted we will pull the item from the cache, increment it, and store it back.
                 return promise.fulfill(downvoteSnapshot!.documents.count)
-            }
-        }
-    }
-    
-    func getLikesCount(forPostWithId postId: String) -> Promise<Int> {
-        return Promise { promise in
-            //TODO: Pull from cache for a post
-            let likesRef = Firestore.firestore().collection("\(self.postsCollection)/\(postId)/\(self.likeCollection)")
-            likesRef.getDocuments { (likesSnapshot, error) in
-                if let error = error {
-                    return promise.reject(error)
-                }
-                //TODO: Store in cache if necessary. When someone likes the post we will add their entry to post likes subcollection, pull the current value from the cache, increment the likes in the cache and then store it back there too.
-                return promise.fulfill(likesSnapshot!.documents.count)
             }
         }
     }
