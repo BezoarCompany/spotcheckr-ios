@@ -4,6 +4,7 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import FirebaseStorage
 import PromiseKit
+import MaterialComponents
 
 class PostDetailViewController : UIViewController {
     
@@ -14,7 +15,6 @@ class PostDetailViewController : UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     @IBAction func addAnswerButton(_ sender: Any) {
-        print("pressed add answer")        
         let createAnswerViewController = CreateAnswerViewController.create(post: post)
         self.present(createAnswerViewController, animated: true)
     }
@@ -23,29 +23,38 @@ class PostDetailViewController : UIViewController {
     let exercisePostService = ExercisePostService()
     
     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
-        
-        /*
- Post(postId: "a", authorId: "1", authorName: "Miguel", createdAt: "2/2/2020", updatedAt: "2/2/2020", question: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in")
-    */
+    let appBarViewController = UIElementFactory.getAppBar()
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        self.addChild(appBarViewController)
+    }
+    
     static func create(post: ExercisePost?) -> PostDetailViewController {
-       let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         let postDetailViewController = storyboard.instantiateViewController(withIdentifier: K.Storyboard.PostDetailViewControllerId) as! PostDetailViewController
         
         postDetailViewController.post = post
         return postDetailViewController
-        
     }
     
-    // MARK: UIViewController Lifecycle
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-            
+        view.addSubview(appBarViewController.view)
+        appBarViewController.didMove(toParent: self)
+        
         firstly {
             //TODO: Replace with call to getAnswers(from: Number) which returns all answers since a specific "page length" (e.g. get first 10 posts by created date, scroll, when reached 8/10 posts fetch next 10 posts.
             self.exercisePostService.getAnswers(forPostWithId : post?.id ?? "" )
         }.done { answers in
             self.post?.answers = answers
             self.post?.answersCount = answers.count
+            self.appBarViewController.navigationBar.title = "\(answers.count) Answers"
+            self.appBarViewController.navigationBar.leadingBarButtonItem = UIBarButtonItem(image: Images.back, style: .done, target: self, action: #selector(self.backOnClick(sender:)))
             self.tableView.reloadData()
         }.catch { error in
             //TODO: Do something when post fetching fails
@@ -72,8 +81,11 @@ class PostDetailViewController : UIViewController {
         initActivityIndicator()
     }
     
+    @objc func backOnClick(sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     @objc func modifyPost () {
-        print("clickedModifyPost")
         let alert = UIAlertController(title: "Choose Action", message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Edit ", style: .default, handler: { _ in
             let createPostViewController = CreatePostViewController.create(updatePostMode: .edit, post: self.post)

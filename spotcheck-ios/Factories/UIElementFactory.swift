@@ -20,4 +20,10 @@ class UIElementFactory {
         sheet.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
         return sheet
     }
+    
+    static func getAppBar() -> MDCAppBarViewController {
+        let vc = MDCAppBarViewController()
+        vc.applyPrimaryTheme(withScheme: ApplicationScheme.instance.containerScheme)
+        return vc
+    }
 }

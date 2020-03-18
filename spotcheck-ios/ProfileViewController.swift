@@ -4,8 +4,6 @@ import PromiseKit
 import MaterialComponents
 
 class ProfileViewController: UIViewController {
-    @IBOutlet weak var logoutButton: UIBarButtonItem!
-    @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var certificationsHeadingLabel: UILabel!
     @IBOutlet weak var certificationsLabel: UILabel!
     @IBOutlet weak var occupationLabel: UILabel!
@@ -16,7 +14,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var postsTableView: UITableView!
     @IBOutlet weak var answersTableView: UITableView!
     
-    @IBAction func logoutTapped(_ sender: Any) {
+    @objc func logoutTapped(_ sender: Any) {
         do {
             try Services.userService.signOut()
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -35,16 +33,25 @@ class ProfileViewController: UIViewController {
         MDCSnackbarTypographyThemer.applyTypographyScheme(ApplicationScheme.instance.containerScheme.typographyScheme)
        return message
     }()
-    
     var currentUser: User?
     var receivedUser: User?
-    
     var answers = [Answer]()
     var posts = [ExercisePost]()
+    let appBarViewController = UIElementFactory.getAppBar()
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        self.addChild(appBarViewController)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        initAppBar()
         initTabBar()
         initTableViews()
         addSubviews()
@@ -53,7 +60,13 @@ class ProfileViewController: UIViewController {
         applyConstraints()
     }
     
+    private func initAppBar() {
+        self.appBarViewController.didMove(toParent: self)
+        self.appBarViewController.navigationBar.rightBarButtonItem = UIBarButtonItem(image: Images.logOut, style: .done, target: self, action: #selector(self.logoutTapped(_:)))
+    }
+    
     private func addSubviews() {
+        self.view.addSubview(appBarViewController.view)
         self.view.addSubview(self.tabBar!)
     }
     
@@ -102,7 +115,7 @@ class ProfileViewController: UIViewController {
     
     private func populateUserProfileInformation() {
         //TODO: Resolve, what to do if we don't have their full name.
-        self.nameLabel.text = (self.currentUser?.information?.fullName.isEmpty ?? true) ? "Anonymous" : self.currentUser?.information?.fullName
+        self.appBarViewController.navigationBar.title = (self.currentUser?.information?.name.isEmpty ?? true) ? "Anonymous" : self.currentUser?.information?.name
         if self.currentUser is Trainer {
             let trainer = self.currentUser as! Trainer
             if trainer.certifications.count == 0 {
@@ -130,8 +143,6 @@ class ProfileViewController: UIViewController {
     }
     
     private func applyStyles() {
-        nameLabel.font = ApplicationScheme.instance.containerScheme.typographyScheme.body1
-        nameLabel.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
         certificationsLabel.font = ApplicationScheme.instance.containerScheme.typographyScheme.body1
         certificationsLabel.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
         certificationsHeadingLabel.font = ApplicationScheme.instance.containerScheme.typographyScheme.body1
@@ -147,11 +158,13 @@ class ProfileViewController: UIViewController {
     private func applyConstraints() {
         self.tabBar?.translatesAutoresizingMaskIntoConstraints = false
         self.tabBar?.topAnchor.constraint(equalTo: self.weightLabel.bottomAnchor, constant: 10).isActive = true
-        //self.tabBar?.bottomAnchor.constraint(equalTo: self.answersTableView.topAnchor, constant: 0).isActive = true
         self.tabBar?.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 0).isActive = true
         self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: self.tabBar!.trailingAnchor, constant: 0).isActive = true
         self.answersTableView.topAnchor.constraint(equalTo: self.tabBar!.bottomAnchor, constant: 0).isActive = true
         self.postsTableView.topAnchor.constraint(equalTo: self.tabBar!.bottomAnchor, constant: 0).isActive = true
+        self.profilePictureImageView.topAnchor.constraint(equalTo: self.appBarViewController.navigationBar.bottomAnchor, constant: 16).isActive = true
+        self.certificationsHeadingLabel.topAnchor.constraint(equalTo: self.appBarViewController.navigationBar.bottomAnchor, constant: 16).isActive = true
+        self.editProfileButton.topAnchor.constraint(equalTo: self.appBarViewController.navigationBar.bottomAnchor, constant: 16).isActive = true
     }
 }
 
