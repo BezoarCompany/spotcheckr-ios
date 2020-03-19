@@ -38,6 +38,10 @@ class ProfileViewController: UIViewController {
     var answers = [Answer]()
     var posts = [ExercisePost]()
     let appBarViewController = UIElementFactory.getAppBar()
+    let postsTableActivityIndicator = UIElementFactory.getActivityIndicator()
+    let answersTableActivityIndicator = UIElementFactory.getActivityIndicator()
+    let postsRefreshControl = UIRefreshControl()
+    let answersRefreshControl = UIRefreshControl()
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -156,6 +160,10 @@ class ProfileViewController: UIViewController {
     }
     
     private func applyConstraints() {
+        self.postsTableActivityIndicator.centerXAnchor.constraint(equalTo: self.postsRefreshControl.centerXAnchor).isActive = true
+        self.postsTableActivityIndicator.centerYAnchor.constraint(equalTo: self.postsRefreshControl.centerYAnchor).isActive = true
+        self.answersTableActivityIndicator.centerXAnchor.constraint(equalTo: self.answersRefreshControl.centerXAnchor).isActive = true
+        self.answersTableActivityIndicator.centerYAnchor.constraint(equalTo: self.answersRefreshControl.centerYAnchor).isActive = true
         self.tabBar?.translatesAutoresizingMaskIntoConstraints = false
         self.tabBar?.topAnchor.constraint(equalTo: self.weightLabel.bottomAnchor, constant: 10).isActive = true
         self.tabBar?.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 0).isActive = true
@@ -248,10 +256,62 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     private func initTableViews() {
+        //TODO: Refreshing like this will mean a hit for fetching all the documents over again.
+        //We really only want the diff of documents based on the last refresh date so that we're pulling less data.
+        self.postsRefreshControl.addSubview(self.postsTableActivityIndicator)
+        self.postsRefreshControl.tintColor = .clear
+        self.postsRefreshControl.backgroundColor = .clear
+        self.postsRefreshControl.addTarget(self, action: #selector(refreshPosts), for: .valueChanged)
+        self.postsTableView.addSubview(self.postsRefreshControl)
         self.postsTableView.tableFooterView = UIView()
         self.postsTableView.register(UINib(nibName:K.Storyboard.profilPostNibName, bundle: nil), forCellReuseIdentifier: K.Storyboard.profilePostCellId)
+        
+        self.answersRefreshControl.addSubview(self.answersTableActivityIndicator)
+        self.answersRefreshControl.tintColor = .clear
+        self.answersRefreshControl.backgroundColor = .clear
+        self.answersRefreshControl.addTarget(self, action: #selector(refreshAnswers), for: .valueChanged)
+        self.answersTableView.addSubview(self.answersRefreshControl)
         self.answersTableView.tableFooterView = UIView()
         self.answersTableView.register(UINib(nibName:K.Storyboard.profilPostNibName, bundle: nil), forCellReuseIdentifier: K.Storyboard.profilePostCellId)
+    }
+    
+    @objc func refreshPosts() {
+        self.postsTableActivityIndicator.startAnimating()
+        firstly {
+            Services.exercisePostService.getPosts(forUser: self.currentUser!)
+        }.done { posts in
+            self.posts = posts
+            self.tabBar?.items[0].title = "\(self.posts.count) Posts"
+            self.postsTableView.reloadData()
+        }.catch{ (error) in
+            self.snackbarMessage.text = "Error refreshing posts"
+            MDCSnackbarManager.show(self.snackbarMessage)
+        }.finally {
+            self.perform(#selector(self.finishRefreshing), with: nil, afterDelay: 0.1)
+        }
+    }
+    
+    @objc func refreshAnswers() {
+        self.postsTableActivityIndicator.startAnimating()
+        firstly {
+            Services.exercisePostService.getAnswers(byUserWithId: (self.currentUser?.id!)!)
+        }.done { answers in
+            self.answers = answers
+            self.tabBar?.items[1].title = "\(self.answers.count) Answers"
+            self.answersTableView.reloadData()
+        }.catch{ (error) in
+            self.snackbarMessage.text = "Error refreshing answers"
+            MDCSnackbarManager.show(self.snackbarMessage)
+        }.finally {
+            self.perform(#selector(self.finishRefreshing), with: nil, afterDelay: 0.1)
+        }
+    }
+    
+    @objc func finishRefreshing() {
+        self.postsTableActivityIndicator.stopAnimating()
+        self.answersTableActivityIndicator.stopAnimating()
+        self.postsRefreshControl.endRefreshing()
+        self.answersRefreshControl.endRefreshing()
     }
 }
 
