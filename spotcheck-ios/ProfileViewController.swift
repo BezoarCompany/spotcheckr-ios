@@ -119,7 +119,7 @@ class ProfileViewController: UIViewController {
     
     private func populateUserProfileInformation() {
         //TODO: Resolve, what to do if we don't have their full name.
-        self.appBarViewController.navigationBar.title = (self.currentUser?.information?.name.isEmpty ?? true) ? "Anonymous" : self.currentUser?.information?.name
+        self.appBarViewController.navigationBar.title = (self.currentUser?.information?.name.trim().isEmpty ?? true) ? "Anonymous" : self.currentUser?.information?.name
         if self.currentUser is Trainer {
             let trainer = self.currentUser as! Trainer
             if trainer.certifications.count == 0 {

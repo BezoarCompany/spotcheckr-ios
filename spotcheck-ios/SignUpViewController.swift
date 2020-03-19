@@ -10,6 +10,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, ValidationDel
     @IBOutlet weak var createAccountButton: MDCButton!
     @IBOutlet weak var loginButton: MDCFlatButton!
     
+    var window: UIWindow?
     let emailAddressTextField: MDCTextField = {
         let field = MDCTextField()
         field.placeholder = "Email Address"
@@ -164,7 +165,9 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, ValidationDel
     
     @objc private func authenticationFinished() {
            let homeViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: K.Storyboard.MainTabBarControllerId)
-           self.present(homeViewController, animated: true)
+           self.window = UIWindow(frame: UIScreen.main.bounds)
+           self.window?.rootViewController = homeViewController
+           self.window?.makeKeyAndVisible()
     }
     
     @objc func passwordIconOnClick(sender: Any) {
