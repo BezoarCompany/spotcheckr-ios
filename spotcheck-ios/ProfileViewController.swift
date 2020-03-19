@@ -334,15 +334,17 @@ extension ProfileViewController: MDCTabBarDelegate {
     }
     
     func tabBar(_ tabBar: MDCTabBar, didSelect item: UITabBarItem) {
-        switch tabBar.tag {
+        switch item.tag {
         case 0:
             tabBar.selectedItem = tabBar.items[0]
+            self.postsTableView.isHidden = false
+            self.answersTableView.isHidden = true
         case 1:
             tabBar.selectedItem = tabBar.items[1]
+            self.answersTableView.isHidden = false
+            self.postsTableView.isHidden = true
         default:
             break
         }
-        self.postsTableView.isHidden = !self.postsTableView.isHidden
-        self.answersTableView.isHidden = !self.answersTableView.isHidden
     }
 }

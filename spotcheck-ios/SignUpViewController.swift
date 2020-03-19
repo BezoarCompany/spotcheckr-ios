@@ -248,7 +248,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, ValidationDel
         }.finally {
             self.activityIndicator.stopAnimating()
             self.createAccountButton.setTitle("Create Account", for: .normal)
-            self.createAccountButton.isUserInteractionEnabled = false
+            self.createAccountButton.isUserInteractionEnabled = true
         }
     }
     
