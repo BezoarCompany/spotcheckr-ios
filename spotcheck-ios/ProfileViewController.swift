@@ -292,7 +292,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     @objc func refreshAnswers() {
-        self.postsTableActivityIndicator.startAnimating()
+        self.answersTableActivityIndicator.startAnimating()
         firstly {
             Services.exercisePostService.getAnswers(byUserWithId: (self.currentUser?.id!)!)
         }.done { answers in
