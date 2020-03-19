@@ -111,7 +111,7 @@ class ProfileViewController: UIViewController {
     
     private func showCurrentUserOnlyControls() {
         self.editProfileButton.isHidden = false
-    }
+    }	
     
     private func populateUserProfileInformation() {
         //TODO: Resolve, what to do if we don't have their full name.

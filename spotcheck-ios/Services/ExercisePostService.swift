@@ -460,9 +460,11 @@ class ExercisePostService: ExercisePostProtocol {
     //Will merge attributes of the dictionary arg with the existing Firebase document. That way we're only updating the delta
     //merge:true allows this merge with previous data
     //merge:false does a full overwrite of a document
-    func updatePost(withId id:String, dict: [String: Any]) -> Promise<Void> {
+    func updatePost(post: ExercisePost) -> Promise<Void> {
         return Promise { promise in
             
+            let id = post.id
+            let newPost = post
             //invalidate cache item
             if let tmp = cache[id] {
                 cache[id] = nil
@@ -471,7 +473,7 @@ class ExercisePostService: ExercisePostProtocol {
             let db = Firestore.firestore()
             let docRef = db.collection(K.Firestore.posts).document(id)
             
-            docRef.setData(dict, merge:true) { err in
+            docRef.setData(DomainToFirebaseMapper.mapExercisePost(post: newPost), merge:true) { err in
                 if let err = err {
                     return promise.reject(err)
                 } else {
