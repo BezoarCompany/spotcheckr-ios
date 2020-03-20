@@ -99,8 +99,9 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate, Valid
     }
     
     @objc private func navigateOnReset() {
-           let resetPasswordConfirmationViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: K.Storyboard.PasswordResetConfirmationViewControllerId)
-           self.present(resetPasswordConfirmationViewController, animated: true)
+        let resetPasswordConfirmationViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: K.Storyboard.PasswordResetConfirmationViewControllerId)
+        resetPasswordConfirmationViewController.modalPresentationStyle = .fullScreen
+        self.present(resetPasswordConfirmationViewController, animated: true)
     }
     
     internal func textFieldDidChangeSelection(_ textField: UITextField) {
