@@ -13,8 +13,19 @@ class FeedViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     static let IMAGE_HEIGHT = 200
     var posts = [ExercisePost]()
-    var refreshControl = UIRefreshControl()
+    var refreshControl: UIRefreshControl = {
+        let control = UIRefreshControl()
+        control.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        return control
+    }()
     let appBarViewController = UIElementFactory.getAppBar()
+    let addPostButton: MDCFloatingButton = {
+        let button = MDCFloatingButton()
+        button.applySecondaryTheme(withScheme: ApplicationScheme.instance.containerScheme)
+        button.setImage(Images.plus, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -27,31 +38,14 @@ class FeedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(appBarViewController.view)
         self.appBarViewController.didMove(toParent: self)
         NotificationCenter.default.addObserver(self, selector: #selector(updateTableViewEdittedPost), name: K.Notifications.ExercisePostEdits, object: nil)
         
-        let addPostButton = MDCFloatingButton()
-        addPostButton.setImage(Images.plus, for: .normal)
-        addPostButton.translatesAutoresizingMaskIntoConstraints = false
-        addPostButton.addTarget(self, action: #selector(addTapped), for: .touchUpInside)
-        addPostButton.applySecondaryTheme(withScheme: ApplicationScheme.instance.containerScheme)
-        tableView.addSubview(addPostButton)
-        
-        self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: addPostButton.trailingAnchor, constant: 25).isActive = true
-        self.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: addPostButton.bottomAnchor, constant: 75).isActive = true
-        addPostButton.widthAnchor.constraint(equalToConstant: 64).isActive = true
-        addPostButton.heightAnchor.constraint(equalToConstant: 64).isActive = true
-        
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.register(UINib(nibName:K.Storyboard.postNibName, bundle: nil), forCellReuseIdentifier: K.Storyboard.feedCellId)
-        tableView.separatorInset = UIEdgeInsets(top: 0,left: 0,bottom: 0,right: 0)
-        
-        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
-        refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
-        tableView.addSubview(refreshControl)        
-        
+        addSubviews()
+        initTableView()
+        initRefreshControl()
+        initAddPostButton()
+        applyConstraints()
         getPosts()
     }
     
@@ -62,6 +56,34 @@ class FeedViewController: UIViewController {
         }
         
         Services.exercisePostService.getPosts(success: completePostsDataSet)
+    }
+    
+    func initTableView() {
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(UINib(nibName:K.Storyboard.postNibName, bundle: nil), forCellReuseIdentifier: K.Storyboard.feedCellId)
+        tableView.separatorInset = UIEdgeInsets(top: 0,left: 0,bottom: 0,right: 0)
+    }
+    
+    func addSubviews() {
+        view.addSubview(appBarViewController.view)
+        tableView.addSubview(addPostButton)
+        tableView.addSubview(refreshControl)
+    }
+    
+    func initRefreshControl() {
+        refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
+    }
+    
+    func initAddPostButton() {
+        addPostButton.addTarget(self, action: #selector(addTapped), for: .touchUpInside)
+    }
+    
+    func applyConstraints() {
+        self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: addPostButton.trailingAnchor, constant: 25).isActive = true
+        self.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: addPostButton.bottomAnchor, constant: 75).isActive = true
+        addPostButton.widthAnchor.constraint(equalToConstant: 64).isActive = true
+        addPostButton.heightAnchor.constraint(equalToConstant: 64).isActive = true
     }
     
     @objc func addTapped() {
