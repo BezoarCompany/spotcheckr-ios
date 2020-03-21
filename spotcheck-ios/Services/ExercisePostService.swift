@@ -136,13 +136,13 @@ class ExercisePostService: ExercisePostProtocol {
             let db = Firestore.firestore()
             var query = db.collection(K.Firestore.posts).order(by: "modified-date", descending: true).limit(to: limit)
             
-            if let lastPostSnapsthot = lastPostSnapshot {
-                query = query.start(afterDocument: lastPostSnapshot!)
+            if let lastPostSnapshot = lastPostSnapshot {
+                query = query.start(afterDocument: lastPostSnapshot)
             }
             
             query.getDocuments() { querySnapshot, error in
-                guard error == nil, let querySnapshot = querySnapshot, !querySnapshot.isEmpty else {
-                    return promise.reject(error!)
+                if let error = error {
+                    return promise.reject(error)
                 }
                 
                 
@@ -155,7 +155,7 @@ class ExercisePostService: ExercisePostProtocol {
                 
                 //Create Closures/functions that generate Promise<Post>
                 //by mapping the document items
-                let closurePromisesArr: [ClosureToExercisepostPromiseType] = querySnapshot.documents.map { doc in
+                let closurePromisesArr: [ClosureToExercisepostPromiseType] = querySnapshot!.documents.map { doc in
                     return {
                         return Promise<ExercisePost> { pr in
                             //actually call individual getPost(id)
@@ -182,7 +182,7 @@ class ExercisePostService: ExercisePostProtocol {
                 
                 finalPromise?.done { c in
                     resultPosts.append(c) //the last element is added
-                    let result = PaginatedGetPostsResult(posts:resultPosts, lastSnapshot: querySnapshot.documents.last)
+                    let result = PaginatedGetPostsResult(posts:resultPosts, lastSnapshot: querySnapshot!.documents.last)
                     return promise.fulfill(result)
                 }.catch { err2 in
                     return promise.reject(err2)
