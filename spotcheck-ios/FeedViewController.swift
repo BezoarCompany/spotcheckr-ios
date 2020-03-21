@@ -16,13 +16,16 @@ class FeedViewController: UIViewController {
     
     var db: Firestore!
     
+    //The last snapshot of a post item. Used as a cursor in the query for the next group of posts
+    var lastPostsSnapshot: DocumentSnapshot? = nil
     var posts = [ExercisePost]()
+    
     var refreshControl = UIRefreshControl()
-
         
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //For refreshing a post cell within a TableView when that post is edited in another view
         NotificationCenter.default.addObserver(self, selector: #selector(updateTableViewEdittedPost), name: K.Notifications.ExercisePostEdits, object: nil)
         
         let plusImage = SVGKImage(named: "plus").uiImage.withRenderingMode(.alwaysTemplate)
@@ -48,16 +51,18 @@ class FeedViewController: UIViewController {
         refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
         tableView.addSubview(refreshControl)        
         
-        getPosts()
+        getPosts(lastSnapshot: self.lastPostsSnapshot)
     }
     
-    func getPosts() {
-        let completePostsDataSet = { ( argPosts: [ExercisePost]) in
-            self.posts = argPosts
-            self.tableView.reloadData()
+    func getPosts(lastSnapshot: DocumentSnapshot?) {
+        firstly {
+            Services.exercisePostService.getPosts(lastPostSnapshot: self.lastPostsSnapshot)
+        }.done { pagedResult in
+            self.posts = pagedResult.posts//self.posts + pagedResult.posts
+            self.lastPostsSnapshot = pagedResult.lastSnapshot
+            self.tableView.reloadData()            
         }
         
-        Services.exercisePostService.getPosts(success: completePostsDataSet)
     }
     
     @objc func addTapped() {
@@ -67,7 +72,8 @@ class FeedViewController: UIViewController {
     }
     
     @objc func refresh() {
-        getPosts()
+        self.posts = []
+        getPosts(lastSnapshot: self.lastPostsSnapshot)
         refreshControl.endRefreshing()
     }
     

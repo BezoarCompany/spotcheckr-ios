@@ -129,34 +129,60 @@ class ExercisePostService: ExercisePostProtocol {
             }
         }
     }
-    
-    //TODO: add more parameters. page#, context parameters?
-    func getPosts(success: @escaping ([ExercisePost])->Void) -> Promise<[ExercisePost]> {
+        
+    func getPosts(limit: Int = 10, lastPostSnapshot: DocumentSnapshot?) -> Promise<PaginatedGetPostsResult> {
         return Promise { promise in
 
             let db = Firestore.firestore()
-            let docRef = db.collection(K.Firestore.posts).order(by: "modified-date")
-            
-            var resultPosts = [ExercisePost]()
+            let docRef = db.collection(K.Firestore.posts).order(by: "modified-date", descending: true).limit(to: limit)
             
             docRef.getDocuments() { querySnapshot, error in
                 guard error == nil, let querySnapshot = querySnapshot, !querySnapshot.isEmpty else {
                     return promise.reject(error!)
                 }
                 
-                for doc in querySnapshot.documents {
-                    //print("\(doc.documentID) => \(doc.data())")
-                    
-                    firstly {
-                        self.getPost(withId:doc.documentID)
-                    }.done { post in
-                        resultPosts.append(post)
-                        success(resultPosts)
-                    }.catch { err in
-                        return promise.reject(err)                        
+                
+                //read through items in order, and setup PromisesExecution Array in SERIES/sequence
+                //https://github.com/mxcl/PromiseKit/blob/master/Documentation/CommonPatterns.md --Chaining Sequences
+                
+                //Example on how to sequentially chain promises.
+                //Going from [Promise<Post>] (array of promises)  => [()->Promise<Post>] (Aka Array of Closures that return Promises)
+                //ie. from [ExercisepostPromise] to [ClosureToExercisepostPromiseType]
+                
+                //Create Closures/functions that generate Promise<Post>
+                //by mapping the document items
+                let closurePromisesArr: [ClosureToExercisepostPromiseType] = querySnapshot.documents.map { doc in
+                    return {
+                        return Promise<ExercisePost> { pr in
+                            //actually call individual getPost(id)
+                            firstly {
+                                self.getPost(withId:doc.documentID)
+                            }.done { post in
+                                pr.fulfill(post)
+                            }.catch { err in
+                                pr.reject(err)
+                            }
+                        }
                     }
+                }
+                
+                var resultPosts = [ExercisePost]()
+                
+                //Chain all promises together via reduce()
+                let finalPromise: Promise<ExercisePost>? = closurePromisesArr.reduce(nil) { (accumulatedRes, closureElement) in
+                    return accumulatedRes?.then { c -> Promise<ExercisePost> in //c for closure
+                        resultPosts.append(c)
+                        return closureElement()
+                    } ?? closureElement()
+                }
+                
+                finalPromise?.done { c in
+                    resultPosts.append(c) //the last element is added
+                    let result = PaginatedGetPostsResult(posts:resultPosts, lastSnapshot: querySnapshot.documents.last)
+                    return promise.fulfill(result)
+                }.catch { err2 in
+                    return promise.reject(err2)
                 }                
-                return promise.fulfill(resultPosts)
             }
         }
     }
