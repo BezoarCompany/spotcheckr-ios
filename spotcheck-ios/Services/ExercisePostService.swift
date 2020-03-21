@@ -134,9 +134,13 @@ class ExercisePostService: ExercisePostProtocol {
         return Promise { promise in
 
             let db = Firestore.firestore()
-            let docRef = db.collection(K.Firestore.posts).order(by: "modified-date", descending: true).limit(to: limit)
+            var query = db.collection(K.Firestore.posts).order(by: "modified-date", descending: true).limit(to: limit)
             
-            docRef.getDocuments() { querySnapshot, error in
+            if let lastPostSnapsthot = lastPostSnapshot {
+                query = query.start(afterDocument: lastPostSnapshot!)
+            }
+            
+            query.getDocuments() { querySnapshot, error in
                 guard error == nil, let querySnapshot = querySnapshot, !querySnapshot.isEmpty else {
                     return promise.reject(error!)
                 }

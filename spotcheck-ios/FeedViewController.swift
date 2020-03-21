@@ -80,6 +80,7 @@ class FeedViewController: UIViewController {
     
     @objc func refresh() {
         self.posts = []
+        self.tableView.reloadData()   
         getPosts(lastSnapshot: self.lastPostsSnapshot)
         refreshControl.endRefreshing()
     }
