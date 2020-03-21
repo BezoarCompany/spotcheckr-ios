@@ -254,27 +254,11 @@
                                 <color key="sectionIndexColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="sectionIndexBackgroundColor" red="0.1764735281" green="0.17646530269999999" blue="0.1764708757" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lD3-Ee-8VS" userLabel="AddAnswerButton">
-                                <rect key="frame" x="0.0" y="750" width="414" height="40"/>
-                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="lb7-so-aTR"/>
-                                </constraints>
-                                <state key="normal" title="Add an answer">
-                                    <color key="titleColor" red="0.1764735281" green="0.17646530269999999" blue="0.1764708757" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                </state>
-                                <connections>
-                                    <action selector="addAnswerButton:" destination="M9o-fR-ved" eventType="touchUpInside" id="NhJ-KI-hSx"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="lD3-Ee-8VS" firstAttribute="leading" secondItem="qMF-pz-b0p" secondAttribute="leading" id="8Vf-iI-9fI"/>
-                            <constraint firstItem="lD3-Ee-8VS" firstAttribute="trailing" secondItem="qMF-pz-b0p" secondAttribute="trailing" id="HQC-qc-aow"/>
                             <constraint firstItem="Cvp-oP-4nj" firstAttribute="top" secondItem="qMF-pz-b0p" secondAttribute="top" id="ISC-kS-e9u"/>
                             <constraint firstItem="qMF-pz-b0p" firstAttribute="bottom" secondItem="Cvp-oP-4nj" secondAttribute="bottom" constant="38" id="Niw-Yo-QwP"/>
-                            <constraint firstItem="qMF-pz-b0p" firstAttribute="bottom" secondItem="lD3-Ee-8VS" secondAttribute="bottom" constant="72" id="O2I-xe-1ZN"/>
                             <constraint firstItem="Cvp-oP-4nj" firstAttribute="trailing" secondItem="qMF-pz-b0p" secondAttribute="trailing" id="SZK-Ft-kUE"/>
                             <constraint firstItem="Cvp-oP-4nj" firstAttribute="leading" secondItem="qMF-pz-b0p" secondAttribute="leading" id="jvI-A4-xuI"/>
                         </constraints>

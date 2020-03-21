@@ -86,6 +86,7 @@
 		BAA340FA23F3932900C7392C /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA340F923F3932900C7392C /* DateExtensions.swift */; };
 		BAA340FF23F39AA500C7392C /* FakeDataFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA340FE23F39AA500C7392C /* FakeDataFactory.swift */; };
 		BACCABEA241E162100BEC89E /* UIElementFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACCABE9241E162100BEC89E /* UIElementFactory.swift */; };
+		BAEE4AC624263579005C2023 /* reply.svg in Resources */ = {isa = PBXBuildFile; fileRef = BAEE4AC524263579005C2023 /* reply.svg */; };
 		CE177860E3221E038C0D83EF /* Pods_spotcheck_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BAF183FCC50189FBD943ED6 /* Pods_spotcheck_ios.framework */; };
 /* End PBXBuildFile section */
 
@@ -196,6 +197,7 @@
 		BAA340F923F3932900C7392C /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		BAA340FE23F39AA500C7392C /* FakeDataFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeDataFactory.swift; sourceTree = "<group>"; };
 		BACCABE9241E162100BEC89E /* UIElementFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIElementFactory.swift; sourceTree = "<group>"; };
+		BAEE4AC524263579005C2023 /* reply.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = reply.svg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -392,6 +394,7 @@
 				BA6305262422E6A500DA0AE1 /* chevron-left.svg */,
 				BA49A01A242090DA00BB4BD8 /* trash-2.svg */,
 				BA49A012241ED21300BB4BD8 /* list.svg */,
+				BAEE4AC524263579005C2023 /* reply.svg */,
 				BA5DE70D241888FE002C98E6 /* chevron-down.svg */,
 				BA6305282422E97100DA0AE1 /* log-out.svg */,
 				BA5DE70B241888F2002C98E6 /* chevron-up.svg */,
@@ -530,6 +533,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BAEE4AC624263579005C2023 /* reply.svg in Resources */,
 				BA5DE70C241888F2002C98E6 /* chevron-up.svg in Resources */,
 				BA49A015241ED56300BB4BD8 /* user.svg in Resources */,
 				BA49A01B242090DA00BB4BD8 /* trash-2.svg in Resources */,

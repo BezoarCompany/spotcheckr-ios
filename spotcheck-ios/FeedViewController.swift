@@ -31,9 +31,8 @@ class FeedViewController: UIViewController {
         self.appBarViewController.didMove(toParent: self)
         NotificationCenter.default.addObserver(self, selector: #selector(updateTableViewEdittedPost), name: K.Notifications.ExercisePostEdits, object: nil)
         
-        let plusImage = SVGKImage(named: "plus").uiImage.withRenderingMode(.alwaysTemplate)
         let addPostButton = MDCFloatingButton()
-        addPostButton.setImage(plusImage, for: .normal)
+        addPostButton.setImage(Images.plus, for: .normal)
         addPostButton.translatesAutoresizingMaskIntoConstraints = false
         addPostButton.addTarget(self, action: #selector(addTapped), for: .touchUpInside)
         addPostButton.applySecondaryTheme(withScheme: ApplicationScheme.instance.containerScheme)
