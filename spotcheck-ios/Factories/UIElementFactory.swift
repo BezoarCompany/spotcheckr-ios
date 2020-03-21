@@ -20,4 +20,19 @@ class UIElementFactory {
         sheet.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
         return sheet
     }
+    
+    static func getAppBar() -> MDCAppBarViewController {
+        let vc = MDCAppBarViewController()
+        vc.applyPrimaryTheme(withScheme: ApplicationScheme.instance.containerScheme)
+        return vc
+    }
+    
+    static func getActivityIndicator() -> MDCActivityIndicator {
+        let indicator = MDCActivityIndicator()
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        indicator.sizeToFit()
+        indicator.indicatorMode = .indeterminate
+        indicator.cycleColors = [ApplicationScheme.instance.containerScheme.colorScheme.secondaryColor]
+        return indicator
+    }
 }

@@ -26,4 +26,7 @@ struct Identity {
     }
     var gender: String?
     var birthDate: Date?
+    var name: String {
+        return "\(firstName) \(lastName)"
+    }
 }
