@@ -4,6 +4,7 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import FirebaseStorage
 import PromiseKit
+import MaterialComponents
 
 class PostDetailViewController : UIViewController {
     
@@ -14,7 +15,6 @@ class PostDetailViewController : UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     @IBAction func addAnswerButton(_ sender: Any) {
-        print("pressed add answer")        
         let createAnswerViewController = CreateAnswerViewController.create(post: post)
         self.present(createAnswerViewController, animated: true)
     }
@@ -23,8 +23,13 @@ class PostDetailViewController : UIViewController {
     let exercisePostService = ExercisePostService()
     
     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
-        
-
+    let appBarViewController = UIElementFactory.getAppBar()
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        self.addChild(appBarViewController)
+    }
+    
     typealias DiffedPostsDataUpdateClosureType = ((_ diffType: DiffType, _ post: ExercisePost) -> Void) //takes diff type, and post to be modified
     var diffedPostsDataClosure: DiffedPostsDataUpdateClosureType? //To dynamically update UITableView with the new post
     
@@ -40,25 +45,32 @@ class PostDetailViewController : UIViewController {
     
     static func create(post: ExercisePost?, diffedPostsDataClosure: DiffedPostsDataUpdateClosureType? = nil) -> PostDetailViewController {
        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+
         let postDetailViewController = storyboard.instantiateViewController(withIdentifier: K.Storyboard.PostDetailViewControllerId) as! PostDetailViewController
         
         postDetailViewController.post = post
         postDetailViewController.diffedPostsDataClosure = diffedPostsDataClosure
         
         return postDetailViewController
-        
     }
     
-    // MARK: UIViewController Lifecycle
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-            
+        view.addSubview(appBarViewController.view)
+        appBarViewController.didMove(toParent: self)
+        
         firstly {
             //TODO: Replace with call to getAnswers(from: Number) which returns all answers since a specific "page length" (e.g. get first 10 posts by created date, scroll, when reached 8/10 posts fetch next 10 posts.
             self.exercisePostService.getAnswers(forPostWithId : post?.id ?? "" )
         }.done { answers in
             self.post?.answers = answers
             self.post?.answersCount = answers.count
+            self.appBarViewController.navigationBar.title = "\(answers.count) Answers"
+            self.appBarViewController.navigationBar.leadingBarButtonItem = UIBarButtonItem(image: Images.back, style: .done, target: self, action: #selector(self.backOnClick(sender:)))
             self.tableView.reloadData()
         }.catch { error in
             //TODO: Do something when post fetching fails
@@ -88,8 +100,11 @@ class PostDetailViewController : UIViewController {
         initActivityIndicator()
     }
     
+    @objc func backOnClick(sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     @objc func modifyPost () {
-        print("clickedModifyPost")
         let alert = UIAlertController(title: "Choose Action", message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Edit ", style: .default, handler: { _ in
             let createPostViewController = CreatePostViewController.create(updatePostMode: .edit, post: self.post, diffedPostsDataClosure: self.diffedPostsDataClosure,

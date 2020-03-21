@@ -11,18 +11,24 @@ import IGListKit
 
 class FeedViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
-    
     static let IMAGE_HEIGHT = 200
-    
-    var db: Firestore!
-    
     var posts = [ExercisePost]()
     var refreshControl = UIRefreshControl()
-
-        
+    let appBarViewController = UIElementFactory.getAppBar()
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        self.addChild(appBarViewController)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        view.addSubview(appBarViewController.view)
+        self.appBarViewController.didMove(toParent: self)
         NotificationCenter.default.addObserver(self, selector: #selector(updateTableViewEdittedPost), name: K.Notifications.ExercisePostEdits, object: nil)
         
         let plusImage = SVGKImage(named: "plus").uiImage.withRenderingMode(.alwaysTemplate)
@@ -37,7 +43,6 @@ class FeedViewController: UIViewController {
         self.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: addPostButton.bottomAnchor, constant: 75).isActive = true
         addPostButton.widthAnchor.constraint(equalToConstant: 64).isActive = true
         addPostButton.heightAnchor.constraint(equalToConstant: 64).isActive = true
-        navigationItem.hidesBackButton = true
         
         tableView.dataSource = self
         tableView.delegate = self

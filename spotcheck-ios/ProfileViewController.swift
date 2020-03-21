@@ -4,8 +4,6 @@ import PromiseKit
 import MaterialComponents
 
 class ProfileViewController: UIViewController {
-    @IBOutlet weak var logoutButton: UIBarButtonItem!
-    @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var certificationsHeadingLabel: UILabel!
     @IBOutlet weak var certificationsLabel: UILabel!
     @IBOutlet weak var occupationLabel: UILabel!
@@ -16,7 +14,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var postsTableView: UITableView!
     @IBOutlet weak var answersTableView: UITableView!
     
-    @IBAction func logoutTapped(_ sender: Any) {
+    @objc func logoutTapped(_ sender: Any) {
         do {
             try Services.userService.signOut()
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -35,16 +33,29 @@ class ProfileViewController: UIViewController {
         MDCSnackbarTypographyThemer.applyTypographyScheme(ApplicationScheme.instance.containerScheme.typographyScheme)
        return message
     }()
-    
     var currentUser: User?
     var receivedUser: User?
-    
     var answers = [Answer]()
     var posts = [ExercisePost]()
+    let appBarViewController = UIElementFactory.getAppBar()
+    let postsTableActivityIndicator = UIElementFactory.getActivityIndicator()
+    let answersTableActivityIndicator = UIElementFactory.getActivityIndicator()
+    let postsRefreshControl = UIRefreshControl()
+    let answersRefreshControl = UIRefreshControl()
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        self.addChild(appBarViewController)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        initAppBar()
         initTabBar()
         initTableViews()
         addSubviews()
@@ -53,7 +64,13 @@ class ProfileViewController: UIViewController {
         applyConstraints()
     }
     
+    private func initAppBar() {
+        self.appBarViewController.didMove(toParent: self)
+        self.appBarViewController.navigationBar.rightBarButtonItem = UIBarButtonItem(image: Images.logOut, style: .done, target: self, action: #selector(self.logoutTapped(_:)))
+    }
+    
     private func addSubviews() {
+        self.view.addSubview(appBarViewController.view)
         self.view.addSubview(self.tabBar!)
     }
     
@@ -98,11 +115,11 @@ class ProfileViewController: UIViewController {
     
     private func showCurrentUserOnlyControls() {
         self.editProfileButton.isHidden = false
-    }
+    }	
     
     private func populateUserProfileInformation() {
         //TODO: Resolve, what to do if we don't have their full name.
-        self.nameLabel.text = (self.currentUser?.information?.fullName.isEmpty ?? true) ? "Anonymous" : self.currentUser?.information?.fullName
+        self.appBarViewController.navigationBar.title = (self.currentUser?.information?.name.trim().isEmpty ?? true) ? "Anonymous" : self.currentUser?.information?.name
         if self.currentUser is Trainer {
             let trainer = self.currentUser as! Trainer
             if trainer.certifications.count == 0 {
@@ -130,8 +147,6 @@ class ProfileViewController: UIViewController {
     }
     
     private func applyStyles() {
-        nameLabel.font = ApplicationScheme.instance.containerScheme.typographyScheme.body1
-        nameLabel.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
         certificationsLabel.font = ApplicationScheme.instance.containerScheme.typographyScheme.body1
         certificationsLabel.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
         certificationsHeadingLabel.font = ApplicationScheme.instance.containerScheme.typographyScheme.body1
@@ -145,13 +160,19 @@ class ProfileViewController: UIViewController {
     }
     
     private func applyConstraints() {
+        self.postsTableActivityIndicator.centerXAnchor.constraint(equalTo: self.postsRefreshControl.centerXAnchor).isActive = true
+        self.postsTableActivityIndicator.centerYAnchor.constraint(equalTo: self.postsRefreshControl.centerYAnchor).isActive = true
+        self.answersTableActivityIndicator.centerXAnchor.constraint(equalTo: self.answersRefreshControl.centerXAnchor).isActive = true
+        self.answersTableActivityIndicator.centerYAnchor.constraint(equalTo: self.answersRefreshControl.centerYAnchor).isActive = true
         self.tabBar?.translatesAutoresizingMaskIntoConstraints = false
         self.tabBar?.topAnchor.constraint(equalTo: self.weightLabel.bottomAnchor, constant: 10).isActive = true
-        //self.tabBar?.bottomAnchor.constraint(equalTo: self.answersTableView.topAnchor, constant: 0).isActive = true
         self.tabBar?.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 0).isActive = true
         self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: self.tabBar!.trailingAnchor, constant: 0).isActive = true
         self.answersTableView.topAnchor.constraint(equalTo: self.tabBar!.bottomAnchor, constant: 0).isActive = true
         self.postsTableView.topAnchor.constraint(equalTo: self.tabBar!.bottomAnchor, constant: 0).isActive = true
+        self.profilePictureImageView.topAnchor.constraint(equalTo: self.appBarViewController.navigationBar.bottomAnchor, constant: 16).isActive = true
+        self.certificationsHeadingLabel.topAnchor.constraint(equalTo: self.appBarViewController.navigationBar.bottomAnchor, constant: 16).isActive = true
+        self.editProfileButton.topAnchor.constraint(equalTo: self.appBarViewController.navigationBar.bottomAnchor, constant: 16).isActive = true
     }
 }
 
@@ -235,10 +256,62 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     private func initTableViews() {
+        //TODO: Refreshing like this will mean a hit for fetching all the documents over again.
+        //We really only want the diff of documents based on the last refresh date so that we're pulling less data.
+        self.postsRefreshControl.addSubview(self.postsTableActivityIndicator)
+        self.postsRefreshControl.tintColor = .clear
+        self.postsRefreshControl.backgroundColor = .clear
+        self.postsRefreshControl.addTarget(self, action: #selector(refreshPosts), for: .valueChanged)
+        self.postsTableView.addSubview(self.postsRefreshControl)
         self.postsTableView.tableFooterView = UIView()
         self.postsTableView.register(UINib(nibName:K.Storyboard.profilPostNibName, bundle: nil), forCellReuseIdentifier: K.Storyboard.profilePostCellId)
+        
+        self.answersRefreshControl.addSubview(self.answersTableActivityIndicator)
+        self.answersRefreshControl.tintColor = .clear
+        self.answersRefreshControl.backgroundColor = .clear
+        self.answersRefreshControl.addTarget(self, action: #selector(refreshAnswers), for: .valueChanged)
+        self.answersTableView.addSubview(self.answersRefreshControl)
         self.answersTableView.tableFooterView = UIView()
         self.answersTableView.register(UINib(nibName:K.Storyboard.profilPostNibName, bundle: nil), forCellReuseIdentifier: K.Storyboard.profilePostCellId)
+    }
+    
+    @objc func refreshPosts() {
+        self.postsTableActivityIndicator.startAnimating()
+        firstly {
+            Services.exercisePostService.getPosts(forUser: self.currentUser!)
+        }.done { posts in
+            self.posts = posts
+            self.tabBar?.items[0].title = "\(self.posts.count) Posts"
+            self.postsTableView.reloadData()
+        }.catch{ (error) in
+            self.snackbarMessage.text = "Error refreshing posts"
+            MDCSnackbarManager.show(self.snackbarMessage)
+        }.finally {
+            self.perform(#selector(self.finishRefreshing), with: nil, afterDelay: 0.1)
+        }
+    }
+    
+    @objc func refreshAnswers() {
+        self.answersTableActivityIndicator.startAnimating()
+        firstly {
+            Services.exercisePostService.getAnswers(byUserWithId: (self.currentUser?.id!)!)
+        }.done { answers in
+            self.answers = answers
+            self.tabBar?.items[1].title = "\(self.answers.count) Answers"
+            self.answersTableView.reloadData()
+        }.catch{ (error) in
+            self.snackbarMessage.text = "Error refreshing answers"
+            MDCSnackbarManager.show(self.snackbarMessage)
+        }.finally {
+            self.perform(#selector(self.finishRefreshing), with: nil, afterDelay: 0.1)
+        }
+    }
+    
+    @objc func finishRefreshing() {
+        self.postsTableActivityIndicator.stopAnimating()
+        self.answersTableActivityIndicator.stopAnimating()
+        self.postsRefreshControl.endRefreshing()
+        self.answersRefreshControl.endRefreshing()
     }
 }
 
@@ -261,15 +334,17 @@ extension ProfileViewController: MDCTabBarDelegate {
     }
     
     func tabBar(_ tabBar: MDCTabBar, didSelect item: UITabBarItem) {
-        switch tabBar.tag {
+        switch item.tag {
         case 0:
             tabBar.selectedItem = tabBar.items[0]
+            self.postsTableView.isHidden = false
+            self.answersTableView.isHidden = true
         case 1:
             tabBar.selectedItem = tabBar.items[1]
+            self.answersTableView.isHidden = false
+            self.postsTableView.isHidden = true
         default:
             break
         }
-        self.postsTableView.isHidden = !self.postsTableView.isHidden
-        self.answersTableView.isHidden = !self.answersTableView.isHidden
     }
 }

@@ -77,6 +77,8 @@
 		BA5DE70C241888F2002C98E6 /* chevron-up.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA5DE70B241888F2002C98E6 /* chevron-up.svg */; };
 		BA5DE70E241888FE002C98E6 /* chevron-down.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA5DE70D241888FE002C98E6 /* chevron-down.svg */; };
 		BA5DE7102419ADAC002C98E6 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5DE70F2419ADAC002C98E6 /* Images.swift */; };
+		BA6305272422E6A500DA0AE1 /* chevron-left.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA6305262422E6A500DA0AE1 /* chevron-left.svg */; };
+		BA6305292422E97100DA0AE1 /* log-out.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA6305282422E97100DA0AE1 /* log-out.svg */; };
 		BA733D5524038E4100395895 /* ErrorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA733D5424038E4100395895 /* ErrorExtensions.swift */; };
 		BA828EF9241CE0270012509D /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA828EF8241CE0270012509D /* StringExtensions.swift */; };
 		BA828EFB241CE2F10012509D /* FirebaseToDomainMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA828EFA241CE2F10012509D /* FirebaseToDomainMapper.swift */; };
@@ -185,6 +187,8 @@
 		BA5DE70B241888F2002C98E6 /* chevron-up.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "chevron-up.svg"; sourceTree = "<group>"; };
 		BA5DE70D241888FE002C98E6 /* chevron-down.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "chevron-down.svg"; sourceTree = "<group>"; };
 		BA5DE70F2419ADAC002C98E6 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
+		BA6305262422E6A500DA0AE1 /* chevron-left.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "chevron-left.svg"; sourceTree = "<group>"; };
+		BA6305282422E97100DA0AE1 /* log-out.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "log-out.svg"; sourceTree = "<group>"; };
 		BA733D5424038E4100395895 /* ErrorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorExtensions.swift; sourceTree = "<group>"; };
 		BA828EF8241CE0270012509D /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		BA828EFA241CE2F10012509D /* FirebaseToDomainMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseToDomainMapper.swift; sourceTree = "<group>"; };
@@ -385,9 +389,11 @@
 			children = (
 				BA49A0182420875F00BB4BD8 /* more-horizontal.svg */,
 				BA49A014241ED56300BB4BD8 /* user.svg */,
+				BA6305262422E6A500DA0AE1 /* chevron-left.svg */,
 				BA49A01A242090DA00BB4BD8 /* trash-2.svg */,
 				BA49A012241ED21300BB4BD8 /* list.svg */,
 				BA5DE70D241888FE002C98E6 /* chevron-down.svg */,
+				BA6305282422E97100DA0AE1 /* log-out.svg */,
 				BA5DE70B241888F2002C98E6 /* chevron-up.svg */,
 				BA5DE7092415D2E8002C98E6 /* plus.svg */,
 				BA4EE45223EECE84003E6D87 /* eye-off.svg */,
@@ -528,6 +534,7 @@
 				BA49A015241ED56300BB4BD8 /* user.svg in Resources */,
 				BA49A01B242090DA00BB4BD8 /* trash-2.svg in Resources */,
 				BA4EDA452402909A00206267 /* ProfilePostCell.xib in Resources */,
+				BA6305292422E97100DA0AE1 /* log-out.svg in Resources */,
 				BA4EE45423EECE84003E6D87 /* eye-off.svg in Resources */,
 				BA4EE45323EECE84003E6D87 /* eye.svg in Resources */,
 				BA49A0192420875F00BB4BD8 /* more-horizontal.svg in Resources */,
@@ -543,6 +550,7 @@
 				5627FCA323F0BEB4001B4B5B /* FeedPostCell.xib in Resources */,
 				5659D9D823FD02980043FA6A /* AnswerPostCell.xib in Resources */,
 				5679530523D806BE0077BA08 /* Main.storyboard in Resources */,
+				BA6305272422E6A500DA0AE1 /* chevron-left.svg in Resources */,
 				BA49213823E6289B00A74A73 /* Roboto-Light.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
