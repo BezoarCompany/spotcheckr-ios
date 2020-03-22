@@ -1,8 +1,15 @@
 import MaterialComponents
+import PromiseKit
 
 class FeedCell: MDCCardCollectionCell {
     var widthConstraint: NSLayoutConstraint?
     var supportingTextTopConstraint: NSLayoutConstraint?
+    var postId: String?
+    var votingUserId: String?
+    var voteDirection: VoteDirection?
+    let upvoteColor = Colors.upvote
+    let downvoteColor = Colors.downvote
+    let neutralColor: UIColor = Colors.neutralVote
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -11,6 +18,7 @@ class FeedCell: MDCCardCollectionCell {
         applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
         addSubviews()
         applyConstraints()
+        initControls()
     }
     
     required init?(coder: NSCoder) {
@@ -48,6 +56,66 @@ class FeedCell: MDCCardCollectionCell {
         bottomAnchor.constraint(equalTo: upvoteButton.bottomAnchor, constant: 16),
         bottomAnchor.constraint(equalTo: downvoteButton.bottomAnchor, constant: 16),
         ])
+    }
+    
+    func initControls() {
+        upvoteButton.addTarget(self, action: #selector(upvoteOnClick(_:)), for: .touchUpInside)
+        downvoteButton.addTarget(self, action: #selector(downvoteOnClick(_:)), for: .touchUpInside)
+    }
+    
+    @objc func upvoteOnClick(_ sender: Any) {
+        if self.downvoteButton.tintColor == self.downvoteColor { // Going from downvote to upvote
+            self.voteDirection = .Up
+        }
+        else if self.upvoteButton.tintColor == self.upvoteColor { // Already upvoted, removing upvote
+            self.voteDirection = .Neutral
+        }
+        else if self.upvoteButton.tintColor == self.neutralColor { // Upvoting for the first time
+            self.voteDirection = .Up
+        }
+        
+        firstly {
+            Services.exercisePostService.votePost(postId: postId!, userId: votingUserId!, direction: VoteDirection.Up)
+        }.catch { error in
+            //Ignore errors for voting.
+        }
+        
+        self.adjustVotingControls()
+    }
+    
+    @objc func downvoteOnClick(_ sender: Any) {
+        if self.upvoteButton.tintColor == self.upvoteColor { // Going from upvote to downvote
+            self.voteDirection = .Down
+        }
+        else if self.downvoteButton.tintColor == self.downvoteColor { // Already downvoted, removing downvote
+            self.voteDirection = .Neutral
+        }
+        else if self.downvoteButton.tintColor == self.neutralColor { // Downvoting for the first time
+            self.voteDirection = .Down
+        }
+        
+        firstly {
+            Services.exercisePostService.votePost(postId: postId!, userId: votingUserId!, direction: VoteDirection.Down)
+        }.catch { error in
+            //Ignore voting errors
+        }
+        
+        self.adjustVotingControls()
+    }
+    
+    func adjustVotingControls() {
+        switch self.voteDirection {
+        case .Up:
+            self.upvoteButton.tintColor = self.upvoteColor
+            self.downvoteButton.tintColor = self.neutralColor
+        case .Down:
+            self.downvoteButton.tintColor = self.downvoteColor
+            self.upvoteButton.tintColor = self.neutralColor
+        default:
+            self.upvoteButton.tintColor = self.neutralColor
+            self.downvoteButton.tintColor = self.neutralColor
+            break
+        }
     }
     
     func setCellWidth(width: CGFloat) {

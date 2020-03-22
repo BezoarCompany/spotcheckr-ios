@@ -29,6 +29,7 @@ class FeedViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    var currentUser: User?
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -43,6 +44,12 @@ class FeedViewController: UIViewController {
         super.viewDidLoad()
         self.appBarViewController.didMove(toParent: self)
         NotificationCenter.default.addObserver(self, selector: #selector(updateTableViewEdittedPost), name: K.Notifications.ExercisePostEdits, object: nil)
+        
+        firstly {
+            Services.userService.getCurrentUser()
+        }.done { user in
+            self.currentUser = user
+        }
         
         addSubviews()
         initFeedView()
@@ -68,6 +75,7 @@ class FeedViewController: UIViewController {
         feedView.delegate = self
         feedView.dataSource = self
         feedView.register(FeedCell.self, forCellWithReuseIdentifier: "Cell")
+        feedView.backgroundColor = ApplicationScheme.instance.containerScheme.colorScheme.backgroundColor
     }
     
     func addSubviews() {
@@ -127,7 +135,18 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
             cell.setConstraintsWithMedia()
         }
         cell.supportingTextLabel.text = post.description
+        cell.postId = post.id
+        cell.votingUserId = currentUser?.id
+        cell.voteDirection = post.metrics.currentVoteDirection
+        cell.adjustVotingControls()
+        cell.cornerRadius = 0
+        
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let post = posts[indexPath.row]
+        viewPostHandler(exercisePost: post)
     }
 }
 
@@ -140,11 +159,11 @@ extension FeedViewController {
       let results = ListDiffPaths(fromSection: 0, toSection: 0, oldArray: self.posts, newArray: argPosts, option: .equality)
 
       self.posts = argPosts // set arg data into exiting array before updating tableview
-//      self.feedView.beginUpdates()
-//      self.feedView.deleteRows(at: results.deletes, with: .fade)
-//      self.feedView.insertRows(at: results.inserts, with: .automatic)
-//      //self.tableView.reloadRows(at: results.updates, with: .automatic)
-//      self.feedView.endUpdates()
+      self.feedView.performBatchUpdates({
+        self.feedView.deleteItems(at: results.deletes)
+        self.feedView.insertItems(at: results.inserts)
+      })
+      //TODO: Do fade animation (?) for deletes and automatic for insert
     }
 
 
@@ -164,11 +183,12 @@ extension FeedViewController {
       
       if(diffType == .add) {
           newPostsCopy.insert(exercisePost, at: 0)
-      } else if (diffType == .edit) { //using Notification center to get the updated post. DiffTool isn't detecting changes b/c Old Post is same as New Posts, as if it were strongly refenced/changed.
-          print("############# EDIT!!  \(posts[indexFound].title) ? \(newPostsCopy[indexFound].title)  : \(exercisePost.title)")
-          print("index Found: \(indexFound)")
+      }
+      else if (diffType == .edit) { //using Notification center to get the updated post. DiffTool isn't detecting changes b/c Old Post is same as New Posts, as if it were strongly refenced/changed.
+        print("############# EDIT!!  \(posts[indexFound].title) ? \(newPostsCopy[indexFound].title)  : \(exercisePost.title)")
+        print("index Found: \(indexFound)")
           
-          newPostsCopy[indexFound] = exercisePost
+        newPostsCopy[indexFound] = exercisePost
         
           
 //          self.tableView.beginUpdates()
@@ -195,7 +215,6 @@ extension FeedViewController {
       let postDetailViewController = PostDetailViewController.create(post: exercisePost, diffedPostsDataClosure: self.diffedPostsHandler  )
       self.navigationController?.pushViewController(postDetailViewController, animated: true)
     }
-      
 }
 
 
@@ -245,12 +264,5 @@ extension FeedViewController: UITableViewDataSource {
         cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: .greatestFiniteMagnitude)
         cell.directionalLayoutMargins = .zero
         return cell
-    }
-}
-
-extension FeedViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let postDetailViewController = PostDetailViewController.create(post: posts[indexPath.row], diffedPostsDataClosure: self.diffedPostsHandler )
-        self.navigationController?.pushViewController(postDetailViewController, animated: true)
     }
 }

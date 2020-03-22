@@ -90,6 +90,7 @@
 		BAEE4AC82426D133005C2023 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEE4AC72426D133005C2023 /* FeedCell.swift */; };
 		BAEE4ACA2426DEFB005C2023 /* arrow-up.svg in Resources */ = {isa = PBXBuildFile; fileRef = BAEE4AC92426DEFB005C2023 /* arrow-up.svg */; };
 		BAEE4ACC2426E122005C2023 /* arrow-down.svg in Resources */ = {isa = PBXBuildFile; fileRef = BAEE4ACB2426E122005C2023 /* arrow-down.svg */; };
+		BAEE4ACE24274D49005C2023 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEE4ACD24274D49005C2023 /* Colors.swift */; };
 		CE177860E3221E038C0D83EF /* Pods_spotcheck_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BAF183FCC50189FBD943ED6 /* Pods_spotcheck_ios.framework */; };
 /* End PBXBuildFile section */
 
@@ -204,6 +205,7 @@
 		BAEE4AC72426D133005C2023 /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
 		BAEE4AC92426DEFB005C2023 /* arrow-up.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "arrow-up.svg"; sourceTree = "<group>"; };
 		BAEE4ACB2426E122005C2023 /* arrow-down.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "arrow-down.svg"; sourceTree = "<group>"; };
+		BAEE4ACD24274D49005C2023 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -431,6 +433,7 @@
 				BAA340FE23F39AA500C7392C /* FakeDataFactory.swift */,
 				BA5DE70F2419ADAC002C98E6 /* Images.swift */,
 				BACCABE9241E162100BEC89E /* UIElementFactory.swift */,
+				BAEE4ACD24274D49005C2023 /* Colors.swift */,
 			);
 			path = Factories;
 			sourceTree = "<group>";
@@ -681,6 +684,7 @@
 				BA5DE7102419ADAC002C98E6 /* Images.swift in Sources */,
 				5679533823D980E40077BA08 /* FeedViewController.swift in Sources */,
 				5679533A23D988910077BA08 /* ProfileViewController.swift in Sources */,
+				BAEE4ACE24274D49005C2023 /* Colors.swift in Sources */,
 				BA1FB51F23F1071000E091B1 /* Organization.swift in Sources */,
 				BA3DDD2D241CB20F00692100 /* AnalyticsProtocol.swift in Sources */,
 				BA1FB52323F116AE00E091B1 /* ExercisePostProtocol.swift in Sources */,
