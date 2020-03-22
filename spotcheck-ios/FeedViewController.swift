@@ -11,11 +11,8 @@ import IGListKit
 class FeedViewController: UIViewController {
     static let IMAGE_HEIGHT = 200
     var posts = [ExercisePost]()
-    var refreshControl: UIRefreshControl = {
-        let control = UIRefreshControl()
-        control.attributedTitle = NSAttributedString(string: "Pull to refresh")
-        return control
-    }()
+    var refreshControl = UIRefreshControl()
+    var activityIndicator = UIElementFactory.getActivityIndicator()
     let appBarViewController = UIElementFactory.getAppBar()
     let addPostButton: MDCFloatingButton = {
         let button = MDCFloatingButton()
@@ -59,13 +56,16 @@ class FeedViewController: UIViewController {
         getPosts()
     }
     
-    func getPosts() {
-        let completePostsDataSet = { ( argPosts: [ExercisePost]) in
-            self.posts = argPosts
-            self.feedView.reloadData()
+    func getPosts() -> Promise<Void> {
+        return Promise { promise in
+            let completePostsDataSet = { ( argPosts: [ExercisePost]) -> () in
+                self.posts = argPosts
+                self.feedView.reloadData()
+                return promise.fulfill_()
+            }
+            
+            Services.exercisePostService.getPosts(success: completePostsDataSet)
         }
-        
-        Services.exercisePostService.getPosts(success: completePostsDataSet)
     }
     
     func initFeedView() {
@@ -82,10 +82,14 @@ class FeedViewController: UIViewController {
         view.addSubview(feedView)
         view.addSubview(appBarViewController.view)
         feedView.addSubview(addPostButton)
+        refreshControl.addSubview(activityIndicator)
+        feedView.addSubview(refreshControl)
     }
     
     func initRefreshControl() {
-        refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
+        refreshControl.tintColor = .clear
+        refreshControl.backgroundColor = .clear
+        refreshControl.addTarget(self, action: #selector(refreshPosts), for: UIControl.Event.valueChanged)
     }
     
     func initAddPostButton() {
@@ -93,12 +97,15 @@ class FeedViewController: UIViewController {
     }
     
     func applyConstraints() {
+        activityIndicator.centerXAnchor.constraint(equalTo: refreshControl.centerXAnchor).isActive = true
+        activityIndicator.centerYAnchor.constraint(equalTo: refreshControl.centerYAnchor).isActive = true
         self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: addPostButton.trailingAnchor, constant: 25).isActive = true
         self.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: addPostButton.bottomAnchor, constant: 75).isActive = true
         addPostButton.widthAnchor.constraint(equalToConstant: 64).isActive = true
         addPostButton.heightAnchor.constraint(equalToConstant: 64).isActive = true
         
         feedView.topAnchor.constraint(equalTo: appBarViewController.view.bottomAnchor).isActive = true
+        //TODO: How to get the tab bar then assign to its top anchor?
         feedView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: 20).isActive = true
         feedView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: feedView.trailingAnchor).isActive = true
@@ -110,11 +117,20 @@ class FeedViewController: UIViewController {
         self.present(createPostViewController, animated: true)
     }
     
-    @objc func refresh() {
-        getPosts()
-        refreshControl.endRefreshing()
+    @objc func refreshPosts() {
+        refreshControl.beginRefreshing()
+        activityIndicator.startAnimating()
+        firstly {
+            getPosts()
+        }.done {
+            self.perform(#selector(self.finishRefreshing), with: nil, afterDelay: 0.1)
+        }
     }
     
+    @objc func finishRefreshing() {
+        self.activityIndicator.stopAnimating()
+        self.refreshControl.endRefreshing()
+    }
 }
 
 extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
@@ -126,12 +142,25 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
         let post = posts[indexPath.row]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell",
         for: indexPath) as! FeedCell
+        cell.setShadowElevation(ShadowElevation(rawValue: 10), for: .normal)
         cell.setCellWidth(width: view.frame.width)
         cell.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
         cell.headerLabel.text = post.title
         cell.subHeadLabel.text = post.dateCreated?.toDisplayFormat()
         if post.imagePath != nil {
-            cell.media.image = UIImage(named:"squat1")! //temp
+            // Set default image for placeholder
+            let placeholderImage = UIImage(named:"squat1")!
+            
+            // Get a reference to the storage service using the default Firebase App
+            let storage = Storage.storage()
+            let pathname = K.Firestore.Storage.IMAGES_ROOT_DIR + "/" + (post.imagePath ?? "")
+            
+            // Create a reference with an initial file path and name
+            let storagePathReference = storage.reference(withPath: pathname)
+            
+            // Load the image using SDWebImage
+            cell.media.sd_setImage(with: storagePathReference, placeholderImage: placeholderImage)
+            
             cell.setConstraintsWithMedia()
         }
         cell.supportingTextLabel.text = post.description
@@ -154,12 +183,11 @@ extension FeedViewController {
     
     //Renders the changes between self's posts[] and the arg's posts[]
     func diffedTableViewRenderer(argPosts: [ExercisePost]) {
+        //new data comes in `argPosts`
+        let results = ListDiffPaths(fromSection: 0, toSection: 0, oldArray: self.posts, newArray: argPosts, option: .equality)
 
-      //new data comes in `argPosts`
-      let results = ListDiffPaths(fromSection: 0, toSection: 0, oldArray: self.posts, newArray: argPosts, option: .equality)
-
-      self.posts = argPosts // set arg data into exiting array before updating tableview
-      self.feedView.performBatchUpdates({
+        self.posts = argPosts // set arg data into exiting array before updating tableview
+        self.feedView.performBatchUpdates({
         self.feedView.deleteItems(at: results.deletes)
         self.feedView.insertItems(at: results.inserts)
       })
@@ -214,55 +242,5 @@ extension FeedViewController {
     func viewPostHandler(exercisePost: ExercisePost)  {
       let postDetailViewController = PostDetailViewController.create(post: exercisePost, diffedPostsDataClosure: self.diffedPostsHandler  )
       self.navigationController?.pushViewController(postDetailViewController, animated: true)
-    }
-}
-
-
-extension FeedViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return posts.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: K.Storyboard.feedCellId, for: indexPath)
-            as! FeedPostCell
-        
-        let pItem = posts[indexPath.row]
-                
-        cell.postLabel.text = pItem.title
-
-        //this mocking logic if a post has an image attached
-        if let hasPhoto = pItem.imagePath {
-            cell.photoHeightConstraint.constant = CGFloat(FeedViewController.IMAGE_HEIGHT)
-            
-            // Set default image for placeholder
-            let placeholderImage = UIImage(named:"squat1")!
-            
-            // Get a reference to the storage service using the default Firebase App
-            let storage = Storage.storage()
-            let pathname = K.Firestore.Storage.IMAGES_ROOT_DIR + "/" + (pItem.imagePath ?? "")
-            
-            // Create a reference with an initial file path and name
-            let storagePathReference = storage.reference(withPath: pathname)
-            
-            // Load the image using SDWebImage
-            cell.photoView.sd_setImage(with: storagePathReference, placeholderImage: placeholderImage)
-            
-            //Properties must be set everytime/every case so recycled cell values aren't being used
-            cell.photoHeightConstraint.constant = CGFloat(FeedViewController.IMAGE_HEIGHT)
-            cell.photoView.isHidden = false
-            
-        } else {
-            cell.photoHeightConstraint.constant = 0
-            cell.photoView.isHidden = true
-        } 
-        
-        cell.postBodyLabel.text = pItem.description
-
-        //remove the default highlight which has shining look-gloss effect with the dark theme
-        cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: .greatestFiniteMagnitude)
-        cell.directionalLayoutMargins = .zero
-        return cell
     }
 }

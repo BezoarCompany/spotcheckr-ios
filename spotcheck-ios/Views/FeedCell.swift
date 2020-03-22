@@ -133,6 +133,8 @@ class FeedCell: MDCCardCollectionCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = ApplicationScheme.instance.containerScheme.typographyScheme.body2
         label.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
+        label.numberOfLines = 2
+        label.lineBreakMode = .byWordWrapping
         return label
     }()
     
@@ -161,6 +163,8 @@ class FeedCell: MDCCardCollectionCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = ApplicationScheme.instance.containerScheme.typographyScheme.body2
         label.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
+        label.numberOfLines = 3
+        label.lineBreakMode = .byWordWrapping
         return label
     }()
     
