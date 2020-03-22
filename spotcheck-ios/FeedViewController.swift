@@ -146,7 +146,7 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
         cell.setCellWidth(width: view.frame.width)
         cell.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
         cell.headerLabel.text = post.title
-        cell.subHeadLabel.text = post.dateCreated?.toDisplayFormat()
+        cell.subHeadLabel.text = "\(post.dateCreated?.toDisplayFormat() ?? "") • \(post.answersCount) Answers"
         if post.imagePath != nil {
             // Set default image for placeholder
             let placeholderImage = UIImage(named:"squat1")!

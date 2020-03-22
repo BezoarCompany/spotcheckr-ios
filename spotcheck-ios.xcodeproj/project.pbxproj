@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5627FCA223F0BEB4001B4B5B /* FeedPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5627FCA023F0BEB4001B4B5B /* FeedPostCell.swift */; };
-		5627FCA323F0BEB4001B4B5B /* FeedPostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5627FCA123F0BEB4001B4B5B /* FeedPostCell.xib */; };
 		5644F61D2406435C00A103EF /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5644F61C2406435C00A103EF /* StorageService.swift */; };
 		5644F61F2406459B00A103EF /* StorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5644F61E2406459B00A103EF /* StorageProtocol.swift */; };
 		5645AFE823F51C0700B64D0B /* CreatePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5645AFE723F51C0700B64D0B /* CreatePostViewController.swift */; };
@@ -113,8 +111,6 @@
 
 /* Begin PBXFileReference section */
 		1BAF183FCC50189FBD943ED6 /* Pods_spotcheck_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_spotcheck_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5627FCA023F0BEB4001B4B5B /* FeedPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedPostCell.swift; sourceTree = "<group>"; };
-		5627FCA123F0BEB4001B4B5B /* FeedPostCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedPostCell.xib; sourceTree = "<group>"; };
 		5644F61C2406435C00A103EF /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		5644F61E2406459B00A103EF /* StorageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageProtocol.swift; sourceTree = "<group>"; };
 		5645AFE723F51C0700B64D0B /* CreatePostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostViewController.swift; sourceTree = "<group>"; };
@@ -318,10 +314,8 @@
 		567E9A3323E93F15004C1B2E /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				5627FCA123F0BEB4001B4B5B /* FeedPostCell.xib */,
 				5679530323D806BE0077BA08 /* Main.storyboard */,
 				568721A223E7EF1100E15F87 /* ApplicationScheme.swift */,
-				5627FCA023F0BEB4001B4B5B /* FeedPostCell.swift */,
 				5659D9D523FD02980043FA6A /* AnswerPostCell.swift */,
 				5659D9D623FD02980043FA6A /* AnswerPostCell.xib */,
 				5681771523FDCE7500CA7AB5 /* DetailedPostCell.swift */,
@@ -565,7 +559,6 @@
 				5679533623D97EDD0077BA08 /* GoogleService-Info.plist in Resources */,
 				5679530723D806C00077BA08 /* Assets.xcassets in Resources */,
 				5681771823FDCE7500CA7AB5 /* DetailedPostCell.xib in Resources */,
-				5627FCA323F0BEB4001B4B5B /* FeedPostCell.xib in Resources */,
 				5659D9D823FD02980043FA6A /* AnswerPostCell.xib in Resources */,
 				5679530523D806BE0077BA08 /* Main.storyboard in Resources */,
 				BA6305272422E6A500DA0AE1 /* chevron-left.svg in Resources */,
@@ -673,7 +666,6 @@
 				564FA33823FFBF81006017FB /* CreateAnswerViewController.swift in Sources */,
 				BA4EE45C23EF6814003E6D87 /* PasswordResetConfirmationViewController.swift in Sources */,
 				BAA340FA23F3932900C7392C /* DateExtensions.swift in Sources */,
-				5627FCA223F0BEB4001B4B5B /* FeedPostCell.swift in Sources */,
 				BAEE4AC82426D133005C2023 /* FeedCell.swift in Sources */,
 				5659D9D723FD02980043FA6A /* AnswerPostCell.swift in Sources */,
 				BA4EDA47240290C000206267 /* ProfilePostCell.swift in Sources */,

@@ -16,10 +16,3 @@ extension Date {
         return dateFormatter.string(from: self)
     }
 }
-
-
-extension Dictionary {
-    func sortByValue(_ dict: [String:Any]) {
-        
-    }
-}
