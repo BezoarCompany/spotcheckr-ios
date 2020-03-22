@@ -23,4 +23,5 @@ class Images {
     static let plus = SVGKImage(named: "plus").uiImage.withRenderingMode(.alwaysTemplate)
     static let arrowUp = SVGKImage(named: "arrow-up").uiImage.withRenderingMode(.alwaysTemplate)
     static let arrowDown = SVGKImage(named: "arrow-down").uiImage.withRenderingMode(.alwaysTemplate)
+    static let profilePictureDefault = SVGKImage(named: "account-circle").uiImage.withRenderingMode(.alwaysTemplate)
 }

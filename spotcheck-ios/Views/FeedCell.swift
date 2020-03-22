@@ -26,9 +26,9 @@ class FeedCell: MDCCardCollectionCell {
     }
     
     func addSubviews() {
+        addSubview(thumbnailImageView)
         addSubview(headerLabel)
         addSubview(subHeadLabel)
-        addSubview(thumbnailImageView)
         addSubview(media)
         addSubview(supportingTextLabel)
         addSubview(upvoteButton)
@@ -45,12 +45,14 @@ class FeedCell: MDCCardCollectionCell {
         subHeadLabel.leadingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor, constant: 8),
         thumbnailImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
         thumbnailImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+        thumbnailImageView.widthAnchor.constraint(equalToConstant: 40),
+        thumbnailImageView.heightAnchor.constraint(equalToConstant: 40),
         media.topAnchor.constraint(equalTo: subHeadLabel.bottomAnchor, constant: 16),
         media.widthAnchor.constraint(equalToConstant: contentView.frame.width),
         supportingTextTopConstraint!,
-        supportingTextLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+        supportingTextLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
         upvoteButton.topAnchor.constraint(equalTo: supportingTextLabel.bottomAnchor, constant: 24),
-        upvoteButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+        upvoteButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 4),
         downvoteButton.topAnchor.constraint(equalTo: supportingTextLabel.bottomAnchor, constant: 24),
         downvoteButton.leadingAnchor.constraint(equalTo: upvoteButton.trailingAnchor, constant: 8),
         bottomAnchor.constraint(equalTo: upvoteButton.bottomAnchor, constant: 16),
@@ -149,6 +151,8 @@ class FeedCell: MDCCardCollectionCell {
     let thumbnailImageView: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
+        image.image = Images.profilePictureDefault
+        image.tintColor = .white
         return image
     }()
     
