@@ -8,9 +8,7 @@ import SVGKit
 import MaterialComponents
 import IGListKit
 
-
 class FeedViewController: UIViewController {
-    @IBOutlet weak var tableView: UITableView!
     static let IMAGE_HEIGHT = 200
     var posts = [ExercisePost]()
     var refreshControl: UIRefreshControl = {
@@ -25,6 +23,11 @@ class FeedViewController: UIViewController {
         button.setImage(Images.plus, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
+    }()
+    let feedView: UICollectionView = {
+        let view = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -42,7 +45,7 @@ class FeedViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(updateTableViewEdittedPost), name: K.Notifications.ExercisePostEdits, object: nil)
         
         addSubviews()
-        initTableView()
+        initFeedView()
         initRefreshControl()
         initAddPostButton()
         applyConstraints()
@@ -52,23 +55,25 @@ class FeedViewController: UIViewController {
     func getPosts() {
         let completePostsDataSet = { ( argPosts: [ExercisePost]) in
             self.posts = argPosts
-            self.tableView.reloadData()
+            self.feedView.reloadData()
         }
         
         Services.exercisePostService.getPosts(success: completePostsDataSet)
     }
     
-    func initTableView() {
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.register(UINib(nibName:K.Storyboard.postNibName, bundle: nil), forCellReuseIdentifier: K.Storyboard.feedCellId)
-        tableView.separatorInset = UIEdgeInsets(top: 0,left: 0,bottom: 0,right: 0)
+    func initFeedView() {
+        let layout = UICollectionViewFlowLayout()
+        layout.estimatedItemSize = CGSize(width: view.frame.width, height: 1)
+        feedView.collectionViewLayout = layout
+        feedView.delegate = self
+        feedView.dataSource = self
+        feedView.register(FeedCell.self, forCellWithReuseIdentifier: "Cell")
     }
     
     func addSubviews() {
+        view.addSubview(feedView)
         view.addSubview(appBarViewController.view)
-        tableView.addSubview(addPostButton)
-        tableView.addSubview(refreshControl)
+        feedView.addSubview(addPostButton)
     }
     
     func initRefreshControl() {
@@ -84,6 +89,11 @@ class FeedViewController: UIViewController {
         self.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: addPostButton.bottomAnchor, constant: 75).isActive = true
         addPostButton.widthAnchor.constraint(equalToConstant: 64).isActive = true
         addPostButton.heightAnchor.constraint(equalToConstant: 64).isActive = true
+        
+        feedView.topAnchor.constraint(equalTo: appBarViewController.view.bottomAnchor).isActive = true
+        feedView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: 20).isActive = true
+        feedView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: feedView.trailingAnchor).isActive = true
     }
     
     @objc func addTapped() {
@@ -99,6 +109,28 @@ class FeedViewController: UIViewController {
     
 }
 
+extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return posts.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let post = posts[indexPath.row]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell",
+        for: indexPath) as! FeedCell
+        cell.setCellWidth(width: view.frame.width)
+        cell.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
+        cell.headerLabel.text = post.title
+        cell.subHeadLabel.text = post.dateCreated?.toDisplayFormat()
+        if post.imagePath != nil {
+            cell.media.image = UIImage(named:"squat1")! //temp
+            cell.setConstraintsWithMedia()
+        }
+        cell.supportingTextLabel.text = post.description
+        return cell
+    }
+}
+
 extension FeedViewController {
     
     //Renders the changes between self's posts[] and the arg's posts[]
@@ -108,11 +140,11 @@ extension FeedViewController {
       let results = ListDiffPaths(fromSection: 0, toSection: 0, oldArray: self.posts, newArray: argPosts, option: .equality)
 
       self.posts = argPosts // set arg data into exiting array before updating tableview
-      self.tableView.beginUpdates()
-      self.tableView.deleteRows(at: results.deletes, with: .fade)
-      self.tableView.insertRows(at: results.inserts, with: .automatic)
-      //self.tableView.reloadRows(at: results.updates, with: .automatic)
-      self.tableView.endUpdates()
+//      self.feedView.beginUpdates()
+//      self.feedView.deleteRows(at: results.deletes, with: .fade)
+//      self.feedView.insertRows(at: results.inserts, with: .automatic)
+//      //self.tableView.reloadRows(at: results.updates, with: .automatic)
+//      self.feedView.endUpdates()
     }
 
 
@@ -139,10 +171,10 @@ extension FeedViewController {
           newPostsCopy[indexFound] = exercisePost
         
           
-          self.tableView.beginUpdates()
-          let idxPath = IndexPath(row: indexFound, section: 0)
-          self.tableView.reloadRows(at: [idxPath], with: .automatic)
-          self.tableView.endUpdates()
+//          self.tableView.beginUpdates()
+//          let idxPath = IndexPath(row: indexFound, section: 0)
+//          self.tableView.reloadRows(at: [idxPath], with: .automatic)
+//          self.tableView.endUpdates()
 
           
       } else if (diffType == .delete) {
