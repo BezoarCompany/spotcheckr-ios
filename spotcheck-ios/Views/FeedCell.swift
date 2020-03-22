@@ -40,9 +40,9 @@ class FeedCell: MDCCardCollectionCell {
         
         NSLayoutConstraint.activate([
         headerLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
-        headerLabel.leadingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor, constant: 8),
+        headerLabel.leadingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor, constant: 16),
         subHeadLabel.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 8),
-        subHeadLabel.leadingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor, constant: 8),
+        subHeadLabel.leadingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor, constant: 16),
         thumbnailImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
         thumbnailImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
         thumbnailImageView.widthAnchor.constraint(equalToConstant: 40),
