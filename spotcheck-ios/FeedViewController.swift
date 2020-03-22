@@ -106,7 +106,7 @@ class FeedViewController: UIViewController {
         
         feedView.topAnchor.constraint(equalTo: appBarViewController.view.bottomAnchor).isActive = true
         //TODO: How to get the tab bar then assign to its top anchor?
-        feedView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: 20).isActive = true
+        self.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: feedView.bottomAnchor, constant: 55).isActive = true
         feedView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: feedView.trailingAnchor).isActive = true
     }

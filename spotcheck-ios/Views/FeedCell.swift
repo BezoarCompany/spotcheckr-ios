@@ -153,6 +153,7 @@ class FeedCell: MDCCardCollectionCell {
         image.translatesAutoresizingMaskIntoConstraints = false
         image.image = Images.profilePictureDefault
         image.tintColor = .white
+        //TODO: Clicking on the image should take you to its location.
         return image
     }()
     
