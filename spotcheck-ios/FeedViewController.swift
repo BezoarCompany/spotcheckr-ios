@@ -85,8 +85,8 @@ class FeedViewController: UIViewController {
         feedView.collectionViewLayout = layout
         feedView.delegate = self
         feedView.dataSource = self
-        feedView.prefetchDataSource = self
-        feedView.register(FeedCell.self, forCellWithReuseIdentifier: FeedCell.cellId)        
+        feedView.register(FeedCell.self, forCellWithReuseIdentifier: FeedCell.cellId)
+        feedView.register(LoadingCell.self, forCellWithReuseIdentifier: LoadingCell.cellId)
         feedView.backgroundColor = ApplicationScheme.instance.containerScheme.colorScheme.backgroundColor
     }
     
@@ -153,10 +153,24 @@ class FeedViewController: UIViewController {
 extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
                    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return posts.count
+        // +1 to show the loading cell at the last row
+        return posts.count + 1
     }
         
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
+        // if reached last row, load next batch
+        if indexPath.item == self.posts.count {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LoadingCell.cellId, for: indexPath) as! LoadingCell
+            firstly {
+                fetchMorePosts(lastSnapshot: self.lastPostsSnapshot)
+            }.done {
+                print("=================== at last cell\(indexPath.item), to reload??")
+                self.feedView.reloadData();
+            }
+            
+            return cell
+        }
         
         let post = posts[indexPath.row]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedCell.cellId,
