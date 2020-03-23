@@ -422,12 +422,15 @@ class ExercisePostService: ExercisePostProtocol {
     func writeAnswer(answer: Answer) -> Promise<Void> {
         return Promise { promise in
             let newAnswerRef = Firestore.firestore().collection(self.answerCollection).document()
-            newAnswerRef.setData(DomainToFirebaseMapper.mapAnswer(from: answer), completion: { error in
+            var newAnswer = answer
+            newAnswer.id = newAnswerRef.documentID
+            newAnswerRef.setData(DomainToFirebaseMapper.mapAnswer(from: newAnswer), completion: { error in
                 if let error = error {
                     return promise.reject(error)
                 }
                 return promise.fulfill_()
             })
+            
         }
     }
     

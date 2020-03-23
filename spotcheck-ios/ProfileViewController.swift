@@ -199,8 +199,9 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
                 firstly {
                     Services.exercisePostService.deletePost(post)
                 }.done {
-                    self.snackbarMessage.text = "Post deleted."
-                    MDCSnackbarManager.show(self.snackbarMessage)
+                    self.posts.remove(at: indexPath.row)
+                    self.postsTableView.deleteRows(at: [indexPath], with: .right)
+                    self.tabBar?.items[0].title = "\(self.posts.count) Posts"
                 }
                 .catch { error in
                     self.snackbarMessage.text = "Failed to delete post."
@@ -228,8 +229,9 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             firstly {
                 Services.exercisePostService.deleteAnswer(withId: answer.id!)
             }.done {
-                self.snackbarMessage.text = "Answer deleted."
-                MDCSnackbarManager.show(self.snackbarMessage)
+                self.answers.remove(at: indexPath.row)
+                self.answersTableView.deleteRows(at: [indexPath], with: .right)
+                self.tabBar?.items[1].title = "\(self.answers.count) Answers"
             }
             .catch { error in
                 self.snackbarMessage.text = "Failed to delete answer."
