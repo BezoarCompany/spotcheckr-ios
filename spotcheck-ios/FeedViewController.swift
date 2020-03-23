@@ -217,14 +217,11 @@ extension FeedViewController {
         print("index Found: \(indexFound)")
           
         newPostsCopy[indexFound] = exercisePost
+        feedView.performBatchUpdates({
+            let idxPath = IndexPath(row: indexFound, section: 0)
+            self.feedView.reloadItems(at: [idxPath])
+        })
         
-          
-//          self.tableView.beginUpdates()
-//          let idxPath = IndexPath(row: indexFound, section: 0)
-//          self.tableView.reloadRows(at: [idxPath], with: .automatic)
-//          self.tableView.endUpdates()
-
-          
       } else if (diffType == .delete) {
           newPostsCopy.remove(at: indexFound)
       }
