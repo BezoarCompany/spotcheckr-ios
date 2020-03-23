@@ -189,7 +189,6 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             cell.titleLabel.text = post.title
             cell.descriptionLabel.text = post.description
             cell.datePostedLabel.text = post.dateCreated?.toDisplayFormat()
-            cell.voteTotalLabel.text = "\(post.metrics.totalVotes)"
             cell.votingUserId = self.currentUser?.id
             cell.postId = post.id
             cell.voteDirection = post.metrics.currentVoteDirection
@@ -220,7 +219,6 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             
         cell.descriptionLabel.text = answer.text
         cell.datePostedLabel.text = answer.dateCreated?.toDisplayFormat()
-        cell.voteTotalLabel.text = "\(answer.metrics!.totalVotes)"
         cell.votingUserId = self.currentUser?.id
         cell.voteDirection = answer.metrics?.currentVoteDirection
         cell.hideAnswers = true
