@@ -10,6 +10,9 @@ import IGListKit
 
 class FeedViewController: UIViewController {
     static let IMAGE_HEIGHT = 200
+    
+    //The last snapshot of a post item. Used as a cursor in the query for the next group of posts
+    var lastPostsSnapshot: DocumentSnapshot? = nil
     var posts = [ExercisePost]()
     var refreshControl = UIRefreshControl()
     var activityIndicator = UIElementFactory.getActivityIndicator()
@@ -40,6 +43,7 @@ class FeedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.appBarViewController.didMove(toParent: self)
+
         NotificationCenter.default.addObserver(self, selector: #selector(updateTableViewEdittedPost), name: K.Notifications.ExercisePostEdits, object: nil)
         
         firstly {
@@ -47,24 +51,25 @@ class FeedViewController: UIViewController {
         }.done { user in
             self.currentUser = user
         }
-        
+    
         addSubviews()
         initFeedView()
         initRefreshControl()
         initAddPostButton()
         applyConstraints()
-        getPosts()
+        getPosts(lastSnapshot: self.lastPostsSnapshot)
     }
     
-    func getPosts() -> Promise<Void> {
+    func getPosts(lastSnapshot: DocumentSnapshot?) -> Promise<Void> {
         return Promise { promise in
-            let completePostsDataSet = { ( argPosts: [ExercisePost]) -> () in
-                self.posts = argPosts
+            firstly {
+                Services.exercisePostService.getPosts(lastPostSnapshot: self.lastPostsSnapshot)
+            }.done { pagedResult in
+                self.posts = pagedResult.posts
+                self.lastPostsSnapshot = pagedResult.lastSnapshot
                 self.feedView.reloadData()
-                return promise.fulfill_()
+                return promise.fulfill_()         
             }
-            
-            Services.exercisePostService.getPosts(success: completePostsDataSet)
         }
     }
     
@@ -103,7 +108,6 @@ class FeedViewController: UIViewController {
         self.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: addPostButton.bottomAnchor, constant: 75).isActive = true
         addPostButton.widthAnchor.constraint(equalToConstant: 64).isActive = true
         addPostButton.heightAnchor.constraint(equalToConstant: 64).isActive = true
-        
         feedView.topAnchor.constraint(equalTo: appBarViewController.view.bottomAnchor).isActive = true
         //TODO: How to get the tab bar then assign to its top anchor?
         self.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: feedView.bottomAnchor, constant: 55).isActive = true
@@ -120,13 +124,16 @@ class FeedViewController: UIViewController {
     @objc func refreshPosts() {
         refreshControl.beginRefreshing()
         activityIndicator.startAnimating()
+
+        self.posts = []
+        self.feedView.reloadData() 
         firstly {
-            getPosts()
+            getPosts(lastSnapshot: self.lastPostsSnapshot)
         }.done {
             self.perform(#selector(self.finishRefreshing), with: nil, afterDelay: 0.1)
         }
     }
-    
+
     @objc func finishRefreshing() {
         self.activityIndicator.stopAnimating()
         self.refreshControl.endRefreshing()
@@ -180,7 +187,6 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
 }
 
 extension FeedViewController {
-    
     //Renders the changes between self's posts[] and the arg's posts[]
     func diffedTableViewRenderer(argPosts: [ExercisePost]) {
         //new data comes in `argPosts`
