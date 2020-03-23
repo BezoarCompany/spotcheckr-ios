@@ -24,6 +24,13 @@ class PostDetailViewController : UIViewController {
     
     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
     let appBarViewController = UIElementFactory.getAppBar()
+    let answerReplyButton: MDCFloatingButton = {
+        let button = MDCFloatingButton()
+        button.applySecondaryTheme(withScheme: ApplicationScheme.instance.containerScheme)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(Images.reply, for: .normal)
+        return button
+    }()
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -94,10 +101,12 @@ class PostDetailViewController : UIViewController {
         tableView.delegate = self
         tableView.register(UINib(nibName:K.Storyboard.detailedPostNibName , bundle: nil), forCellReuseIdentifier: K.Storyboard.detailedPostCellId)
         tableView.register(UINib(nibName:K.Storyboard.answerNibName, bundle: nil), forCellReuseIdentifier: K.Storyboard.answerCellId)
-        
+        tableView.addSubview(answerReplyButton)
         tableView.separatorInset = UIEdgeInsets(top: -10,left: 0,bottom: 0,right: 0)
         
         initActivityIndicator()
+        initReplyButton()
+        applyConstraints()
     }
     
     @objc func backOnClick(sender: Any) {
@@ -159,7 +168,17 @@ class PostDetailViewController : UIViewController {
         activityIndicator.style = UIActivityIndicatorView.Style.whiteLarge
         self.view.addSubview(activityIndicator)
     }
-
+    
+    func initReplyButton() {
+        answerReplyButton.addTarget(self, action: #selector(addAnswerButton(_:)), for: .touchUpInside)
+    }
+    
+    func applyConstraints() {
+        self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: answerReplyButton.trailingAnchor, constant: 25).isActive = true
+        self.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: answerReplyButton.bottomAnchor, constant: 75).isActive = true
+        answerReplyButton.widthAnchor.constraint(equalToConstant: 64).isActive = true
+        answerReplyButton.heightAnchor.constraint(equalToConstant: 64).isActive = true
+    }
 }
 
 enum SectionTypes: Int {

@@ -215,26 +215,10 @@
                     <view key="view" contentMode="scaleToFill" id="Vs6-4q-xdK">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="iTh-5i-sab">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
-                                <color key="backgroundColor" red="0.1333333333" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="separatorColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" red="0.1333333333" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstItem="iTh-5i-sab" firstAttribute="leading" secondItem="TWv-Cy-aLM" secondAttribute="leading" id="0Z9-nE-JEk"/>
-                            <constraint firstItem="iTh-5i-sab" firstAttribute="top" secondItem="TWv-Cy-aLM" secondAttribute="top" id="9eD-Rf-gT7"/>
-                            <constraint firstItem="iTh-5i-sab" firstAttribute="trailing" secondItem="TWv-Cy-aLM" secondAttribute="trailing" id="FGp-dL-qtv"/>
-                            <constraint firstItem="iTh-5i-sab" firstAttribute="bottom" secondItem="TWv-Cy-aLM" secondAttribute="bottom" id="q3a-CI-IO1"/>
-                        </constraints>
+                        <color key="backgroundColor" red="0.12941294910000001" green="0.12940964099999999" blue="0.1294118762" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <viewLayoutGuide key="safeArea" id="TWv-Cy-aLM"/>
                     </view>
                     <navigationItem key="navigationItem" title="Home" leftItemsSupplementBackButton="YES" id="tmJ-Mg-eyj"/>
-                    <connections>
-                        <outlet property="tableView" destination="iTh-5i-sab" id="aUF-ih-eam"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PeB-ic-UsK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -254,27 +238,11 @@
                                 <color key="sectionIndexColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="sectionIndexBackgroundColor" red="0.1764735281" green="0.17646530269999999" blue="0.1764708757" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lD3-Ee-8VS" userLabel="AddAnswerButton">
-                                <rect key="frame" x="0.0" y="750" width="414" height="40"/>
-                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="lb7-so-aTR"/>
-                                </constraints>
-                                <state key="normal" title="Add an answer">
-                                    <color key="titleColor" red="0.1764735281" green="0.17646530269999999" blue="0.1764708757" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                </state>
-                                <connections>
-                                    <action selector="addAnswerButton:" destination="M9o-fR-ved" eventType="touchUpInside" id="NhJ-KI-hSx"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="lD3-Ee-8VS" firstAttribute="leading" secondItem="qMF-pz-b0p" secondAttribute="leading" id="8Vf-iI-9fI"/>
-                            <constraint firstItem="lD3-Ee-8VS" firstAttribute="trailing" secondItem="qMF-pz-b0p" secondAttribute="trailing" id="HQC-qc-aow"/>
                             <constraint firstItem="Cvp-oP-4nj" firstAttribute="top" secondItem="qMF-pz-b0p" secondAttribute="top" id="ISC-kS-e9u"/>
                             <constraint firstItem="qMF-pz-b0p" firstAttribute="bottom" secondItem="Cvp-oP-4nj" secondAttribute="bottom" constant="38" id="Niw-Yo-QwP"/>
-                            <constraint firstItem="qMF-pz-b0p" firstAttribute="bottom" secondItem="lD3-Ee-8VS" secondAttribute="bottom" constant="72" id="O2I-xe-1ZN"/>
                             <constraint firstItem="Cvp-oP-4nj" firstAttribute="trailing" secondItem="qMF-pz-b0p" secondAttribute="trailing" id="SZK-Ft-kUE"/>
                             <constraint firstItem="Cvp-oP-4nj" firstAttribute="leading" secondItem="qMF-pz-b0p" secondAttribute="leading" id="jvI-A4-xuI"/>
                         </constraints>
@@ -573,6 +541,6 @@
         <image name="person.fill" catalog="system" width="64" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="bdw-On-ZHl"/>
+        <segue reference="g51-UX-Uzl"/>
     </inferredMetricsTieBreakers>
 </document>

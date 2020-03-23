@@ -16,9 +16,9 @@ class ProfilePostCell: UITableViewCell {
     var postId: String?
     var votingUserId: String?
     var voteDirection: VoteDirection?
-    let upvoteColor = UIColor(red: 1.00, green: 0.16, blue: 0.00, alpha: 1.00)
-    let downvoteColor = UIColor(red: 0.42, green: 0.57, blue: 1.00, alpha: 1.00)
-    let neutralColor: UIColor = .white
+    let upvoteColor = Colors.upvote
+    let downvoteColor = Colors.downvote
+    let neutralColor: UIColor = Colors.neutralVote
     let moreIcon: UIImageView = {
         let icon = UIImageView()
         icon.isUserInteractionEnabled = true

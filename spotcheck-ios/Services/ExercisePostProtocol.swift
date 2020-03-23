@@ -1,8 +1,18 @@
 import PromiseKit
+import FirebaseFirestore
+import FirebaseFirestoreSwift
+
+
+typealias ClosureToExercisepostPromiseType = ()->Promise<ExercisePost>
+
+struct PaginatedGetPostsResult {
+    let posts: [ExercisePost]
+    let lastSnapshot: DocumentSnapshot?
+}
 
 protocol ExercisePostProtocol {
     func getPost(withId id: String) -> Promise<ExercisePost>
-    func getPosts(success: @escaping ([ExercisePost])->Void) -> Promise<[ExercisePost]>
+    func getPosts(limit: Int, lastPostSnapshot: DocumentSnapshot?) -> Promise<PaginatedGetPostsResult>
     func getPosts(forUser user: User) -> Promise<[ExercisePost]>
     func getUpvoteCount(forPostWithId postId: String, collection: String) -> Promise<Int>
     func getDownvoteCount(forPostWithId postId: String, collection: String) -> Promise<Int>

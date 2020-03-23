@@ -19,4 +19,9 @@ class Images {
     static let trash = SVGKImage(named: "trash-2").uiImage.withRenderingMode(.alwaysTemplate)
     static let back = SVGKImage(named: "chevron-left").uiImage.withRenderingMode(.alwaysTemplate)
     static let logOut = SVGKImage(named: "log-out").uiImage.withRenderingMode(.alwaysTemplate)
+    static let reply = SVGKImage(named: "reply").uiImage.withRenderingMode(.alwaysTemplate)
+    static let plus = SVGKImage(named: "plus").uiImage.withRenderingMode(.alwaysTemplate)
+    static let arrowUp = SVGKImage(named: "arrow-up").uiImage.withRenderingMode(.alwaysTemplate)
+    static let arrowDown = SVGKImage(named: "arrow-down").uiImage.withRenderingMode(.alwaysTemplate)
+    static let profilePictureDefault = SVGKImage(named: "account-circle").uiImage.withRenderingMode(.alwaysTemplate)
 }

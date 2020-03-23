@@ -129,34 +129,51 @@ class ExercisePostService: ExercisePostProtocol {
             }
         }
     }
-    
-    //TODO: add more parameters. page#, context parameters?
-    func getPosts(success: @escaping ([ExercisePost])->Void) -> Promise<[ExercisePost]> {
+        
+    func getPosts(limit: Int = 10, lastPostSnapshot: DocumentSnapshot?) -> Promise<PaginatedGetPostsResult> {
         return Promise { promise in
 
             let db = Firestore.firestore()
-            let docRef = db.collection(K.Firestore.posts).order(by: "modified-date")
+            var query = db.collection(K.Firestore.posts).order(by: "modified-date", descending: true).limit(to: limit)
             
-            var resultPosts = [ExercisePost]()
+            if let lastPostSnapshot = lastPostSnapshot {
+                query = query.start(afterDocument: lastPostSnapshot)
+            }
             
-            docRef.getDocuments() { querySnapshot, error in
-                guard error == nil, let querySnapshot = querySnapshot, !querySnapshot.isEmpty else {
-                    return promise.reject(error!)
+            query.getDocuments() { querySnapshot, error in
+                if let error = error {
+                    return promise.reject(error)
                 }
                 
-                for doc in querySnapshot.documents {
-                    //print("\(doc.documentID) => \(doc.data())")
-                    
-                    firstly {
-                        self.getPost(withId:doc.documentID)
-                    }.done { post in
-                        resultPosts.append(post)
-                        success(resultPosts)
-                    }.catch { err in
-                        return promise.reject(err)                        
+                
+                //read through items in order, and setup PromisesExecution Array in SERIES/sequence
+                //https://github.com/mxcl/PromiseKit/blob/master/Documentation/CommonPatterns.md --Chaining Sequences
+                
+                //Example on how to sequentially chain promises.
+                //Going from [Promise<Post>] (array of promises)  => [()->Promise<Post>] (Aka Array of Closures that return Promises)
+                //ie. from [ExercisepostPromise] to [ClosureToExercisepostPromiseType]
+                let closurePromisesArr: [ClosureToExercisepostPromiseType] = querySnapshot!.documents.map { doc in
+                    return {
+                        
+                        return Promise<ExercisePost> { pr in
+                            //actually call individual getPost(id)
+                            firstly {
+                                self.getPost(withId:doc.documentID)
+                            }.done { post in
+                                pr.fulfill(post)
+                            }.catch { err in
+                                pr.reject(err)
+                            }
+                        }
                     }
-                }                
-                return promise.fulfill(resultPosts)
+                }
+                
+                Promise.chain(closurePromisesArr).done { posts in
+                    let result = PaginatedGetPostsResult(posts:posts, lastSnapshot: querySnapshot!.documents.last)
+                    return promise.fulfill(result)
+                }.catch { err2 in
+                    return promise.reject(err2)
+                }
             }
         }
     }

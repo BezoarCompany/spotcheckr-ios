@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5627FCA223F0BEB4001B4B5B /* FeedPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5627FCA023F0BEB4001B4B5B /* FeedPostCell.swift */; };
-		5627FCA323F0BEB4001B4B5B /* FeedPostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5627FCA123F0BEB4001B4B5B /* FeedPostCell.xib */; };
+		5607DA0E2426221000B283D2 /* PromiseKit+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5607DA0D2426221000B283D2 /* PromiseKit+extensions.swift */; };
 		5644F61D2406435C00A103EF /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5644F61C2406435C00A103EF /* StorageService.swift */; };
 		5644F61F2406459B00A103EF /* StorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5644F61E2406459B00A103EF /* StorageProtocol.swift */; };
 		5645AFE823F51C0700B64D0B /* CreatePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5645AFE723F51C0700B64D0B /* CreatePostViewController.swift */; };
@@ -86,6 +85,12 @@
 		BAA340FA23F3932900C7392C /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA340F923F3932900C7392C /* DateExtensions.swift */; };
 		BAA340FF23F39AA500C7392C /* FakeDataFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA340FE23F39AA500C7392C /* FakeDataFactory.swift */; };
 		BACCABEA241E162100BEC89E /* UIElementFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACCABE9241E162100BEC89E /* UIElementFactory.swift */; };
+		BAEE4AC624263579005C2023 /* reply.svg in Resources */ = {isa = PBXBuildFile; fileRef = BAEE4AC524263579005C2023 /* reply.svg */; };
+		BAEE4AC82426D133005C2023 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEE4AC72426D133005C2023 /* FeedCell.swift */; };
+		BAEE4ACA2426DEFB005C2023 /* arrow-up.svg in Resources */ = {isa = PBXBuildFile; fileRef = BAEE4AC92426DEFB005C2023 /* arrow-up.svg */; };
+		BAEE4ACC2426E122005C2023 /* arrow-down.svg in Resources */ = {isa = PBXBuildFile; fileRef = BAEE4ACB2426E122005C2023 /* arrow-down.svg */; };
+		BAEE4ACE24274D49005C2023 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEE4ACD24274D49005C2023 /* Colors.swift */; };
+		BAEE4AD024276DFD005C2023 /* account-circle.svg in Resources */ = {isa = PBXBuildFile; fileRef = BAEE4ACF24276DFD005C2023 /* account-circle.svg */; };
 		CE177860E3221E038C0D83EF /* Pods_spotcheck_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BAF183FCC50189FBD943ED6 /* Pods_spotcheck_ios.framework */; };
 /* End PBXBuildFile section */
 
@@ -108,8 +113,7 @@
 
 /* Begin PBXFileReference section */
 		1BAF183FCC50189FBD943ED6 /* Pods_spotcheck_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_spotcheck_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5627FCA023F0BEB4001B4B5B /* FeedPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedPostCell.swift; sourceTree = "<group>"; };
-		5627FCA123F0BEB4001B4B5B /* FeedPostCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedPostCell.xib; sourceTree = "<group>"; };
+		5607DA0D2426221000B283D2 /* PromiseKit+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PromiseKit+extensions.swift"; sourceTree = "<group>"; };
 		5644F61C2406435C00A103EF /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		5644F61E2406459B00A103EF /* StorageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageProtocol.swift; sourceTree = "<group>"; };
 		5645AFE723F51C0700B64D0B /* CreatePostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostViewController.swift; sourceTree = "<group>"; };
@@ -196,6 +200,12 @@
 		BAA340F923F3932900C7392C /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		BAA340FE23F39AA500C7392C /* FakeDataFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeDataFactory.swift; sourceTree = "<group>"; };
 		BACCABE9241E162100BEC89E /* UIElementFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIElementFactory.swift; sourceTree = "<group>"; };
+		BAEE4AC524263579005C2023 /* reply.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = reply.svg; sourceTree = "<group>"; };
+		BAEE4AC72426D133005C2023 /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
+		BAEE4AC92426DEFB005C2023 /* arrow-up.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "arrow-up.svg"; sourceTree = "<group>"; };
+		BAEE4ACB2426E122005C2023 /* arrow-down.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "arrow-down.svg"; sourceTree = "<group>"; };
+		BAEE4ACD24274D49005C2023 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		BAEE4ACF24276DFD005C2023 /* account-circle.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "account-circle.svg"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -308,16 +318,15 @@
 		567E9A3323E93F15004C1B2E /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				5627FCA123F0BEB4001B4B5B /* FeedPostCell.xib */,
 				5679530323D806BE0077BA08 /* Main.storyboard */,
 				568721A223E7EF1100E15F87 /* ApplicationScheme.swift */,
-				5627FCA023F0BEB4001B4B5B /* FeedPostCell.swift */,
 				5659D9D523FD02980043FA6A /* AnswerPostCell.swift */,
 				5659D9D623FD02980043FA6A /* AnswerPostCell.xib */,
 				5681771523FDCE7500CA7AB5 /* DetailedPostCell.swift */,
 				5681771623FDCE7500CA7AB5 /* DetailedPostCell.xib */,
 				BA4EDA442402909A00206267 /* ProfilePostCell.xib */,
 				BA4EDA46240290C000206267 /* ProfilePostCell.swift */,
+				BAEE4AC72426D133005C2023 /* FeedCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -380,6 +389,7 @@
 				5653ABCE24161921001E9CF0 /* Cache.swift */,
 				BA828EFA241CE2F10012509D /* FirebaseToDomainMapper.swift */,
 				BA828EFC241CE3E30012509D /* DomainToFirebaseMapper.swift */,
+				5607DA0D2426221000B283D2 /* PromiseKit+extensions.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -390,8 +400,12 @@
 				BA49A0182420875F00BB4BD8 /* more-horizontal.svg */,
 				BA49A014241ED56300BB4BD8 /* user.svg */,
 				BA6305262422E6A500DA0AE1 /* chevron-left.svg */,
+				BAEE4AC92426DEFB005C2023 /* arrow-up.svg */,
 				BA49A01A242090DA00BB4BD8 /* trash-2.svg */,
+				BAEE4ACB2426E122005C2023 /* arrow-down.svg */,
+				BAEE4ACF24276DFD005C2023 /* account-circle.svg */,
 				BA49A012241ED21300BB4BD8 /* list.svg */,
+				BAEE4AC524263579005C2023 /* reply.svg */,
 				BA5DE70D241888FE002C98E6 /* chevron-down.svg */,
 				BA6305282422E97100DA0AE1 /* log-out.svg */,
 				BA5DE70B241888F2002C98E6 /* chevron-up.svg */,
@@ -419,6 +433,7 @@
 				BAA340FE23F39AA500C7392C /* FakeDataFactory.swift */,
 				BA5DE70F2419ADAC002C98E6 /* Images.swift */,
 				BACCABE9241E162100BEC89E /* UIElementFactory.swift */,
+				BAEE4ACD24274D49005C2023 /* Colors.swift */,
 			);
 			path = Factories;
 			sourceTree = "<group>";
@@ -530,12 +545,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BAEE4AC624263579005C2023 /* reply.svg in Resources */,
 				BA5DE70C241888F2002C98E6 /* chevron-up.svg in Resources */,
 				BA49A015241ED56300BB4BD8 /* user.svg in Resources */,
 				BA49A01B242090DA00BB4BD8 /* trash-2.svg in Resources */,
 				BA4EDA452402909A00206267 /* ProfilePostCell.xib in Resources */,
+				BAEE4AD024276DFD005C2023 /* account-circle.svg in Resources */,
 				BA6305292422E97100DA0AE1 /* log-out.svg in Resources */,
 				BA4EE45423EECE84003E6D87 /* eye-off.svg in Resources */,
+				BAEE4ACA2426DEFB005C2023 /* arrow-up.svg in Resources */,
 				BA4EE45323EECE84003E6D87 /* eye.svg in Resources */,
 				BA49A0192420875F00BB4BD8 /* more-horizontal.svg in Resources */,
 				BA49213723E6289B00A74A73 /* Roboto-Medium.ttf in Resources */,
@@ -544,10 +562,10 @@
 				BA49A013241ED21300BB4BD8 /* list.svg in Resources */,
 				BA5DE70A2415D2E8002C98E6 /* plus.svg in Resources */,
 				BA5DE70E241888FE002C98E6 /* chevron-down.svg in Resources */,
+				BAEE4ACC2426E122005C2023 /* arrow-down.svg in Resources */,
 				5679533623D97EDD0077BA08 /* GoogleService-Info.plist in Resources */,
 				5679530723D806C00077BA08 /* Assets.xcassets in Resources */,
 				5681771823FDCE7500CA7AB5 /* DetailedPostCell.xib in Resources */,
-				5627FCA323F0BEB4001B4B5B /* FeedPostCell.xib in Resources */,
 				5659D9D823FD02980043FA6A /* AnswerPostCell.xib in Resources */,
 				5679530523D806BE0077BA08 /* Main.storyboard in Resources */,
 				BA6305272422E6A500DA0AE1 /* chevron-left.svg in Resources */,
@@ -655,7 +673,7 @@
 				564FA33823FFBF81006017FB /* CreateAnswerViewController.swift in Sources */,
 				BA4EE45C23EF6814003E6D87 /* PasswordResetConfirmationViewController.swift in Sources */,
 				BAA340FA23F3932900C7392C /* DateExtensions.swift in Sources */,
-				5627FCA223F0BEB4001B4B5B /* FeedPostCell.swift in Sources */,
+				BAEE4AC82426D133005C2023 /* FeedCell.swift in Sources */,
 				5659D9D723FD02980043FA6A /* AnswerPostCell.swift in Sources */,
 				BA4EDA47240290C000206267 /* ProfilePostCell.swift in Sources */,
 				5681771723FDCE7500CA7AB5 /* DetailedPostCell.swift in Sources */,
@@ -665,6 +683,7 @@
 				BA5DE7102419ADAC002C98E6 /* Images.swift in Sources */,
 				5679533823D980E40077BA08 /* FeedViewController.swift in Sources */,
 				5679533A23D988910077BA08 /* ProfileViewController.swift in Sources */,
+				BAEE4ACE24274D49005C2023 /* Colors.swift in Sources */,
 				BA1FB51F23F1071000E091B1 /* Organization.swift in Sources */,
 				BA3DDD2D241CB20F00692100 /* AnalyticsProtocol.swift in Sources */,
 				BA1FB52323F116AE00E091B1 /* ExercisePostProtocol.swift in Sources */,
@@ -683,6 +702,7 @@
 				5679533423D972F00077BA08 /* AuthOptionsViewController.swift in Sources */,
 				BA1FB51D23F106E500E091B1 /* Certification.swift in Sources */,
 				BA1FB52123F1148700E091B1 /* ExercisePost.swift in Sources */,
+				5607DA0E2426221000B283D2 /* PromiseKit+extensions.swift in Sources */,
 				BA4EE46023EFEC7B003E6D87 /* UserService.swift in Sources */,
 				BA4EDA4324026CE200206267 /* IntExtensions.swift in Sources */,
 				BA1FB52F23F11C3400E091B1 /* Exercise.swift in Sources */,
