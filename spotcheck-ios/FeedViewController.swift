@@ -79,7 +79,7 @@ class FeedViewController: UIViewController {
         feedView.collectionViewLayout = layout
         feedView.delegate = self
         feedView.dataSource = self
-        feedView.register(FeedCell.self, forCellWithReuseIdentifier: "Cell")
+        feedView.register(FeedCell.self, forCellWithReuseIdentifier: K.ViewModels.feedCell)
         feedView.backgroundColor = ApplicationScheme.instance.containerScheme.colorScheme.backgroundColor
     }
     
@@ -140,14 +140,17 @@ class FeedViewController: UIViewController {
     }
 }
 
+// Mark: Collection View Data Source
 extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+            
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return posts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         let post = posts[indexPath.row]
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell",
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: K.ViewModels.feedCell,
         for: indexPath) as! FeedCell
         cell.setShadowElevation(ShadowElevation(rawValue: 10), for: .normal)
         cell.setCellWidth(width: view.frame.width)
@@ -186,7 +189,7 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
 }
 
-extension FeedViewController {
+private extension FeedViewController {
     //Renders the changes between self's posts[] and the arg's posts[]
     func diffedTableViewRenderer(argPosts: [ExercisePost]) {
         //new data comes in `argPosts`
@@ -194,9 +197,9 @@ extension FeedViewController {
 
         self.posts = argPosts // set arg data into exiting array before updating tableview
         self.feedView.performBatchUpdates({
-        self.feedView.deleteItems(at: results.deletes)
-        self.feedView.insertItems(at: results.inserts)
-      })
+            self.feedView.deleteItems(at: results.deletes)
+            self.feedView.insertItems(at: results.inserts)
+        })
       //TODO: Do fade animation (?) for deletes and automatic for insert
     }
 
@@ -219,8 +222,6 @@ extension FeedViewController {
           newPostsCopy.insert(exercisePost, at: 0)
       }
       else if (diffType == .edit) { //using Notification center to get the updated post. DiffTool isn't detecting changes b/c Old Post is same as New Posts, as if it were strongly refenced/changed.
-        print("############# EDIT!!  \(posts[indexFound].title) ? \(newPostsCopy[indexFound].title)  : \(exercisePost.title)")
-        print("index Found: \(indexFound)")
           
         newPostsCopy[indexFound] = exercisePost
         feedView.performBatchUpdates({
@@ -236,7 +237,6 @@ extension FeedViewController {
     }
 
     @objc func updateTableViewEdittedPost(notif: Notification) {
-        print("hi from updateTableViewEdittedPost!")
         if let post = notif.userInfo?["post"] as? ExercisePost {
             diffedPostsHandler(diffType: .edit, exercisePost: post)
         }
