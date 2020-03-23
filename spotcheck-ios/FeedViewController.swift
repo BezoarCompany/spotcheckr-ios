@@ -57,29 +57,36 @@ class FeedViewController: UIViewController {
         initRefreshControl()
         initAddPostButton()
         applyConstraints()
-        getPosts(lastSnapshot: self.lastPostsSnapshot)
+        firstly {
+            fetchMorePosts(lastSnapshot: self.lastPostsSnapshot)
+        }.done {
+            self.feedView.reloadData();
+        }
     }
     
-    func getPosts(lastSnapshot: DocumentSnapshot?) -> Promise<Void> {
+    func fetchMorePosts(lastSnapshot: DocumentSnapshot?) -> Promise<Void> {
         return Promise { promise in
             firstly {
-                Services.exercisePostService.getPosts(lastPostSnapshot: self.lastPostsSnapshot)
+                Services.exercisePostService.getPosts(limit:5, lastPostSnapshot: self.lastPostsSnapshot)
             }.done { pagedResult in
-                self.posts = pagedResult.posts
+                self.posts = self.posts + pagedResult.posts
                 self.lastPostsSnapshot = pagedResult.lastSnapshot
-                self.feedView.reloadData()
+
                 return promise.fulfill_()         
+            }.catch { err in
+                return promise.reject(err)
             }
         }
     }
     
     func initFeedView() {
         let layout = UICollectionViewFlowLayout()
-        layout.estimatedItemSize = CGSize(width: view.frame.width, height: 1)
+        layout.estimatedItemSize = CGSize(width: view.frame.width, height: 1) // seems to turn off pre fetching
         feedView.collectionViewLayout = layout
         feedView.delegate = self
         feedView.dataSource = self
-        feedView.register(FeedCell.self, forCellWithReuseIdentifier: K.ViewModels.feedCell)
+        feedView.prefetchDataSource = self
+        feedView.register(FeedCell.self, forCellWithReuseIdentifier: FeedCell.cellId)        
         feedView.backgroundColor = ApplicationScheme.instance.containerScheme.colorScheme.backgroundColor
     }
     
@@ -126,10 +133,12 @@ class FeedViewController: UIViewController {
         activityIndicator.startAnimating()
 
         self.posts = []
-        self.feedView.reloadData() 
+        self.feedView.reloadData()
+        self.lastPostsSnapshot = nil
         firstly {
-            getPosts(lastSnapshot: self.lastPostsSnapshot)
+            fetchMorePosts(lastSnapshot: self.lastPostsSnapshot)
         }.done {
+            self.feedView.reloadData()
             self.perform(#selector(self.finishRefreshing), with: nil, afterDelay: 0.1)
         }
     }
@@ -142,15 +151,15 @@ class FeedViewController: UIViewController {
 
 // Mark: Collection View Data Source
 extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-            
+                   
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return posts.count
     }
-    
+        
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let post = posts[indexPath.row]
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: K.ViewModels.feedCell,
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedCell.cellId,
         for: indexPath) as! FeedCell
         cell.setShadowElevation(ShadowElevation(rawValue: 10), for: .normal)
         cell.setCellWidth(width: view.frame.width)
@@ -172,6 +181,8 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
             cell.media.sd_setImage(with: storagePathReference, placeholderImage: placeholderImage)
             
             cell.setConstraintsWithMedia()
+        } else {
+            cell.setConstraintsWithNoMedia()
         }
         cell.supportingTextLabel.text = post.description
         cell.postId = post.id

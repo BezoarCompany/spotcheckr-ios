@@ -8,11 +8,7 @@ struct K {
     
     struct Notifications {
         static let ExercisePostEdits = Notification.Name("ExercisePostEdits")
-    }
-    
-    struct ViewModels {
-        static let feedCell = "FeedCell" //Reusable Cell ID
-    }
+    }    
     
     struct Storyboard {
         static let MainTabBarControllerId = "MainTabBarController"

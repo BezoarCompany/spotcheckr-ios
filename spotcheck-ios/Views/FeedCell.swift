@@ -2,6 +2,8 @@ import MaterialComponents
 import PromiseKit
 
 class FeedCell: MDCCardCollectionCell {
+    static let cellId = "FeedCell"
+    
     var widthConstraint: NSLayoutConstraint?
     var supportingTextTopConstraint: NSLayoutConstraint?
     var postId: String?
@@ -128,6 +130,11 @@ class FeedCell: MDCCardCollectionCell {
     func setConstraintsWithMedia() {
         supportingTextTopConstraint?.isActive = false
         supportingTextLabel.topAnchor.constraint(equalTo: media.bottomAnchor, constant: 16).isActive = true
+    }
+    
+    func setConstraintsWithNoMedia() {
+        supportingTextTopConstraint?.isActive = true
+        supportingTextLabel.topAnchor.constraint(equalTo: media.bottomAnchor, constant: 16).isActive = false
     }
     
     let headerLabel: UILabel = {
