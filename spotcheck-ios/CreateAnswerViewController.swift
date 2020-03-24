@@ -102,10 +102,10 @@ extension CreateAnswerViewController {
     }
     
     func createAnswer() -> Promise<Void> {
-        var answer = Answer(createdBy: self.currentUser,
+        let answer = Answer(createdBy: self.currentUser,
                             dateCreated: Date(),
                             dateModified: Date(),
-                            exercisePost: ExercisePost(id: self.post!.id),
+                            exercisePostId: self.post!.id,
                             text: self.answerTextField.text!
                             )
         

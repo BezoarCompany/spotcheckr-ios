@@ -264,10 +264,14 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let postDetailViewController: PostDetailViewController
         if tableView == self.postsTableView {
-            let postDetailViewController = PostDetailViewController.create(post: posts[indexPath.row])
-            self.navigationController?.pushViewController(postDetailViewController, animated: true)
+            postDetailViewController = PostDetailViewController.create(postId: posts[indexPath.row].id)
         }
+        else {
+            postDetailViewController = PostDetailViewController.create(postId: answers[indexPath.row].exercisePostId)
+        }
+        self.navigationController?.pushViewController(postDetailViewController, animated: true)
     }
     
     private func initTableViews() {

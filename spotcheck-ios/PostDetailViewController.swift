@@ -50,12 +50,16 @@ class PostDetailViewController : UIViewController {
         self.tableView.endUpdates()
     }
     
-    static func create(post: ExercisePost?, diffedPostsDataClosure: DiffedPostsDataUpdateClosureType? = nil) -> PostDetailViewController {
-       let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+    static func create(postId: String?, diffedPostsDataClosure: DiffedPostsDataUpdateClosureType? = nil) -> PostDetailViewController {
+        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
 
         let postDetailViewController = storyboard.instantiateViewController(withIdentifier: K.Storyboard.PostDetailViewControllerId) as! PostDetailViewController
         
-        postDetailViewController.post = post
+        firstly {
+            Services.exercisePostService.getPost(withId: postId!)
+        }.done { post in
+            postDetailViewController.post = post
+        }
         postDetailViewController.diffedPostsDataClosure = diffedPostsDataClosure
         
         return postDetailViewController
