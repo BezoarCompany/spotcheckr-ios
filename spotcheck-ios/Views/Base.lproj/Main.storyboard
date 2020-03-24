@@ -355,7 +355,7 @@
             <objects>
                 <navigationController id="w2b-Sc-dye" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="Lf0-GA-9c5"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="1jA-un-MBm">
+                    <navigationBar key="navigationBar" hidden="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="1jA-un-MBm">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -367,17 +367,17 @@
             </objects>
             <point key="canvasLocation" x="1919" y="-830"/>
         </scene>
-        <!--View Controller-->
+        <!--Settings-->
         <scene sceneID="FGk-FG-XVg">
             <objects>
-                <viewController id="pEV-od-kof" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SettingsViewController" id="pEV-od-kof" customClass="SettingsViewController" customModule="Spotcheckr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1FO-zA-36q">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" red="0.12941294910000001" green="0.12940964099999999" blue="0.1294118762" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <viewLayoutGuide key="safeArea" id="ofa-aA-U50"/>
                     </view>
-                    <navigationItem key="navigationItem" id="9pY-mO-zEH"/>
+                    <navigationItem key="navigationItem" title="Settings" leftItemsSupplementBackButton="YES" id="9pY-mO-zEH"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G2r-PV-Ufp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

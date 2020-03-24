@@ -81,6 +81,7 @@
 		BA733D5524038E4100395895 /* ErrorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA733D5424038E4100395895 /* ErrorExtensions.swift */; };
 		BA74976D2429D6B100C1C17C /* edit-2.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA74976C2429D6B100C1C17C /* edit-2.svg */; };
 		BA74976F2429DA6400C1C17C /* settings.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA74976E2429DA6400C1C17C /* settings.svg */; };
+		BA749771242ACEF100C1C17C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA749770242ACEF100C1C17C /* SettingsViewController.swift */; };
 		BA828EF9241CE0270012509D /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA828EF8241CE0270012509D /* StringExtensions.swift */; };
 		BA828EFB241CE2F10012509D /* FirebaseToDomainMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA828EFA241CE2F10012509D /* FirebaseToDomainMapper.swift */; };
 		BA828EFD241CE3E30012509D /* DomainToFirebaseMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA828EFC241CE3E30012509D /* DomainToFirebaseMapper.swift */; };
@@ -198,6 +199,7 @@
 		BA733D5424038E4100395895 /* ErrorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorExtensions.swift; sourceTree = "<group>"; };
 		BA74976C2429D6B100C1C17C /* edit-2.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "edit-2.svg"; sourceTree = "<group>"; };
 		BA74976E2429DA6400C1C17C /* settings.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = settings.svg; sourceTree = "<group>"; };
+		BA749770242ACEF100C1C17C /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		BA828EF8241CE0270012509D /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		BA828EFA241CE2F10012509D /* FirebaseToDomainMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseToDomainMapper.swift; sourceTree = "<group>"; };
 		BA828EFC241CE3E30012509D /* DomainToFirebaseMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainToFirebaseMapper.swift; sourceTree = "<group>"; };
@@ -297,6 +299,7 @@
 				BA4EE45B23EF6814003E6D87 /* PasswordResetConfirmationViewController.swift */,
 				BA4EDA4024025F0D00206267 /* EditProfileViewController.swift */,
 				BA49A016241F488500BB4BD8 /* TabBarController.swift */,
+				BA749770242ACEF100C1C17C /* SettingsViewController.swift */,
 			);
 			path = "spotcheck-ios";
 			sourceTree = "<group>";
@@ -684,6 +687,7 @@
 				BAEE4AC82426D133005C2023 /* FeedCell.swift in Sources */,
 				5659D9D723FD02980043FA6A /* AnswerPostCell.swift in Sources */,
 				BA4EDA47240290C000206267 /* ProfilePostCell.swift in Sources */,
+				BA749771242ACEF100C1C17C /* SettingsViewController.swift in Sources */,
 				5681771723FDCE7500CA7AB5 /* DetailedPostCell.swift in Sources */,
 				BA59197623F92DBA00E8B900 /* Services.swift in Sources */,
 				568721A323E7EF1100E15F87 /* ApplicationScheme.swift in Sources */,
