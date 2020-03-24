@@ -131,14 +131,6 @@
                                     <outlet property="delegate" destination="tMw-Fa-6Zf" id="NTt-B7-w2a"/>
                                 </connections>
                             </tableView>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0wS-Y9-708" customClass="MDCFlatButton">
-                                <rect key="frame" x="376.5" y="103" width="17.5" height="22"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" image="pencil" catalog="system"/>
-                                <connections>
-                                    <segue destination="qK8-tQ-gZ3" kind="show" id="GUb-Hb-hNr"/>
-                                </connections>
-                            </button>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jtt-9I-0Zp">
                                 <rect key="frame" x="25" y="206" width="55" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -175,7 +167,6 @@
                             <constraint firstItem="nWt-qY-6lC" firstAttribute="leading" secondItem="s8p-ny-o4T" secondAttribute="leading" constant="20" id="RP4-q3-3Bd"/>
                             <constraint firstItem="jtt-9I-0Zp" firstAttribute="leading" secondItem="4mr-Q0-Vdn" secondAttribute="leading" constant="25" id="Xet-lc-TBI"/>
                             <constraint firstAttribute="trailing" secondItem="Wul-jC-8EW" secondAttribute="trailing" constant="60" id="acq-AX-IXt"/>
-                            <constraint firstItem="s8p-ny-o4T" firstAttribute="trailing" secondItem="0wS-Y9-708" secondAttribute="trailing" constant="20" id="b1S-9e-aKG"/>
                             <constraint firstItem="jtt-9I-0Zp" firstAttribute="top" secondItem="nWt-qY-6lC" secondAttribute="bottom" constant="8" id="cTv-az-ICI"/>
                             <constraint firstAttribute="trailing" secondItem="L4U-C1-6zG" secondAttribute="trailing" constant="329" id="fYy-4K-IWN"/>
                             <constraint firstItem="iAW-5V-48L" firstAttribute="trailing" secondItem="s8p-ny-o4T" secondAttribute="trailing" id="feJ-3T-1mn"/>
@@ -196,7 +187,6 @@
                         <outlet property="answersTableView" destination="rv5-tH-ce9" id="xKd-gK-qdN"/>
                         <outlet property="certificationsHeadingLabel" destination="ceC-bn-EC4" id="He7-Ml-36Y"/>
                         <outlet property="certificationsLabel" destination="Wul-jC-8EW" id="4xx-kX-TGs"/>
-                        <outlet property="editProfileButton" destination="0wS-Y9-708" id="Gye-fu-b7F"/>
                         <outlet property="heightLabel" destination="jtt-9I-0Zp" id="gQz-n6-euO"/>
                         <outlet property="occupationLabel" destination="1LE-Sk-bXV" id="Lta-Rx-gRt"/>
                         <outlet property="postsTableView" destination="iAW-5V-48L" id="LY2-Gf-CsR"/>
@@ -535,7 +525,6 @@
     </scenes>
     <resources>
         <image name="list.dash" catalog="system" width="64" height="42"/>
-        <image name="pencil" catalog="system" width="64" height="56"/>
         <image name="person" catalog="system" width="64" height="58"/>
         <image name="person.crop.circle" catalog="system" width="64" height="60"/>
         <image name="person.fill" catalog="system" width="64" height="60"/>

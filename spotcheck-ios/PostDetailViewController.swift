@@ -86,18 +86,13 @@ class PostDetailViewController : UIViewController {
         }.catch { error in
             //TODO: Do something when post fetching fails
         }
-                
-        let postSettingsBarItem = UIBarButtonItem(image: UIImage(systemName: "pencil"), style: .plain, target: self, action: #selector(self.modifyPost))
-               
-        self.navigationItem.rightBarButtonItem = postSettingsBarItem
+        
         //access control for the modify menu
         firstly {
             Services.userService.getCurrentUser()
         }.done { user in
             if let postUserId = self.post?.createdBy?.id, postUserId == user.id{
-                let postSettingsBarItem = UIBarButtonItem(image: UIImage(systemName: "pencil"), style: .plain, target: self, action: #selector(self.modifyPost))
-                       
-                self.navigationItem.rightBarButtonItem = postSettingsBarItem
+                self.appBarViewController.navigationBar.trailingBarButtonItem = UIBarButtonItem(image: Images.edit, style: .plain, target: self, action: #selector(self.modifyPost))
             }
         }
                 

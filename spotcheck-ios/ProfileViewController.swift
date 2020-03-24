@@ -10,20 +10,12 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var heightLabel: UILabel!
     @IBOutlet weak var weightLabel: UILabel!
     @IBOutlet weak var profilePictureImageView: UIImageView!
-    @IBOutlet weak var editProfileButton: MDCFlatButton!
     @IBOutlet weak var postsTableView: UITableView!
     @IBOutlet weak var answersTableView: UITableView!
     
-    @objc func logoutTapped(_ sender: Any) {
-        do {
-            try Services.userService.signOut()
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let baseViewController = storyboard.instantiateViewController(withIdentifier: K.Storyboard.AuthOptionViewControllerId )
-            UIApplication.shared.keyWindow?.rootViewController = baseViewController
-        } catch {
-            self.snackbarMessage.text = "An error occurred signing out."
-            MDCSnackbarManager.show(self.snackbarMessage)
-        }
+    @objc func editProfileTapped(_ sender: Any) {
+        let editProfileViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: K.Storyboard.EditProfileViewControllerId)
+        self.present(editProfileViewController, animated: true)
     }
     
     var tabBar: MDCTabBar?
@@ -67,7 +59,7 @@ class ProfileViewController: UIViewController {
     
     private func initAppBar() {
         self.appBarViewController.didMove(toParent: self)
-        self.appBarViewController.navigationBar.rightBarButtonItem = UIBarButtonItem(image: Images.logOut, style: .done, target: self, action: #selector(self.logoutTapped(_:)))
+        self.appBarViewController.navigationBar.rightBarButtonItem = UIBarButtonItem(image: Images.edit, style: .done, target: self, action: #selector(self.editProfileTapped(_:)))
     }
     
     private func addSubviews() {
@@ -82,9 +74,9 @@ class ProfileViewController: UIViewController {
         if self.receivedUser != nil {
             self.currentUser = self.receivedUser
             populateUserProfileInformation()
+            //TODO: We will need to restrict the edit profile icon if you are viewing another person's profile.
         }
         else {
-            showCurrentUserOnlyControls()
             firstly {
                 //TODO: Show some sort of spinner while this data loads.
                 Services.userService.getCurrentUser()
@@ -114,10 +106,6 @@ class ProfileViewController: UIViewController {
             }
         }
     }
-    
-    private func showCurrentUserOnlyControls() {
-        self.editProfileButton.isHidden = false
-    }	
     
     private func populateUserProfileInformation() {
         //TODO: Resolve, what to do if we don't have their full name.
@@ -196,8 +184,7 @@ class ProfileViewController: UIViewController {
         self.answersTableView.topAnchor.constraint(equalTo: self.tabBar!.bottomAnchor, constant: 0),
         self.postsTableView.topAnchor.constraint(equalTo: self.tabBar!.bottomAnchor, constant: 0),
         self.profilePictureImageView.topAnchor.constraint(equalTo: self.appBarViewController.navigationBar.bottomAnchor, constant: 16),
-        self.certificationsHeadingLabel.topAnchor.constraint(equalTo: self.appBarViewController.navigationBar.bottomAnchor, constant: 16),
-        self.editProfileButton.topAnchor.constraint(equalTo: self.appBarViewController.navigationBar.bottomAnchor, constant: 16)
+        self.certificationsHeadingLabel.topAnchor.constraint(equalTo: self.appBarViewController.navigationBar.bottomAnchor, constant: 16)
         ])
     }
 }
