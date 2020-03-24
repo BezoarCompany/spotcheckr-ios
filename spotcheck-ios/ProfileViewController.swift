@@ -2,7 +2,7 @@ import Foundation
 import Firebase
 import PromiseKit
 import MaterialComponents
-
+import FirebaseStorage.FIRStorageConstants
 class ProfileViewController: UIViewController {
     @IBOutlet weak var certificationsHeadingLabel: UILabel!
     @IBOutlet weak var certificationsLabel: UILabel!
@@ -145,6 +145,27 @@ class ProfileViewController: UIViewController {
             self.weightLabel.isHidden = false
             self.heightLabel.text = self.currentUser?.measurement?.height?.toFormattedHeight()
             self.weightLabel.text = self.currentUser?.measurement?.weight?.toFormattedWeight()
+        }
+        if self.currentUser?.profilePicturePath != nil {
+            firstly {
+                Services.storageService.download(path: self.currentUser!.profilePicturePath!, maxSize: 2000000)
+            }.done { image in
+                self.profilePictureImageView.image = image
+            }.catch { (error) in
+                let errorCode = (error as NSError).code
+                var errorMessage = ""
+                
+                switch errorCode {
+                case StorageErrorCode.downloadSizeExceeded.rawValue:
+                    errorMessage = "Profile picture is too large."
+                case StorageErrorCode.unknown.rawValue:
+                    errorMessage = "An unkown error occurred."
+                default:
+                    break
+                }
+                self.snackbarMessage.text = errorMessage
+                MDCSnackbarManager.show(self.snackbarMessage)
+            }
         }
     }
     

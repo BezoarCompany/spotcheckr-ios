@@ -121,7 +121,6 @@ class FakeDataFactory {
                                     birthDate: faker.date.birthday(13, 69))
         trainer.measurement = BodyMeasurement(height: faker.number.randomInt(min: 45, max: 85),
                                            weight: faker.number.randomInt(min: 85, max: 450))
-        trainer.profilePictureUrl = URL(string: faker.internet.image())
         trainer.username = faker.internet.username()
         
         var phoneNumbers = [PhoneNumber]()
