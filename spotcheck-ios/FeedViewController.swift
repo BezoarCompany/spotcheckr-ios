@@ -13,6 +13,7 @@ class FeedViewController: UIViewController {
     
     //The last snapshot of a post item. Used as a cursor in the query for the next group of posts
     var lastPostsSnapshot: DocumentSnapshot? = nil
+    var isFetchingMore = false
     var posts = [ExercisePost]()
     var refreshControl = UIRefreshControl()
     var activityIndicator = UIElementFactory.getActivityIndicator()
@@ -57,22 +58,23 @@ class FeedViewController: UIViewController {
         initRefreshControl()
         initAddPostButton()
         applyConstraints()
-        firstly {
-            fetchMorePosts(lastSnapshot: self.lastPostsSnapshot)
-        }.done {
-            self.feedView.reloadData();
-        }
+        refreshPosts()
     }
     
-    func fetchMorePosts(lastSnapshot: DocumentSnapshot?) -> Promise<Void> {
+    func fetchMorePosts(lastSnapshot: DocumentSnapshot?) -> Promise<[ExercisePost]> {
         return Promise { promise in
             firstly {
                 Services.exercisePostService.getPosts(limit:5, lastPostSnapshot: self.lastPostsSnapshot)
             }.done { pagedResult in
-                self.posts = self.posts + pagedResult.posts
-                self.lastPostsSnapshot = pagedResult.lastSnapshot
-
-                return promise.fulfill_()         
+                if self.lastPostsSnapshot == pagedResult.lastSnapshot {
+                    print("At last item, no more objects!")
+                    return promise.fulfill([])
+                } else {
+                    self.lastPostsSnapshot = pagedResult.lastSnapshot
+                    let newPosts = pagedResult.posts
+                    return promise.fulfill(newPosts)
+                }
+                
             }.catch { err in
                 return promise.reject(err)
             }
@@ -81,7 +83,7 @@ class FeedViewController: UIViewController {
     
     func initFeedView() {
         let layout = UICollectionViewFlowLayout()
-        layout.estimatedItemSize = CGSize(width: view.frame.width, height: 1) // seems to turn off pre fetching
+        layout.estimatedItemSize = CGSize(width: view.frame.width, height: 1)
         feedView.collectionViewLayout = layout
         feedView.delegate = self
         feedView.dataSource = self
@@ -137,7 +139,8 @@ class FeedViewController: UIViewController {
         self.lastPostsSnapshot = nil
         firstly {
             fetchMorePosts(lastSnapshot: self.lastPostsSnapshot)
-        }.done {
+        }.done { posts in
+            self.posts = posts
             self.feedView.reloadData()
             self.perform(#selector(self.finishRefreshing), with: nil, afterDelay: 0.1)
         }
@@ -153,30 +156,16 @@ class FeedViewController: UIViewController {
 extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
                    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // +1 to show the loading cell at the last row
-        return posts.count + 1
+        return posts.count
     }
-        
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-        // if reached last row, load next batch
-        if indexPath.item == self.posts.count {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LoadingCell.cellId, for: indexPath) as! LoadingCell
-            firstly {
-                fetchMorePosts(lastSnapshot: self.lastPostsSnapshot)
-            }.done {
-                print("=================== at last cell\(indexPath.item), to reload??")
-                self.feedView.reloadData();
-            }
-            
-            return cell
-        }
-        
         let post = posts[indexPath.row]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedCell.cellId,
         for: indexPath) as! FeedCell
         cell.setShadowElevation(ShadowElevation(rawValue: 10), for: .normal)
-        cell.setCellWidth(width: view.frame.width)
+        //cell.setCellWidth(width: view.frame.width)
         cell.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
         cell.headerLabel.text = post.title
         cell.subHeadLabel.text = "\(post.dateCreated?.toDisplayFormat() ?? "") • \(post.answersCount) Answers"
@@ -211,6 +200,29 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let post = posts[indexPath.row]
         viewPostHandler(exercisePost: post)
+    }
+        
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        print("offsetY: \(offsetY) | contentHeight: \(contentHeight)")
+        
+        if offsetY > contentHeight - scrollView.frame.height {
+            if !isFetchingMore {
+                print("begin Batch Fetch!")
+                isFetchingMore = true
+                
+                firstly {
+                    self.fetchMorePosts(lastSnapshot: self.lastPostsSnapshot)
+                }.done { newPosts in
+                    
+                    self.posts += newPosts
+                    print("postCount: \(self.posts.count)")
+                    self.feedView.reloadData()
+                    self.isFetchingMore = false
+                }
+            }
+        }
     }
 }
 
