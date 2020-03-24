@@ -208,6 +208,8 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
                     self.posts.remove(at: indexPath.row)
                     self.postsTableView.deleteRows(at: [indexPath], with: .right)
                     self.tabBar?.items[0].title = "\(self.posts.count) Posts"
+                    self.snackbarMessage.text = "Post deleted."
+                    MDCSnackbarManager.show(self.snackbarMessage)
                 }
                 .catch { error in
                     self.snackbarMessage.text = "Failed to delete post."
@@ -244,6 +246,8 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
                 self.answers.remove(at: indexPath.row)
                 self.answersTableView.deleteRows(at: [indexPath], with: .right)
                 self.tabBar?.items[1].title = "\(self.answers.count) Answers"
+                self.snackbarMessage.text = "Answer deleted."
+                MDCSnackbarManager.show(self.snackbarMessage)
             }
             .catch { error in
                 self.snackbarMessage.text = "Failed to delete answer."
