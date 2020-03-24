@@ -15,6 +15,8 @@ class ProfilePostCell: UITableViewCell {
     var postId: String?
     var votingUserId: String?
     var voteDirection: VoteDirection?
+    var upvoteOnTap: ((_ voteDirection: VoteDirection) -> Promise<Void>)?
+    var downvoteOnTap: ((_ voteDirection: VoteDirection) -> Promise<Void>)?
     let upvoteColor = Colors.upvote
     let downvoteColor = Colors.downvote
     let neutralColor: UIColor = Colors.neutralVote
@@ -51,13 +53,11 @@ class ProfilePostCell: UITableViewCell {
         else if self.upvoteButton.tintColor == self.neutralColor { // Upvoting for the first time
             self.voteDirection = .Up
         }
-        
+        self.adjustVotingControls()
         firstly {
-            Services.exercisePostService.votePost(postId: postId!, userId: votingUserId!, direction: VoteDirection.Up)
+            self.upvoteOnTap!(self.voteDirection!)
         }.catch { error in
             //TODO: Show an error on screen
-        }.finally {
-            self.adjustVotingControls()
         }
     }
     
@@ -71,13 +71,12 @@ class ProfilePostCell: UITableViewCell {
         else if self.downvoteButton.tintColor == self.neutralColor { // Downvoting for the first time
             self.voteDirection = .Down
         }
+        self.adjustVotingControls()
         
         firstly {
-            Services.exercisePostService.votePost(postId: postId!, userId: votingUserId!, direction: VoteDirection.Down)
+            self.downvoteOnTap!(self.voteDirection!)
         }.catch { error in
             //TODO: Show an error on screen
-        }.finally {
-            self.adjustVotingControls()
         }
     }
     

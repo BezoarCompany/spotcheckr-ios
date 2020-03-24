@@ -193,6 +193,13 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             cell.postId = post.id
             cell.voteDirection = post.metrics.currentVoteDirection
             cell.answersCountLabel.text = "\(post.answers.count)"
+            cell.upvoteOnTap = { (voteDirection: VoteDirection) in
+                Services.exercisePostService.votePost(postId: post.id, userId: self.currentUser!.id!, direction: voteDirection)
+            }
+            cell.downvoteOnTap = { (voteDirection: VoteDirection) in
+                Services.exercisePostService.votePost(postId: post.id, userId: self.currentUser!.id!, direction: voteDirection)
+            }
+            
             let moreIconActionSheet = UIElementFactory.getActionSheet()
             let deleteAction = MDCActionSheetAction(title: "Delete", image: Images.trash, handler: { (MDCActionSheetHandler) in
                 firstly {
@@ -222,6 +229,13 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         cell.votingUserId = self.currentUser?.id
         cell.voteDirection = answer.metrics?.currentVoteDirection
         cell.hideAnswers = true
+        cell.upvoteOnTap = { (voteDirection: VoteDirection) in
+            Services.exercisePostService.voteAnswer(answerId: answer.id!, userId: self.currentUser!.id!, direction: voteDirection)
+        }
+        cell.downvoteOnTap = { (voteDirection: VoteDirection) in
+            Services.exercisePostService.voteAnswer(answerId: answer.id!, userId: self.currentUser!.id!, direction: voteDirection)
+        }
+        
         let moreIconActionSheet = UIElementFactory.getActionSheet()
         let deleteAction = MDCActionSheetAction(title: "Delete", image: Images.trash, handler: { (MDCActionSheetHandler) in
             firstly {
@@ -240,6 +254,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         cell.onMoreIconClick = {
             self.present(moreIconActionSheet, animated: true, completion: nil)
         }
+        cell.awakeFromNib()
         return cell
     }
     

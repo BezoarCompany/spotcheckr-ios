@@ -60,11 +60,12 @@ class ExercisePostService: ExercisePostProtocol {
                     return promise.reject(error)
                 }
                 
-                
                 var metricsPromises = [Promise<Int>]()
+                var voteDirectionPromises = [Promise<VoteDirection>]()
                 for document in answersSnapshot!.documents {
                     metricsPromises.append(self.getUpvoteCount(forPostWithId: document.documentID, collection: self.answerCollection))
                     metricsPromises.append(self.getDownvoteCount(forPostWithId: document.documentID, collection: self.answerCollection))
+                    voteDirectionPromises.append(self.getVoteDirection(id: document.documentID, collection: self.answerCollection))
                 }
                 
                 firstly {
@@ -73,17 +74,24 @@ class ExercisePostService: ExercisePostProtocol {
                     firstly {
                         when(fulfilled: metricsPromises)
                     }.done { metricsResults in
-                        var answers = [Answer]()
-                        var metricsIndex = 0
-                        
-                        for document in answersSnapshot!.documents {
-                            answers.append(FirebaseToDomainMapper.mapAnswer(fromData: document.data(),
-                                                          metrics: Metrics(upvotes: metricsResults[metricsIndex],
-                                                                           downvotes: metricsResults[metricsIndex + 1]),
-                                                          createdBy: userDetails))
-                            metricsIndex += 2
+                        firstly {
+                            when(fulfilled: voteDirectionPromises)
+                        }.done { voteDirections in
+                            var answers = [Answer]()
+                            var metricsIndex = 0
+                            var voteDirectionIndex = 0
+                            
+                            for document in answersSnapshot!.documents {
+                                answers.append(FirebaseToDomainMapper.mapAnswer(fromData: document.data(),
+                                                              metrics: Metrics(upvotes: metricsResults[metricsIndex],
+                                                                               downvotes: metricsResults[metricsIndex + 1],
+                                                                               currentVoteDirection: voteDirections[voteDirectionIndex]),
+                                                              createdBy: userDetails))
+                                metricsIndex += 2
+                                voteDirectionIndex += 1
+                            }
+                            return promise.fulfill(answers)
                         }
-                        return promise.fulfill(answers)
                     }
                 }
             }
@@ -196,7 +204,7 @@ class ExercisePostService: ExercisePostProtocol {
                     metricsPromises.append(self.getDownvoteCount(forPostWithId: document.documentID, collection: self.postsCollection))
                     metricsPromises.append(self.getViewsCount(forPostWithId: document.documentID))
                     exercisePromises.append(self.getExercises(forPostWithId: document.documentID))
-                    voteDirectionPromises.append(self.getVoteDirection(forPostWithId: document.documentID))
+                    voteDirectionPromises.append(self.getVoteDirection(id: document.documentID, collection: self.postsCollection))
                     answerPromises.append(self.getAnswers(forPostWithId: document.documentID))
                 }
                 
@@ -357,7 +365,7 @@ class ExercisePostService: ExercisePostProtocol {
                 if let error = error {
                     return promise.reject(error)
                 }
-                var updatedStatus = direction.get()
+                let updatedStatus = direction.get()
                 
                 //Vote does not exist so add the vote
                 if voteSnapshot?.count == 0 {
@@ -374,11 +382,6 @@ class ExercisePostService: ExercisePostProtocol {
                 else {
                     //Vote already exists so update the value
                     let doc = voteSnapshot?.documents[0]
-                    let currentStatus = doc?.data()["status"] as! Int
-                    
-                    if currentStatus == VoteDirection.Up.get() || currentStatus == VoteDirection.Down.get() {
-                        updatedStatus = VoteDirection.Neutral.get()
-                    }
                     
                     Firestore.firestore().runTransaction({ (transaction, errorPointer) -> Any? in
                         transaction.updateData(["status" : updatedStatus], forDocument: doc!.reference)
@@ -395,12 +398,12 @@ class ExercisePostService: ExercisePostProtocol {
         
     }
     
-    func getVoteDirection(forPostWithId postId: String) -> Promise<VoteDirection> {
+    func getVoteDirection(id: String, collection: String) -> Promise<VoteDirection> {
         return Promise { promise in
             firstly {
                 Services.userService.getCurrentUser()
             }.done { currentUser in
-                let voteRef = Firestore.firestore().collection("\(self.postsCollection)/\(postId)/\(self.votesCollection)").whereField("voted-by", isEqualTo: currentUser.id)
+                let voteRef = Firestore.firestore().collection("\(collection)/\(id)/\(self.votesCollection)").whereField("voted-by", isEqualTo: currentUser.id!)
                 voteRef.getDocuments { (voteSnapshot, error) in
                     if let error = error {
                         return promise.reject(error)
