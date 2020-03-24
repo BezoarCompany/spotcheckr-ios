@@ -38,6 +38,7 @@ class ProfileViewController: UIViewController {
     var answers = [Answer]()
     var posts = [ExercisePost]()
     let appBarViewController = UIElementFactory.getAppBar()
+    let initialLoadActivityIndicator = UIElementFactory.getActivityIndicator()
     let postsTableActivityIndicator = UIElementFactory.getActivityIndicator()
     let answersTableActivityIndicator = UIElementFactory.getActivityIndicator()
     let postsRefreshControl = UIRefreshControl()
@@ -75,6 +76,7 @@ class ProfileViewController: UIViewController {
     }
     
     private func resolveProfileUser() {
+        self.initialLoadActivityIndicator.startAnimating()
         // Check if user received from another view controller (i.e. passed in from feed view).
         // https://www.youtube.com/watch?v=Kpwrc1PRDsg <- shows how to pass data from one view controller to this one.
         if self.receivedUser != nil {
@@ -94,7 +96,6 @@ class ProfileViewController: UIViewController {
                 //TODO: Dismiss spinner once data has loaded from user service and is populated.
                 self.populateUserProfileInformation()
                 firstly {
-                    //TODO: Show spinner that table data is loading.
                     when(fulfilled: Services.exercisePostService.getPosts(forUser: self.currentUser!), Services.exercisePostService.getAnswers(byUserWithId: self.currentUser!.id!))
                 }.done { posts, answers in
                     //TODO: Dismiss spinnner
@@ -104,6 +105,7 @@ class ProfileViewController: UIViewController {
                     self.answers = answers
                     self.posts = posts
                     
+                    self.initialLoadActivityIndicator.stopAnimating()
                     self.postsTableView.reloadData()
                     self.answersTableView.reloadData()
                 }.catch {error in
@@ -160,19 +162,22 @@ class ProfileViewController: UIViewController {
     }
     
     private func applyConstraints() {
-        self.postsTableActivityIndicator.centerXAnchor.constraint(equalTo: self.postsRefreshControl.centerXAnchor).isActive = true
-        self.postsTableActivityIndicator.centerYAnchor.constraint(equalTo: self.postsRefreshControl.centerYAnchor).isActive = true
-        self.answersTableActivityIndicator.centerXAnchor.constraint(equalTo: self.answersRefreshControl.centerXAnchor).isActive = true
-        self.answersTableActivityIndicator.centerYAnchor.constraint(equalTo: self.answersRefreshControl.centerYAnchor).isActive = true
-        self.tabBar?.translatesAutoresizingMaskIntoConstraints = false
-        self.tabBar?.topAnchor.constraint(equalTo: self.weightLabel.bottomAnchor, constant: 10).isActive = true
-        self.tabBar?.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 0).isActive = true
-        self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: self.tabBar!.trailingAnchor, constant: 0).isActive = true
-        self.answersTableView.topAnchor.constraint(equalTo: self.tabBar!.bottomAnchor, constant: 0).isActive = true
-        self.postsTableView.topAnchor.constraint(equalTo: self.tabBar!.bottomAnchor, constant: 0).isActive = true
-        self.profilePictureImageView.topAnchor.constraint(equalTo: self.appBarViewController.navigationBar.bottomAnchor, constant: 16).isActive = true
-        self.certificationsHeadingLabel.topAnchor.constraint(equalTo: self.appBarViewController.navigationBar.bottomAnchor, constant: 16).isActive = true
-        self.editProfileButton.topAnchor.constraint(equalTo: self.appBarViewController.navigationBar.bottomAnchor, constant: 16).isActive = true
+        NSLayoutConstraint.activate([
+        self.postsTableActivityIndicator.centerXAnchor.constraint(equalTo: self.postsRefreshControl.centerXAnchor),
+        self.postsTableActivityIndicator.centerYAnchor.constraint(equalTo: self.postsRefreshControl.centerYAnchor),
+        self.initialLoadActivityIndicator.centerXAnchor.constraint(equalTo: self.postsTableView.centerXAnchor),
+        self.initialLoadActivityIndicator.centerYAnchor.constraint(equalTo: self.postsTableView.centerYAnchor),
+        self.answersTableActivityIndicator.centerXAnchor.constraint(equalTo: self.answersRefreshControl.centerXAnchor),
+        self.answersTableActivityIndicator.centerYAnchor.constraint(equalTo: self.answersRefreshControl.centerYAnchor),
+        (self.tabBar?.topAnchor.constraint(equalTo: self.weightLabel.bottomAnchor, constant: 10))!,
+        (self.tabBar?.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 0))!,
+        self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: self.tabBar!.trailingAnchor, constant: 0),
+        self.answersTableView.topAnchor.constraint(equalTo: self.tabBar!.bottomAnchor, constant: 0),
+        self.postsTableView.topAnchor.constraint(equalTo: self.tabBar!.bottomAnchor, constant: 0),
+        self.profilePictureImageView.topAnchor.constraint(equalTo: self.appBarViewController.navigationBar.bottomAnchor, constant: 16),
+        self.certificationsHeadingLabel.topAnchor.constraint(equalTo: self.appBarViewController.navigationBar.bottomAnchor, constant: 16),
+        self.editProfileButton.topAnchor.constraint(equalTo: self.appBarViewController.navigationBar.bottomAnchor, constant: 16)
+        ])
     }
 }
 
@@ -288,6 +293,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         self.postsTableView.addSubview(self.postsRefreshControl)
         self.postsTableView.tableFooterView = UIView()
         self.postsTableView.register(UINib(nibName:K.Storyboard.profilPostNibName, bundle: nil), forCellReuseIdentifier: K.Storyboard.profilePostCellId)
+        self.postsTableView.addSubview(self.initialLoadActivityIndicator)
         
         self.answersRefreshControl.addSubview(self.answersTableActivityIndicator)
         self.answersRefreshControl.tintColor = .clear
@@ -342,6 +348,7 @@ extension ProfileViewController: MDCTabBarDelegate {
     private func initTabBar() {
         self.tabBar = MDCTabBar(frame: self.view.bounds)
         self.tabBar?.delegate = self
+        self.tabBar?.translatesAutoresizingMaskIntoConstraints = false
         self.tabBar?.items = [
             UITabBarItem(title: "\(posts.count) Posts", image: nil, tag: 0),
             UITabBarItem(title: "\(answers.count) Answers", image: nil, tag: 1)
