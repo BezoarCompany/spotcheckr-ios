@@ -25,5 +25,5 @@ class Images {
     static let arrowDown = SVGKImage(named: "arrow-down").uiImage.withRenderingMode(.alwaysTemplate)
     static let profilePictureDefault = SVGKImage(named: "account-circle").uiImage.withRenderingMode(.alwaysTemplate)
     static let edit = SVGKImage(named: "edit-2").uiImage.withRenderingMode(.alwaysTemplate)
-
+    static let settings = SVGKImage(named: "settings").uiImage.withRenderingMode(.alwaysTemplate)
 }
