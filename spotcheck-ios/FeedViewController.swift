@@ -138,7 +138,7 @@ class FeedViewController: UIViewController {
         self.feedView.reloadData()
         self.lastPostsSnapshot = nil
         firstly {
-            fetchMorePosts(lastSnapshot: self.lastPostsSnapshot)
+            fetchMorePosts(lastSnapshot: nil)
         }.done { posts in
             self.posts = posts
             self.feedView.reloadData()
@@ -154,13 +154,28 @@ class FeedViewController: UIViewController {
 
 // Mark: Collection View Data Source
 extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-                   
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return posts.count
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 2
     }
     
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if section == 0 {
+            return posts.count
+        } else if section == 1 && isFetchingMore { //Section for the Loading cell will only appear for duration of batch loading, via the isFetchingMore flag
+            return 1
+        }
+        return 0
+    }
+      
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
+        if indexPath.section == 1 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LoadingCell.cellId,
+            for: indexPath) as! LoadingCell
+            cell.setCellWidth(width: view.frame.width)
+            return cell
+        }
         let post = posts[indexPath.row]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedCell.cellId,
         for: indexPath) as! FeedCell
@@ -205,20 +220,36 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetY = scrollView.contentOffset.y
         let contentHeight = scrollView.contentSize.height
-        print("offsetY: \(offsetY) | contentHeight: \(contentHeight)")
         
         if offsetY > contentHeight - scrollView.frame.height {
             if !isFetchingMore {
                 print("begin Batch Fetch!")
                 isFetchingMore = true
+                //self.feedView.reloadSections(IndexSet(integer: 1))
                 
                 firstly {
                     self.fetchMorePosts(lastSnapshot: self.lastPostsSnapshot)
                 }.done { newPosts in
-                    
+                    let startIdx = self.posts.count
                     self.posts += newPosts
-                    print("postCount: \(self.posts.count)")
-                    self.feedView.reloadData()
+                    let endIdx = startIdx + newPosts.count - 1
+                    print("start: \(startIdx)  => end: \(endIdx) | newPostsCount: \(newPosts.count)")
+                    var idxPaths = [IndexPath]()
+                        
+                    if (startIdx < endIdx) { //base case for inital call
+                        //IndexPath(row: indexFound, section: 0)
+                        //calculate/create index paths of rows to be updated
+                        for i in startIdx...endIdx {
+                            let e = IndexPath(row: i, section: 0)
+                            idxPaths.append(e)
+                        }
+                        print(" $$$$$$$$$$ idxPaths to be inserted \(idxPaths)")
+                        
+                        self.feedView.insertItems(at: idxPaths)
+                        
+                        print("postCount: \(self.posts.count)")
+                        
+                    }
                     self.isFetchingMore = false
                 }
             }

@@ -5,19 +5,18 @@ class LoadingCell: MDCCardCollectionCell {
     static let cellId = "LoadingCell"
     
     var widthConstraint: NSLayoutConstraint?
-    var supportingTextTopConstraint: NSLayoutConstraint?
-    var postId: String?
-    var votingUserId: String?
-    var voteDirection: VoteDirection?
-    let upvoteColor = Colors.upvote
-    let downvoteColor = Colors.downvote
-    let neutralColor: UIColor = Colors.neutralVote
+    var activityIndicator = UIElementFactory.getActivityIndicator()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.translatesAutoresizingMaskIntoConstraints = false
-        widthConstraint = contentView.widthAnchor.constraint(equalToConstant: 0)
+        widthConstraint = contentView.widthAnchor.constraint(equalToConstant: frame.width)
         applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
+        
+        addSubview(activityIndicator)
+            
+        activityIndicator.topAnchor.constraint(equalTo:contentView.topAnchor, constant: 20).isActive = true
+        activityIndicator.leadingAnchor.constraint(equalTo:contentView.leadingAnchor, constant: frame.width/2-10).isActive = true
     }
     
     required init?(coder: NSCoder) {
@@ -27,6 +26,8 @@ class LoadingCell: MDCCardCollectionCell {
     func setCellWidth(width: CGFloat) {
         widthConstraint?.constant = width
         widthConstraint?.isActive = true
+        
+        activityIndicator.startAnimating()
     }
-   
+    
 }
