@@ -53,4 +53,6 @@ target 'spotcheck-ios' do
   pod 'MaterialComponents/AppBar+Theming'
   pod 'MaterialComponents/Cards'
   pod 'MaterialComponents/Cards+Theming'
+  pod 'MaterialComponents/List'
+  pod 'MaterialComponents/List+Theming'
 end
