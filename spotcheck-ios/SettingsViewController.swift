@@ -4,23 +4,6 @@ import MaterialComponents
 class SettingsViewController: UIViewController {
     var window: UIWindow?
     let appBarViewController = UIElementFactory.getAppBar()
-    let logoutButton: MDCButton = {
-        let button = MDCButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.applyContainedTheme(withScheme: ApplicationScheme.instance.containerScheme)
-        button.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onSecondaryColor, for: .normal)
-        button.setBackgroundColor(ApplicationScheme.instance.containerScheme.colorScheme.secondaryColor)
-        button.setTitle("Log Out", for: .normal)
-        return button
-    }()
-    let logoutButtonActivityIndicator: MDCActivityIndicator = {
-        let indicator = MDCActivityIndicator()
-        indicator.sizeToFit()
-        indicator.indicatorMode = .indeterminate
-        indicator.cycleColors = [ApplicationScheme.instance.containerScheme.colorScheme.onSecondaryColor]
-        indicator.translatesAutoresizingMaskIntoConstraints = false
-        return indicator
-    }()
     let settingsView: UICollectionView = {
        let view = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
        view.translatesAutoresizingMaskIntoConstraints = false
@@ -57,44 +40,35 @@ class SettingsViewController: UIViewController {
     func addSubviews() {
         view.addSubview(appBarViewController.view)
         view.addSubview(settingsView)
-        view.addSubview(logoutButton)
-        logoutButton.addSubview(logoutButtonActivityIndicator)
     }
     
     func initSettingsView() {
+        let layout = UICollectionViewFlowLayout()
+        layout.estimatedItemSize = CGSize(width: view.frame.width, height: 1)
+        settingsView.collectionViewLayout = layout
         settingsView.delegate = self
         settingsView.dataSource = self
-        settingsView.register(MDCBaseCell.self, forCellWithReuseIdentifier: "Cell")
+        settingsView.register(MDCSelfSizingStereoCell.self, forCellWithReuseIdentifier: "Cell")
         settingsView.backgroundColor = ApplicationScheme.instance.containerScheme.colorScheme.backgroundColor
-        logoutButton.addTarget(self, action: #selector(logoutTapped(_:)), for: .touchUpInside)
     }
     
     func applyConstraints() {
         NSLayoutConstraint.activate([
-            settingsView.topAnchor.constraint(equalTo: appBarViewController.view.bottomAnchor),
+            settingsView.topAnchor.constraint(equalTo: appBarViewController.view.bottomAnchor, constant: 16),
             settingsView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: settingsView.trailingAnchor),
-            logoutButton.topAnchor.constraint(equalTo: settingsView.bottomAnchor, constant: 8),
-            logoutButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: logoutButton.trailingAnchor),
-            view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: logoutButton.bottomAnchor, constant: 65),
-            logoutButtonActivityIndicator.centerXAnchor.constraint(equalTo: logoutButton.centerXAnchor),
-            logoutButtonActivityIndicator.centerYAnchor.constraint(equalTo: logoutButton.centerYAnchor)
+            view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: settingsView.bottomAnchor, constant: 55),
         ])
     }
     
-    @objc func logoutTapped(_ sender: Any) {
+    func logout() {
         do {
-            logoutButton.setTitle("", for: .normal)
-            logoutButtonActivityIndicator.startAnimating()
             try Services.userService.signOut()
             let authViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: K.Storyboard.AuthOptionViewControllerId)
             self.window = UIWindow(frame: UIScreen.main.bounds)
             self.window?.rootViewController = authViewController
             self.window?.makeKeyAndVisible()
         } catch {
-            logoutButton.setTitle("Log Out", for: .normal)
-            logoutButtonActivityIndicator.stopAnimating()
             self.snackbarMessage.text = "An error occurred signing out."
             MDCSnackbarManager.show(self.snackbarMessage)
         }
@@ -108,9 +82,29 @@ extension SettingsViewController: UICollectionViewDataSource, UICollectionViewDe
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell",
-        for: indexPath) as! MDCBaseCell
+        for: indexPath) as! MDCSelfSizingStereoCell
         cell.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
+        
+        switch indexPath.row {
+        case CellLocations.Logout.rawValue:
+            cell.titleLabel.text = "Log out"
+            cell.leadingImageView.image = Images.logOut
+        default:
+            break
+        }
         
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch indexPath.row {
+        case CellLocations.Logout.rawValue:
+            logout()
+        default: break
+        }
+    }
+}
+
+enum CellLocations: Int {
+    case Logout = 0
 }
