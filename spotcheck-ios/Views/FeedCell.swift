@@ -41,24 +41,31 @@ class FeedCell: MDCCardCollectionCell {
         supportingTextTopConstraint = supportingTextLabel.topAnchor.constraint(equalTo: subHeadLabel.bottomAnchor, constant: 16)
         
         NSLayoutConstraint.activate([
-        headerLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
-        headerLabel.leadingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor, constant: 16),
-        subHeadLabel.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 8),
-        subHeadLabel.leadingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor, constant: 16),
         thumbnailImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
         thumbnailImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
         thumbnailImageView.widthAnchor.constraint(equalToConstant: 40),
         thumbnailImageView.heightAnchor.constraint(equalToConstant: 40),
+
+        headerLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
+        headerLabel.leadingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor, constant: 16),
+
+        subHeadLabel.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 8),
+        subHeadLabel.leadingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor, constant: 16),
+
         media.topAnchor.constraint(equalTo: subHeadLabel.bottomAnchor, constant: 16),
         media.widthAnchor.constraint(equalToConstant: contentView.frame.width),
+        
         supportingTextTopConstraint!,
-        supportingTextLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+        supportingTextLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+        supportingTextLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+        
         upvoteButton.topAnchor.constraint(equalTo: supportingTextLabel.bottomAnchor, constant: 24),
         upvoteButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 4),
+        
         downvoteButton.topAnchor.constraint(equalTo: supportingTextLabel.bottomAnchor, constant: 24),
         downvoteButton.leadingAnchor.constraint(equalTo: upvoteButton.trailingAnchor, constant: 8),
-        bottomAnchor.constraint(equalTo: upvoteButton.bottomAnchor, constant: 16),
-        bottomAnchor.constraint(equalTo: downvoteButton.bottomAnchor, constant: 16),
+        
+        bottomAnchor.constraint(equalTo: upvoteButton.bottomAnchor, constant: 16)
         ])
     }
     

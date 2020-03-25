@@ -9,7 +9,7 @@ class LoadingCell: MDCCardCollectionCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.translatesAutoresizingMaskIntoConstraints = true
         widthConstraint = contentView.widthAnchor.constraint(equalToConstant: frame.width)
         applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
         
@@ -17,6 +17,7 @@ class LoadingCell: MDCCardCollectionCell {
             
         activityIndicator.topAnchor.constraint(equalTo:contentView.topAnchor, constant: 20).isActive = true
         activityIndicator.leadingAnchor.constraint(equalTo:contentView.leadingAnchor, constant: frame.width/2-10).isActive = true
+        contentView.bottomAnchor.constraint(equalTo:activityIndicator.bottomAnchor, constant: 0).isActive = true
     }
     
     required init?(coder: NSCoder) {

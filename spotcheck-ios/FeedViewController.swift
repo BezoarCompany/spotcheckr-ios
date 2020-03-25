@@ -14,6 +14,9 @@ class FeedViewController: UIViewController {
     //The last snapshot of a post item. Used as a cursor in the query for the next group of posts
     var lastPostsSnapshot: DocumentSnapshot? = nil
     var isFetchingMore = false
+    var isFirstCall = true
+    var endReached = false
+    
     var posts = [ExercisePost]()
     var refreshControl = UIRefreshControl()
     var activityIndicator = UIElementFactory.getActivityIndicator()
@@ -62,9 +65,10 @@ class FeedViewController: UIViewController {
     }
     
     func fetchMorePosts(lastSnapshot: DocumentSnapshot?) -> Promise<[ExercisePost]> {
+        print("@fetchMorePosts \(lastSnapshot)")
         return Promise { promise in
             firstly {
-                Services.exercisePostService.getPosts(limit:5, lastPostSnapshot: self.lastPostsSnapshot)
+                Services.exercisePostService.getPosts(limit:7, lastPostSnapshot: self.lastPostsSnapshot)
             }.done { pagedResult in
                 if self.lastPostsSnapshot == pagedResult.lastSnapshot {
                     print("At last item, no more objects!")
@@ -83,7 +87,7 @@ class FeedViewController: UIViewController {
     
     func initFeedView() {
         let layout = UICollectionViewFlowLayout()
-        layout.estimatedItemSize = CGSize(width: view.frame.width, height: 1)
+        layout.estimatedItemSize = CGSize(width: view.frame.width, height: 20)
         feedView.collectionViewLayout = layout
         feedView.delegate = self
         feedView.dataSource = self
@@ -131,11 +135,13 @@ class FeedViewController: UIViewController {
     }
     
     @objc func refreshPosts() {
-        refreshControl.beginRefreshing()
-        activityIndicator.startAnimating()
-
+        print("refreshPosts======")
+        if (!isFirstCall) {
+            refreshControl.beginRefreshing()
+            activityIndicator.startAnimating()
+        }
+        
         self.posts = []
-        self.feedView.reloadData()
         self.lastPostsSnapshot = nil
         firstly {
             fetchMorePosts(lastSnapshot: nil)
@@ -162,10 +168,9 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if section == 0 {
             return posts.count
-        } else if section == 1 && isFetchingMore { //Section for the Loading cell will only appear for duration of batch loading, via the isFetchingMore flag
-            return 1
         }
-        return 0
+        //Section for the Loading cell will only appear for duration of batch loading, via the isFetchingMore flag
+        return isFetchingMore ? 1 : 0
     }
       
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -174,6 +179,7 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LoadingCell.cellId,
             for: indexPath) as! LoadingCell
             cell.setCellWidth(width: view.frame.width)
+            cell.activityIndicator.startAnimating()
             return cell
         }
         let post = posts[indexPath.row]
@@ -222,34 +228,25 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
         let contentHeight = scrollView.contentSize.height
         
         if offsetY > contentHeight - scrollView.frame.height {
-            if !isFetchingMore {
+            if !isFetchingMore && !endReached {
                 print("begin Batch Fetch!")
                 isFetchingMore = true
-                //self.feedView.reloadSections(IndexSet(integer: 1))
+                self.feedView.reloadSections(IndexSet(integer: 1))
                 
                 firstly {
                     self.fetchMorePosts(lastSnapshot: self.lastPostsSnapshot)
                 }.done { newPosts in
-                    let startIdx = self.posts.count
+                    
+                    self.isFetchingMore = false
+                    var endReached = newPosts.count == 0
+                    
                     self.posts += newPosts
-                    let endIdx = startIdx + newPosts.count - 1
-                    print("start: \(startIdx)  => end: \(endIdx) | newPostsCount: \(newPosts.count)")
-                    var idxPaths = [IndexPath]()
-                        
-                    if (startIdx < endIdx) { //base case for inital call
-                        //IndexPath(row: indexFound, section: 0)
-                        //calculate/create index paths of rows to be updated
-                        for i in startIdx...endIdx {
-                            let e = IndexPath(row: i, section: 0)
-                            idxPaths.append(e)
-                        }
-                        print(" $$$$$$$$$$ idxPaths to be inserted \(idxPaths)")
-                        
-                        self.feedView.insertItems(at: idxPaths)
-                        
-                        print("postCount: \(self.posts.count)")
-                        
+                    UIView.performWithoutAnimation {
+                        self.feedView.reloadData()
                     }
+                    //self.feedView.insertItems(at: idxPaths)
+                    
+                    print("postCount: \(self.posts.count)")
                     self.isFetchingMore = false
                 }
             }
