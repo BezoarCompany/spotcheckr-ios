@@ -255,7 +255,7 @@ extension FeedViewController {
     }
     
     func viewPostHandler(exercisePost: ExercisePost)  {
-        let postDetailViewController = PostDetailViewController.create(post: exercisePost, diffedPostsDataClosure: self.diffedPostsHandler  )
-      self.navigationController?.pushViewController(postDetailViewController, animated: true)
+        let postDetailViewController = PostDetailViewController.create(postId: exercisePost.id, diffedPostsDataClosure: self.diffedPostsHandler  )
+        self.navigationController?.pushViewController(postDetailViewController, animated: true)
     }
 }

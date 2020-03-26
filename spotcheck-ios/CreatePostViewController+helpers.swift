@@ -90,7 +90,7 @@ extension CreatePostViewController {
         self.cancelAlertController.addAction(yesAction)
         self.cancelAlertController.addAction(noAction)
         self.cancelAlertController.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
-        self.cancelButton.action = #selector(cancelButtonOnClick(sender:))
+        appBarViewController.navigationBar.leftBarButtonItem?.action = #selector(cancelButtonOnClick(sender:))
     }
     
     @objc func cancelButtonOnClick(sender: Any) {
@@ -108,7 +108,7 @@ extension CreatePostViewController {
     }
     
     func applyConstraints() {
-        self.exerciseTextField.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 75).isActive = true
+        self.exerciseTextField.topAnchor.constraint(equalTo: self.appBarViewController.navigationBar.bottomAnchor, constant: 16).isActive = true
         self.exerciseTextField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
         self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: self.exerciseTextField.trailingAnchor, constant: 15).isActive = true
         

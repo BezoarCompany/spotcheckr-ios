@@ -10,7 +10,6 @@ import MaterialComponents.MaterialSnackbar_TypographyThemer
 import PromiseKit
 
 class CreateAnswerViewController: UIViewController, MDCMultilineTextInputDelegate, MDCMultilineTextInputLayoutDelegate {
-    @IBOutlet weak var postButtonBarItem: UIBarButtonItem!
     let answerTextField: MDCMultilineTextField = {
         let field = MDCMultilineTextField()
         field.translatesAutoresizingMaskIntoConstraints = false
@@ -19,17 +18,18 @@ class CreateAnswerViewController: UIViewController, MDCMultilineTextInputDelegat
     var answerTextInputController: MDCTextInputControllerOutlinedTextArea
     let snackbarMessage: MDCSnackbarMessage = {
        let message = MDCSnackbarMessage()
-        MDCSnackbarTypographyThemer.applyTypographyScheme(ApplicationScheme.instance.containerScheme.typographyScheme)
+       MDCSnackbarTypographyThemer.applyTypographyScheme(ApplicationScheme.instance.containerScheme.typographyScheme)
        return message
     }()
-    
+    let appBarViewController = UIElementFactory.getAppBar()
     var currentUser: User?
+    var post: ExercisePost?
     
-    @IBAction func cancelAnswer(_ sender: Any) {
+    @objc func cancelAnswer(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func submitAction(_ sender: Any) {
+    @objc func submitAction(_ sender: Any) {
         firstly {
             createAnswer()
         }.done {
@@ -51,7 +51,11 @@ class CreateAnswerViewController: UIViewController, MDCMultilineTextInputDelegat
         return createAnswerViewController
     }
     
-    var post: ExercisePost?
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        answerTextInputController = MDCTextInputControllerOutlinedTextArea()
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        self.addChild(appBarViewController)
+    }
     
     required init?(coder aDecoder: NSCoder) {
         self.answerTextInputController = MDCTextInputControllerOutlinedTextArea(textInput: self.answerTextField)
@@ -67,6 +71,8 @@ class CreateAnswerViewController: UIViewController, MDCMultilineTextInputDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         initTextViewPlaceholders()
+        initAppBar()
+        applyConstraints()
         firstly {
             Services.userService.getCurrentUser()
         }.done { user in
@@ -90,22 +96,17 @@ extension CreateAnswerViewController {
         //TODO: Adjust height of the multi-line text input so that it goes to the top of the keyboard view at least.
         self.answerTextField.becomeFirstResponder()
         self.view.addSubview(answerTextField)
-        self.answerTextField.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 65).isActive = true
-        self.answerTextField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
-        self.answerTextField.bottomAnchor.constraint(equalTo: self.answerTextField.inputAccessoryView?.topAnchor ?? self.view.safeAreaLayoutGuide.bottomAnchor, constant: 0).isActive = true
-        self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: self.answerTextField.trailingAnchor, constant: 10).isActive = true
-        
     }
     
     func multilineTextField(_ multilineTextField: MDCMultilineTextInput, didChangeContentSize size: CGSize) {
-        self.postButtonBarItem.isEnabled = multilineTextField.text?.count ?? 0 > 0
+        appBarViewController.navigationBar.rightBarButtonItem?.isEnabled = multilineTextField.text?.count ?? 0 > 0
     }
     
     func createAnswer() -> Promise<Void> {
-        var answer = Answer(createdBy: self.currentUser,
+        let answer = Answer(createdBy: self.currentUser,
                             dateCreated: Date(),
                             dateModified: Date(),
-                            exercisePost: ExercisePost(id: self.post!.id),
+                            exercisePostId: self.post!.id,
                             text: self.answerTextField.text!
                             )
         
@@ -119,5 +120,24 @@ extension CreateAnswerViewController {
                 return promise.reject(error)
             }
         }
+    }
+    
+    func initAppBar() {
+        appBarViewController.didMove(toParent: self)
+        appBarViewController.inferTopSafeAreaInsetFromViewController = true
+        appBarViewController.navigationBar.title = "Add Answer"
+        appBarViewController.navigationBar.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(self.cancelAnswer(_:)))
+        appBarViewController.navigationBar.rightBarButtonItem = UIBarButtonItem(title: "Post", style: .done, target: self, action: #selector(self.submitAction(_:)))
+        appBarViewController.navigationBar.rightBarButtonItem?.isEnabled = false
+        view.addSubview(appBarViewController.view)
+    }
+    
+    func applyConstraints() {
+        NSLayoutConstraint.activate([
+            answerTextField.topAnchor.constraint(equalTo: appBarViewController.navigationBar.bottomAnchor, constant: 16),
+            answerTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            answerTextField.bottomAnchor.constraint(equalTo: answerTextField.inputAccessoryView?.topAnchor ?? self.view.safeAreaLayoutGuide.bottomAnchor, constant: 0),
+            view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: answerTextField.trailingAnchor, constant: 10),
+        ])
     }
 }

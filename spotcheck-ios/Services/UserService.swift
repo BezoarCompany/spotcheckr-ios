@@ -78,7 +78,7 @@ class UserService: UserProtocol {
                     
                     user = userIsTrainer ? Trainer(id: userId) : User(id: userId)
                     user.username = (data?.keys.contains("username"))! ? data?["username"] as! String : ""
-                    user.profilePictureUrl = (data?.keys.contains("profile-picture-url"))! ? URL(string: data?["profile-picture-url"] as! String) : nil
+                    user.profilePicturePath = (data?.keys.contains("profile-picture-path"))! ?  data?["profile-picture-path"] as? String : nil
                     user.information = Identity(
                         salutation: (data?.keys.contains("salutation"))! ? salutations[(data?["salutation"] as! DocumentReference).path]! : "",
                         firstName: (data?.keys.contains("first-name"))! ? data?["first-name"] as! String : "",

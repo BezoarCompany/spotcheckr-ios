@@ -17,12 +17,9 @@ enum DiffType {
 
 class CreatePostViewController: UIViewController {
     let MAX_SUBJECT_LENGTH = 300
-    
-    @IBOutlet weak var navbar: UINavigationItem!
-    @IBOutlet weak var postButton: UIBarButtonItem!
-    @IBOutlet weak var cancelButton: UIBarButtonItem!
-    @IBAction func submitPost(_ sender: Any) {
-        self.postButton.customView = self.activityIndicator
+
+    @objc func submitPost(_ sender: Any) {
+        appBarViewController.navigationBar.rightBarButtonItem?.customView = self.activityIndicator
         self.activityIndicator.startAnimating()
         self.validator.validate(self)
     }
@@ -121,7 +118,7 @@ class CreatePostViewController: UIViewController {
     }()
     let cancelAlertController = MDCAlertController(title: "Cancel?", message: "You will lose all entered data.")
     
-    let validator: Validator
+    let validator = Validator()
     
     var activityIndicator: MDCActivityIndicator = {
         let indicator = MDCActivityIndicator()
@@ -130,7 +127,7 @@ class CreatePostViewController: UIViewController {
         indicator.cycleColors = [ApplicationScheme.instance.containerScheme.colorScheme.secondaryColor]
         return indicator
     }()
-    
+    let appBarViewController = UIElementFactory.getAppBar()
     var imagePickerController = UIImagePickerController()
     var isImageChanged = false
     
@@ -163,7 +160,15 @@ class CreatePostViewController: UIViewController {
         
         return createPostViewController
     }
-
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        self.exerciseTextFieldController = MDCTextInputControllerFilled()
+        self.subjectTextFieldController = MDCTextInputControllerFilled()
+        self.bodyTextFieldController = MDCTextInputControllerOutlinedTextArea()
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        self.addChild(appBarViewController)
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         self.subjectTextFieldController = MDCTextInputControllerFilled(textInput: subjectTextField)
         self.subjectTextFieldController.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
@@ -185,8 +190,6 @@ class CreatePostViewController: UIViewController {
         self.exerciseTextFieldController.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
         self.exerciseTextFieldController.isFloatingEnabled = false
         
-        self.validator = Validator()
-        
         super.init(coder: aDecoder)
     }
     
@@ -199,6 +202,7 @@ class CreatePostViewController: UIViewController {
             self.currentUser = user
         }
         
+        initAppBar()
         initDropDowns()
         initTextViewPlaceholders()
         
@@ -214,8 +218,8 @@ class CreatePostViewController: UIViewController {
         if (updatePostMode == .edit) {
             subjectTextField.text = self.exercisePost?.title
             bodyTextField.text = self.exercisePost?.description
-            navbar.title  = "Edit Question"
-            postButton.title = "Save"
+            appBarViewController.navigationBar.title  = "Edit Question"
+            appBarViewController.navigationBar.rightBarButtonItem?.title = "Save"
             
             if let img = exercisePost?.imagePath {
                 print("image exists!")
@@ -235,7 +239,16 @@ class CreatePostViewController: UIViewController {
                 photoImageView.sd_setImage(with: storagePathReference, placeholderImage: placeholderImage)
             }
         }
-    }    
+    }
+    
+    func initAppBar() {
+        appBarViewController.didMove(toParent: self)
+        appBarViewController.inferTopSafeAreaInsetFromViewController = true
+        appBarViewController.navigationBar.title = "Add Question"
+        appBarViewController.navigationBar.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(self.cancelButtonOnClick(sender:)))
+        appBarViewController.navigationBar.rightBarButtonItem = UIBarButtonItem(title: "Post", style: .done, target: self, action: #selector(self.submitPost(_:)))
+        view.addSubview(appBarViewController.view)
+    }
 }
 
 extension CreatePostViewController: MDCMultilineTextInputDelegate {
@@ -256,7 +269,7 @@ extension CreatePostViewController: UINavigationControllerDelegate,UIImagePicker
 
 extension CreatePostViewController: ValidationDelegate {
     func validationSuccessful() {
-        self.postButton.isEnabled = false
+        appBarViewController.navigationBar.rightBarButtonItem?.isEnabled = false
         
         self.subjectTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
         self.bodyTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
@@ -282,7 +295,7 @@ extension CreatePostViewController: ValidationDelegate {
             }
         }
 
-        self.postButton.customView = nil
+        appBarViewController.navigationBar.rightBarButtonItem?.customView = nil
     }
     
     private func setupValidation() {

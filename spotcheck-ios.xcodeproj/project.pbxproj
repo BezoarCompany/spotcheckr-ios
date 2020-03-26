@@ -79,6 +79,9 @@
 		BA6305272422E6A500DA0AE1 /* chevron-left.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA6305262422E6A500DA0AE1 /* chevron-left.svg */; };
 		BA6305292422E97100DA0AE1 /* log-out.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA6305282422E97100DA0AE1 /* log-out.svg */; };
 		BA733D5524038E4100395895 /* ErrorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA733D5424038E4100395895 /* ErrorExtensions.swift */; };
+		BA74976D2429D6B100C1C17C /* edit-2.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA74976C2429D6B100C1C17C /* edit-2.svg */; };
+		BA74976F2429DA6400C1C17C /* settings.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA74976E2429DA6400C1C17C /* settings.svg */; };
+		BA749771242ACEF100C1C17C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA749770242ACEF100C1C17C /* SettingsViewController.swift */; };
 		BA828EF9241CE0270012509D /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA828EF8241CE0270012509D /* StringExtensions.swift */; };
 		BA828EFB241CE2F10012509D /* FirebaseToDomainMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA828EFA241CE2F10012509D /* FirebaseToDomainMapper.swift */; };
 		BA828EFD241CE3E30012509D /* DomainToFirebaseMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA828EFC241CE3E30012509D /* DomainToFirebaseMapper.swift */; };
@@ -194,6 +197,9 @@
 		BA6305262422E6A500DA0AE1 /* chevron-left.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "chevron-left.svg"; sourceTree = "<group>"; };
 		BA6305282422E97100DA0AE1 /* log-out.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "log-out.svg"; sourceTree = "<group>"; };
 		BA733D5424038E4100395895 /* ErrorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorExtensions.swift; sourceTree = "<group>"; };
+		BA74976C2429D6B100C1C17C /* edit-2.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "edit-2.svg"; sourceTree = "<group>"; };
+		BA74976E2429DA6400C1C17C /* settings.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = settings.svg; sourceTree = "<group>"; };
+		BA749770242ACEF100C1C17C /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		BA828EF8241CE0270012509D /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		BA828EFA241CE2F10012509D /* FirebaseToDomainMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseToDomainMapper.swift; sourceTree = "<group>"; };
 		BA828EFC241CE3E30012509D /* DomainToFirebaseMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainToFirebaseMapper.swift; sourceTree = "<group>"; };
@@ -293,6 +299,7 @@
 				BA4EE45B23EF6814003E6D87 /* PasswordResetConfirmationViewController.swift */,
 				BA4EDA4024025F0D00206267 /* EditProfileViewController.swift */,
 				BA49A016241F488500BB4BD8 /* TabBarController.swift */,
+				BA749770242ACEF100C1C17C /* SettingsViewController.swift */,
 			);
 			path = "spotcheck-ios";
 			sourceTree = "<group>";
@@ -402,9 +409,11 @@
 				BA6305262422E6A500DA0AE1 /* chevron-left.svg */,
 				BAEE4AC92426DEFB005C2023 /* arrow-up.svg */,
 				BA49A01A242090DA00BB4BD8 /* trash-2.svg */,
+				BA74976E2429DA6400C1C17C /* settings.svg */,
 				BAEE4ACB2426E122005C2023 /* arrow-down.svg */,
 				BAEE4ACF24276DFD005C2023 /* account-circle.svg */,
 				BA49A012241ED21300BB4BD8 /* list.svg */,
+				BA74976C2429D6B100C1C17C /* edit-2.svg */,
 				BAEE4AC524263579005C2023 /* reply.svg */,
 				BA5DE70D241888FE002C98E6 /* chevron-down.svg */,
 				BA6305282422E97100DA0AE1 /* log-out.svg */,
@@ -547,6 +556,7 @@
 			files = (
 				BAEE4AC624263579005C2023 /* reply.svg in Resources */,
 				BA5DE70C241888F2002C98E6 /* chevron-up.svg in Resources */,
+				BA74976F2429DA6400C1C17C /* settings.svg in Resources */,
 				BA49A015241ED56300BB4BD8 /* user.svg in Resources */,
 				BA49A01B242090DA00BB4BD8 /* trash-2.svg in Resources */,
 				BA4EDA452402909A00206267 /* ProfilePostCell.xib in Resources */,
@@ -556,6 +566,7 @@
 				BAEE4ACA2426DEFB005C2023 /* arrow-up.svg in Resources */,
 				BA4EE45323EECE84003E6D87 /* eye.svg in Resources */,
 				BA49A0192420875F00BB4BD8 /* more-horizontal.svg in Resources */,
+				BA74976D2429D6B100C1C17C /* edit-2.svg in Resources */,
 				BA49213723E6289B00A74A73 /* Roboto-Medium.ttf in Resources */,
 				5679530A23D806C00077BA08 /* LaunchScreen.storyboard in Resources */,
 				BA49213623E6289B00A74A73 /* Roboto-Regular.ttf in Resources */,
@@ -676,6 +687,7 @@
 				BAEE4AC82426D133005C2023 /* FeedCell.swift in Sources */,
 				5659D9D723FD02980043FA6A /* AnswerPostCell.swift in Sources */,
 				BA4EDA47240290C000206267 /* ProfilePostCell.swift in Sources */,
+				BA749771242ACEF100C1C17C /* SettingsViewController.swift in Sources */,
 				5681771723FDCE7500CA7AB5 /* DetailedPostCell.swift in Sources */,
 				BA59197623F92DBA00E8B900 /* Services.swift in Sources */,
 				568721A323E7EF1100E15F87 /* ApplicationScheme.swift in Sources */,

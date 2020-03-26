@@ -8,7 +8,7 @@ class DomainToFirebaseMapper {
         firebaseAnswer["created-date"] = from.dateCreated
         firebaseAnswer["modified-date"] = from.dateModified
         firebaseAnswer["text"] = from.text
-        firebaseAnswer["exercise-post"] = from.exercisePost?.id
+        firebaseAnswer["exercise-post"] = from.exercisePostId
         return firebaseAnswer
     }
     
