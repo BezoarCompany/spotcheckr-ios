@@ -23,7 +23,7 @@ protocol ExercisePostProtocol {
     func getAnswers(forPostWithId postId: String) -> Promise<[Answer]>
     func votePost(postId: String, userId: String, direction: VoteDirection) -> Promise<Void>
     func voteAnswer(answerId: String, userId: String, direction: VoteDirection) -> Promise<Void>
-    func getVoteDirection(forPostWithId: String) -> Promise<VoteDirection>
+    func getVoteDirection(id: String, collection: String) -> Promise<VoteDirection>
     
     func writePost(dict: [String: Any]) -> Promise<Void>
     func createPost(post: ExercisePost) -> Promise<ExercisePost>

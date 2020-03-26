@@ -6,7 +6,6 @@ class ProfilePostCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var datePostedLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
-    @IBOutlet weak var voteTotalLabel: UILabel!
     @IBOutlet weak var answersLabel: UILabel!
     @IBOutlet weak var answersIcon: UIImageView!
     @IBOutlet weak var answersCountLabel: UILabel!
@@ -16,6 +15,8 @@ class ProfilePostCell: UITableViewCell {
     var postId: String?
     var votingUserId: String?
     var voteDirection: VoteDirection?
+    var upvoteOnTap: ((_ voteDirection: VoteDirection) -> Promise<Void>)?
+    var downvoteOnTap: ((_ voteDirection: VoteDirection) -> Promise<Void>)?
     let upvoteColor = Colors.upvote
     let downvoteColor = Colors.downvote
     let neutralColor: UIColor = Colors.neutralVote
@@ -43,56 +44,39 @@ class ProfilePostCell: UITableViewCell {
     }
     
     @IBAction func upvoteOnClick(_ sender: Any) {
-        var currentVoteCount = Int(self.voteTotalLabel.text!)!
         if self.downvoteButton.tintColor == self.downvoteColor { // Going from downvote to upvote
             self.voteDirection = .Up
-            currentVoteCount += 2
         }
         else if self.upvoteButton.tintColor == self.upvoteColor { // Already upvoted, removing upvote
             self.voteDirection = .Neutral
-            currentVoteCount -= 1
         }
         else if self.upvoteButton.tintColor == self.neutralColor { // Upvoting for the first time
             self.voteDirection = .Up
-            currentVoteCount += 1
         }
-        
-        toggleVotingControls()
+        self.adjustVotingControls()
         firstly {
-            Services.exercisePostService.votePost(postId: postId!, userId: votingUserId!, direction: VoteDirection.Up)
+            self.upvoteOnTap!(self.voteDirection!)
         }.catch { error in
             //TODO: Show an error on screen
-        }.finally {
-            self.toggleVotingControls()
-            self.adjustVotingControls()
-            self.voteTotalLabel.text = "\(currentVoteCount)"
         }
     }
     
     @IBAction func downvoteOnClick(_ sender: Any) {
-        var currentVoteCount = Int(self.voteTotalLabel.text!)!
         if self.upvoteButton.tintColor == self.upvoteColor { // Going from upvote to downvote
             self.voteDirection = .Down
-            currentVoteCount -= 2
         }
         else if self.downvoteButton.tintColor == self.downvoteColor { // Already downvoted, removing downvote
             self.voteDirection = .Neutral
-            currentVoteCount += 1
         }
         else if self.downvoteButton.tintColor == self.neutralColor { // Downvoting for the first time
             self.voteDirection = .Down
-            currentVoteCount -= 1
         }
+        self.adjustVotingControls()
         
-        toggleVotingControls()
         firstly {
-            Services.exercisePostService.votePost(postId: postId!, userId: votingUserId!, direction: VoteDirection.Down)
+            self.downvoteOnTap!(self.voteDirection!)
         }.catch { error in
             //TODO: Show an error on screen
-        }.finally {
-            self.toggleVotingControls()
-            self.adjustVotingControls()
-            self.voteTotalLabel.text = "\(currentVoteCount)"
         }
     }
     
@@ -100,22 +84,15 @@ class ProfilePostCell: UITableViewCell {
         switch self.voteDirection {
         case .Up:
             self.upvoteButton.tintColor = self.upvoteColor
-            self.voteTotalLabel.textColor = self.upvoteColor
             self.downvoteButton.tintColor = self.neutralColor
         case .Down:
             self.downvoteButton.tintColor = self.downvoteColor
-            self.voteTotalLabel.textColor = self.downvoteColor
             self.upvoteButton.tintColor = self.neutralColor
         default:
             self.upvoteButton.tintColor = self.neutralColor
             self.downvoteButton.tintColor = self.neutralColor
-            self.voteTotalLabel.textColor = self.neutralColor
             break
         }
-    }
-    private func toggleVotingControls() {
-        self.upvoteButton.isEnabled = !self.upvoteButton.isEnabled
-        self.downvoteButton.isEnabled = !self.downvoteButton.isEnabled
     }
     
     private func applyStyles() {
@@ -125,8 +102,6 @@ class ProfilePostCell: UITableViewCell {
         self.datePostedLabel.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
         self.descriptionLabel.font = ApplicationScheme.instance.containerScheme.typographyScheme.body1
         self.descriptionLabel.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
-        self.voteTotalLabel.font = ApplicationScheme.instance.containerScheme.typographyScheme.body1
-        self.voteTotalLabel.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
         self.answersCountLabel.font = ApplicationScheme.instance.containerScheme.typographyScheme.body1
         self.answersCountLabel.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
         self.answersLabel.font = ApplicationScheme.instance.containerScheme.typographyScheme.body1
@@ -135,7 +110,7 @@ class ProfilePostCell: UITableViewCell {
     }
     
     private func applyConstraints() {
-        moreIcon.topAnchor.constraint(equalTo: self.descriptionLabel.bottomAnchor, constant: 12).isActive = true
+        moreIcon.topAnchor.constraint(equalTo: self.descriptionLabel.bottomAnchor, constant: 46).isActive = true
         self.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: self.moreIcon.bottomAnchor, constant: 8).isActive = true
         self.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: moreIcon.trailingAnchor, constant: 12).isActive = true
     }

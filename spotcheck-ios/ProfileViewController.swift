@@ -2,7 +2,7 @@ import Foundation
 import Firebase
 import PromiseKit
 import MaterialComponents
-
+import FirebaseStorage.FIRStorageConstants
 class ProfileViewController: UIViewController {
     @IBOutlet weak var certificationsHeadingLabel: UILabel!
     @IBOutlet weak var certificationsLabel: UILabel!
@@ -10,20 +10,12 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var heightLabel: UILabel!
     @IBOutlet weak var weightLabel: UILabel!
     @IBOutlet weak var profilePictureImageView: UIImageView!
-    @IBOutlet weak var editProfileButton: MDCFlatButton!
     @IBOutlet weak var postsTableView: UITableView!
     @IBOutlet weak var answersTableView: UITableView!
     
-    @objc func logoutTapped(_ sender: Any) {
-        do {
-            try Services.userService.signOut()
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let baseViewController = storyboard.instantiateViewController(withIdentifier: K.Storyboard.AuthOptionViewControllerId )
-            UIApplication.shared.keyWindow?.rootViewController = baseViewController
-        } catch {
-            self.snackbarMessage.text = "An error occurred signing out."
-            MDCSnackbarManager.show(self.snackbarMessage)
-        }
+    @objc func editProfileTapped(_ sender: Any) {
+        let editProfileViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: K.Storyboard.EditProfileViewControllerId)
+        self.present(editProfileViewController, animated: true)
     }
     
     var tabBar: MDCTabBar?
@@ -38,6 +30,7 @@ class ProfileViewController: UIViewController {
     var answers = [Answer]()
     var posts = [ExercisePost]()
     let appBarViewController = UIElementFactory.getAppBar()
+    let initialLoadActivityIndicator = UIElementFactory.getActivityIndicator()
     let postsTableActivityIndicator = UIElementFactory.getActivityIndicator()
     let answersTableActivityIndicator = UIElementFactory.getActivityIndicator()
     let postsRefreshControl = UIRefreshControl()
@@ -66,7 +59,7 @@ class ProfileViewController: UIViewController {
     
     private func initAppBar() {
         self.appBarViewController.didMove(toParent: self)
-        self.appBarViewController.navigationBar.rightBarButtonItem = UIBarButtonItem(image: Images.logOut, style: .done, target: self, action: #selector(self.logoutTapped(_:)))
+        self.appBarViewController.navigationBar.rightBarButtonItem = UIBarButtonItem(image: Images.edit, style: .done, target: self, action: #selector(self.editProfileTapped(_:)))
     }
     
     private func addSubviews() {
@@ -75,14 +68,15 @@ class ProfileViewController: UIViewController {
     }
     
     private func resolveProfileUser() {
+        self.initialLoadActivityIndicator.startAnimating()
         // Check if user received from another view controller (i.e. passed in from feed view).
         // https://www.youtube.com/watch?v=Kpwrc1PRDsg <- shows how to pass data from one view controller to this one.
         if self.receivedUser != nil {
             self.currentUser = self.receivedUser
             populateUserProfileInformation()
+            //TODO: We will need to restrict the edit profile icon if you are viewing another person's profile.
         }
         else {
-            showCurrentUserOnlyControls()
             firstly {
                 //TODO: Show some sort of spinner while this data loads.
                 Services.userService.getCurrentUser()
@@ -94,7 +88,6 @@ class ProfileViewController: UIViewController {
                 //TODO: Dismiss spinner once data has loaded from user service and is populated.
                 self.populateUserProfileInformation()
                 firstly {
-                    //TODO: Show spinner that table data is loading.
                     when(fulfilled: Services.exercisePostService.getPosts(forUser: self.currentUser!), Services.exercisePostService.getAnswers(byUserWithId: self.currentUser!.id!))
                 }.done { posts, answers in
                     //TODO: Dismiss spinnner
@@ -104,6 +97,7 @@ class ProfileViewController: UIViewController {
                     self.answers = answers
                     self.posts = posts
                     
+                    self.initialLoadActivityIndicator.stopAnimating()
                     self.postsTableView.reloadData()
                     self.answersTableView.reloadData()
                 }.catch {error in
@@ -112,10 +106,6 @@ class ProfileViewController: UIViewController {
             }
         }
     }
-    
-    private func showCurrentUserOnlyControls() {
-        self.editProfileButton.isHidden = false
-    }	
     
     private func populateUserProfileInformation() {
         //TODO: Resolve, what to do if we don't have their full name.
@@ -144,6 +134,27 @@ class ProfileViewController: UIViewController {
             self.heightLabel.text = self.currentUser?.measurement?.height?.toFormattedHeight()
             self.weightLabel.text = self.currentUser?.measurement?.weight?.toFormattedWeight()
         }
+        if self.currentUser?.profilePicturePath != nil {
+            firstly {
+                Services.storageService.download(path: self.currentUser!.profilePicturePath!, maxSize: 2000000)
+            }.done { image in
+                self.profilePictureImageView.image = image
+            }.catch { (error) in
+                let errorCode = (error as NSError).code
+                var errorMessage = ""
+                
+                switch errorCode {
+                case StorageErrorCode.downloadSizeExceeded.rawValue:
+                    errorMessage = "Profile picture is too large."
+                case StorageErrorCode.unknown.rawValue:
+                    errorMessage = "An unkown error occurred."
+                default:
+                    break
+                }
+                self.snackbarMessage.text = errorMessage
+                MDCSnackbarManager.show(self.snackbarMessage)
+            }
+        }
     }
     
     private func applyStyles() {
@@ -160,19 +171,21 @@ class ProfileViewController: UIViewController {
     }
     
     private func applyConstraints() {
-        self.postsTableActivityIndicator.centerXAnchor.constraint(equalTo: self.postsRefreshControl.centerXAnchor).isActive = true
-        self.postsTableActivityIndicator.centerYAnchor.constraint(equalTo: self.postsRefreshControl.centerYAnchor).isActive = true
-        self.answersTableActivityIndicator.centerXAnchor.constraint(equalTo: self.answersRefreshControl.centerXAnchor).isActive = true
-        self.answersTableActivityIndicator.centerYAnchor.constraint(equalTo: self.answersRefreshControl.centerYAnchor).isActive = true
-        self.tabBar?.translatesAutoresizingMaskIntoConstraints = false
-        self.tabBar?.topAnchor.constraint(equalTo: self.weightLabel.bottomAnchor, constant: 10).isActive = true
-        self.tabBar?.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 0).isActive = true
-        self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: self.tabBar!.trailingAnchor, constant: 0).isActive = true
-        self.answersTableView.topAnchor.constraint(equalTo: self.tabBar!.bottomAnchor, constant: 0).isActive = true
-        self.postsTableView.topAnchor.constraint(equalTo: self.tabBar!.bottomAnchor, constant: 0).isActive = true
-        self.profilePictureImageView.topAnchor.constraint(equalTo: self.appBarViewController.navigationBar.bottomAnchor, constant: 16).isActive = true
-        self.certificationsHeadingLabel.topAnchor.constraint(equalTo: self.appBarViewController.navigationBar.bottomAnchor, constant: 16).isActive = true
-        self.editProfileButton.topAnchor.constraint(equalTo: self.appBarViewController.navigationBar.bottomAnchor, constant: 16).isActive = true
+        NSLayoutConstraint.activate([
+        self.postsTableActivityIndicator.centerXAnchor.constraint(equalTo: self.postsRefreshControl.centerXAnchor),
+        self.postsTableActivityIndicator.centerYAnchor.constraint(equalTo: self.postsRefreshControl.centerYAnchor),
+        self.initialLoadActivityIndicator.centerXAnchor.constraint(equalTo: self.postsTableView.centerXAnchor),
+        self.initialLoadActivityIndicator.centerYAnchor.constraint(equalTo: self.postsTableView.centerYAnchor),
+        self.answersTableActivityIndicator.centerXAnchor.constraint(equalTo: self.answersRefreshControl.centerXAnchor),
+        self.answersTableActivityIndicator.centerYAnchor.constraint(equalTo: self.answersRefreshControl.centerYAnchor),
+        (self.tabBar?.topAnchor.constraint(equalTo: self.weightLabel.bottomAnchor, constant: 10))!,
+        (self.tabBar?.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 0))!,
+        self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: self.tabBar!.trailingAnchor, constant: 0),
+        self.answersTableView.topAnchor.constraint(equalTo: self.tabBar!.bottomAnchor, constant: 0),
+        self.postsTableView.topAnchor.constraint(equalTo: self.tabBar!.bottomAnchor, constant: 0),
+        self.profilePictureImageView.topAnchor.constraint(equalTo: self.appBarViewController.navigationBar.bottomAnchor, constant: 16),
+        self.certificationsHeadingLabel.topAnchor.constraint(equalTo: self.appBarViewController.navigationBar.bottomAnchor, constant: 16)
+        ])
     }
 }
 
@@ -189,16 +202,25 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             cell.titleLabel.text = post.title
             cell.descriptionLabel.text = post.description
             cell.datePostedLabel.text = post.dateCreated?.toDisplayFormat()
-            cell.voteTotalLabel.text = "\(post.metrics.totalVotes)"
             cell.votingUserId = self.currentUser?.id
             cell.postId = post.id
             cell.voteDirection = post.metrics.currentVoteDirection
             cell.answersCountLabel.text = "\(post.answers.count)"
+            cell.upvoteOnTap = { (voteDirection: VoteDirection) in
+                Services.exercisePostService.votePost(postId: post.id, userId: self.currentUser!.id!, direction: voteDirection)
+            }
+            cell.downvoteOnTap = { (voteDirection: VoteDirection) in
+                Services.exercisePostService.votePost(postId: post.id, userId: self.currentUser!.id!, direction: voteDirection)
+            }
+            
             let moreIconActionSheet = UIElementFactory.getActionSheet()
             let deleteAction = MDCActionSheetAction(title: "Delete", image: Images.trash, handler: { (MDCActionSheetHandler) in
                 firstly {
                     Services.exercisePostService.deletePost(post)
                 }.done {
+                    self.posts.remove(at: indexPath.row)
+                    self.postsTableView.deleteRows(at: [indexPath], with: .right)
+                    self.tabBar?.items[0].title = "\(self.posts.count) Posts"
                     self.snackbarMessage.text = "Post deleted."
                     MDCSnackbarManager.show(self.snackbarMessage)
                 }
@@ -219,15 +241,24 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             
         cell.descriptionLabel.text = answer.text
         cell.datePostedLabel.text = answer.dateCreated?.toDisplayFormat()
-        cell.voteTotalLabel.text = "\(answer.metrics!.totalVotes)"
         cell.votingUserId = self.currentUser?.id
         cell.voteDirection = answer.metrics?.currentVoteDirection
         cell.hideAnswers = true
+        cell.upvoteOnTap = { (voteDirection: VoteDirection) in
+            Services.exercisePostService.voteAnswer(answerId: answer.id!, userId: self.currentUser!.id!, direction: voteDirection)
+        }
+        cell.downvoteOnTap = { (voteDirection: VoteDirection) in
+            Services.exercisePostService.voteAnswer(answerId: answer.id!, userId: self.currentUser!.id!, direction: voteDirection)
+        }
+        
         let moreIconActionSheet = UIElementFactory.getActionSheet()
         let deleteAction = MDCActionSheetAction(title: "Delete", image: Images.trash, handler: { (MDCActionSheetHandler) in
             firstly {
                 Services.exercisePostService.deleteAnswer(withId: answer.id!)
             }.done {
+                self.answers.remove(at: indexPath.row)
+                self.answersTableView.deleteRows(at: [indexPath], with: .right)
+                self.tabBar?.items[1].title = "\(self.answers.count) Answers"
                 self.snackbarMessage.text = "Answer deleted."
                 MDCSnackbarManager.show(self.snackbarMessage)
             }
@@ -240,6 +271,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         cell.onMoreIconClick = {
             self.present(moreIconActionSheet, animated: true, completion: nil)
         }
+        cell.awakeFromNib()
         return cell
     }
     
@@ -249,10 +281,14 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let postDetailViewController: PostDetailViewController
         if tableView == self.postsTableView {
-            let postDetailViewController = PostDetailViewController.create(post: posts[indexPath.row])
-            self.navigationController?.pushViewController(postDetailViewController, animated: true)
+            postDetailViewController = PostDetailViewController.create(postId: posts[indexPath.row].id)
         }
+        else {
+            postDetailViewController = PostDetailViewController.create(postId: answers[indexPath.row].exercisePostId)
+        }
+        self.navigationController?.pushViewController(postDetailViewController, animated: true)
     }
     
     private func initTableViews() {
@@ -265,6 +301,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         self.postsTableView.addSubview(self.postsRefreshControl)
         self.postsTableView.tableFooterView = UIView()
         self.postsTableView.register(UINib(nibName:K.Storyboard.profilPostNibName, bundle: nil), forCellReuseIdentifier: K.Storyboard.profilePostCellId)
+        self.postsTableView.addSubview(self.initialLoadActivityIndicator)
         
         self.answersRefreshControl.addSubview(self.answersTableActivityIndicator)
         self.answersRefreshControl.tintColor = .clear
@@ -319,6 +356,7 @@ extension ProfileViewController: MDCTabBarDelegate {
     private func initTabBar() {
         self.tabBar = MDCTabBar(frame: self.view.bounds)
         self.tabBar?.delegate = self
+        self.tabBar?.translatesAutoresizingMaskIntoConstraints = false
         self.tabBar?.items = [
             UITabBarItem(title: "\(posts.count) Posts", image: nil, tag: 0),
             UITabBarItem(title: "\(answers.count) Answers", image: nil, tag: 1)

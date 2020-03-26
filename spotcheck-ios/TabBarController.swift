@@ -39,7 +39,8 @@ class TabBarController: UITabBarController, MDCBottomNavigationBarDelegate {
         bottomNav.applyPrimaryTheme(withScheme: ApplicationScheme.instance.containerScheme)
         bottomNav.items = [
             UITabBarItem(title: "Feed", image: Images.list, tag: 0),
-            UITabBarItem(title: "Profile", image: Images.user, tag: 1)
+            UITabBarItem(title: "Profile", image: Images.user, tag: 1),
+            UITabBarItem(title: "Settings", image: Images.settings, tag: 2)
         ]
         bottomNav.titleVisibility = .always
         bottomNav.selectedItem = bottomNav.items[0]
