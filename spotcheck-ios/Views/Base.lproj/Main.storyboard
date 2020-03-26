@@ -253,34 +253,9 @@
                     <view key="view" contentMode="scaleToFill" id="XBn-kA-hyM">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nnA-Ad-pVx">
-                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                                <items>
-                                    <navigationItem title="New Question" id="gFt-Qt-MS2">
-                                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="YE0-Od-SSy"/>
-                                        <barButtonItem key="rightBarButtonItem" title="Post" id="ujP-IS-SBP">
-                                            <connections>
-                                                <action selector="submitPost:" destination="cch-6k-Lhu" id="CCT-TY-Uxe"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
-                        </subviews>
                         <color key="backgroundColor" red="0.12941294910000001" green="0.12940964099999999" blue="0.1294118762" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                        <constraints>
-                            <constraint firstItem="nnA-Ad-pVx" firstAttribute="leading" secondItem="L8l-fi-QXV" secondAttribute="leading" id="S2H-xd-taP"/>
-                            <constraint firstItem="nnA-Ad-pVx" firstAttribute="top" secondItem="L8l-fi-QXV" secondAttribute="top" id="iB0-H6-2Z2"/>
-                            <constraint firstItem="nnA-Ad-pVx" firstAttribute="trailing" secondItem="L8l-fi-QXV" secondAttribute="trailing" id="jA7-nn-gvm"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="L8l-fi-QXV"/>
                     </view>
-                    <connections>
-                        <outlet property="cancelButton" destination="YE0-Od-SSy" id="PJX-UK-rJA"/>
-                        <outlet property="navbar" destination="gFt-Qt-MS2" id="NsP-Pm-RYM"/>
-                        <outlet property="postButton" destination="ujP-IS-SBP" id="bHJ-Rc-zzn"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WAM-kd-nHb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
