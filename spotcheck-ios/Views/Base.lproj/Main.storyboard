@@ -268,37 +268,9 @@
                     <view key="view" contentMode="scaleToFill" id="hSd-Kg-lJe">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ujk-Ji-8st">
-                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                                <color key="barTintColor" red="0.1333333333" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
-                                <items>
-                                    <navigationItem title="New Answer" id="QZR-Rt-hUL" userLabel="Add an answer" colorLabel="IBBuiltInLabel-Gray">
-                                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="65U-FQ-7pO">
-                                            <connections>
-                                                <action selector="cancelAnswer:" destination="Q3E-1v-EnN" id="N2s-iD-81C"/>
-                                            </connections>
-                                        </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Post" id="17l-Zk-2Np" userLabel="Submit">
-                                            <connections>
-                                                <action selector="submitAction:" destination="Q3E-1v-EnN" id="gKe-Sg-glu"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
-                        </subviews>
                         <color key="backgroundColor" red="0.12941294910000001" green="0.12940964099999999" blue="0.1294118762" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                        <constraints>
-                            <constraint firstItem="Ujk-Ji-8st" firstAttribute="trailing" secondItem="8aF-T3-zYd" secondAttribute="trailing" id="5k4-Gv-Rit"/>
-                            <constraint firstItem="Ujk-Ji-8st" firstAttribute="top" secondItem="8aF-T3-zYd" secondAttribute="top" id="Cjz-AW-B01"/>
-                            <constraint firstItem="Ujk-Ji-8st" firstAttribute="leading" secondItem="8aF-T3-zYd" secondAttribute="leading" id="vtc-SI-cOi"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="8aF-T3-zYd"/>
                     </view>
-                    <connections>
-                        <outlet property="postButtonBarItem" destination="17l-Zk-2Np" id="YR8-uF-yqC"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m9J-bE-l2R" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
