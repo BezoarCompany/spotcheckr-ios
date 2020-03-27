@@ -117,15 +117,16 @@ class FeedViewController: UIViewController {
     func applyConstraints() {
         activityIndicator.centerXAnchor.constraint(equalTo: refreshControl.centerXAnchor).isActive = true
         activityIndicator.centerYAnchor.constraint(equalTo: refreshControl.centerYAnchor).isActive = true
-        self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: addPostButton.trailingAnchor, constant: 25).isActive = true
-        self.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: addPostButton.bottomAnchor, constant: 75).isActive = true
+        addPostButton.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -25).isActive = true    
+        addPostButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -75).isActive = true
         addPostButton.widthAnchor.constraint(equalToConstant: 64).isActive = true
         addPostButton.heightAnchor.constraint(equalToConstant: 64).isActive = true
         feedView.topAnchor.constraint(equalTo: appBarViewController.view.bottomAnchor).isActive = true
         //TODO: How to get the tab bar then assign to its top anchor?
-        self.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: feedView.bottomAnchor, constant: 55).isActive = true
+        
+        feedView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
         feedView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: feedView.trailingAnchor).isActive = true
+        feedView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor).isActive = true
     }
     
     @objc func addTapped() {
