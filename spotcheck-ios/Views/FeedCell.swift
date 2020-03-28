@@ -37,10 +37,11 @@ class FeedCell: MDCCardCollectionCell {
         addSubview(downvoteButton)
     }
     
-    func applyConstraints() {
+    func applyConstraints() {        
         supportingTextTopConstraint = supportingTextLabel.topAnchor.constraint(equalTo: subHeadLabel.bottomAnchor, constant: 16)
         
         NSLayoutConstraint.activate([
+            
         thumbnailImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
         thumbnailImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
         thumbnailImageView.widthAnchor.constraint(equalToConstant: 40),
@@ -56,8 +57,8 @@ class FeedCell: MDCCardCollectionCell {
         media.widthAnchor.constraint(equalToConstant: contentView.frame.width),
         
         supportingTextTopConstraint!,
+        supportingTextLabel.widthAnchor.constraint(equalToConstant: contentView.frame.width - 40),
         supportingTextLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-        supportingTextLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
         
         upvoteButton.topAnchor.constraint(equalTo: supportingTextLabel.bottomAnchor, constant: 24),
         upvoteButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 4),
@@ -174,6 +175,7 @@ class FeedCell: MDCCardCollectionCell {
     let media: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
+        image.contentMode = .scaleAspectFit
         return image
     }()
     
