@@ -50,12 +50,16 @@ class PostDetailViewController : UIViewController {
         self.tableView.endUpdates()
     }
     
-    static func create(post: ExercisePost?, diffedPostsDataClosure: DiffedPostsDataUpdateClosureType? = nil) -> PostDetailViewController {
-       let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+    static func create(postId: String?, diffedPostsDataClosure: DiffedPostsDataUpdateClosureType? = nil) -> PostDetailViewController {
+        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
 
         let postDetailViewController = storyboard.instantiateViewController(withIdentifier: K.Storyboard.PostDetailViewControllerId) as! PostDetailViewController
         
-        postDetailViewController.post = post
+        firstly {
+            Services.exercisePostService.getPost(withId: postId!)
+        }.done { post in
+            postDetailViewController.post = post
+        }
         postDetailViewController.diffedPostsDataClosure = diffedPostsDataClosure
         
         return postDetailViewController
@@ -82,18 +86,13 @@ class PostDetailViewController : UIViewController {
         }.catch { error in
             //TODO: Do something when post fetching fails
         }
-                
-        let postSettingsBarItem = UIBarButtonItem(image: UIImage(systemName: "pencil"), style: .plain, target: self, action: #selector(self.modifyPost))
-               
-        self.navigationItem.rightBarButtonItem = postSettingsBarItem
+        
         //access control for the modify menu
         firstly {
             Services.userService.getCurrentUser()
         }.done { user in
             if let postUserId = self.post?.createdBy?.id, postUserId == user.id{
-                let postSettingsBarItem = UIBarButtonItem(image: UIImage(systemName: "pencil"), style: .plain, target: self, action: #selector(self.modifyPost))
-                       
-                self.navigationItem.rightBarButtonItem = postSettingsBarItem
+                self.appBarViewController.navigationBar.trailingBarButtonItem = UIBarButtonItem(image: Images.edit, style: .plain, target: self, action: #selector(self.modifyPost))
             }
         }
                 

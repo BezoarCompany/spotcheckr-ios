@@ -45,6 +45,10 @@ final class Cache<Key: Hashable, Value> {
     func isEmpty() -> Bool {
         return self.items > 0
     }
+    
+    func empty() {
+        wrapped.removeAllObjects()
+    }
 }
 
 private extension Cache {

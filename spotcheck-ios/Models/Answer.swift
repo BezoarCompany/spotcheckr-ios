@@ -5,7 +5,7 @@ struct Answer {
     var createdBy: User?
     var dateCreated: Date?
     var dateModified: Date?
-    var exercisePost: ExercisePost?
+    var exercisePostId: String?
     var text = ""
     var media = [Media]()
     var metrics: Metrics?

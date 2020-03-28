@@ -20,6 +20,7 @@ class FeedViewController: UIViewController {
     var posts = [ExercisePost]()
     var refreshControl = UIRefreshControl()
     var activityIndicator = UIElementFactory.getActivityIndicator()
+    var initialLoadActivityIndicator = UIElementFactory.getActivityIndicator()
     let appBarViewController = UIElementFactory.getAppBar()
     let addPostButton: MDCFloatingButton = {
         let button = MDCFloatingButton()
@@ -61,12 +62,21 @@ class FeedViewController: UIViewController {
         initRefreshControl()
         initAddPostButton()
         applyConstraints()
-        refreshPosts()
+        
+        firstly {
+            fetchMorePosts(lastSnapshot: nil)
+        }.done { posts in
+            self.posts = posts
+            self.feedView.reloadData()
+            self.initialLoadActivityIndicator.stopAnimating()
+        }
+
     }
     
     func fetchMorePosts(lastSnapshot: DocumentSnapshot?) -> Promise<[ExercisePost]> {
         print("@fetchMorePosts \(lastSnapshot)")
         return Promise { promise in
+            
             firstly {
                 Services.exercisePostService.getPosts(limit:7, lastPostSnapshot: self.lastPostsSnapshot)
             }.done { pagedResult in
@@ -99,6 +109,7 @@ class FeedViewController: UIViewController {
     func addSubviews() {
         view.addSubview(feedView)
         view.addSubview(appBarViewController.view)
+        feedView.addSubview(initialLoadActivityIndicator)
         feedView.addSubview(addPostButton)
         refreshControl.addSubview(activityIndicator)
         feedView.addSubview(refreshControl)
@@ -116,19 +127,22 @@ class FeedViewController: UIViewController {
     
     func applyConstraints() {
         let safeAreaLayout = view.safeAreaLayoutGuide
-        
-        activityIndicator.centerXAnchor.constraint(equalTo: refreshControl.centerXAnchor).isActive = true
-        activityIndicator.centerYAnchor.constraint(equalTo: refreshControl.centerYAnchor).isActive = true
-        addPostButton.trailingAnchor.constraint(equalTo: safeAreaLayout.trailingAnchor, constant: -25).isActive = true
-        addPostButton.bottomAnchor.constraint(equalTo: safeAreaLayout.bottomAnchor, constant: -75).isActive = true
-        addPostButton.widthAnchor.constraint(equalToConstant: 64).isActive = true
-        addPostButton.heightAnchor.constraint(equalToConstant: 64).isActive = true
-        feedView.topAnchor.constraint(equalTo: appBarViewController.view.bottomAnchor).isActive = true
-        //TODO: How to get the tab bar then assign to its top anchor?
-        
-        feedView.bottomAnchor.constraint(equalTo: safeAreaLayout.bottomAnchor, constant: -20).isActive = true
-        feedView.leadingAnchor.constraint(equalTo: safeAreaLayout.leadingAnchor).isActive = true
-        feedView.trailingAnchor.constraint(equalTo: safeAreaLayout.trailingAnchor).isActive = true
+
+        NSLayoutConstraint.activate([
+            initialLoadActivityIndicator.centerXAnchor.constraint(equalTo: feedView.centerXAnchor),
+            initialLoadActivityIndicator.centerYAnchor.constraint(equalTo: feedView.centerYAnchor),
+            activityIndicator.centerXAnchor.constraint(equalTo: refreshControl.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: refreshControl.centerYAnchor),
+            addPostButton.trailingAnchor.constraint(equalTo: safeAreaLayout.trailingAnchor, constant: -25),
+            addPostButton.bottomAnchor.constraint(equalTo: safeAreaLayout.bottomAnchor, constant: -75),
+            addPostButton.widthAnchor.constraint(equalToConstant: 64),
+            addPostButton.heightAnchor.constraint(equalToConstant: 64),
+            feedView.topAnchor.constraint(equalTo: appBarViewController.view.bottomAnchor),
+            //TODO: How to get the tab bar then assign to its top anchor?
+            feedView.bottomAnchor.constraint(equalTo: safeAreaLayout.bottomAnchor, constant: -20),
+            feedView.leadingAnchor.constraint(equalTo: safeAreaLayout.leadingAnchor),
+            feedView.trailingAnchor.constraint(equalTo: safeAreaLayout.trailingAnchor)
+        ])
     }
     
     @objc func addTapped() {
@@ -157,7 +171,9 @@ class FeedViewController: UIViewController {
 
     @objc func finishRefreshing() {
         self.activityIndicator.stopAnimating()
+        self.initialLoadActivityIndicator.stopAnimating()
         self.refreshControl.endRefreshing()
+        
     }
 }
 
@@ -311,7 +327,7 @@ private extension FeedViewController {
     }
     
     func viewPostHandler(exercisePost: ExercisePost)  {
-      let postDetailViewController = PostDetailViewController.create(post: exercisePost, diffedPostsDataClosure: self.diffedPostsHandler  )
-      self.navigationController?.pushViewController(postDetailViewController, animated: true)
+        let postDetailViewController = PostDetailViewController.create(postId: exercisePost.id, diffedPostsDataClosure: self.diffedPostsHandler  )
+        self.navigationController?.pushViewController(postDetailViewController, animated: true)
     }
 }

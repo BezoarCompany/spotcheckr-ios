@@ -131,14 +131,6 @@
                                     <outlet property="delegate" destination="tMw-Fa-6Zf" id="NTt-B7-w2a"/>
                                 </connections>
                             </tableView>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0wS-Y9-708" customClass="MDCFlatButton">
-                                <rect key="frame" x="376.5" y="103" width="17.5" height="22"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" image="pencil" catalog="system"/>
-                                <connections>
-                                    <segue destination="qK8-tQ-gZ3" kind="show" id="GUb-Hb-hNr"/>
-                                </connections>
-                            </button>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jtt-9I-0Zp">
                                 <rect key="frame" x="25" y="206" width="55" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -175,7 +167,6 @@
                             <constraint firstItem="nWt-qY-6lC" firstAttribute="leading" secondItem="s8p-ny-o4T" secondAttribute="leading" constant="20" id="RP4-q3-3Bd"/>
                             <constraint firstItem="jtt-9I-0Zp" firstAttribute="leading" secondItem="4mr-Q0-Vdn" secondAttribute="leading" constant="25" id="Xet-lc-TBI"/>
                             <constraint firstAttribute="trailing" secondItem="Wul-jC-8EW" secondAttribute="trailing" constant="60" id="acq-AX-IXt"/>
-                            <constraint firstItem="s8p-ny-o4T" firstAttribute="trailing" secondItem="0wS-Y9-708" secondAttribute="trailing" constant="20" id="b1S-9e-aKG"/>
                             <constraint firstItem="jtt-9I-0Zp" firstAttribute="top" secondItem="nWt-qY-6lC" secondAttribute="bottom" constant="8" id="cTv-az-ICI"/>
                             <constraint firstAttribute="trailing" secondItem="L4U-C1-6zG" secondAttribute="trailing" constant="329" id="fYy-4K-IWN"/>
                             <constraint firstItem="iAW-5V-48L" firstAttribute="trailing" secondItem="s8p-ny-o4T" secondAttribute="trailing" id="feJ-3T-1mn"/>
@@ -196,7 +187,6 @@
                         <outlet property="answersTableView" destination="rv5-tH-ce9" id="xKd-gK-qdN"/>
                         <outlet property="certificationsHeadingLabel" destination="ceC-bn-EC4" id="He7-Ml-36Y"/>
                         <outlet property="certificationsLabel" destination="Wul-jC-8EW" id="4xx-kX-TGs"/>
-                        <outlet property="editProfileButton" destination="0wS-Y9-708" id="Gye-fu-b7F"/>
                         <outlet property="heightLabel" destination="jtt-9I-0Zp" id="gQz-n6-euO"/>
                         <outlet property="occupationLabel" destination="1LE-Sk-bXV" id="Lta-Rx-gRt"/>
                         <outlet property="postsTableView" destination="iAW-5V-48L" id="LY2-Gf-CsR"/>
@@ -263,34 +253,9 @@
                     <view key="view" contentMode="scaleToFill" id="XBn-kA-hyM">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nnA-Ad-pVx">
-                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                                <items>
-                                    <navigationItem title="New Question" id="gFt-Qt-MS2">
-                                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="YE0-Od-SSy"/>
-                                        <barButtonItem key="rightBarButtonItem" title="Post" id="ujP-IS-SBP">
-                                            <connections>
-                                                <action selector="submitPost:" destination="cch-6k-Lhu" id="CCT-TY-Uxe"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
-                        </subviews>
                         <color key="backgroundColor" red="0.12941294910000001" green="0.12940964099999999" blue="0.1294118762" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                        <constraints>
-                            <constraint firstItem="nnA-Ad-pVx" firstAttribute="leading" secondItem="L8l-fi-QXV" secondAttribute="leading" id="S2H-xd-taP"/>
-                            <constraint firstItem="nnA-Ad-pVx" firstAttribute="top" secondItem="L8l-fi-QXV" secondAttribute="top" id="iB0-H6-2Z2"/>
-                            <constraint firstItem="nnA-Ad-pVx" firstAttribute="trailing" secondItem="L8l-fi-QXV" secondAttribute="trailing" id="jA7-nn-gvm"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="L8l-fi-QXV"/>
                     </view>
-                    <connections>
-                        <outlet property="cancelButton" destination="YE0-Od-SSy" id="PJX-UK-rJA"/>
-                        <outlet property="navbar" destination="gFt-Qt-MS2" id="NsP-Pm-RYM"/>
-                        <outlet property="postButton" destination="ujP-IS-SBP" id="bHJ-Rc-zzn"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WAM-kd-nHb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -303,37 +268,9 @@
                     <view key="view" contentMode="scaleToFill" id="hSd-Kg-lJe">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ujk-Ji-8st">
-                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                                <color key="barTintColor" red="0.1333333333" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
-                                <items>
-                                    <navigationItem title="New Answer" id="QZR-Rt-hUL" userLabel="Add an answer" colorLabel="IBBuiltInLabel-Gray">
-                                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="65U-FQ-7pO">
-                                            <connections>
-                                                <action selector="cancelAnswer:" destination="Q3E-1v-EnN" id="N2s-iD-81C"/>
-                                            </connections>
-                                        </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Post" id="17l-Zk-2Np" userLabel="Submit">
-                                            <connections>
-                                                <action selector="submitAction:" destination="Q3E-1v-EnN" id="gKe-Sg-glu"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
-                        </subviews>
                         <color key="backgroundColor" red="0.12941294910000001" green="0.12940964099999999" blue="0.1294118762" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                        <constraints>
-                            <constraint firstItem="Ujk-Ji-8st" firstAttribute="trailing" secondItem="8aF-T3-zYd" secondAttribute="trailing" id="5k4-Gv-Rit"/>
-                            <constraint firstItem="Ujk-Ji-8st" firstAttribute="top" secondItem="8aF-T3-zYd" secondAttribute="top" id="Cjz-AW-B01"/>
-                            <constraint firstItem="Ujk-Ji-8st" firstAttribute="leading" secondItem="8aF-T3-zYd" secondAttribute="leading" id="vtc-SI-cOi"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="8aF-T3-zYd"/>
                     </view>
-                    <connections>
-                        <outlet property="postButtonBarItem" destination="17l-Zk-2Np" id="YR8-uF-yqC"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m9J-bE-l2R" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -359,6 +296,39 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k2h-uM-kP8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2800" y="-144.64285714285714"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="kuJ-Ni-zjb">
+            <objects>
+                <navigationController id="w2b-Sc-dye" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="Lf0-GA-9c5"/>
+                    <navigationBar key="navigationBar" hidden="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="1jA-un-MBm">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="pEV-od-kof" kind="relationship" relationship="rootViewController" id="wpJ-HX-tZ2"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HV7-17-15D" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1919" y="-830"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="FGk-FG-XVg">
+            <objects>
+                <viewController storyboardIdentifier="SettingsViewController" id="pEV-od-kof" customClass="SettingsViewController" customModule="Spotcheckr" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1FO-zA-36q">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.12941294910000001" green="0.12940964099999999" blue="0.1294118762" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <viewLayoutGuide key="safeArea" id="ofa-aA-U50"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Settings" leftItemsSupplementBackButton="YES" id="9pY-mO-zEH"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="G2r-PV-Ufp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2799" y="-830"/>
         </scene>
         <!--Profile Nav-->
         <scene sceneID="h2A-9d-tbu">
@@ -394,11 +364,12 @@
                     <connections>
                         <segue destination="OlI-rI-fzN" kind="relationship" relationship="viewControllers" id="ZVp-47-uXk"/>
                         <segue destination="Y1l-d4-YEY" kind="relationship" relationship="viewControllers" id="kpO-I3-R4j"/>
+                        <segue destination="w2b-Sc-dye" kind="relationship" relationship="viewControllers" id="fdC-fS-ZBT"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lVk-tp-Sdt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1889.8550724637682" y="-144.64285714285714"/>
+            <point key="canvasLocation" x="1920" y="-145"/>
         </scene>
         <!--Edit Profile-->
         <scene sceneID="fkx-nW-4Oq">
@@ -535,7 +506,6 @@
     </scenes>
     <resources>
         <image name="list.dash" catalog="system" width="64" height="42"/>
-        <image name="pencil" catalog="system" width="64" height="56"/>
         <image name="person" catalog="system" width="64" height="58"/>
         <image name="person.crop.circle" catalog="system" width="64" height="60"/>
         <image name="person.fill" catalog="system" width="64" height="60"/>

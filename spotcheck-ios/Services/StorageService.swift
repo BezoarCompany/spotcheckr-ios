@@ -57,4 +57,15 @@ class StorageService: StorageProtocol {
         }
     }
     
+    func download(path: String, maxSize: Int64) -> Promise<UIImage> {
+        return Promise { promise in
+            let imageRef = Storage.storage().reference().child(path)
+            imageRef.getData(maxSize: maxSize) { (data, error) in
+                if let error = error {
+                    return promise.reject(error)
+                }
+                return promise.fulfill(UIImage(data: data!)!)
+            }
+        }
+    }
 }

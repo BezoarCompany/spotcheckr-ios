@@ -6,6 +6,7 @@ class FirebaseToDomainMapper {
                            createdBy: User) -> Answer {
         var answer = Answer()
         answer.id = data.keys.contains("id") ? data["id"] as? String : nil
+        answer.exercisePostId = data.keys.contains("exercise-post") ? data["exercise-post"] as? String : nil
         answer.text = data.keys.contains("text") ? data["text"] as! String : ""
         answer.metrics = metrics
         answer.dateCreated = data.keys.contains("created-date") ? (data["created-date"] as! Timestamp).dateValue() : nil
