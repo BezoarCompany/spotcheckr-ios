@@ -34,6 +34,12 @@ class FeedViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    var layout: UICollectionViewFlowLayout = {
+        let layout = UICollectionViewFlowLayout()
+        let width = UIScreen.main.bounds.size.width
+        layout.estimatedItemSize = CGSize(width: width, height: 10)
+        return layout
+    }()
     var currentUser: User?
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -78,7 +84,7 @@ class FeedViewController: UIViewController {
         return Promise { promise in
             
             firstly {
-                Services.exercisePostService.getPosts(limit:7, lastPostSnapshot: self.lastPostsSnapshot)
+                Services.exercisePostService.getPosts(limit:5, lastPostSnapshot: self.lastPostsSnapshot)
             }.done { pagedResult in
                 if self.lastPostsSnapshot == pagedResult.lastSnapshot {
                     print("At last item, no more objects!")
@@ -96,8 +102,8 @@ class FeedViewController: UIViewController {
     }
     
     func initFeedView() {
-        let layout = UICollectionViewFlowLayout()
-        layout.estimatedItemSize = CGSize(width: view.frame.width, height: 20)
+        let width = UIScreen.main.bounds.size.width //view.frame.width
+        layout.estimatedItemSize = CGSize(width: width, height: 10)
         feedView.collectionViewLayout = layout
         feedView.delegate = self
         feedView.dataSource = self
@@ -197,7 +203,6 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
         if indexPath.section == 1 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LoadingCell.cellId,
             for: indexPath) as! LoadingCell
-            cell.setCellWidth(width: view.frame.width)
             cell.activityIndicator.startAnimating()
             return cell
         }
@@ -205,7 +210,6 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedCell.cellId,
         for: indexPath) as! FeedCell
         cell.setShadowElevation(ShadowElevation(rawValue: 10), for: .normal)
-        //cell.setCellWidth(width: view.frame.width)
         cell.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
         cell.headerLabel.text = post.title
         cell.subHeadLabel.text = "\(post.dateCreated?.toDisplayFormat() ?? "") • \(post.answersCount) Answers"
@@ -248,7 +252,7 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
         
         if offsetY > contentHeight - scrollView.frame.height {
             if !isFetchingMore && !endReached {
-                print("begin Batch Fetch!")
+                print("================= =========== begin Batch Fetch!")
                 isFetchingMore = true
                 self.feedView.reloadSections(IndexSet(integer: 1))
                 
@@ -260,16 +264,25 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
                     var endReached = newPosts.count == 0
                     
                     self.posts += newPosts
-                    UIView.performWithoutAnimation {
-                        self.feedView.reloadData()
-                    }
-                    //self.feedView.insertItems(at: idxPaths)
+
+                    self.feedView.reloadData()
                     
                     print("postCount: \(self.posts.count)")
                     self.isFetchingMore = false
                 }
             }
         }
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        layout.estimatedItemSize = CGSize(width: view.bounds.size.width, height: 10)
+        super.traitCollectionDidChange(previousTraitCollection)
+    }
+        
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        layout.estimatedItemSize = CGSize(width: view.bounds.size.width, height: 10)
+        layout.invalidateLayout()
+        super.viewWillTransition(to: size, with: coordinator)
     }
 }
 
