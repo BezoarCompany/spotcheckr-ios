@@ -221,7 +221,7 @@ extension PostDetailViewController: UITableViewDataSource {
             
             //this mocking logic if a post has an image attached
             if let hasPhoto = post?.imagePath {
-                cell.photoHeightConstraint.constant = CGFloat(FeedViewController.IMAGE_HEIGHT)
+                cell.photoHeightConstraint.constant = CGFloat(FeedCell.IMAGE_HEIGHT)
                 
                 // Set default image for placeholder
                 let placeholderImage = UIImage(named:"squat1")!

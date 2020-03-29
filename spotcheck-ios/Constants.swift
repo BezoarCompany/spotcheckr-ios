@@ -8,7 +8,7 @@ struct K {
     
     struct Notifications {
         static let ExercisePostEdits = Notification.Name("ExercisePostEdits")
-    }
+    }    
     
     struct Storyboard {
         static let MainTabBarControllerId = "MainTabBarController"
@@ -23,9 +23,6 @@ struct K {
         static let PasswordResetConfirmationViewControllerId = "PasswordResetConfirmationViewController"
         static let CreatePostViewControllerId = "CreatePostViewController"
         static let CreateAnswerViewControllerId = "CreateAnswerViewController"
-
-        static let feedCellId = "FeedCell" //Reusable Cell ID
-        static let postNibName = "FeedPostCell" //<name>.xib
         
         static let answerCellId = "AnswerReuseCell" //Reusable CellID
         static let answerNibName = "AnswerPostCell" //<name>.xib
@@ -35,8 +32,8 @@ struct K {
         
         static let profilePostCellId = "ProfilePostCell"
         static let profilPostNibName = "ProfilePostCell"
-        
     }
+    
     struct Firestore {
         static let posts = "posts"
         static let answers = "answers"

@@ -2,19 +2,27 @@ import MaterialComponents
 import PromiseKit
 
 class FeedCell: MDCCardCollectionCell {
-    var widthConstraint: NSLayoutConstraint?
-    var supportingTextTopConstraint: NSLayoutConstraint?
+    static let cellId = "FeedCell"
+    static let IMAGE_HEIGHT = 200
+    
+    lazy var widthConstraint: NSLayoutConstraint = {
+        let width = contentView.widthAnchor.constraint(equalToConstant: bounds.size.width)
+        width.isActive = true
+        return width
+    }()    
+        
     var postId: String?
     var votingUserId: String?
     var voteDirection: VoteDirection?
     let upvoteColor = Colors.upvote
     let downvoteColor = Colors.downvote
     let neutralColor: UIColor = Colors.neutralVote
+    var mediaHeightConstraint: NSLayoutConstraint?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.translatesAutoresizingMaskIntoConstraints = false
-        widthConstraint = contentView.widthAnchor.constraint(equalToConstant: 0)
+                
         applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
         addSubviews()
         applyConstraints()
@@ -25,38 +33,59 @@ class FeedCell: MDCCardCollectionCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func systemLayoutSizeFitting(_ targetSize: CGSize, withHorizontalFittingPriority horizontalFittingPriority: UILayoutPriority, verticalFittingPriority: UILayoutPriority) -> CGSize {
+        widthConstraint.constant = bounds.size.width
+        return contentView.systemLayoutSizeFitting(CGSize(width: targetSize.width, height: 1))
+    }
+        
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        //when cell is being reused, must reset every property since cell isn't fully cleaned automatically
+        media.sd_cancelCurrentImageLoad()
+        media.image = UIImage(named:"squat1")!//nil
+    }
+
     func addSubviews() {
-        addSubview(thumbnailImageView)
-        addSubview(headerLabel)
-        addSubview(subHeadLabel)
-        addSubview(media)
-        addSubview(supportingTextLabel)
-        addSubview(upvoteButton)
-        addSubview(downvoteButton)
+        contentView.addSubview(thumbnailImageView)
+        contentView.addSubview(headerLabel)
+        contentView.addSubview(subHeadLabel)
+        contentView.addSubview(media)
+        contentView.addSubview(supportingTextLabel)
+        contentView.addSubview(upvoteButton)
+        contentView.addSubview(downvoteButton)
     }
     
     func applyConstraints() {
-        supportingTextTopConstraint = supportingTextLabel.topAnchor.constraint(equalTo: subHeadLabel.bottomAnchor, constant: 16)
+        
+        mediaHeightConstraint = media.heightAnchor.constraint(equalToConstant: CGFloat(0))
         
         NSLayoutConstraint.activate([
-        headerLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
-        headerLabel.leadingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor, constant: 16),
-        subHeadLabel.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 8),
-        subHeadLabel.leadingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor, constant: 16),
-        thumbnailImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
-        thumbnailImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            
+        thumbnailImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+        thumbnailImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
         thumbnailImageView.widthAnchor.constraint(equalToConstant: 40),
         thumbnailImageView.heightAnchor.constraint(equalToConstant: 40),
+
+        headerLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+        headerLabel.leadingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor, constant: 16),
+        
+        subHeadLabel.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 8),
+        subHeadLabel.leadingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor, constant: 16),
+        
         media.topAnchor.constraint(equalTo: subHeadLabel.bottomAnchor, constant: 16),
         media.widthAnchor.constraint(equalToConstant: contentView.frame.width),
-        supportingTextTopConstraint!,
-        supportingTextLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+        
+        supportingTextLabel.topAnchor.constraint(equalTo: media.bottomAnchor, constant: 16),
+        supportingTextLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+        supportingTextLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+        
         upvoteButton.topAnchor.constraint(equalTo: supportingTextLabel.bottomAnchor, constant: 24),
         upvoteButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 4),
+        
         downvoteButton.topAnchor.constraint(equalTo: supportingTextLabel.bottomAnchor, constant: 24),
         downvoteButton.leadingAnchor.constraint(equalTo: upvoteButton.trailingAnchor, constant: 8),
-        bottomAnchor.constraint(equalTo: upvoteButton.bottomAnchor, constant: 16),
-        bottomAnchor.constraint(equalTo: downvoteButton.bottomAnchor, constant: 16),
+        
+        contentView.bottomAnchor.constraint(equalTo: upvoteButton.bottomAnchor, constant: 16)
         ])
     }
     
@@ -120,14 +149,17 @@ class FeedCell: MDCCardCollectionCell {
         }
     }
     
-    func setCellWidth(width: CGFloat) {
-        widthConstraint?.constant = width
-        widthConstraint?.isActive = true
-    }
     
     func setConstraintsWithMedia() {
-        supportingTextTopConstraint?.isActive = false
-        supportingTextLabel.topAnchor.constraint(equalTo: media.bottomAnchor, constant: 16).isActive = true
+        mediaHeightConstraint!.constant = CGFloat(FeedCell.IMAGE_HEIGHT)
+        mediaHeightConstraint!.isActive = true
+        media.isHidden = false
+    }
+    
+    func setConstraintsWithNoMedia() {
+        mediaHeightConstraint!.constant = 0
+        mediaHeightConstraint!.isActive = true
+        media.isHidden = true
     }
     
     let headerLabel: UILabel = {
@@ -160,6 +192,7 @@ class FeedCell: MDCCardCollectionCell {
     let media: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
+        image.contentMode = .scaleAspectFit
         return image
     }()
     

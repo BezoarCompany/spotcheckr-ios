@@ -153,6 +153,10 @@ class ExercisePostService: ExercisePostProtocol {
                     return promise.reject(error)
                 }
                 
+                if querySnapshot!.documents.count == 0 { //no results, return early
+                    let res = PaginatedGetPostsResult(posts: [], lastSnapshot: nil)
+                    return promise.fulfill(res)
+                }
                 
                 //read through items in order, and setup PromisesExecution Array in SERIES/sequence
                 //https://github.com/mxcl/PromiseKit/blob/master/Documentation/CommonPatterns.md --Chaining Sequences
@@ -160,6 +164,7 @@ class ExercisePostService: ExercisePostProtocol {
                 //Example on how to sequentially chain promises.
                 //Going from [Promise<Post>] (array of promises)  => [()->Promise<Post>] (Aka Array of Closures that return Promises)
                 //ie. from [ExercisepostPromise] to [ClosureToExercisepostPromiseType]
+                
                 let closurePromisesArr: [ClosureToExercisepostPromiseType] = querySnapshot!.documents.map { doc in
                     return {
                         

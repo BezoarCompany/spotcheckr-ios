@@ -9,15 +9,27 @@ import MaterialComponents
 import IGListKit
 
 class FeedViewController: UIViewController {
-    static let IMAGE_HEIGHT = 200
     
-    //The last snapshot of a post item. Used as a cursor in the query for the next group of posts
-    var lastPostsSnapshot: DocumentSnapshot? = nil
     var posts = [ExercisePost]()
     var refreshControl = UIRefreshControl()
     var activityIndicator = UIElementFactory.getActivityIndicator()
     var initialLoadActivityIndicator = UIElementFactory.getActivityIndicator()
     let appBarViewController = UIElementFactory.getAppBar()
+    
+    //The last snapshot of a post item. Used as a cursor in the query for the next group of posts
+    var lastPostsSnapshot: DocumentSnapshot? = nil
+    var isFetchingMore = false
+    var endReached = false
+    var cellHeights = [IndexPath: CGFloat]() //used to remember cell heights to prevent recalc of heights which causes jumpy scrolling
+    
+    let cellHeightEstimate = 185.0 // Getting a good approximate is essential to prevent collectionView from jumpy behavior due to reloadData
+    let cellEstimatedSize: CGSize = {
+        let w = UIScreen.main.bounds.size.width
+        let h = CGFloat(185)
+        let size = CGSize(width: w, height: h)
+        return size
+    }()
+    
     let addPostButton: MDCFloatingButton = {
         let button = MDCFloatingButton()
         button.applySecondaryTheme(withScheme: ApplicationScheme.instance.containerScheme)
@@ -29,6 +41,10 @@ class FeedViewController: UIViewController {
         let view = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
+    }()
+    var layout: UICollectionViewFlowLayout = {
+        let layout = UICollectionViewFlowLayout()
+        return layout
     }()
     var currentUser: User?
     
@@ -58,35 +74,34 @@ class FeedViewController: UIViewController {
         initRefreshControl()
         initAddPostButton()
         applyConstraints()
-        self.initialLoadActivityIndicator.startAnimating()
-        firstly {
-            getPosts(lastSnapshot: self.lastPostsSnapshot)
-        }.done {
-            self.initialLoadActivityIndicator.stopAnimating()
-        }
+        
+        refreshPosts()
     }
     
-    func getPosts(lastSnapshot: DocumentSnapshot?) -> Promise<Void> {
+    func fetchMorePosts(lastSnapshot: DocumentSnapshot?) -> Promise<[ExercisePost]> {
+        print("@fetchMorePosts \(lastSnapshot)")
         return Promise { promise in
             
             firstly {
-                Services.exercisePostService.getPosts(lastPostSnapshot: self.lastPostsSnapshot)
+                Services.exercisePostService.getPosts(limit:5, lastPostSnapshot: self.lastPostsSnapshot)
             }.done { pagedResult in
-                self.posts = pagedResult.posts
                 self.lastPostsSnapshot = pagedResult.lastSnapshot
-                self.feedView.reloadData()
-                return promise.fulfill_()         
+                let newPosts = pagedResult.posts
+                return promise.fulfill(newPosts)
+                
+            }.catch { err in
+                return promise.reject(err)
             }
         }
     }
     
     func initFeedView() {
-        let layout = UICollectionViewFlowLayout()
-        layout.estimatedItemSize = CGSize(width: view.frame.width, height: 1)
+        layout.estimatedItemSize = cellEstimatedSize
         feedView.collectionViewLayout = layout
         feedView.delegate = self
         feedView.dataSource = self
-        feedView.register(FeedCell.self, forCellWithReuseIdentifier: "Cell")
+        feedView.register(FeedCell.self, forCellWithReuseIdentifier: FeedCell.cellId)
+        feedView.register(LoadingCell.self, forCellWithReuseIdentifier: LoadingCell.cellId)
         feedView.backgroundColor = ApplicationScheme.instance.containerScheme.colorScheme.backgroundColor
     }
     
@@ -110,20 +125,22 @@ class FeedViewController: UIViewController {
     }
     
     func applyConstraints() {
+        let safeAreaLayout = view.safeAreaLayoutGuide
+
         NSLayoutConstraint.activate([
             initialLoadActivityIndicator.centerXAnchor.constraint(equalTo: feedView.centerXAnchor),
             initialLoadActivityIndicator.centerYAnchor.constraint(equalTo: feedView.centerYAnchor),
             activityIndicator.centerXAnchor.constraint(equalTo: refreshControl.centerXAnchor),
             activityIndicator.centerYAnchor.constraint(equalTo: refreshControl.centerYAnchor),
-            self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: addPostButton.trailingAnchor, constant: 25),
-            self.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: addPostButton.bottomAnchor, constant: 75),
+            addPostButton.trailingAnchor.constraint(equalTo: safeAreaLayout.trailingAnchor, constant: -25),
+            addPostButton.bottomAnchor.constraint(equalTo: safeAreaLayout.bottomAnchor, constant: -75),
             addPostButton.widthAnchor.constraint(equalToConstant: 64),
             addPostButton.heightAnchor.constraint(equalToConstant: 64),
             feedView.topAnchor.constraint(equalTo: appBarViewController.view.bottomAnchor),
             //TODO: How to get the tab bar then assign to its top anchor?
-            self.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: feedView.bottomAnchor, constant: 55),
-            feedView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
-            self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: feedView.trailingAnchor),
+            feedView.bottomAnchor.constraint(equalTo: safeAreaLayout.bottomAnchor, constant: -20),
+            feedView.leadingAnchor.constraint(equalTo: safeAreaLayout.leadingAnchor),
+            feedView.trailingAnchor.constraint(equalTo: safeAreaLayout.trailingAnchor)
         ])
     }
     
@@ -134,35 +151,58 @@ class FeedViewController: UIViewController {
     }
     
     @objc func refreshPosts() {
-        refreshControl.beginRefreshing()
-        activityIndicator.startAnimating()
-
+        print("refreshPosts======")
+        self.initialLoadActivityIndicator.startAnimating()
         self.posts = []
-        self.feedView.reloadData() 
+        self.lastPostsSnapshot = nil
+        self.endReached = false
+        
         firstly {
-            getPosts(lastSnapshot: self.lastPostsSnapshot)
-        }.done {
-            self.perform(#selector(self.finishRefreshing), with: nil, afterDelay: 0.1)
+            fetchMorePosts(lastSnapshot: nil)
+        }.done { posts in
+            DispatchQueue.main.async {
+                self.posts = posts
+                self.feedView.reloadData()
+                self.perform(#selector(self.finishRefreshing), with: nil, afterDelay: 0.1)
+            }
         }
     }
 
     @objc func finishRefreshing() {
         self.activityIndicator.stopAnimating()
+        self.initialLoadActivityIndicator.stopAnimating()
         self.refreshControl.endRefreshing()
+        
     }
 }
 
+// Mark: Collection View Data Source
 extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return posts.count
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 2
     }
     
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if section == 0 {
+            return posts.count
+        }
+        //Section for the Loading cell will only appear for duration of batch loading, via the isFetchingMore flag
+        return isFetchingMore ? 1 : 0
+    }
+      
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
+        if indexPath.section == 1 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LoadingCell.cellId,
+            for: indexPath) as! LoadingCell
+            cell.activityIndicator.startAnimating()
+            return cell
+        }
         let post = posts[indexPath.row]
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell",
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedCell.cellId,
         for: indexPath) as! FeedCell
         cell.setShadowElevation(ShadowElevation(rawValue: 10), for: .normal)
-        cell.setCellWidth(width: view.frame.width)
         cell.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
         cell.headerLabel.text = post.title
         cell.subHeadLabel.text = "\(post.dateCreated?.toDisplayFormat() ?? "") • \(post.answersCount) Answers"
@@ -181,6 +221,8 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
             cell.media.sd_setImage(with: storagePathReference, placeholderImage: placeholderImage)
             
             cell.setConstraintsWithMedia()
+        } else {
+            cell.setConstraintsWithNoMedia()
         }
         cell.supportingTextLabel.text = post.description
         cell.postId = post.id
@@ -196,9 +238,58 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
         let post = posts[indexPath.row]
         viewPostHandler(exercisePost: post)
     }
+    
+    //Cache cell height to prevent jumpy recalc behavior
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if indexPath.section == 1 {
+            return
+        }
+        
+        let h = cell.frame.size.height
+        //print("@willDisplay [\(indexPath.item)] = \(h) height")
+        cellHeights[indexPath] = h
+    }
+
+    //Query 'cache' for cell height to prevent jumpy recalc behavior
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
+           sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+        let h = cellHeights[indexPath] ?? CGFloat(cellHeightEstimate)
+        let w = UIScreen.main.bounds.size.width
+        let res = CGSize(width: w, height: h)
+        //print("@sizeForItemAt [\(indexPath.item)] = \(h) height")
+        return res
+    }
+    
+    //handle infinite scrolling events
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        
+        if offsetY > contentHeight - scrollView.frame.height {
+            if !isFetchingMore && !endReached {
+                print("================= =========== begin Batch Fetch!")
+                isFetchingMore = true
+                self.feedView.reloadSections(IndexSet(integer: 1))
+                
+                firstly {
+                    self.fetchMorePosts(lastSnapshot: self.lastPostsSnapshot)
+                }.done { newPosts in
+                                        
+                    self.endReached = newPosts.count == 0
+                                   
+                    self.posts += newPosts
+                    self.feedView.reloadData()
+                    print("postCount: \(self.posts.count)")
+                    self.isFetchingMore = false
+                }
+            }
+        }
+    }
+
 }
 
-extension FeedViewController {
+private extension FeedViewController {
     //Renders the changes between self's posts[] and the arg's posts[]
     func diffedTableViewRenderer(argPosts: [ExercisePost]) {
         //new data comes in `argPosts`
@@ -206,9 +297,9 @@ extension FeedViewController {
 
         self.posts = argPosts // set arg data into exiting array before updating tableview
         self.feedView.performBatchUpdates({
-        self.feedView.deleteItems(at: results.deletes)
-        self.feedView.insertItems(at: results.inserts)
-      })
+            self.feedView.deleteItems(at: results.deletes)
+            self.feedView.insertItems(at: results.inserts)
+        })
       //TODO: Do fade animation (?) for deletes and automatic for insert
     }
 
@@ -231,8 +322,6 @@ extension FeedViewController {
           newPostsCopy.insert(exercisePost, at: 0)
       }
       else if (diffType == .edit) { //using Notification center to get the updated post. DiffTool isn't detecting changes b/c Old Post is same as New Posts, as if it were strongly refenced/changed.
-        print("############# EDIT!!  \(posts[indexFound].title) ? \(newPostsCopy[indexFound].title)  : \(exercisePost.title)")
-        print("index Found: \(indexFound)")
           
         newPostsCopy[indexFound] = exercisePost
         feedView.performBatchUpdates({
@@ -248,7 +337,6 @@ extension FeedViewController {
     }
 
     @objc func updateTableViewEdittedPost(notif: Notification) {
-        print("hi from updateTableViewEdittedPost!")
         if let post = notif.userInfo?["post"] as? ExercisePost {
             diffedPostsHandler(diffType: .edit, exercisePost: post)
         }
