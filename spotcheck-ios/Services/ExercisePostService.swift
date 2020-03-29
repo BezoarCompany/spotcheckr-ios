@@ -160,6 +160,12 @@ class ExercisePostService: ExercisePostProtocol {
                 //Example on how to sequentially chain promises.
                 //Going from [Promise<Post>] (array of promises)  => [()->Promise<Post>] (Aka Array of Closures that return Promises)
                 //ie. from [ExercisepostPromise] to [ClosureToExercisepostPromiseType]
+                
+                if querySnapshot!.documents.count == 0 { //no results, return early
+                    let res = PaginatedGetPostsResult(posts: [], lastSnapshot: nil)
+                    return promise.fulfill(res)
+                }
+                
                 let closurePromisesArr: [ClosureToExercisepostPromiseType] = querySnapshot!.documents.map { doc in
                     return {
                         
