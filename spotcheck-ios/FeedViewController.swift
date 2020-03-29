@@ -9,7 +9,6 @@ import MaterialComponents
 import IGListKit
 
 class FeedViewController: UIViewController {
-    static let IMAGE_HEIGHT = 200
     
     //The last snapshot of a post item. Used as a cursor in the query for the next group of posts
     var lastPostsSnapshot: DocumentSnapshot? = nil
