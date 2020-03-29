@@ -20,6 +20,7 @@ class FeedViewController: UIViewController {
     var lastPostsSnapshot: DocumentSnapshot? = nil
     var isFetchingMore = false
     var endReached = false
+//    var cellHeights = [IndexPath: CGFloat]() //used to remember cell heights to prevent recalc of heights which causes jumpy scrolling
     
     let cellHeightEstimate = 185.0 // Getting a good approximate is essential to prevent collectionView from jumpy behavior due to reloadData
     let cellEstimatedSize: CGSize = {
@@ -237,7 +238,25 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
         let post = posts[indexPath.row]
         viewPostHandler(exercisePost: post)
     }
-        
+    
+//    //Cache cell height
+//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//        print("@willDisplay [\(indexPath.item)] = \(cell.frame.size.height) height")
+//        cellHeights[indexPath] = cell.frame.size.height
+//    }
+//
+//    //Query 'cache' for cell height
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
+//           sizeForItemAt indexPath: IndexPath) -> CGSize {
+//
+//        let h = cellHeights[indexPath] ?? CGFloat(cellHeightEstimate)
+//        let w = UIScreen.main.bounds.size.width
+//        let res = CGSize(width: w, height: h)
+//        print("@sizeForItemAt [\(indexPath.item)] = \(h) height")
+//        return res
+//    }
+    
+    //handle infinite scrolling events
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetY = scrollView.contentOffset.y
         let contentHeight = scrollView.contentSize.height
@@ -253,7 +272,7 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
                 }.done { newPosts in
                                         
                     self.endReached = newPosts.count == 0
-               
+                                   
                     self.posts += newPosts
                     self.feedView.reloadData()
                     print("postCount: \(self.posts.count)")
