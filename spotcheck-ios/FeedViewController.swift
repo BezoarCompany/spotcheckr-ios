@@ -20,7 +20,7 @@ class FeedViewController: UIViewController {
     var lastPostsSnapshot: DocumentSnapshot? = nil
     var isFetchingMore = false
     var endReached = false
-//    var cellHeights = [IndexPath: CGFloat]() //used to remember cell heights to prevent recalc of heights which causes jumpy scrolling
+    var cellHeights = [IndexPath: CGFloat]() //used to remember cell heights to prevent recalc of heights which causes jumpy scrolling
     
     let cellHeightEstimate = 185.0 // Getting a good approximate is essential to prevent collectionView from jumpy behavior due to reloadData
     let cellEstimatedSize: CGSize = {
@@ -152,7 +152,7 @@ class FeedViewController: UIViewController {
     
     @objc func refreshPosts() {
         print("refreshPosts======")
-
+        self.initialLoadActivityIndicator.startAnimating()
         self.posts = []
         self.lastPostsSnapshot = nil
         self.endReached = false
@@ -239,22 +239,27 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
         viewPostHandler(exercisePost: post)
     }
     
-//    //Cache cell height
-//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-//        print("@willDisplay [\(indexPath.item)] = \(cell.frame.size.height) height")
-//        cellHeights[indexPath] = cell.frame.size.height
-//    }
-//
-//    //Query 'cache' for cell height
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
-//           sizeForItemAt indexPath: IndexPath) -> CGSize {
-//
-//        let h = cellHeights[indexPath] ?? CGFloat(cellHeightEstimate)
-//        let w = UIScreen.main.bounds.size.width
-//        let res = CGSize(width: w, height: h)
-//        print("@sizeForItemAt [\(indexPath.item)] = \(h) height")
-//        return res
-//    }
+    //Cache cell height to prevent jumpy recalc behavior
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if indexPath.section == 1 {
+            return
+        }
+        
+        let h = cell.frame.size.height
+        //print("@willDisplay [\(indexPath.item)] = \(h) height")
+        cellHeights[indexPath] = h
+    }
+
+    //Query 'cache' for cell height to prevent jumpy recalc behavior
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
+           sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+        let h = cellHeights[indexPath] ?? CGFloat(cellHeightEstimate)
+        let w = UIScreen.main.bounds.size.width
+        let res = CGSize(width: w, height: h)
+        //print("@sizeForItemAt [\(indexPath.item)] = \(h) height")
+        return res
+    }
     
     //handle infinite scrolling events
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
