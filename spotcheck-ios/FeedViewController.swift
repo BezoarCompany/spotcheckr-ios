@@ -10,17 +10,17 @@ import IGListKit
 
 class FeedViewController: UIViewController {
     
-    //The last snapshot of a post item. Used as a cursor in the query for the next group of posts
-    var lastPostsSnapshot: DocumentSnapshot? = nil
-    var isFetchingMore = false
-    var isFirstCall = true
-    var endReached = false
-    
     var posts = [ExercisePost]()
     var refreshControl = UIRefreshControl()
     var activityIndicator = UIElementFactory.getActivityIndicator()
     var initialLoadActivityIndicator = UIElementFactory.getActivityIndicator()
     let appBarViewController = UIElementFactory.getAppBar()
+    
+    //The last snapshot of a post item. Used as a cursor in the query for the next group of posts
+    var lastPostsSnapshot: DocumentSnapshot? = nil
+    var isFetchingMore = false
+    var endReached = false
+    
     let addPostButton: MDCFloatingButton = {
         let button = MDCFloatingButton()
         button.applySecondaryTheme(withScheme: ApplicationScheme.instance.containerScheme)
@@ -68,14 +68,7 @@ class FeedViewController: UIViewController {
         initAddPostButton()
         applyConstraints()
         
-        firstly {
-            fetchMorePosts(lastSnapshot: nil)
-        }.done { posts in
-            self.posts = posts
-            self.feedView.reloadData()
-            self.initialLoadActivityIndicator.stopAnimating()
-        }
-
+        refreshPosts()
     }
     
     func fetchMorePosts(lastSnapshot: DocumentSnapshot?) -> Promise<[ExercisePost]> {
@@ -85,14 +78,9 @@ class FeedViewController: UIViewController {
             firstly {
                 Services.exercisePostService.getPosts(limit:5, lastPostSnapshot: self.lastPostsSnapshot)
             }.done { pagedResult in
-                if self.lastPostsSnapshot == pagedResult.lastSnapshot {
-                    print("At last item, no more objects!")
-                    return promise.fulfill([])
-                } else {
-                    self.lastPostsSnapshot = pagedResult.lastSnapshot
-                    let newPosts = pagedResult.posts
-                    return promise.fulfill(newPosts)
-                }
+                self.lastPostsSnapshot = pagedResult.lastSnapshot
+                let newPosts = pagedResult.posts
+                return promise.fulfill(newPosts)
                 
             }.catch { err in
                 return promise.reject(err)
@@ -158,19 +146,19 @@ class FeedViewController: UIViewController {
     
     @objc func refreshPosts() {
         print("refreshPosts======")
-        if (!isFirstCall) {
-            refreshControl.beginRefreshing()
-            activityIndicator.startAnimating()
-        }
-        
+
         self.posts = []
         self.lastPostsSnapshot = nil
+        self.endReached = false
+        
         firstly {
             fetchMorePosts(lastSnapshot: nil)
         }.done { posts in
-            self.posts = posts
-            self.feedView.reloadData()
-            self.perform(#selector(self.finishRefreshing), with: nil, afterDelay: 0.1)
+            DispatchQueue.main.async {
+                self.posts = posts
+                self.feedView.reloadData()
+                self.perform(#selector(self.finishRefreshing), with: nil, afterDelay: 0.1)
+            }
         }
     }
 
@@ -258,31 +246,18 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
                 firstly {
                     self.fetchMorePosts(lastSnapshot: self.lastPostsSnapshot)
                 }.done { newPosts in
-                    
-                    self.isFetchingMore = false
-                    var endReached = newPosts.count == 0
-                    
+                                        
+                    self.endReached = newPosts.count == 0
+               
                     self.posts += newPosts
-
                     self.feedView.reloadData()
-                    
                     print("postCount: \(self.posts.count)")
                     self.isFetchingMore = false
                 }
             }
         }
     }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        layout.estimatedItemSize = CGSize(width: view.bounds.size.width, height: 10)
-        super.traitCollectionDidChange(previousTraitCollection)
-    }
-        
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        layout.estimatedItemSize = CGSize(width: view.bounds.size.width, height: 10)
-        layout.invalidateLayout()
-        super.viewWillTransition(to: size, with: coordinator)
-    }
+
 }
 
 private extension FeedViewController {
