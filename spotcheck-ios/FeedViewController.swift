@@ -21,6 +21,14 @@ class FeedViewController: UIViewController {
     var isFetchingMore = false
     var endReached = false
     
+    let cellHeightEstimate = 185.0 // Getting a good approximate is essential to prevent collectionView from jumpy behavior due to reloadData
+    let cellEstimatedSize: CGSize = {
+        let w = UIScreen.main.bounds.size.width
+        let h = CGFloat(185)
+        let size = CGSize(width: w, height: h)
+        return size
+    }()
+    
     let addPostButton: MDCFloatingButton = {
         let button = MDCFloatingButton()
         button.applySecondaryTheme(withScheme: ApplicationScheme.instance.containerScheme)
@@ -35,8 +43,6 @@ class FeedViewController: UIViewController {
     }()
     var layout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
-        let width = UIScreen.main.bounds.size.width
-        layout.estimatedItemSize = CGSize(width: width, height: 10)
         return layout
     }()
     var currentUser: User?
@@ -89,8 +95,7 @@ class FeedViewController: UIViewController {
     }
     
     func initFeedView() {
-        let width = UIScreen.main.bounds.size.width //view.frame.width
-        layout.estimatedItemSize = CGSize(width: width, height: 10)
+        layout.estimatedItemSize = cellEstimatedSize
         feedView.collectionViewLayout = layout
         feedView.delegate = self
         feedView.dataSource = self
