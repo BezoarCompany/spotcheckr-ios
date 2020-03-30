@@ -245,9 +245,15 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
     //Query 'cache' for cell height to prevent jumpy recalc behavior
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
            sizeForItemAt indexPath: IndexPath) -> CGSize {
-
+        
         let h = cellHeights[indexPath] ?? CGFloat(cellHeightEstimate)
         let w = UIScreen.main.bounds.size.width
+        
+        if indexPath.section == 1 {
+            return CGSize(width:w, height: CGFloat(LoadingCell.CELL_HEIGHT))
+        }
+        
+        
         let res = CGSize(width: w, height: h)
         //print("@sizeForItemAt [\(indexPath.item)] = \(h) height")
         return res
