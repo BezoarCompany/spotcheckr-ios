@@ -82,7 +82,7 @@ class FeedViewController: UIViewController {
         return Promise { promise in
             
             firstly {
-                Services.exercisePostService.getPosts(limit:5, lastPostSnapshot: self.lastPostsSnapshot)
+                Services.exercisePostService.getPosts(limit: 10, lastPostSnapshot: self.lastPostsSnapshot)
             }.done { pagedResult in
                 self.lastPostsSnapshot = pagedResult.lastSnapshot
                 let newPosts = pagedResult.posts
@@ -134,7 +134,7 @@ class FeedViewController: UIViewController {
             addPostButton.heightAnchor.constraint(equalToConstant: 64),
             feedView.topAnchor.constraint(equalTo: appBarViewController.view.bottomAnchor),
             //TODO: How to get the tab bar then assign to its top anchor?
-            feedView.bottomAnchor.constraint(equalTo: safeAreaLayout.bottomAnchor, constant: -20),
+            feedView.bottomAnchor.constraint(equalTo: safeAreaLayout.bottomAnchor, constant: -70),
             feedView.leadingAnchor.constraint(equalTo: safeAreaLayout.leadingAnchor),
             feedView.trailingAnchor.constraint(equalTo: safeAreaLayout.trailingAnchor)
         ])
