@@ -218,8 +218,8 @@ extension PostDetailViewController: UITableViewDataSource {
             as! DetailedPostCell
             
             cell.postTitleLabel.text = post?.title
-            cell.posterNameLabel.text = (post?.createdBy?.information?.fullName ?? "Anonymous")
-            cell.posterDetailLabel.text = "Posted \((post?.dateCreated?.toDisplayFormat() ?? "Tool"))"
+            cell.posterNameLabel.text = (post?.createdBy?.information?.name ?? "Anonymous")
+            cell.posterDetailLabel.text = "\(post?.dateCreated?.toDisplayFormat() ?? "")"
             
             cell.postBodyLabel.text = post?.description
             
