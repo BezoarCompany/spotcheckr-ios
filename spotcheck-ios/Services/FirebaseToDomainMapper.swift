@@ -25,6 +25,7 @@ class FirebaseToDomainMapper {
         post.description = data.keys.contains("description") ? data["description"] as! String : ""
         post.dateCreated = data.keys.contains("created-date") ? (data["created-date"] as! Timestamp).dateValue() : nil
         post.dateModified = data.keys.contains("modified-date") ? (data["modified-date"] as! Timestamp).dateValue() : nil
+        post.imagePath = data.keys.contains("image-path") ? data["image-path"] as! String : nil
         post.metrics = metrics
         post.exercises = exercises
         post.answers = answers

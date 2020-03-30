@@ -1,18 +1,8 @@
-//
-//  AnswerPostCell.swift
-//  spotcheck-ios
-//
-//  Created by Miguel Paysan on 2/18/20.
-//  Copyright © 2020 Miguel Paysan. All rights reserved.
-//
-
 import UIKit
 
 class AnswerPostCell: UITableViewCell {
     @IBOutlet weak var answererNameLabel: UILabel!
-    @IBOutlet weak var answererInfoLabel: UILabel!
     @IBOutlet weak var answerBodyLabel: UILabel!
-    @IBOutlet weak var likeCountLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

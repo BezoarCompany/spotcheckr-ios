@@ -14,10 +14,9 @@ class LoadingCell: MDCCardCollectionCell {
         applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
         
         addSubview(activityIndicator)
-            
-        activityIndicator.topAnchor.constraint(equalTo:contentView.topAnchor, constant: 20).isActive = true
-        activityIndicator.leadingAnchor.constraint(equalTo:contentView.leadingAnchor, constant: frame.width/2-10).isActive = true
-        contentView.bottomAnchor.constraint(equalTo:activityIndicator.bottomAnchor, constant: 0).isActive = true
+        
+        applyConstraints()
+        
     }
     
     required init?(coder: NSCoder) {
@@ -31,4 +30,11 @@ class LoadingCell: MDCCardCollectionCell {
         activityIndicator.startAnimating()
     }
     
+    func applyConstraints() {
+        NSLayoutConstraint.activate([
+            activityIndicator.topAnchor.constraint(equalTo:contentView.topAnchor, constant: 20),
+            activityIndicator.leadingAnchor.constraint(equalTo:contentView.leadingAnchor, constant: frame.width/2-10),
+            contentView.bottomAnchor.constraint(equalTo:activityIndicator.bottomAnchor, constant: 0),
+        ])
+    }
 }

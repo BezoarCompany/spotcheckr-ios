@@ -13,7 +13,6 @@ class FeedViewController: UIViewController {
     var posts = [ExercisePost]()
     var refreshControl = UIRefreshControl()
     var activityIndicator = UIElementFactory.getActivityIndicator()
-    var initialLoadActivityIndicator = UIElementFactory.getActivityIndicator()
     let appBarViewController = UIElementFactory.getAppBar()
     
     //The last snapshot of a post item. Used as a cursor in the query for the next group of posts
@@ -83,7 +82,7 @@ class FeedViewController: UIViewController {
         return Promise { promise in
             
             firstly {
-                Services.exercisePostService.getPosts(limit:5, lastPostSnapshot: self.lastPostsSnapshot)
+                Services.exercisePostService.getPosts(limit: 10, lastPostSnapshot: self.lastPostsSnapshot)
             }.done { pagedResult in
                 self.lastPostsSnapshot = pagedResult.lastSnapshot
                 let newPosts = pagedResult.posts
@@ -108,7 +107,6 @@ class FeedViewController: UIViewController {
     func addSubviews() {
         view.addSubview(feedView)
         view.addSubview(appBarViewController.view)
-        feedView.addSubview(initialLoadActivityIndicator)
         feedView.addSubview(addPostButton)
         refreshControl.addSubview(activityIndicator)
         feedView.addSubview(refreshControl)
@@ -128,8 +126,6 @@ class FeedViewController: UIViewController {
         let safeAreaLayout = view.safeAreaLayoutGuide
 
         NSLayoutConstraint.activate([
-            initialLoadActivityIndicator.centerXAnchor.constraint(equalTo: feedView.centerXAnchor),
-            initialLoadActivityIndicator.centerYAnchor.constraint(equalTo: feedView.centerYAnchor),
             activityIndicator.centerXAnchor.constraint(equalTo: refreshControl.centerXAnchor),
             activityIndicator.centerYAnchor.constraint(equalTo: refreshControl.centerYAnchor),
             addPostButton.trailingAnchor.constraint(equalTo: safeAreaLayout.trailingAnchor, constant: -25),
@@ -138,7 +134,7 @@ class FeedViewController: UIViewController {
             addPostButton.heightAnchor.constraint(equalToConstant: 64),
             feedView.topAnchor.constraint(equalTo: appBarViewController.view.bottomAnchor),
             //TODO: How to get the tab bar then assign to its top anchor?
-            feedView.bottomAnchor.constraint(equalTo: safeAreaLayout.bottomAnchor, constant: -20),
+            feedView.bottomAnchor.constraint(equalTo: safeAreaLayout.bottomAnchor, constant: -70),
             feedView.leadingAnchor.constraint(equalTo: safeAreaLayout.leadingAnchor),
             feedView.trailingAnchor.constraint(equalTo: safeAreaLayout.trailingAnchor)
         ])
@@ -151,8 +147,6 @@ class FeedViewController: UIViewController {
     }
     
     @objc func refreshPosts() {
-        print("refreshPosts======")
-        self.initialLoadActivityIndicator.startAnimating()
         self.posts = []
         self.lastPostsSnapshot = nil
         self.endReached = false
@@ -170,9 +164,7 @@ class FeedViewController: UIViewController {
 
     @objc func finishRefreshing() {
         self.activityIndicator.stopAnimating()
-        self.initialLoadActivityIndicator.stopAnimating()
         self.refreshControl.endRefreshing()
-        
     }
 }
 
@@ -205,7 +197,7 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
         cell.setShadowElevation(ShadowElevation(rawValue: 10), for: .normal)
         cell.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
         cell.headerLabel.text = post.title
-        cell.subHeadLabel.text = "\(post.dateCreated?.toDisplayFormat() ?? "") • \(post.answersCount) Answers"
+        cell.subHeadLabel.text = "\(post.dateCreated?.toDisplayFormat() ?? "") • \(post.answers.count) Answers"
         if post.imagePath != nil {
             // Set default image for placeholder
             let placeholderImage = UIImage(named:"squat1")!

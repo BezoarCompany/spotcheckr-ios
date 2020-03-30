@@ -30,21 +30,49 @@ class ExercisePostService: ExercisePostProtocol {
                     firstly {
                         Services.userService.getUser(withId: userId)
                     }.done { user in
-                        let date = doc.data()?["created-date"] as? Timestamp
+                        var metricsPromises = [Promise<Int>]()
+                        var exercisePromises = [Promise<[Exercise]>]()
+                        var voteDirectionPromises = [Promise<VoteDirection>]()
+                        var answerPromises = [Promise<[Answer]>]() //TODO: More efficient such that a count of answers is directly on the exercisePost structure. Same with other metrics.
                         
-                        let exercisePost = ExercisePost(id: doc.data()?["id"] as! String,
-                                                        title: doc.data()?["title"] as! String,
-                                                        description: doc.data()?["description"] as! String,
-                                                        createdBy: user,
-                                                        dateCreated: date?.dateValue(),
-                                                        imagePath: doc.data()?["image-path"] as? String
-                                                        
-                                            )                        
+                        metricsPromises.append(self.getUpvoteCount(forPostWithId: doc.documentID, collection: self.postsCollection))
+                        metricsPromises.append(self.getDownvoteCount(forPostWithId: doc.documentID, collection: self.postsCollection))
+                        metricsPromises.append(self.getViewsCount(forPostWithId: doc.documentID))
+                        exercisePromises.append(self.getExercises(forPostWithId: doc.documentID))
+                        voteDirectionPromises.append(self.getVoteDirection(id: doc.documentID, collection: self.postsCollection))
+                        answerPromises.append(self.getAnswers(forPostWithId: doc.documentID))
                         
-                        //store in cache
-                        self.cache[exercisePost.id] = exercisePost
-                        
-                        return promise.fulfill(exercisePost)
+                        firstly {
+                            when(fulfilled: metricsPromises)
+                        }.done { metricsResults in
+                            firstly {
+                                when(fulfilled: exercisePromises)
+                            }.done { exercisesResults in
+                                firstly {
+                                    when(fulfilled: voteDirectionPromises)
+                                }.done { voteDirectionResults in
+                                    firstly {
+                                        when(fulfilled: answerPromises)
+                                    }.done { answerResults in
+                                        let metrics = Metrics(views: metricsResults[2],
+                                                             upvotes: metricsResults[0],
+                                                             downvotes: metricsResults[1],
+                                                             currentVoteDirection: voteDirectionResults[0])
+
+                                        let postExercises = exercisesResults[0]
+                                        var exercisePost = FirebaseToDomainMapper.mapExercisePost(fromData: doc.data()!,
+                                                                               metrics: metrics,
+                                                                               exercises: postExercises,
+                                                                               answers: answerResults[0])
+                                        exercisePost.createdBy = user
+                                        //store in cache
+                                        self.cache[exercisePost.id] = exercisePost
+                                        
+                                        return promise.fulfill(exercisePost)
+                                    }
+                                }
+                            }
+                        }
                     }.catch { error in
                         return promise.reject(error)
                     }
