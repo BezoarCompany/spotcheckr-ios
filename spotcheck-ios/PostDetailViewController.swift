@@ -253,9 +253,7 @@ extension PostDetailViewController: UITableViewDataSource {
                     
             let answer = post?.answers[indexPath.row]
             cell.answerBodyLabel.text = answer?.text
-            cell.answererNameLabel.text = answer?.createdBy?.information?.fullName
-            cell.answererInfoLabel.text = answer?.createdBy?.information?.salutation
-            //TODO: Do something with like count label since that is gone @Miguel. Perhaps show total votes instead?
+            cell.answererNameLabel.text = answer?.createdBy?.information?.name
             
             return cell
         }
