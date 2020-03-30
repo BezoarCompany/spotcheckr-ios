@@ -13,7 +13,6 @@ class FeedViewController: UIViewController {
     var posts = [ExercisePost]()
     var refreshControl = UIRefreshControl()
     var activityIndicator = UIElementFactory.getActivityIndicator()
-    var initialLoadActivityIndicator = UIElementFactory.getActivityIndicator()
     let appBarViewController = UIElementFactory.getAppBar()
     
     //The last snapshot of a post item. Used as a cursor in the query for the next group of posts
@@ -108,7 +107,6 @@ class FeedViewController: UIViewController {
     func addSubviews() {
         view.addSubview(feedView)
         view.addSubview(appBarViewController.view)
-        feedView.addSubview(initialLoadActivityIndicator)
         feedView.addSubview(addPostButton)
         refreshControl.addSubview(activityIndicator)
         feedView.addSubview(refreshControl)
@@ -128,8 +126,6 @@ class FeedViewController: UIViewController {
         let safeAreaLayout = view.safeAreaLayoutGuide
 
         NSLayoutConstraint.activate([
-            initialLoadActivityIndicator.centerXAnchor.constraint(equalTo: feedView.centerXAnchor),
-            initialLoadActivityIndicator.centerYAnchor.constraint(equalTo: feedView.centerYAnchor),
             activityIndicator.centerXAnchor.constraint(equalTo: refreshControl.centerXAnchor),
             activityIndicator.centerYAnchor.constraint(equalTo: refreshControl.centerYAnchor),
             addPostButton.trailingAnchor.constraint(equalTo: safeAreaLayout.trailingAnchor, constant: -25),
@@ -151,8 +147,6 @@ class FeedViewController: UIViewController {
     }
     
     @objc func refreshPosts() {
-        print("refreshPosts======")
-        self.initialLoadActivityIndicator.startAnimating()
         self.posts = []
         self.lastPostsSnapshot = nil
         self.endReached = false
@@ -170,9 +164,7 @@ class FeedViewController: UIViewController {
 
     @objc func finishRefreshing() {
         self.activityIndicator.stopAnimating()
-        self.initialLoadActivityIndicator.stopAnimating()
         self.refreshControl.endRefreshing()
-        
     }
 }
 
