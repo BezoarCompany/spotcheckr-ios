@@ -188,6 +188,7 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
         if indexPath.section == 1 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LoadingCell.cellId,
             for: indexPath) as! LoadingCell
+            cell.layer.masksToBounds = true
             cell.activityIndicator.startAnimating()
             return cell
         }
