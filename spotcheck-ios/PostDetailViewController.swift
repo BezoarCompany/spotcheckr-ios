@@ -12,7 +12,7 @@ class PostDetailViewController : UIViewController {
     @IBOutlet weak var postAuthorLabel: UILabel!
     @IBOutlet weak var descLabel: UILabel!
     @IBOutlet weak var numAnswersLabel: UILabel!
-    @IBOutlet weak var tableView: UITableView!
+    var tableView: UITableView!
     
     @IBAction func addAnswerButton(_ sender: Any) {
         let createAnswerViewController = CreateAnswerViewController.create(post: post)
@@ -42,7 +42,6 @@ class PostDetailViewController : UIViewController {
     
     func updatePostDetail(argPost: ExercisePost) {
         self.post = argPost
-        print("PostDetail.updatePostDetail() \(argPost.title)")
         let idxPath = IndexPath(row: 0, section: 0)
         
         self.tableView.beginUpdates()
@@ -95,14 +94,8 @@ class PostDetailViewController : UIViewController {
                 self.appBarViewController.navigationBar.trailingBarButtonItem = UIBarButtonItem(image: Images.edit, style: .plain, target: self, action: #selector(self.modifyPost))
             }
         }
-                
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.register(UINib(nibName:K.Storyboard.detailedPostNibName , bundle: nil), forCellReuseIdentifier: K.Storyboard.detailedPostCellId)
-        tableView.register(UINib(nibName:K.Storyboard.answerNibName, bundle: nil), forCellReuseIdentifier: K.Storyboard.answerCellId)
-        tableView.addSubview(answerReplyButton)
-        tableView.separatorInset = UIEdgeInsets(top: -10,left: 0,bottom: 0,right: 0)
         
+        initDetail()
         initActivityIndicator()
         initReplyButton()
         applyConstraints()
@@ -161,6 +154,18 @@ class PostDetailViewController : UIViewController {
     
     }
     
+    func initDetail() {
+        tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.backgroundColor = ApplicationScheme.instance.containerScheme.colorScheme.backgroundColor
+        tableView.dataSource = self
+        tableView.register(UINib(nibName:K.Storyboard.detailedPostNibName , bundle: nil), forCellReuseIdentifier: K.Storyboard.detailedPostCellId)
+        tableView.register(UINib(nibName:K.Storyboard.answerNibName, bundle: nil), forCellReuseIdentifier: K.Storyboard.answerCellId)
+        tableView.addSubview(answerReplyButton)
+        tableView.separatorInset = UIEdgeInsets(top: -10,left: 0,bottom: 0,right: 0)
+        view.addSubview(tableView)
+    }
+    
     func initActivityIndicator() {
         activityIndicator.center = self.view.center
         activityIndicator.hidesWhenStopped = true
@@ -173,10 +178,16 @@ class PostDetailViewController : UIViewController {
     }
     
     func applyConstraints() {
-        self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: answerReplyButton.trailingAnchor, constant: 25).isActive = true
-        self.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: answerReplyButton.bottomAnchor, constant: 75).isActive = true
-        answerReplyButton.widthAnchor.constraint(equalToConstant: 64).isActive = true
-        answerReplyButton.heightAnchor.constraint(equalToConstant: 64).isActive = true
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: appBarViewController.view.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
+            self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: tableView.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -55),
+            self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: answerReplyButton.trailingAnchor, constant: 25),
+            self.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: answerReplyButton.bottomAnchor, constant: 75),
+            answerReplyButton.widthAnchor.constraint(equalToConstant: 64),
+            answerReplyButton.heightAnchor.constraint(equalToConstant: 64),
+        ])
     }
 }
 
@@ -189,13 +200,6 @@ extension PostDetailViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         //[0]Post, [1]=Answers
         return 2
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == SectionTypes.post.rawValue {
-            return nil
-        }
-        return "\(post?.answersCount ?? 0) Answers"
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -256,12 +260,5 @@ extension PostDetailViewController: UITableViewDataSource {
             return cell
         }
 
-    }
-}
-
-extension PostDetailViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("\(indexPath.section). \(indexPath.row)")
-        
     }
 }

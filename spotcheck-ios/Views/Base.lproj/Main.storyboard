@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -221,26 +221,9 @@
                     <view key="view" contentMode="scaleToFill" id="KGI-Jf-7G6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Cvp-oP-4nj">
-                                <rect key="frame" x="0.0" y="44" width="414" height="780"/>
-                                <color key="backgroundColor" red="0.1764735281" green="0.17646530269999999" blue="0.1764708757" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <color key="sectionIndexColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="sectionIndexBackgroundColor" red="0.1764735281" green="0.17646530269999999" blue="0.1764708757" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                            </tableView>
-                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="Cvp-oP-4nj" firstAttribute="top" secondItem="qMF-pz-b0p" secondAttribute="top" id="ISC-kS-e9u"/>
-                            <constraint firstItem="qMF-pz-b0p" firstAttribute="bottom" secondItem="Cvp-oP-4nj" secondAttribute="bottom" constant="38" id="Niw-Yo-QwP"/>
-                            <constraint firstItem="Cvp-oP-4nj" firstAttribute="trailing" secondItem="qMF-pz-b0p" secondAttribute="trailing" id="SZK-Ft-kUE"/>
-                            <constraint firstItem="Cvp-oP-4nj" firstAttribute="leading" secondItem="qMF-pz-b0p" secondAttribute="leading" id="jvI-A4-xuI"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="qMF-pz-b0p"/>
                     </view>
-                    <connections>
-                        <outlet property="tableView" destination="Cvp-oP-4nj" id="2PY-HP-2dg"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ps5-bF-p3k" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -504,13 +487,13 @@
             <point key="canvasLocation" x="1049.2753623188407" y="-579.24107142857144"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="list.dash" catalog="system" width="64" height="42"/>
-        <image name="person" catalog="system" width="64" height="58"/>
-        <image name="person.crop.circle" catalog="system" width="64" height="60"/>
-        <image name="person.fill" catalog="system" width="64" height="60"/>
-    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="g51-UX-Uzl"/>
     </inferredMetricsTieBreakers>
+    <resources>
+        <image name="list.dash" catalog="system" width="128" height="85"/>
+        <image name="person" catalog="system" width="128" height="117"/>
+        <image name="person.crop.circle" catalog="system" width="128" height="121"/>
+        <image name="person.fill" catalog="system" width="128" height="120"/>
+    </resources>
 </document>
