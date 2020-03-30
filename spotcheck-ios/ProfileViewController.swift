@@ -9,7 +9,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var occupationLabel: UILabel!
     @IBOutlet weak var heightLabel: UILabel!
     @IBOutlet weak var weightLabel: UILabel!
-    @IBOutlet weak var profilePictureImageView: UIImageView!
+    var profilePictureImageView: UIImageView!
     @IBOutlet weak var postsTableView: UITableView!
     @IBOutlet weak var answersTableView: UITableView!
     
@@ -51,10 +51,25 @@ class ProfileViewController: UIViewController {
         initAppBar()
         initTabBar()
         initTableViews()
+        initProfileInfoControls()
         addSubviews()
         resolveProfileUser()
         applyStyles()
         applyConstraints()
+        hideFeatures()
+    }
+    
+    func initProfileInfoControls() {
+        profilePictureImageView = UIImageView()
+        profilePictureImageView.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    func hideFeatures() {
+        occupationLabel.isHidden = true
+        certificationsLabel.isHidden = true
+        certificationsHeadingLabel.isHidden = true
+        heightLabel.isHidden = true
+        weightLabel.isHidden = true
     }
     
     private func initAppBar() {
@@ -65,6 +80,7 @@ class ProfileViewController: UIViewController {
     private func addSubviews() {
         self.view.addSubview(appBarViewController.view)
         self.view.addSubview(self.tabBar!)
+        self.view.addSubview(profilePictureImageView)
     }
     
     private func resolveProfileUser() {
@@ -129,8 +145,6 @@ class ProfileViewController: UIViewController {
             self.occupationLabel.isHidden = true
         }
         if self.currentUser?.measurement != nil {
-            self.heightLabel.isHidden = false
-            self.weightLabel.isHidden = false
             self.heightLabel.text = self.currentUser?.measurement?.height?.toFormattedHeight()
             self.weightLabel.text = self.currentUser?.measurement?.weight?.toFormattedWeight()
         }
@@ -178,12 +192,13 @@ class ProfileViewController: UIViewController {
             self.initialLoadActivityIndicator.centerYAnchor.constraint(equalTo: self.postsTableView.centerYAnchor),
             self.answersTableActivityIndicator.centerXAnchor.constraint(equalTo: self.answersRefreshControl.centerXAnchor),
             self.answersTableActivityIndicator.centerYAnchor.constraint(equalTo: self.answersRefreshControl.centerYAnchor),
-            (self.tabBar?.topAnchor.constraint(equalTo: self.weightLabel.bottomAnchor, constant: 10))!,
+            (self.tabBar?.topAnchor.constraint(equalTo: self.profilePictureImageView.bottomAnchor, constant: 10))!,
             (self.tabBar?.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 0))!,
             self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: self.tabBar!.trailingAnchor, constant: 0),
             self.answersTableView.topAnchor.constraint(equalTo: self.tabBar!.bottomAnchor, constant: 0),
             self.postsTableView.topAnchor.constraint(equalTo: self.tabBar!.bottomAnchor, constant: 0),
             self.profilePictureImageView.topAnchor.constraint(equalTo: self.appBarViewController.navigationBar.bottomAnchor, constant: 16),
+            self.profilePictureImageView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             self.certificationsHeadingLabel.topAnchor.constraint(equalTo: self.appBarViewController.navigationBar.bottomAnchor, constant: 16)
         ])
     }
