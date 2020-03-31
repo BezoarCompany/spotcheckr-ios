@@ -46,6 +46,7 @@ class FeedViewController: UIViewController {
         return layout
     }()
     var currentUser: User?
+    var uniqueProfilePictures = [String:UIImage]() //ProfilePicturePath:ProfilePicture
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -198,6 +199,20 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
         cell.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
         cell.headerLabel.text = post.title
         cell.subHeadLabel.text = "\(post.dateCreated?.toDisplayFormat() ?? "") • \(post.answers.count) Answers"
+        if let picturePath = post.createdBy?.profilePicturePath {
+            // Set default image for placeholder
+            let placeholderImage = UIImage(systemName: "person.crop.circle")!
+            
+            // Get a reference to the storage service using the default Firebase App
+            let storage = Storage.storage()
+            
+            // Create a reference with an initial file path and name
+            let storagePathReference = storage.reference(withPath: picturePath)
+            
+            // Load the image using SDWebImage
+            cell.thumbnailImageView.sd_setImage(with: storagePathReference, placeholderImage: placeholderImage)
+        }
+        
         if post.imagePath != nil {
             // Set default image for placeholder
             let placeholderImage = UIImage(named:"squat1")!

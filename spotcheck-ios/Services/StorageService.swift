@@ -10,6 +10,10 @@ enum SupportedImageType {
     case jpg
 }
 
+enum MaxImageSizes: Int {
+    case profilePicture = 2000000
+}
+
 class StorageService: StorageProtocol {
     //
     // MARK: - Type Alias
