@@ -42,7 +42,7 @@ class FeedCell: MDCCardCollectionCell {
         super.prepareForReuse()
         //when cell is being reused, must reset every property since cell isn't fully cleaned automatically
         media.sd_cancelCurrentImageLoad()
-        media.image = UIImage(named:"squat1")!//nil
+        media.image = UIImage(named:"squatLogoPlaceholder")!//nil
     }
 
     func addSubviews() {

@@ -201,7 +201,7 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
         cell.subHeadLabel.text = "\(post.dateCreated?.toDisplayFormat() ?? "") • \(post.answers.count) Answers"
         if post.imagePath != nil {
             // Set default image for placeholder
-            let placeholderImage = UIImage(named:"squat1")!
+            let placeholderImage = UIImage(named:"squatLogoPlaceholder")!
             
             // Get a reference to the storage service using the default Firebase App
             let storage = Storage.storage()
