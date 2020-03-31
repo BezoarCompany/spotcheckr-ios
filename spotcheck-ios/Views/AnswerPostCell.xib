@@ -64,6 +64,7 @@
             <connections>
                 <outlet property="answerBodyLabel" destination="Rdd-pJ-U1o" id="RzJ-4I-Wky"/>
                 <outlet property="answererNameLabel" destination="Q3n-8c-EFR" id="Uo1-Ox-Ri8"/>
+                <outlet property="thumbnailImageView" destination="RkS-yO-X9p" id="ug1-8V-oZ2"/>
             </connections>
             <point key="canvasLocation" x="194.20289855072465" y="129.57589285714286"/>
         </tableViewCell>
