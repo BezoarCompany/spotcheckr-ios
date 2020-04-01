@@ -111,7 +111,7 @@ class FeedCell: MDCCardCollectionCell {
             //Ignore errors for voting.
         }
         
-        self.adjustVotingControls()
+        self.renderVotingControls()
     }
     
     @objc func downvoteOnClick(_ sender: Any) {
@@ -131,10 +131,10 @@ class FeedCell: MDCCardCollectionCell {
             //Ignore voting errors
         }
         
-        self.adjustVotingControls()
+        self.renderVotingControls()
     }
     
-    func adjustVotingControls() {
+    func renderVotingControls() {
         switch self.voteDirection {
         case .Up:
             self.upvoteButton.tintColor = self.upvoteColor

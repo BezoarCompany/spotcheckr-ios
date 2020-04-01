@@ -221,7 +221,7 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
         cell.postId = post.id
         cell.votingUserId = currentUser?.id
         cell.voteDirection = post.metrics.currentVoteDirection
-        cell.adjustVotingControls()
+        cell.renderVotingControls()
         cell.cornerRadius = 0
         
         return cell
