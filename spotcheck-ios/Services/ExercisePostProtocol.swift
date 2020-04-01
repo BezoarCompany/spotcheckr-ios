@@ -34,5 +34,8 @@ protocol ExercisePostProtocol {
     func deleteAnswers(forPostWithId postId: String) -> Promise<Void>
     func deleteAnswer(withId id: String) -> Promise<Void>
     
+    func deleteVotes(forPostWithId postId: String) -> Promise<Void>
+    func deleteVote(forPostId postId: String, withId id: String) -> Promise<Void>
+    
     func clearCache() -> Void
 }
