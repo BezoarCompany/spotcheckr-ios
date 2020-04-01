@@ -602,4 +602,8 @@ class ExercisePostService: ExercisePostProtocol {
             }
         }
     }
+    
+    func clearCache() {
+        cache.empty()
+    }
 }

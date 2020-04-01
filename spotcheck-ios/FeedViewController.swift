@@ -149,6 +149,7 @@ class FeedViewController: UIViewController {
     @objc func refreshPosts() {       
         self.lastPostsSnapshot = nil
         self.endReached = false
+        Services.exercisePostService.clearCache()
         
         firstly {
             fetchMorePosts(lastSnapshot: nil)

@@ -33,4 +33,6 @@ protocol ExercisePostProtocol {
     func deletePost(_ post: ExercisePost) -> Promise<Void>
     func deleteAnswers(forPostWithId postId: String) -> Promise<Void>
     func deleteAnswer(withId id: String) -> Promise<Void>
+    
+    func clearCache() -> Void
 }
