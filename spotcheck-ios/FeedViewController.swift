@@ -146,8 +146,7 @@ class FeedViewController: UIViewController {
         self.present(createPostViewController, animated: true)
     }
     
-    @objc func refreshPosts() {
-        self.posts = []
+    @objc func refreshPosts() {       
         self.lastPostsSnapshot = nil
         self.endReached = false
         
