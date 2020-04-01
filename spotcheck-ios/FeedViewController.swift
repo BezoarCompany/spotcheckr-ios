@@ -219,8 +219,10 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
         }
         cell.supportingTextLabel.text = post.description
         cell.postId = post.id
+        cell.post = post
         cell.votingUserId = currentUser?.id
         cell.voteDirection = post.metrics.currentVoteDirection
+        cell.updateVoteClosure = alterPostViaVotesHandler
         cell.renderVotingControls()
         cell.cornerRadius = 0
         
@@ -344,5 +346,11 @@ private extension FeedViewController {
     func viewPostHandler(exercisePost: ExercisePost)  {
         let postDetailViewController = PostDetailViewController.create(postId: exercisePost.id, diffedPostsDataClosure: self.diffedPostsHandler  )
         self.navigationController?.pushViewController(postDetailViewController, animated: true)
+    }
+    
+    //Closure for cell to update the post's Vote w/in collectionView's self.posts.
+    //Rerendering the local data structure, rather than re-fetching from Datastore
+    func alterPostViaVotesHandler(post: ExercisePost) {
+        diffedPostsHandler(diffType: .edit, exercisePost: post)
     }
 }

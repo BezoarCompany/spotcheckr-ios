@@ -11,6 +11,8 @@ class FeedCell: MDCCardCollectionCell {
         return width
     }()    
         
+    typealias UpdateVoteClosureType = ((_ post:ExercisePost) -> Void)
+    
     var postId: String?
     var votingUserId: String?
     var voteDirection: VoteDirection?
@@ -18,6 +20,8 @@ class FeedCell: MDCCardCollectionCell {
     let downvoteColor = Colors.downvote
     let neutralColor: UIColor = Colors.neutralVote
     var mediaHeightConstraint: NSLayoutConstraint?
+    var post: ExercisePost?
+    var updateVoteClosure: UpdateVoteClosureType?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -105,12 +109,17 @@ class FeedCell: MDCCardCollectionCell {
             self.voteDirection = .Up
         }
         
+        if let post = self.post, let updateVoteClosure = self.updateVoteClosure {
+            post.metrics.currentVoteDirection = self.voteDirection!
+            updateVoteClosure(post)
+        }
+        
         firstly {
             Services.exercisePostService.votePost(postId: postId!, userId: votingUserId!, direction: VoteDirection.Up)
         }.catch { error in
             //Ignore errors for voting.
         }
-        
+
         self.renderVotingControls()
     }
     
@@ -123,6 +132,11 @@ class FeedCell: MDCCardCollectionCell {
         }
         else if self.downvoteButton.tintColor == self.neutralColor { // Downvoting for the first time
             self.voteDirection = .Down
+        }
+        
+        if let post = self.post, let updateVoteClosure = self.updateVoteClosure {            
+            post.metrics.currentVoteDirection = self.voteDirection!
+            updateVoteClosure(post)
         }
         
         firstly {
