@@ -20,6 +20,7 @@ class PostDetailViewController : UIViewController {
     }
     
     var post: ExercisePost?
+    var postId: String?
     let exercisePostService = ExercisePostService()
     
     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
@@ -51,14 +52,10 @@ class PostDetailViewController : UIViewController {
     
     static func create(postId: String?, diffedPostsDataClosure: DiffedPostsDataUpdateClosureType? = nil) -> PostDetailViewController {
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
-
+        
         let postDetailViewController = storyboard.instantiateViewController(withIdentifier: K.Storyboard.PostDetailViewControllerId) as! PostDetailViewController
         
-        firstly {
-            Services.exercisePostService.getPost(withId: postId!)
-        }.done { post in
-            postDetailViewController.post = post
-        }
+        postDetailViewController.postId = postId
         postDetailViewController.diffedPostsDataClosure = diffedPostsDataClosure
         
         return postDetailViewController
@@ -73,17 +70,18 @@ class PostDetailViewController : UIViewController {
         view.addSubview(appBarViewController.view)
         appBarViewController.didMove(toParent: self)
         
+        initDetail()
+        initActivityIndicator()
+        initReplyButton()
+        applyConstraints()
+        
         firstly {
-            //TODO: Replace with call to getAnswers(from: Number) which returns all answers since a specific "page length" (e.g. get first 10 posts by created date, scroll, when reached 8/10 posts fetch next 10 posts.
-            self.exercisePostService.getAnswers(forPostWithId : post?.id ?? "" )
-        }.done { answers in
-            self.post?.answers = answers
-            self.post?.answersCount = answers.count
-            self.appBarViewController.navigationBar.title = "\(answers.count) Answers"
+            Services.exercisePostService.getPost(withId: postId!)
+        }.done { post in
+            self.post = post
+            self.appBarViewController.navigationBar.title = "\(self.post?.answers.count ?? 0) Answers"
             self.appBarViewController.navigationBar.leadingBarButtonItem = UIBarButtonItem(image: Images.back, style: .done, target: self, action: #selector(self.backOnClick(sender:)))
             self.tableView.reloadData()
-        }.catch { error in
-            //TODO: Do something when post fetching fails
         }
         
         //access control for the modify menu
@@ -94,11 +92,6 @@ class PostDetailViewController : UIViewController {
                 self.appBarViewController.navigationBar.trailingBarButtonItem = UIBarButtonItem(image: Images.edit, style: .plain, target: self, action: #selector(self.modifyPost))
             }
         }
-        
-        initDetail()
-        initActivityIndicator()
-        initReplyButton()
-        applyConstraints()
     }
     
     @objc func backOnClick(sender: Any) {
