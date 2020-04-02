@@ -19,17 +19,21 @@ class FirebaseToDomainMapper {
                                  metrics: Metrics,
                                  exercises: [Exercise],
                                  answers: [Answer] = [Answer]()) -> ExercisePost {
-        var post = ExercisePost()
+        let post = ExercisePost()
         post.id = data.keys.contains("id") ? data["id"] as! String : ""
         post.title = data.keys.contains("title") ? data["title"] as! String : ""
         post.description = data.keys.contains("description") ? data["description"] as! String : ""
         post.dateCreated = data.keys.contains("created-date") ? (data["created-date"] as! Timestamp).dateValue() : nil
         post.dateModified = data.keys.contains("modified-date") ? (data["modified-date"] as! Timestamp).dateValue() : nil
-        post.imagePath = data.keys.contains("image-path") ? data["image-path"] as! String : nil
+        post.imagePath = data.keys.contains("image-path") ? data["image-path"] as? String : nil
         post.metrics = metrics
         post.exercises = exercises
         post.answers = answers
         return post
     }
     
+    static func mapReport(id: String?, data: [String:Any]) -> Report {
+        let report = Report(id: id, name: data.keys.contains("name") ? data["name"] as? String : nil)
+        return report
+    }
 }
