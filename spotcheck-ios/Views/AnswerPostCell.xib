@@ -17,10 +17,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="OI3-qN-bNg" userLabel="Answerer Stack View">
-                        <rect key="frame" x="20" y="20" width="161.5" height="40"/>
+                        <rect key="frame" x="20" y="20" width="101.5" height="40"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.crop.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="RkS-yO-X9p" userLabel="answererImageView">
-                                <rect key="frame" x="0.0" y="0.5" width="40" height="39"/>
+                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.crop.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="RkS-yO-X9p" userLabel="answererImageView">
+                                <rect key="frame" x="-40" y="0.5" width="40" height="39"/>
                                 <color key="tintColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="GiV-2F-mAi"/>
@@ -28,7 +28,7 @@
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="L1A-0Z-6vC" userLabel="answererInfoStackView">
-                                <rect key="frame" x="60" y="0.0" width="101.5" height="40"/>
+                                <rect key="frame" x="0.0" y="0.0" width="101.5" height="40"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Seymour Butiex" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q3n-8c-EFR" userLabel="answererNameLabel">
                                         <rect key="frame" x="0.0" y="0.0" width="101.5" height="40"/>

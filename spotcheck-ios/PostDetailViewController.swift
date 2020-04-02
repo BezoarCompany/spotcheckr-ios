@@ -248,12 +248,13 @@ extension PostDetailViewController: UITableViewDataSource {
             let answer = post?.answers[indexPath.row]
             cell.answerBodyLabel.text = answer?.text
             cell.answererNameLabel.text = answer?.createdBy?.information?.name
-            if let picturePath = post?.createdBy?.profilePicturePath {
-                let placeholderImage = UIImage(systemName: "person.crop.circle")!
-                let storage = Storage.storage()
-                let storagePathReference = storage.reference(withPath: picturePath)
-                cell.thumbnailImageView.sd_setImage(with: storagePathReference, placeholderImage: placeholderImage)
-            }
+            //TODO: Enable later once picture upload is complete
+//            if let picturePath = post?.createdBy?.profilePicturePath {
+//                let placeholderImage = UIImage(systemName: "person.crop.circle")!
+//                let storage = Storage.storage()
+//                let storagePathReference = storage.reference(withPath: picturePath)
+//                cell.thumbnailImageView.sd_setImage(with: storagePathReference, placeholderImage: placeholderImage)
+//            }
             
             return cell
         }

@@ -85,7 +85,7 @@ class ProfileViewController: UIViewController {
     private func addSubviews() {
         self.view.addSubview(appBarViewController.view)
         self.view.addSubview(self.tabBar!)
-        self.view.addSubview(profilePictureImageView)
+        //self.view.addSubview(profilePictureImageView)
     }
     
     private func resolveProfileUser() {
@@ -153,27 +153,28 @@ class ProfileViewController: UIViewController {
             self.heightLabel.text = self.currentUser?.measurement?.height?.toFormattedHeight()
             self.weightLabel.text = self.currentUser?.measurement?.weight?.toFormattedWeight()
         }
-        if self.currentUser?.profilePicturePath != nil {
-            firstly {
-                Services.storageService.download(path: self.currentUser!.profilePicturePath!, maxSize: 2000000)
-            }.done { image in
-                self.profilePictureImageView.image = image
-            }.catch { (error) in
-                let errorCode = (error as NSError).code
-                var errorMessage = ""
-                
-                switch errorCode {
-                case StorageErrorCode.downloadSizeExceeded.rawValue:
-                    errorMessage = "Profile picture is too large."
-                case StorageErrorCode.unknown.rawValue:
-                    errorMessage = "An unkown error occurred."
-                default:
-                    break
-                }
-                self.snackbarMessage.text = errorMessage
-                MDCSnackbarManager.show(self.snackbarMessage)
-            }
-        }
+        //TODO: Re-enable
+//        if self.currentUser?.profilePicturePath != nil {
+//            firstly {
+//                Services.storageService.download(path: self.currentUser!.profilePicturePath!, maxSize: 2000000)
+//            }.done { image in
+//                self.profilePictureImageView.image = image
+//            }.catch { (error) in
+//                let errorCode = (error as NSError).code
+//                var errorMessage = ""
+//
+//                switch errorCode {
+//                case StorageErrorCode.downloadSizeExceeded.rawValue:
+//                    errorMessage = "Profile picture is too large."
+//                case StorageErrorCode.unknown.rawValue:
+//                    errorMessage = "An unkown error occurred."
+//                default:
+//                    break
+//                }
+//                self.snackbarMessage.text = errorMessage
+//                MDCSnackbarManager.show(self.snackbarMessage)
+//            }
+//        }
     }
     
     private func applyStyles() {
@@ -197,13 +198,13 @@ class ProfileViewController: UIViewController {
             self.initialLoadActivityIndicator.centerYAnchor.constraint(equalTo: self.postsTableView.centerYAnchor),
             self.answersTableActivityIndicator.centerXAnchor.constraint(equalTo: self.answersRefreshControl.centerXAnchor),
             self.answersTableActivityIndicator.centerYAnchor.constraint(equalTo: self.answersRefreshControl.centerYAnchor),
-            (self.tabBar?.topAnchor.constraint(equalTo: self.profilePictureImageView.bottomAnchor, constant: 10))!,
+            (self.tabBar?.topAnchor.constraint(equalTo: self.appBarViewController.view.bottomAnchor))!,
             (self.tabBar?.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 0))!,
             self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: self.tabBar!.trailingAnchor, constant: 0),
             self.answersTableView.topAnchor.constraint(equalTo: self.tabBar!.bottomAnchor, constant: 0),
             self.postsTableView.topAnchor.constraint(equalTo: self.tabBar!.bottomAnchor, constant: 0),
-            self.profilePictureImageView.topAnchor.constraint(equalTo: self.appBarViewController.navigationBar.bottomAnchor, constant: 16),
-            self.profilePictureImageView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+//            self.profilePictureImageView.topAnchor.constraint(equalTo: self.appBarViewController.navigationBar.bottomAnchor, constant: 16),
+//            self.profilePictureImageView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             self.certificationsHeadingLabel.topAnchor.constraint(equalTo: self.appBarViewController.navigationBar.bottomAnchor, constant: 16)
         ])
     }

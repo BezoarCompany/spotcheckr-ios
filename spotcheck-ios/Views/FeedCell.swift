@@ -46,7 +46,7 @@ class FeedCell: MDCCardCollectionCell {
     }
 
     func addSubviews() {
-        contentView.addSubview(thumbnailImageView)
+        //contentView.addSubview(thumbnailImageView)
         contentView.addSubview(headerLabel)
         contentView.addSubview(subHeadLabel)
         contentView.addSubview(media)
@@ -61,16 +61,16 @@ class FeedCell: MDCCardCollectionCell {
         
         NSLayoutConstraint.activate([
             
-        thumbnailImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
-        thumbnailImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-        thumbnailImageView.widthAnchor.constraint(equalToConstant: 40),
-        thumbnailImageView.heightAnchor.constraint(equalToConstant: 40),
+//        thumbnailImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+//        thumbnailImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+//        thumbnailImageView.widthAnchor.constraint(equalToConstant: 40),
+//        thumbnailImageView.heightAnchor.constraint(equalToConstant: 40),
 
         headerLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
-        headerLabel.leadingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor, constant: 16),
+        headerLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
         
         subHeadLabel.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 8),
-        subHeadLabel.leadingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor, constant: 16),
+        subHeadLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
         
         media.topAnchor.constraint(equalTo: subHeadLabel.bottomAnchor, constant: 16),
         media.widthAnchor.constraint(equalToConstant: contentView.frame.width),
