@@ -122,6 +122,7 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate {
         }.done {
             self.snackbarMessage.text = "Profile updated."
             MDCSnackbarManager.show(self.snackbarMessage)
+            NotificationCenter.default.post(name: K.Notifications.ProfileEdited, object: nil)
         }.catch{ error in
             self.snackbarMessage.text = "Failed to update your profile."
             MDCSnackbarManager.show(self.snackbarMessage)

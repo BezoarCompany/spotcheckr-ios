@@ -53,10 +53,15 @@ class ProfileViewController: UIViewController {
         initTableViews()
         initProfileInfoControls()
         addSubviews()
+        addObservers()
         resolveProfileUser()
         applyStyles()
         applyConstraints()
         hideFeatures()
+    }
+    
+    func addObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(updateProfileInformation), name: K.Notifications.ProfileEdited, object: nil)
     }
     
     func initProfileInfoControls() {
@@ -201,6 +206,15 @@ class ProfileViewController: UIViewController {
             self.profilePictureImageView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             self.certificationsHeadingLabel.topAnchor.constraint(equalTo: self.appBarViewController.navigationBar.bottomAnchor, constant: 16)
         ])
+    }
+    
+    @objc func updateProfileInformation() {
+        firstly {
+            Services.userService.getCurrentUser()
+        }.done { user in
+            self.currentUser = user
+            self.appBarViewController.navigationBar.title = "\(user.information?.name ?? "")"
+        }
     }
 }
 
