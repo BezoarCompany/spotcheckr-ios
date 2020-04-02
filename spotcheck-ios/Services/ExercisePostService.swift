@@ -469,26 +469,7 @@ class ExercisePostService: ExercisePostProtocol {
             
         }
     }
-    
-    func writePost(dict: [String: Any]) -> Promise<Void> {
-        return Promise { promise in
-            
-            let db = Firestore.firestore()
-            let newDocRef = db.collection(K.Firestore.posts).document()
-            
-            var newDict = dict
-            newDict.add(["id" : newDocRef.documentID])
-            
-            newDocRef.setData(newDict) { err in
-                if let err = err {
-                    return promise.reject(err)
-                } else {
-                    promise.fulfill_()
-                }
-            }
-        }
-    }
-    
+       
     func createPost(post: ExercisePost) -> Promise<ExercisePost> {
         return Promise { promise in
             let newDocRef = Firestore.firestore().collection(postsCollection).document()
@@ -539,7 +520,7 @@ class ExercisePostService: ExercisePostProtocol {
         }
     }
     
-    //Deletes ExercisePost document, after first deleting it's images (if any), and corresponding answers
+    //Deletes ExercisePost document, after first deleting it's images (if any), and corresponding answers, votes
     func deletePost(_ post: ExercisePost) -> Promise<Void> {
         return Promise { promise in
             
@@ -552,9 +533,10 @@ class ExercisePostService: ExercisePostProtocol {
             
             let docRef = Firestore.firestore().collection(postsCollection).document(id)
             
-            //setup execution the firestore delete answers request, and storage-delete-request in parallel
+            //setup execution the firestore delete answers request, delete votes request, and storage-delete-request in parallel
             var voidPromises = [Promise<Void>]()
             voidPromises.append(self.deleteAnswers(forPostWithId: id))
+            voidPromises.append(self.deleteVotes(forPostWithId: id))
             
             if let imagefilename = post.imagePath {
                 voidPromises.append(Services.storageService.deleteImage(filename: imagefilename))
@@ -620,5 +602,54 @@ class ExercisePostService: ExercisePostProtocol {
                 
             }
         }
+    }
+    
+    //Recursively deletes all the votes(documents) for a given PostID
+    func deleteVotes(forPostWithId postId: String) -> Promise<Void> {
+        return Promise { promise in
+            let votesRef = Firestore.firestore().collection(postsCollection).document(postId)
+                .collection(votesCollection)
+            
+            votesRef.getDocuments { (votesSnapshot, error) in
+                if let error = error {
+                    return promise.reject(error)
+                }
+                
+                var votesDeletePromises = [Promise<Void>]()
+                for document in votesSnapshot!.documents {
+                    votesDeletePromises.append(self.deleteVote(forPostId: postId, withId: document.documentID))
+                }
+                
+                firstly {
+                    when(fulfilled: votesDeletePromises)
+                }.done { _ in
+                    return promise.fulfill_()
+                }.catch { err in
+                    print("deleteVotes Failed to delete all Votes for given Post:\(postId)")
+                    return promise.reject(err)
+                }
+            }
+        }
+    }
+    
+    func deleteVote(forPostId postId: String, withId id: String) -> Promise<Void> {
+        return Promise { promise in
+            let voteRef = Firestore.firestore().collection(postsCollection).document(postId)
+                .collection(votesCollection).document(id)
+            
+            voteRef.delete() { err in
+                if let error = err {
+                    print("deleteVote: failure delete vote: post=\(postId).vote=(\(id))")
+                    return promise.reject(error)
+                } else {
+                    print("deleteVote: success delete vote: post=\(postId).vote=(\(id))")
+                    return promise.fulfill_()
+                }
+            }
+        }
+    }
+    
+    func clearCache() {
+        cache.empty()
     }
 }

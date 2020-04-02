@@ -228,7 +228,7 @@ extension PostDetailViewController: UITableViewDataSource {
                 cell.photoHeightConstraint.constant = CGFloat(FeedCell.IMAGE_HEIGHT)
                 
                 // Set default image for placeholder
-                let placeholderImage = UIImage(named:"squat1")!
+                let placeholderImage = UIImage(named:"squatLogoPlaceholder")!
                 
                 // Get a reference to the storage service using the default Firebase App
                 let storage = Storage.storage()
