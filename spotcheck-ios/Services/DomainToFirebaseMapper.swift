@@ -30,4 +30,12 @@ class DomainToFirebaseMapper {
         firebaseExercise["name"] = exercise.name
         return firebaseExercise
     }
+    
+    static func mapUser(user: User) -> [String:Any] {
+        //TODO: Map more properties
+        var firebaseUser = [String:Any]()
+        firebaseUser["first-name"] = user.information?.firstName
+        firebaseUser["last-name"] = user.information?.lastName
+        return firebaseUser
+    }
 }

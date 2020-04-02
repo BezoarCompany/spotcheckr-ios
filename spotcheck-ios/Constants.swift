@@ -8,6 +8,7 @@ struct K {
     
     struct Notifications {
         static let ExercisePostEdits = Notification.Name("ExercisePostEdits")
+        static let ProfileEdited = Notification.Name("ProfileEdited")
     }    
     
     struct Storyboard {

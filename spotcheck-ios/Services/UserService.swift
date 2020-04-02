@@ -39,7 +39,6 @@ class UserService: UserProtocol {
     func getUser(withId id: String) -> Promise<User> {
         return Promise { promise in
             if let user = cache[id] {
-                //print("Cache HIT!!! \(user.id)=> \(user.username)")
                 return promise.fulfill(user)
             }
 
@@ -234,6 +233,22 @@ class UserService: UserProtocol {
                 
                 return promise.fulfill(certifications)
             }
+        }
+    }
+    
+    func updateUser(_ user: User) -> Promise<Void> {
+        return Promise { promise in
+            let updatedUser = DomainToFirebaseMapper.mapUser(user: user)
+            
+            let userDocRef = Firestore.firestore().collection(userCollection).document(user.id!)
+            userDocRef.updateData(updatedUser, completion: { (error) in
+                if let error = error {
+                    promise.reject(error)
+                }
+                
+                self.cache[user.id!] = user
+                promise.fulfill_()
+            })
         }
     }
     

@@ -3,6 +3,7 @@ import UIKit
 class AnswerPostCell: UITableViewCell {
     @IBOutlet weak var answererNameLabel: UILabel!
     @IBOutlet weak var answerBodyLabel: UILabel!
+    @IBOutlet weak var thumbnailImageView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
