@@ -25,7 +25,6 @@ protocol ExercisePostProtocol {
     func voteAnswer(answerId: String, userId: String, direction: VoteDirection) -> Promise<Void>
     func getVoteDirection(id: String, collection: String) -> Promise<VoteDirection>
     
-    func writePost(dict: [String: Any]) -> Promise<Void>
     func createPost(post: ExercisePost) -> Promise<ExercisePost>
     func writeAnswer(answer: Answer) -> Promise<Void>
         
@@ -34,4 +33,9 @@ protocol ExercisePostProtocol {
     func deletePost(_ post: ExercisePost) -> Promise<Void>
     func deleteAnswers(forPostWithId postId: String) -> Promise<Void>
     func deleteAnswer(withId id: String) -> Promise<Void>
+    
+    func deleteVotes(forPostWithId postId: String) -> Promise<Void>
+    func deleteVote(forPostId postId: String, withId id: String) -> Promise<Void>
+    
+    func clearCache() -> Void
 }

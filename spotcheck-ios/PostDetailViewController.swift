@@ -220,7 +220,7 @@ extension PostDetailViewController: UITableViewDataSource {
             if let hasPhoto = post?.imagePath {
                 cell.photoHeightConstraint.constant = CGFloat(FeedCell.IMAGE_HEIGHT)
                 
-                let placeholderImage = UIImage(named:"squat1")!
+                let placeholderImage = UIImage(named:"squatLogoPlaceholder")!
                 
                 let storage = Storage.storage()
                 let pathname = K.Firestore.Storage.IMAGES_ROOT_DIR + "/" + (post?.imagePath ?? "")

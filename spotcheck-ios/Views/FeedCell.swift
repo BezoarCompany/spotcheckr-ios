@@ -11,6 +11,8 @@ class FeedCell: MDCCardCollectionCell {
         return width
     }()    
         
+    typealias UpdateVoteClosureType = ((_ post:ExercisePost) -> Void)
+    
     var postId: String?
     var votingUserId: String?
     var voteDirection: VoteDirection?
@@ -18,6 +20,8 @@ class FeedCell: MDCCardCollectionCell {
     let downvoteColor = Colors.downvote
     let neutralColor: UIColor = Colors.neutralVote
     var mediaHeightConstraint: NSLayoutConstraint?
+    var post: ExercisePost?
+    var updateVoteClosure: UpdateVoteClosureType?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -42,7 +46,7 @@ class FeedCell: MDCCardCollectionCell {
         super.prepareForReuse()
         //when cell is being reused, must reset every property since cell isn't fully cleaned automatically
         media.sd_cancelCurrentImageLoad()
-        media.image = UIImage(named:"squat1")!//nil
+        media.image = UIImage(named:"squatLogoPlaceholder")!//nil
     }
 
     func addSubviews() {
@@ -105,13 +109,18 @@ class FeedCell: MDCCardCollectionCell {
             self.voteDirection = .Up
         }
         
+        if let post = self.post, let updateVoteClosure = self.updateVoteClosure {
+            post.metrics.currentVoteDirection = self.voteDirection!
+            updateVoteClosure(post)
+        }
+        
         firstly {
             Services.exercisePostService.votePost(postId: postId!, userId: votingUserId!, direction: VoteDirection.Up)
         }.catch { error in
             //Ignore errors for voting.
         }
-        
-        self.adjustVotingControls()
+
+        self.renderVotingControls()
     }
     
     @objc func downvoteOnClick(_ sender: Any) {
@@ -125,16 +134,21 @@ class FeedCell: MDCCardCollectionCell {
             self.voteDirection = .Down
         }
         
+        if let post = self.post, let updateVoteClosure = self.updateVoteClosure {            
+            post.metrics.currentVoteDirection = self.voteDirection!
+            updateVoteClosure(post)
+        }
+        
         firstly {
             Services.exercisePostService.votePost(postId: postId!, userId: votingUserId!, direction: VoteDirection.Down)
         }.catch { error in
             //Ignore voting errors
         }
         
-        self.adjustVotingControls()
+        self.renderVotingControls()
     }
     
-    func adjustVotingControls() {
+    func renderVotingControls() {
         switch self.voteDirection {
         case .Up:
             self.upvoteButton.tintColor = self.upvoteColor

@@ -146,10 +146,10 @@ class FeedViewController: UIViewController {
         self.present(createPostViewController, animated: true)
     }
     
-    @objc func refreshPosts() {
-        self.posts = []
+    @objc func refreshPosts() {       
         self.lastPostsSnapshot = nil
         self.endReached = false
+        Services.exercisePostService.clearCache()
         
         firstly {
             fetchMorePosts(lastSnapshot: nil)
@@ -188,6 +188,7 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
         if indexPath.section == 1 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LoadingCell.cellId,
             for: indexPath) as! LoadingCell
+            cell.layer.masksToBounds = true
             cell.activityIndicator.startAnimating()
             return cell
         }
@@ -215,7 +216,7 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
         
         if post.imagePath != nil {
             // Set default image for placeholder
-            let placeholderImage = UIImage(named:"squat1")!
+            let placeholderImage = UIImage(named:"squatLogoPlaceholder")!
             
             // Get a reference to the storage service using the default Firebase App
             let storage = Storage.storage()
@@ -233,9 +234,11 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
         }
         cell.supportingTextLabel.text = post.description
         cell.postId = post.id
+        cell.post = post
         cell.votingUserId = currentUser?.id
         cell.voteDirection = post.metrics.currentVoteDirection
-        cell.adjustVotingControls()
+        cell.updateVoteClosure = alterPostViaVotesHandler
+        cell.renderVotingControls()
         cell.cornerRadius = 0
         
         return cell
@@ -260,9 +263,15 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
     //Query 'cache' for cell height to prevent jumpy recalc behavior
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
            sizeForItemAt indexPath: IndexPath) -> CGSize {
-
+        
         let h = cellHeights[indexPath] ?? CGFloat(cellHeightEstimate)
         let w = UIScreen.main.bounds.size.width
+        
+        if indexPath.section == 1 {
+            return CGSize(width:w, height: CGFloat(LoadingCell.CELL_HEIGHT))
+        }
+        
+        
         let res = CGSize(width: w, height: h)
         //print("@sizeForItemAt [\(indexPath.item)] = \(h) height")
         return res
@@ -352,5 +361,11 @@ private extension FeedViewController {
     func viewPostHandler(exercisePost: ExercisePost)  {
         let postDetailViewController = PostDetailViewController.create(postId: exercisePost.id, diffedPostsDataClosure: self.diffedPostsHandler  )
         self.navigationController?.pushViewController(postDetailViewController, animated: true)
+    }
+    
+    //Closure for cell to update the post's Vote w/in collectionView's self.posts.
+    //Rerendering the local data structure, rather than re-fetching from Datastore
+    func alterPostViaVotesHandler(post: ExercisePost) {
+        diffedPostsHandler(diffType: .edit, exercisePost: post)
     }
 }

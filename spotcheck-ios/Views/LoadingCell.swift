@@ -3,6 +3,7 @@ import PromiseKit
 
 class LoadingCell: MDCCardCollectionCell {
     static let cellId = "LoadingCell"
+    static let CELL_HEIGHT = 67
     
     var widthConstraint: NSLayoutConstraint?
     var activityIndicator = UIElementFactory.getActivityIndicator()
@@ -11,7 +12,14 @@ class LoadingCell: MDCCardCollectionCell {
         super.init(frame: frame)
         contentView.translatesAutoresizingMaskIntoConstraints = true
         widthConstraint = contentView.widthAnchor.constraint(equalToConstant: frame.width)
-        applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
+        
+        let containerScheme = MDCContainerScheme()
+        let colorScheme = MDCSemanticColorScheme()
+        
+        colorScheme.surfaceColor = UIColor(red:0.13, green:0.13, blue:0.13, alpha:1)
+        containerScheme.colorScheme = colorScheme
+        
+        applyTheme(withScheme: containerScheme)
         
         addSubview(activityIndicator)
         
