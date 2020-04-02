@@ -26,4 +26,6 @@ class Images {
     static let profilePictureDefault = SVGKImage(named: "account-circle").uiImage.withRenderingMode(.alwaysTemplate)
     static let edit = SVGKImage(named: "edit-2").uiImage.withRenderingMode(.alwaysTemplate)
     static let settings = SVGKImage(named: "settings").uiImage.withRenderingMode(.alwaysTemplate)
+    static let profilePicturePlaceholder = UIImage(systemName: "person.crop.circle")?.withTintColor(.white)
+    static let save = SVGKImage(named: "save").uiImage.withRenderingMode(.alwaysTemplate)
 }

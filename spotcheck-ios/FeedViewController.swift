@@ -46,7 +46,6 @@ class FeedViewController: UIViewController {
         return layout
     }()
     var currentUser: User?
-    var uniqueProfilePictures = [String:UIImage]() //ProfilePicturePath:ProfilePicture
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)

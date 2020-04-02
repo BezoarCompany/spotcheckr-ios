@@ -72,6 +72,7 @@
 		BA4EE45C23EF6814003E6D87 /* PasswordResetConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4EE45B23EF6814003E6D87 /* PasswordResetConfirmationViewController.swift */; };
 		BA4EE45E23EFEC39003E6D87 /* UserProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4EE45D23EFEC39003E6D87 /* UserProtocol.swift */; };
 		BA4EE46023EFEC7B003E6D87 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4EE45F23EFEC7B003E6D87 /* UserService.swift */; };
+		BA54CD6D2435692400A944BC /* save.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA54CD6C2435692400A944BC /* save.svg */; };
 		BA59197623F92DBA00E8B900 /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA59197523F92DBA00E8B900 /* Services.swift */; };
 		BA5DE70A2415D2E8002C98E6 /* plus.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA5DE7092415D2E8002C98E6 /* plus.svg */; };
 		BA5DE70C241888F2002C98E6 /* chevron-up.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA5DE70B241888F2002C98E6 /* chevron-up.svg */; };
@@ -191,6 +192,7 @@
 		BA4EE45B23EF6814003E6D87 /* PasswordResetConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetConfirmationViewController.swift; sourceTree = "<group>"; };
 		BA4EE45D23EFEC39003E6D87 /* UserProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProtocol.swift; sourceTree = "<group>"; };
 		BA4EE45F23EFEC7B003E6D87 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		BA54CD6C2435692400A944BC /* save.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = save.svg; sourceTree = "<group>"; };
 		BA59197523F92DBA00E8B900 /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
 		BA5DE7092415D2E8002C98E6 /* plus.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = plus.svg; sourceTree = "<group>"; };
 		BA5DE70B241888F2002C98E6 /* chevron-up.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "chevron-up.svg"; sourceTree = "<group>"; };
@@ -412,6 +414,7 @@
 				BA6305262422E6A500DA0AE1 /* chevron-left.svg */,
 				BAEE4AC92426DEFB005C2023 /* arrow-up.svg */,
 				BA49A01A242090DA00BB4BD8 /* trash-2.svg */,
+				BA54CD6C2435692400A944BC /* save.svg */,
 				BA74976E2429DA6400C1C17C /* settings.svg */,
 				BAEE4ACB2426E122005C2023 /* arrow-down.svg */,
 				BAEE4ACF24276DFD005C2023 /* account-circle.svg */,
@@ -570,6 +573,7 @@
 				BA4EE45323EECE84003E6D87 /* eye.svg in Resources */,
 				BA49A0192420875F00BB4BD8 /* more-horizontal.svg in Resources */,
 				BA74976D2429D6B100C1C17C /* edit-2.svg in Resources */,
+				BA54CD6D2435692400A944BC /* save.svg in Resources */,
 				BA49213723E6289B00A74A73 /* Roboto-Medium.ttf in Resources */,
 				5679530A23D806C00077BA08 /* LaunchScreen.storyboard in Resources */,
 				BA49213623E6289B00A74A73 /* Roboto-Regular.ttf in Resources */,
