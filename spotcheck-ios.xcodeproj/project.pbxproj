@@ -79,6 +79,7 @@
 		BA54CD752436CACE00A944BC /* ReportType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA54CD742436CACE00A944BC /* ReportType.swift */; };
 		BA54CD772436CD7B00A944BC /* more-vertical.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA54CD762436CD7B00A944BC /* more-vertical.svg */; };
 		BA54CD792436D52700A944BC /* flag.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA54CD782436D52700A944BC /* flag.svg */; };
+		BA54CD7B2436D60C00A944BC /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA54CD7A2436D60C00A944BC /* ReportViewController.swift */; };
 		BA59197623F92DBA00E8B900 /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA59197523F92DBA00E8B900 /* Services.swift */; };
 		BA5DE70A2415D2E8002C98E6 /* plus.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA5DE7092415D2E8002C98E6 /* plus.svg */; };
 		BA5DE70C241888F2002C98E6 /* chevron-up.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA5DE70B241888F2002C98E6 /* chevron-up.svg */; };
@@ -205,6 +206,7 @@
 		BA54CD742436CACE00A944BC /* ReportType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportType.swift; sourceTree = "<group>"; };
 		BA54CD762436CD7B00A944BC /* more-vertical.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "more-vertical.svg"; sourceTree = "<group>"; };
 		BA54CD782436D52700A944BC /* flag.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = flag.svg; sourceTree = "<group>"; };
+		BA54CD7A2436D60C00A944BC /* ReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewController.swift; sourceTree = "<group>"; };
 		BA59197523F92DBA00E8B900 /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
 		BA5DE7092415D2E8002C98E6 /* plus.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = plus.svg; sourceTree = "<group>"; };
 		BA5DE70B241888F2002C98E6 /* chevron-up.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "chevron-up.svg"; sourceTree = "<group>"; };
@@ -316,6 +318,7 @@
 				BA4EDA4024025F0D00206267 /* EditProfileViewController.swift */,
 				BA49A016241F488500BB4BD8 /* TabBarController.swift */,
 				BA749770242ACEF100C1C17C /* SettingsViewController.swift */,
+				BA54CD7A2436D60C00A944BC /* ReportViewController.swift */,
 			);
 			path = "spotcheck-ios";
 			sourceTree = "<group>";
@@ -739,6 +742,7 @@
 				5653ABCF24161921001E9CF0 /* Cache.swift in Sources */,
 				BA4EE45E23EFEC39003E6D87 /* UserProtocol.swift in Sources */,
 				BA828EFD241CE3E30012509D /* DomainToFirebaseMapper.swift in Sources */,
+				BA54CD7B2436D60C00A944BC /* ReportViewController.swift in Sources */,
 				BA4EDA4124025F0D00206267 /* EditProfileViewController.swift in Sources */,
 				BA1FB51323F1014900E091B1 /* BodyMeasurement.swift in Sources */,
 				BA4EE44723EBA347003E6D87 /* Identity.swift in Sources */,
