@@ -17,7 +17,26 @@ enum DiffType {
 
 class CreatePostViewController: UIViewController {
     let MAX_SUBJECT_LENGTH = 300
+    let appBarViewController = UIElementFactory.getAppBar()
+    var imagePickerController = UIImagePickerController()
+    var isImageChanged = false
+    
+    var updatePostMode: DiffType = .add
+    var exercisePost: ExercisePost?
+    var currentUser: User?
+    var exercises = [Exercise]()
+    var selectedExercise: Exercise?
+            
+    typealias CreatedPostDetailClosureType = ((_ post:ExercisePost) -> Void)
+    typealias DiffedPostsDataUpdateClosureType = ((_ diffType: DiffType, _ post: ExercisePost) -> Void) //takes diff type, and post to be modified
+    
+    var createdPostDetailClosure: CreatedPostDetailClosureType? //From the Snackbar Action in FeedView, enter the Post Detail page with newly created Post (b/c Snackbar action created in CreatePost page)...Think React data flowing DOWN Stream
+    
+    var diffedPostsDataClosure: DiffedPostsDataUpdateClosureType? //To dynamically update UITableView with the new post
+    var updatePostDetailClosure: CreatedPostDetailClosureType? //To refresh Post Detail page
 
+    let validator = Validator()
+    
     @objc func submitPost(_ sender: Any) {
         appBarViewController.navigationBar.rightBarButtonItem?.customView = self.activityIndicator
         self.activityIndicator.startAnimating()
@@ -118,8 +137,6 @@ class CreatePostViewController: UIViewController {
     }()
     let cancelAlertController = MDCAlertController(title: "Cancel?", message: "You will lose all entered data.")
     
-    let validator = Validator()
-    
     var activityIndicator: MDCActivityIndicator = {
         let indicator = MDCActivityIndicator()
         indicator.sizeToFit()
@@ -127,23 +144,6 @@ class CreatePostViewController: UIViewController {
         indicator.cycleColors = [ApplicationScheme.instance.containerScheme.colorScheme.secondaryColor]
         return indicator
     }()
-    let appBarViewController = UIElementFactory.getAppBar()
-    var imagePickerController = UIImagePickerController()
-    var isImageChanged = false
-    
-    var updatePostMode: DiffType = .add
-    var exercisePost: ExercisePost?
-    var currentUser: User?
-    var exercises = [Exercise]()
-    var selectedExercise: Exercise?
-        
-    typealias CreatedPostDetailClosureType = ((_ post:ExercisePost) -> Void)
-    typealias DiffedPostsDataUpdateClosureType = ((_ diffType: DiffType, _ post: ExercisePost) -> Void) //takes diff type, and post to be modified
-    
-    var createdPostDetailClosure: CreatedPostDetailClosureType? //From the Snackbar Action in FeedView, enter the Post Detail page with newly created Post (b/c Snackbar action created in CreatePost page)...Think React data flowing DOWN Stream
-    
-    var diffedPostsDataClosure: DiffedPostsDataUpdateClosureType? //To dynamically update UITableView with the new post
-    var updatePostDetailClosure: CreatedPostDetailClosureType? //To refresh Post Detail page
     
     static func create(updatePostMode: DiffType = .add, post: ExercisePost? = nil,
                        createdPostDetailClosure: CreatedPostDetailClosureType? = nil,

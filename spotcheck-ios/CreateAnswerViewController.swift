@@ -10,6 +10,10 @@ import MaterialComponents.MaterialSnackbar_TypographyThemer
 import PromiseKit
 
 class CreateAnswerViewController: UIViewController, MDCMultilineTextInputDelegate, MDCMultilineTextInputLayoutDelegate {
+    typealias CreateAnswerClosureType = ((_ post:Answer) -> Void)
+    
+    var createAnswerClosure: CreateAnswerClosureType?
+    
     let answerTextField: MDCMultilineTextField = {
         let field = MDCMultilineTextField()
         field.translatesAutoresizingMaskIntoConstraints = false
@@ -32,8 +36,11 @@ class CreateAnswerViewController: UIViewController, MDCMultilineTextInputDelegat
     @objc func submitAction(_ sender: Any) {
         firstly {
             createAnswer()
-        }.done {
+        }.done { ans in
             self.dismiss(animated: true) {
+                if let createAnswerClosure = self.createAnswerClosure {
+                    createAnswerClosure(ans)
+                }
                 self.snackbarMessage.text = "Answer Posted!"
                 MDCSnackbarManager.show(self.snackbarMessage)
             }
@@ -43,17 +50,18 @@ class CreateAnswerViewController: UIViewController, MDCMultilineTextInputDelegat
         }
     }
     
-    static func create(post: ExercisePost?) -> CreateAnswerViewController  {
+    static func create(post: ExercisePost?, createAnswerClosure: CreateAnswerClosureType? = nil) -> CreateAnswerViewController  {
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         let createAnswerViewController = storyboard.instantiateViewController(withIdentifier: K.Storyboard.CreateAnswerViewControllerId) as! CreateAnswerViewController
                     
         createAnswerViewController.post = post
+        createAnswerViewController.createAnswerClosure = createAnswerClosure
         return createAnswerViewController
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         answerTextInputController = MDCTextInputControllerOutlinedTextArea()
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)        
         self.addChild(appBarViewController)
     }
     
@@ -102,7 +110,7 @@ extension CreateAnswerViewController {
         appBarViewController.navigationBar.rightBarButtonItem?.isEnabled = multilineTextField.text?.count ?? 0 > 0
     }
     
-    func createAnswer() -> Promise<Void> {
+    func createAnswer() -> Promise<Answer> {
         let answer = Answer(createdBy: self.currentUser,
                             dateCreated: Date(),
                             dateModified: Date(),
@@ -114,7 +122,7 @@ extension CreateAnswerViewController {
             firstly {
                 Services.exercisePostService.writeAnswer(answer: answer)
             }.done {
-                return promise.fulfill_()
+                return promise.fulfill(answer)
             }
             .catch { error in
                 return promise.reject(error)

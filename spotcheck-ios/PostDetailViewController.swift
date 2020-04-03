@@ -16,12 +16,18 @@ class PostDetailViewController : UIViewController {
     
     @IBAction func addAnswerButton(_ sender: Any) {
         let createAnswerViewController = CreateAnswerViewController.create(post: post)
+        createAnswerViewController.createAnswerClosure = appendAnswerToPost
         self.present(createAnswerViewController, animated: true)
     }
+
+    typealias DiffedPostsDataUpdateClosureType = ((_ diffType: DiffType, _ post: ExercisePost) -> Void) //takes diff type, and post to be modified
+    
+    var diffedPostsDataClosure: DiffedPostsDataUpdateClosureType? //To dynamically update FeedView's cell with the new/updated post
     
     var post: ExercisePost?
     var postId: String?
     
+
     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
     let appBarViewController = UIElementFactory.getAppBar()
     let answerReplyButton: MDCFloatingButton = {
@@ -37,8 +43,6 @@ class PostDetailViewController : UIViewController {
         self.addChild(appBarViewController)
     }
     
-    typealias DiffedPostsDataUpdateClosureType = ((_ diffType: DiffType, _ post: ExercisePost) -> Void) //takes diff type, and post to be modified
-    var diffedPostsDataClosure: DiffedPostsDataUpdateClosureType? //To dynamically update UITableView with the new post
     
     func updatePostDetail(argPost: ExercisePost) {
         self.post = argPost
@@ -145,6 +149,9 @@ class PostDetailViewController : UIViewController {
         self.present(alert, animated: true, completion: nil)
     
     }
+}
+
+extension PostDetailViewController {
     
     func initDetail() {
         tableView = UITableView()
@@ -180,6 +187,11 @@ class PostDetailViewController : UIViewController {
             answerReplyButton.widthAnchor.constraint(equalToConstant: 64),
             answerReplyButton.heightAnchor.constraint(equalToConstant: 64),
         ])
+    }
+    
+    func appendAnswerToPost(ans: Answer) {
+        post?.answers.append(ans)
+        tableView.reloadSections(IndexSet(integer: 1), with: UITableView.RowAnimation.none)//re-render only answers section
     }
 }
 
