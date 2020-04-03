@@ -24,6 +24,7 @@ struct K {
         static let PasswordResetConfirmationViewControllerId = "PasswordResetConfirmationViewController"
         static let CreatePostViewControllerId = "CreatePostViewController"
         static let CreateAnswerViewControllerId = "CreateAnswerViewController"
+        static let ReportViewControllerId = "ReportViewController"
         
         static let answerCellId = "AnswerReuseCell" //Reusable CellID
         static let answerNibName = "AnswerPostCell" //<name>.xib

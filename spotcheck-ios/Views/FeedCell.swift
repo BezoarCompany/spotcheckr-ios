@@ -22,6 +22,7 @@ class FeedCell: MDCCardCollectionCell {
     var mediaHeightConstraint: NSLayoutConstraint?
     var post: ExercisePost?
     var updateVoteClosure: UpdateVoteClosureType?
+    var overflowMenuTap: (() -> Void)? = nil
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -57,6 +58,7 @@ class FeedCell: MDCCardCollectionCell {
         contentView.addSubview(supportingTextLabel)
         contentView.addSubview(upvoteButton)
         contentView.addSubview(downvoteButton)
+        contentView.addSubview(overflowMenu)
     }
     
     func applyConstraints() {
@@ -89,6 +91,9 @@ class FeedCell: MDCCardCollectionCell {
         downvoteButton.topAnchor.constraint(equalTo: supportingTextLabel.bottomAnchor, constant: 24),
         downvoteButton.leadingAnchor.constraint(equalTo: upvoteButton.trailingAnchor, constant: 8),
         
+        overflowMenu.topAnchor.constraint(equalTo: supportingTextLabel.bottomAnchor, constant: 24),
+        contentView.trailingAnchor.constraint(equalTo: overflowMenu.trailingAnchor, constant: 8),
+        
         contentView.bottomAnchor.constraint(equalTo: upvoteButton.bottomAnchor, constant: 16)
         ])
     }
@@ -96,6 +101,7 @@ class FeedCell: MDCCardCollectionCell {
     func initControls() {
         upvoteButton.addTarget(self, action: #selector(upvoteOnClick(_:)), for: .touchUpInside)
         downvoteButton.addTarget(self, action: #selector(downvoteOnClick(_:)), for: .touchUpInside)
+        overflowMenu.addTarget(self, action: #selector(overflowMenuOnTapped(_:)), for: .touchUpInside)
     }
     
     @objc func upvoteOnClick(_ sender: Any) {
@@ -176,6 +182,12 @@ class FeedCell: MDCCardCollectionCell {
         media.isHidden = true
     }
     
+    @objc func overflowMenuOnTapped(_ sender: Any) {
+        if let event = overflowMenuTap {
+            event()
+        }
+    }
+    
     let headerLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -231,6 +243,14 @@ class FeedCell: MDCCardCollectionCell {
         let button = MDCFlatButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(Images.arrowDown, for: .normal)
+        return button
+    }()
+    
+    let overflowMenu: MDCFlatButton = {
+        let button = MDCFlatButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(Images.moreVertical, for: .normal)
+        button.tintColor = ApplicationScheme.instance.containerScheme.colorScheme.onSurfaceColor
         return button
     }()
 }

@@ -5,6 +5,7 @@ class Services {
     private static var authenticationServiceSingleton = AuthenticationService()
     private static var storageSingleton = StorageService()
     private static var analyticsSingleton = AnalyticsService()
+    private static var reportingSingleton = ReportingService()
     
     static var userService: UserService {
         return userServiceSingleton
@@ -24,5 +25,9 @@ class Services {
     
     static var analyticsService: AnalyticsService {
         return analyticsSingleton
+    }
+    
+    static var reportingService: ReportingService {
+        return reportingSingleton
     }
 }
