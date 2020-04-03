@@ -1,4 +1,7 @@
+import Foundation
+
 struct Report {
-    var id: String?
-    var name: String?
+    var reportType: ReportType?
+    var createdBy: User?
+    var createdDate: Date?
 }

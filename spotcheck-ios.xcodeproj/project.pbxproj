@@ -76,6 +76,9 @@
 		BA54CD6F2436526B00A944BC /* ReportingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA54CD6E2436526B00A944BC /* ReportingService.swift */; };
 		BA54CD712436528300A944BC /* ReportingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA54CD702436528300A944BC /* ReportingProtocol.swift */; };
 		BA54CD73243652E000A944BC /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA54CD72243652E000A944BC /* Report.swift */; };
+		BA54CD752436CACE00A944BC /* ReportType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA54CD742436CACE00A944BC /* ReportType.swift */; };
+		BA54CD772436CD7B00A944BC /* more-vertical.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA54CD762436CD7B00A944BC /* more-vertical.svg */; };
+		BA54CD792436D52700A944BC /* flag.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA54CD782436D52700A944BC /* flag.svg */; };
 		BA59197623F92DBA00E8B900 /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA59197523F92DBA00E8B900 /* Services.swift */; };
 		BA5DE70A2415D2E8002C98E6 /* plus.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA5DE7092415D2E8002C98E6 /* plus.svg */; };
 		BA5DE70C241888F2002C98E6 /* chevron-up.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA5DE70B241888F2002C98E6 /* chevron-up.svg */; };
@@ -199,6 +202,9 @@
 		BA54CD6E2436526B00A944BC /* ReportingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportingService.swift; sourceTree = "<group>"; };
 		BA54CD702436528300A944BC /* ReportingProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportingProtocol.swift; sourceTree = "<group>"; };
 		BA54CD72243652E000A944BC /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
+		BA54CD742436CACE00A944BC /* ReportType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportType.swift; sourceTree = "<group>"; };
+		BA54CD762436CD7B00A944BC /* more-vertical.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "more-vertical.svg"; sourceTree = "<group>"; };
+		BA54CD782436D52700A944BC /* flag.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = flag.svg; sourceTree = "<group>"; };
 		BA59197523F92DBA00E8B900 /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
 		BA5DE7092415D2E8002C98E6 /* plus.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = plus.svg; sourceTree = "<group>"; };
 		BA5DE70B241888F2002C98E6 /* chevron-up.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "chevron-up.svg"; sourceTree = "<group>"; };
@@ -368,6 +374,7 @@
 				BA1FB52E23F11C3400E091B1 /* Exercise.swift */,
 				BA3DDD2E241CB33600692100 /* AnalyticsEvent.swift */,
 				BA54CD72243652E000A944BC /* Report.swift */,
+				BA54CD742436CACE00A944BC /* ReportType.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -424,8 +431,10 @@
 				BAEE4AC92426DEFB005C2023 /* arrow-up.svg */,
 				BA49A01A242090DA00BB4BD8 /* trash-2.svg */,
 				BA54CD6C2435692400A944BC /* save.svg */,
+				BA54CD782436D52700A944BC /* flag.svg */,
 				BA74976E2429DA6400C1C17C /* settings.svg */,
 				BAEE4ACB2426E122005C2023 /* arrow-down.svg */,
+				BA54CD762436CD7B00A944BC /* more-vertical.svg */,
 				BAEE4ACF24276DFD005C2023 /* account-circle.svg */,
 				BA49A012241ED21300BB4BD8 /* list.svg */,
 				BA74976C2429D6B100C1C17C /* edit-2.svg */,
@@ -591,11 +600,13 @@
 				BA5DE70E241888FE002C98E6 /* chevron-down.svg in Resources */,
 				BAEE4ACC2426E122005C2023 /* arrow-down.svg in Resources */,
 				5679533623D97EDD0077BA08 /* GoogleService-Info.plist in Resources */,
+				BA54CD792436D52700A944BC /* flag.svg in Resources */,
 				5679530723D806C00077BA08 /* Assets.xcassets in Resources */,
 				5681771823FDCE7500CA7AB5 /* DetailedPostCell.xib in Resources */,
 				5659D9D823FD02980043FA6A /* AnswerPostCell.xib in Resources */,
 				5679530523D806BE0077BA08 /* Main.storyboard in Resources */,
 				BA6305272422E6A500DA0AE1 /* chevron-left.svg in Resources */,
+				BA54CD772436CD7B00A944BC /* more-vertical.svg in Resources */,
 				BA49213823E6289B00A74A73 /* Roboto-Light.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -714,6 +725,7 @@
 				5679533A23D988910077BA08 /* ProfileViewController.swift in Sources */,
 				BAEE4ACE24274D49005C2023 /* Colors.swift in Sources */,
 				BA54CD73243652E000A944BC /* Report.swift in Sources */,
+				BA54CD752436CACE00A944BC /* ReportType.swift in Sources */,
 				BA1FB51F23F1071000E091B1 /* Organization.swift in Sources */,
 				BA3DDD2D241CB20F00692100 /* AnalyticsProtocol.swift in Sources */,
 				BA1FB52323F116AE00E091B1 /* ExercisePostProtocol.swift in Sources */,
