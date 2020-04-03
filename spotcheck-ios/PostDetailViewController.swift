@@ -240,13 +240,14 @@ extension PostDetailViewController: UITableViewDataSource {
             let answer = post?.answers[indexPath.row]
             cell.answerBodyLabel.text = answer?.text
             cell.answererNameLabel.text = answer?.createdBy?.information?.name
-            //TODO: Enable later once picture upload is complete
-//            if let picturePath = post?.createdBy?.profilePicturePath {
-//                let placeholderImage = UIImage(systemName: "person.crop.circle")!
-//                let storage = Storage.storage()
-//                let storagePathReference = storage.reference(withPath: picturePath)
-//                cell.thumbnailImageView.sd_setImage(with: storagePathReference, placeholderImage: placeholderImage)
-//            }
+            
+            //TODO: Profile upload. Adding placeholder b/c it looks to visually jarring and hard to distinguish the different answers without the profile pic cue
+            if let picturePath = post?.createdBy?.profilePicturePath {
+                let placeholderImage = UIImage(systemName: "person.crop.circle")!
+                let storage = Storage.storage()
+                let storagePathReference = storage.reference(withPath: picturePath)
+                cell.thumbnailImageView.sd_setImage(with: storagePathReference, placeholderImage: placeholderImage)
+            }
             
             return cell
         }
