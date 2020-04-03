@@ -42,6 +42,7 @@ class TabBarController: UITabBarController, MDCBottomNavigationBarDelegate {
             UITabBarItem(title: "Profile", image: Images.user, tag: 1),
             UITabBarItem(title: "Settings", image: Images.settings, tag: 2)
         ]
+        bottomNav.unselectedItemTintColor = ApplicationScheme.instance.containerScheme.colorScheme.primaryColorVariant
         bottomNav.titleVisibility = .always
         bottomNav.selectedItem = bottomNav.items[0]
         
