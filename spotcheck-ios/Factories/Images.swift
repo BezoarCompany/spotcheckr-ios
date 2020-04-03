@@ -30,4 +30,5 @@ class Images {
     static let settings = SVGKImage(named: "settings").uiImage.withRenderingMode(.alwaysTemplate)
     static let profilePicturePlaceholder = UIImage(systemName: "person.crop.circle")?.withTintColor(.white)
     static let save = SVGKImage(named: "save").uiImage.withRenderingMode(.alwaysTemplate)
+    static let send = SVGKImage(named: "send").uiImage.withRenderingMode(.alwaysTemplate)
 }

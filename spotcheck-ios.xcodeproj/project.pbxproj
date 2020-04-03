@@ -80,6 +80,8 @@
 		BA54CD772436CD7B00A944BC /* more-vertical.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA54CD762436CD7B00A944BC /* more-vertical.svg */; };
 		BA54CD792436D52700A944BC /* flag.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA54CD782436D52700A944BC /* flag.svg */; };
 		BA54CD7B2436D60C00A944BC /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA54CD7A2436D60C00A944BC /* ReportViewController.swift */; };
+		BA54CD7D2436F13000A944BC /* send.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA54CD7C2436F13000A944BC /* send.svg */; };
+		BA54CD7F2436F9E100A944BC /* CollectionConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA54CD7E2436F9E100A944BC /* CollectionConstants.swift */; };
 		BA59197623F92DBA00E8B900 /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA59197523F92DBA00E8B900 /* Services.swift */; };
 		BA5DE70A2415D2E8002C98E6 /* plus.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA5DE7092415D2E8002C98E6 /* plus.svg */; };
 		BA5DE70C241888F2002C98E6 /* chevron-up.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA5DE70B241888F2002C98E6 /* chevron-up.svg */; };
@@ -207,6 +209,8 @@
 		BA54CD762436CD7B00A944BC /* more-vertical.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "more-vertical.svg"; sourceTree = "<group>"; };
 		BA54CD782436D52700A944BC /* flag.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = flag.svg; sourceTree = "<group>"; };
 		BA54CD7A2436D60C00A944BC /* ReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewController.swift; sourceTree = "<group>"; };
+		BA54CD7C2436F13000A944BC /* send.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = send.svg; sourceTree = "<group>"; };
+		BA54CD7E2436F9E100A944BC /* CollectionConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionConstants.swift; sourceTree = "<group>"; };
 		BA59197523F92DBA00E8B900 /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
 		BA5DE7092415D2E8002C98E6 /* plus.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = plus.svg; sourceTree = "<group>"; };
 		BA5DE70B241888F2002C98E6 /* chevron-up.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "chevron-up.svg"; sourceTree = "<group>"; };
@@ -421,6 +425,7 @@
 				5607DA0D2426221000B283D2 /* PromiseKit+extensions.swift */,
 				BA54CD6E2436526B00A944BC /* ReportingService.swift */,
 				BA54CD702436528300A944BC /* ReportingProtocol.swift */,
+				BA54CD7E2436F9E100A944BC /* CollectionConstants.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -435,6 +440,7 @@
 				BA49A01A242090DA00BB4BD8 /* trash-2.svg */,
 				BA54CD6C2435692400A944BC /* save.svg */,
 				BA54CD782436D52700A944BC /* flag.svg */,
+				BA54CD7C2436F13000A944BC /* send.svg */,
 				BA74976E2429DA6400C1C17C /* settings.svg */,
 				BAEE4ACB2426E122005C2023 /* arrow-down.svg */,
 				BA54CD762436CD7B00A944BC /* more-vertical.svg */,
@@ -587,6 +593,7 @@
 				BA49A015241ED56300BB4BD8 /* user.svg in Resources */,
 				BA49A01B242090DA00BB4BD8 /* trash-2.svg in Resources */,
 				BA4EDA452402909A00206267 /* ProfilePostCell.xib in Resources */,
+				BA54CD7D2436F13000A944BC /* send.svg in Resources */,
 				BAEE4AD024276DFD005C2023 /* account-circle.svg in Resources */,
 				BA6305292422E97100DA0AE1 /* log-out.svg in Resources */,
 				BA4EE45423EECE84003E6D87 /* eye-off.svg in Resources */,
@@ -742,6 +749,7 @@
 				5653ABCF24161921001E9CF0 /* Cache.swift in Sources */,
 				BA4EE45E23EFEC39003E6D87 /* UserProtocol.swift in Sources */,
 				BA828EFD241CE3E30012509D /* DomainToFirebaseMapper.swift in Sources */,
+				BA54CD7F2436F9E100A944BC /* CollectionConstants.swift in Sources */,
 				BA54CD7B2436D60C00A944BC /* ReportViewController.swift in Sources */,
 				BA4EDA4124025F0D00206267 /* EditProfileViewController.swift in Sources */,
 				BA1FB51323F1014900E091B1 /* BodyMeasurement.swift in Sources */,

@@ -32,8 +32,8 @@ class FirebaseToDomainMapper {
         return post
     }
     
-    static func mapReport(id: String?, data: [String:Any]) -> Report {
-        let report = Report(reportType: ReportType(id: id, name: data.keys.contains("name") ? data["name"] as? String : nil))
-        return report
+    static func mapReportType(id: String?, data: [String:Any]) -> ReportType {
+        let reportType = ReportType(id: id, name: data.keys.contains("name") ? data["name"] as? String : nil)
+        return reportType
     }
 }

@@ -1,5 +1,6 @@
 import PromiseKit
 
 protocol ReportingProtocol {
-    func getReportOptions() -> Promise<[Report]>
+    func getReportTypes() -> Promise<[ReportType]>
+    func submitReport(postId: String?, details: Report) -> Promise<Void>
 }
