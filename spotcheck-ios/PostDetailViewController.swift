@@ -16,13 +16,18 @@ class PostDetailViewController : UIViewController {
     
     @IBAction func addAnswerButton(_ sender: Any) {
         let createAnswerViewController = CreateAnswerViewController.create(post: post)
+        createAnswerViewController.createAnswerClosure = appendAnswerToPost
         self.present(createAnswerViewController, animated: true)
     }
+
+    typealias DiffedPostsDataUpdateClosureType = ((_ diffType: DiffType, _ post: ExercisePost) -> Void) //takes diff type, and post to be modified
+    
+    var diffedPostsDataClosure: DiffedPostsDataUpdateClosureType? //To dynamically update FeedView's cell with the new/updated post
     
     var post: ExercisePost?
     var postId: String?
-    let exercisePostService = ExercisePostService()
     
+
     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
     let appBarViewController = UIElementFactory.getAppBar()
     let answerReplyButton: MDCFloatingButton = {
@@ -38,8 +43,6 @@ class PostDetailViewController : UIViewController {
         self.addChild(appBarViewController)
     }
     
-    typealias DiffedPostsDataUpdateClosureType = ((_ diffType: DiffType, _ post: ExercisePost) -> Void) //takes diff type, and post to be modified
-    var diffedPostsDataClosure: DiffedPostsDataUpdateClosureType? //To dynamically update UITableView with the new post
     
     func updatePostDetail(argPost: ExercisePost) {
         self.post = argPost
@@ -146,6 +149,9 @@ class PostDetailViewController : UIViewController {
         self.present(alert, animated: true, completion: nil)
     
     }
+}
+
+extension PostDetailViewController {
     
     func initDetail() {
         tableView = UITableView()
@@ -174,13 +180,18 @@ class PostDetailViewController : UIViewController {
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: appBarViewController.view.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
-            self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: tableView.trailingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: 0),
             tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -55),
-            self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: answerReplyButton.trailingAnchor, constant: 25),
-            self.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: answerReplyButton.bottomAnchor, constant: 75),
+            answerReplyButton.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor , constant: -20),
+            answerReplyButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -75),
             answerReplyButton.widthAnchor.constraint(equalToConstant: 64),
             answerReplyButton.heightAnchor.constraint(equalToConstant: 64),
         ])
+    }
+    
+    func appendAnswerToPost(ans: Answer) {
+        post?.answers.append(ans)
+        tableView.reloadSections(IndexSet(integer: 1), with: UITableView.RowAnimation.none)//re-render only answers section
     }
 }
 
@@ -217,16 +228,16 @@ extension PostDetailViewController: UITableViewDataSource {
             cell.postBodyLabel.text = post?.description
             
             //this mocking logic if a post has an image attached
-            if let hasPhoto = post?.imagePath {
-                cell.photoHeightConstraint.constant = CGFloat(FeedCell.IMAGE_HEIGHT)
-                
+            if let imagePath = post?.imagePath {
                 let placeholderImage = UIImage(named:"squatLogoPlaceholder")!
                 
                 let storage = Storage.storage()
-                let pathname = K.Firestore.Storage.IMAGES_ROOT_DIR + "/" + (post?.imagePath ?? "")
+                let pathname = K.Firestore.Storage.IMAGES_ROOT_DIR + "/" + (imagePath)
                 
                 let storagePathReference = storage.reference(withPath: pathname)
                 cell.photoView.sd_setImage(with: storagePathReference, placeholderImage: placeholderImage)
+                cell.photoHeightConstraint.constant = CGFloat(FeedCell.IMAGE_HEIGHT)
+                cell.photoView.isHidden = false
             } else {
                 cell.photoHeightConstraint.constant = 0 //CGFloat(FeedViewController.IMAGE_HEIGHT)
                 cell.photoView.isHidden = true
@@ -241,13 +252,14 @@ extension PostDetailViewController: UITableViewDataSource {
             let answer = post?.answers[indexPath.row]
             cell.answerBodyLabel.text = answer?.text
             cell.answererNameLabel.text = answer?.createdBy?.information?.name
-            //TODO: Enable later once picture upload is complete
-//            if let picturePath = post?.createdBy?.profilePicturePath {
-//                let placeholderImage = UIImage(systemName: "person.crop.circle")!
-//                let storage = Storage.storage()
-//                let storagePathReference = storage.reference(withPath: picturePath)
-//                cell.thumbnailImageView.sd_setImage(with: storagePathReference, placeholderImage: placeholderImage)
-//            }
+            
+            //TODO: Profile upload. Adding placeholder b/c it looks to visually jarring and hard to distinguish the different answers without the profile pic cue
+            if let picturePath = post?.createdBy?.profilePicturePath {
+                let placeholderImage = UIImage(systemName: "person.crop.circle")!
+                let storage = Storage.storage()
+                let storagePathReference = storage.reference(withPath: picturePath)
+                cell.thumbnailImageView.sd_setImage(with: storagePathReference, placeholderImage: placeholderImage)
+            }
             
             return cell
         }

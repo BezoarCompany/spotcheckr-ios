@@ -113,7 +113,9 @@ class FeedViewController: UIViewController {
     }
     
     func initRefreshControl() {
-        refreshControl.tintColor = .clear
+        refreshControl.tintColor = .white
+        let fontColorAttr = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: fontColorAttr)
         refreshControl.backgroundColor = .clear
         refreshControl.addTarget(self, action: #selector(refreshPosts), for: UIControl.Event.valueChanged)
     }
@@ -146,7 +148,8 @@ class FeedViewController: UIViewController {
         self.present(createPostViewController, animated: true)
     }
     
-    @objc func refreshPosts() {       
+    @objc func refreshPosts() {
+        
         self.lastPostsSnapshot = nil
         self.endReached = false
         Services.exercisePostService.clearCache()
