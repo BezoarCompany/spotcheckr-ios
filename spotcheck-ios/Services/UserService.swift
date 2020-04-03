@@ -6,12 +6,6 @@ import PromiseKit
 import Foundation
 
 class UserService: UserProtocol {
-    private let userCollection = "users"
-    private let genderCollection = "genders"
-    private let userTypeCollection = "user-types"
-    private let certificationCollection = "certifications"
-    private let salutationCollection = "salutations"
-    
     private let cache = Cache<String, User>() // (userID<String>: User)
     private let firebaseMapCache = Cache<String, Any>()
     
@@ -24,7 +18,7 @@ class UserService: UserProtocol {
                 let userTypePath = (userTypes as NSDictionary).allKeys(for: userType)[0] as! String
                 let userTypeDocRef = Firestore.firestore().document("\(userTypePath)")
                 
-                Firestore.firestore().collection(self.userCollection).document(user.id!).setData([
+                Firestore.firestore().collection(CollectionConstants.userCollection).document(user.id!).setData([
                     "id": user.id!,
                     "type": userTypeDocRef
                 ]){ error in
@@ -42,7 +36,7 @@ class UserService: UserProtocol {
                 return promise.fulfill(user)
             }
 
-            let docRef = Firestore.firestore().collection(userCollection).document(id)
+            let docRef = Firestore.firestore().collection(CollectionConstants.userCollection).document(id)
             docRef.getDocument { doc, error in
                 guard error == nil, let doc = doc, doc.exists else {
                     return promise.reject(error!)
@@ -123,7 +117,7 @@ class UserService: UserProtocol {
                 return promise.reject(error)
             }.finally {
                 var userCertifications = [Certification]()
-                let certificationsRef = Firestore.firestore().collection("\(self.userCollection)/\(id)/\(self.certificationCollection)")
+                let certificationsRef = Firestore.firestore().collection("\(CollectionConstants.userCollection)/\(id)/\(CollectionConstants.certificationCollection)")
                 certificationsRef.getDocuments { (certificationsSnapshot, error) in
                     if let error = error {
                         return promise.reject(error)
@@ -165,7 +159,7 @@ class UserService: UserProtocol {
                 return promise.fulfill(userTypes)
             }
             
-            Firestore.firestore().collection(userTypeCollection).getDocuments { (querySnapshot, error) in
+            Firestore.firestore().collection(CollectionConstants.userTypeCollection).getDocuments { (querySnapshot, error) in
                 if let error = error {
                     promise.reject(error)
                 }
@@ -183,7 +177,7 @@ class UserService: UserProtocol {
     
     func getGenders() -> Promise<[String:String]> {
         return Promise { promise in
-            Firestore.firestore().collection(genderCollection).getDocuments { (querySnapshot, error) in
+            Firestore.firestore().collection(CollectionConstants.genderCollection).getDocuments { (querySnapshot, error) in
                 if let error = error {
                     promise.reject(error)
                 }
@@ -200,7 +194,7 @@ class UserService: UserProtocol {
     
     func getSalutations() -> Promise<[String:String]> {
         return Promise { promise in
-            Firestore.firestore().collection(salutationCollection).getDocuments { (querySnapshot, error) in
+            Firestore.firestore().collection(CollectionConstants.salutationCollection).getDocuments { (querySnapshot, error) in
                 if let error = error {
                     promise.reject(error)
                 }
@@ -217,7 +211,7 @@ class UserService: UserProtocol {
     
     func getCertifications() -> Promise<[String:Certification]> {
         return Promise { promise in
-            Firestore.firestore().collection(certificationCollection).getDocuments { (querySnapshot, error) in
+            Firestore.firestore().collection(CollectionConstants.certificationCollection).getDocuments { (querySnapshot, error) in
                 if let error = error {
                     promise.reject(error)
                 }
@@ -240,7 +234,7 @@ class UserService: UserProtocol {
         return Promise { promise in
             let updatedUser = DomainToFirebaseMapper.mapUser(user: user)
             
-            let userDocRef = Firestore.firestore().collection(userCollection).document(user.id!)
+            let userDocRef = Firestore.firestore().collection(CollectionConstants.userCollection).document(user.id!)
             userDocRef.updateData(updatedUser, completion: { (error) in
                 if let error = error {
                     promise.reject(error)

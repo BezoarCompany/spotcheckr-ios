@@ -1,4 +1,5 @@
 import Firebase
+
 // Responsible for mapping from domain model to firebase model until a better method is found.
 class DomainToFirebaseMapper {
     static func mapAnswer(from: Answer) -> [String:Any] {
@@ -37,5 +38,17 @@ class DomainToFirebaseMapper {
         firebaseUser["first-name"] = user.information?.firstName
         firebaseUser["last-name"] = user.information?.lastName
         return firebaseUser
+    }
+    
+    static func mapReport(postId: String?, details: Report) -> [String:Any] {
+        var firebaseReport = [String:Any]()
+        firebaseReport["type"] = Firestore.firestore().document("/\(CollectionConstants.reportTypesCollection)/\(details.reportType!.id!)")
+        if let postId = postId {
+            firebaseReport["exercise-post"] = Firestore.firestore().document("/\(CollectionConstants.postsCollection)/\(postId)")
+        }
+        firebaseReport["description"] = details.description
+        firebaseReport["created-by"] = Firestore.firestore().document("/\(CollectionConstants.userCollection)/\(details.createdBy!.id!)")
+        firebaseReport["created-date"] = details.createdDate ?? Date()
+        return firebaseReport
     }
 }

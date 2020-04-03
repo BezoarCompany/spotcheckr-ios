@@ -16,6 +16,8 @@ class Images {
     static let list = SVGKImage(named: "list").uiImage.withRenderingMode(.alwaysTemplate)
     static let user = SVGKImage(named: "user").uiImage.withRenderingMode(.alwaysTemplate)
     static let moreHorizontal = SVGKImage(named: "more-horizontal").uiImage.withRenderingMode(.alwaysTemplate)
+    static let moreVertical = SVGKImage(named: "more-vertical").uiImage.withRenderingMode(.alwaysTemplate)
+    static let flag = SVGKImage(named: "flag").uiImage.withRenderingMode(.alwaysTemplate)
     static let trash = SVGKImage(named: "trash-2").uiImage.withRenderingMode(.alwaysTemplate)
     static let back = SVGKImage(named: "chevron-left").uiImage.withRenderingMode(.alwaysTemplate)
     static let logOut = SVGKImage(named: "log-out").uiImage.withRenderingMode(.alwaysTemplate)
@@ -28,4 +30,5 @@ class Images {
     static let settings = SVGKImage(named: "settings").uiImage.withRenderingMode(.alwaysTemplate)
     static let profilePicturePlaceholder = UIImage(systemName: "person.crop.circle")?.withTintColor(.white)
     static let save = SVGKImage(named: "save").uiImage.withRenderingMode(.alwaysTemplate)
+    static let send = SVGKImage(named: "send").uiImage.withRenderingMode(.alwaysTemplate)
 }

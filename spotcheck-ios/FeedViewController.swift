@@ -243,7 +243,15 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
         cell.updateVoteClosure = alterPostViaVotesHandler
         cell.renderVotingControls()
         cell.cornerRadius = 0
-        
+        cell.overflowMenuTap = {
+            let actionSheet = UIElementFactory.getActionSheet()
+            let reportAction = MDCActionSheetAction(title: "Report", image: Images.flag, handler: { (MDCActionSheetHandler) in
+                let reportViewController = ReportViewController.create(postId: post.id)
+                self.present(reportViewController, animated: true)
+            })
+            actionSheet.addAction(reportAction)
+            self.present(actionSheet, animated: true)
+        }
         return cell
     }
     
