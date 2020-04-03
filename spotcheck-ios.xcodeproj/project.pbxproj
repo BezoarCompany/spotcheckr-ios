@@ -22,7 +22,6 @@
 		5679531523D806C00077BA08 /* spotcheck_iosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5679531423D806C00077BA08 /* spotcheck_iosTests.swift */; };
 		5679532023D806C00077BA08 /* spotcheck_iosUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5679531F23D806C00077BA08 /* spotcheck_iosUITests.swift */; };
 		5679533423D972F00077BA08 /* AuthOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5679533323D972F00077BA08 /* AuthOptionsViewController.swift */; };
-		5679533623D97EDD0077BA08 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5679533523D97EDD0077BA08 /* GoogleService-Info.plist */; };
 		5679533823D980E40077BA08 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5679533723D980E40077BA08 /* FeedViewController.swift */; };
 		5679533A23D988910077BA08 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5679533923D988910077BA08 /* ProfileViewController.swift */; };
 		567E9A3223E93EA2004C1B2E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567E9A3123E93EA2004C1B2E /* Constants.swift */; };
@@ -82,6 +81,7 @@
 		BA54CD7B2436D60C00A944BC /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA54CD7A2436D60C00A944BC /* ReportViewController.swift */; };
 		BA54CD7D2436F13000A944BC /* send.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA54CD7C2436F13000A944BC /* send.svg */; };
 		BA54CD7F2436F9E100A944BC /* CollectionConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA54CD7E2436F9E100A944BC /* CollectionConstants.swift */; };
+		BA584C74243796B900417DC5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BA584C73243796B900417DC5 /* GoogleService-Info.plist */; };
 		BA59197623F92DBA00E8B900 /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA59197523F92DBA00E8B900 /* Services.swift */; };
 		BA5DE70A2415D2E8002C98E6 /* plus.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA5DE7092415D2E8002C98E6 /* plus.svg */; };
 		BA5DE70C241888F2002C98E6 /* chevron-up.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA5DE70B241888F2002C98E6 /* chevron-up.svg */; };
@@ -149,7 +149,6 @@
 		5679531F23D806C00077BA08 /* spotcheck_iosUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = spotcheck_iosUITests.swift; sourceTree = "<group>"; };
 		5679532123D806C00077BA08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5679533323D972F00077BA08 /* AuthOptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthOptionsViewController.swift; sourceTree = "<group>"; };
-		5679533523D97EDD0077BA08 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5679533723D980E40077BA08 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		5679533923D988910077BA08 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		567E9A3123E93EA2004C1B2E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -211,6 +210,7 @@
 		BA54CD7A2436D60C00A944BC /* ReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewController.swift; sourceTree = "<group>"; };
 		BA54CD7C2436F13000A944BC /* send.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = send.svg; sourceTree = "<group>"; };
 		BA54CD7E2436F9E100A944BC /* CollectionConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionConstants.swift; sourceTree = "<group>"; };
+		BA584C73243796B900417DC5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BA59197523F92DBA00E8B900 /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
 		BA5DE7092415D2E8002C98E6 /* plus.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = plus.svg; sourceTree = "<group>"; };
 		BA5DE70B241888F2002C98E6 /* chevron-up.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "chevron-up.svg"; sourceTree = "<group>"; };
@@ -313,7 +313,7 @@
 				5679533323D972F00077BA08 /* AuthOptionsViewController.swift */,
 				5679530623D806C00077BA08 /* Assets.xcassets */,
 				5679530823D806C00077BA08 /* LaunchScreen.storyboard */,
-				5679533523D97EDD0077BA08 /* GoogleService-Info.plist */,
+				BA584C73243796B900417DC5 /* GoogleService-Info.plist */,
 				5679530B23D806C00077BA08 /* Info.plist */,
 				567E9A3123E93EA2004C1B2E /* Constants.swift */,
 				BA4EE44E23EE91D1003E6D87 /* SignUpViewController.swift */,
@@ -609,9 +609,9 @@
 				BA5DE70A2415D2E8002C98E6 /* plus.svg in Resources */,
 				BA5DE70E241888FE002C98E6 /* chevron-down.svg in Resources */,
 				BAEE4ACC2426E122005C2023 /* arrow-down.svg in Resources */,
-				5679533623D97EDD0077BA08 /* GoogleService-Info.plist in Resources */,
 				BA54CD792436D52700A944BC /* flag.svg in Resources */,
 				5679530723D806C00077BA08 /* Assets.xcassets in Resources */,
+				BA584C74243796B900417DC5 /* GoogleService-Info.plist in Resources */,
 				5681771823FDCE7500CA7AB5 /* DetailedPostCell.xib in Resources */,
 				5659D9D823FD02980043FA6A /* AnswerPostCell.xib in Resources */,
 				5679530523D806BE0077BA08 /* Main.storyboard in Resources */,
@@ -946,7 +946,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.spotcheck;
+				PRODUCT_BUNDLE_IDENTIFIER = app.spotcheckr;
 				PRODUCT_NAME = Spotcheckr;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -965,7 +965,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.spotcheck;
+				PRODUCT_BUNDLE_IDENTIFIER = app.spotcheckr;
 				PRODUCT_NAME = Spotcheckr;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
