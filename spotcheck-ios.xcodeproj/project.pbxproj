@@ -81,7 +81,7 @@
 		BA54CD7B2436D60C00A944BC /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA54CD7A2436D60C00A944BC /* ReportViewController.swift */; };
 		BA54CD7D2436F13000A944BC /* send.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA54CD7C2436F13000A944BC /* send.svg */; };
 		BA54CD7F2436F9E100A944BC /* CollectionConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA54CD7E2436F9E100A944BC /* CollectionConstants.swift */; };
-		BA584C74243796B900417DC5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BA584C73243796B900417DC5 /* GoogleService-Info.plist */; };
+		BA584C7824381D0C00417DC5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BA584C7724381D0C00417DC5 /* GoogleService-Info.plist */; };
 		BA59197623F92DBA00E8B900 /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA59197523F92DBA00E8B900 /* Services.swift */; };
 		BA5DE70A2415D2E8002C98E6 /* plus.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA5DE7092415D2E8002C98E6 /* plus.svg */; };
 		BA5DE70C241888F2002C98E6 /* chevron-up.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA5DE70B241888F2002C98E6 /* chevron-up.svg */; };
@@ -210,7 +210,7 @@
 		BA54CD7A2436D60C00A944BC /* ReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewController.swift; sourceTree = "<group>"; };
 		BA54CD7C2436F13000A944BC /* send.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = send.svg; sourceTree = "<group>"; };
 		BA54CD7E2436F9E100A944BC /* CollectionConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionConstants.swift; sourceTree = "<group>"; };
-		BA584C73243796B900417DC5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		BA584C7724381D0C00417DC5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BA59197523F92DBA00E8B900 /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
 		BA5DE7092415D2E8002C98E6 /* plus.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = plus.svg; sourceTree = "<group>"; };
 		BA5DE70B241888F2002C98E6 /* chevron-up.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "chevron-up.svg"; sourceTree = "<group>"; };
@@ -296,6 +296,7 @@
 		567952FC23D806BE0077BA08 /* spotcheck-ios */ = {
 			isa = PBXGroup;
 			children = (
+				BA584C7724381D0C00417DC5 /* GoogleService-Info.plist */,
 				BAA340FB23F39A7000C7392C /* Factories */,
 				BAA340F823F3931A00C7392C /* Extensions */,
 				BA4EE45023EECE5D003E6D87 /* Icons */,
@@ -313,7 +314,6 @@
 				5679533323D972F00077BA08 /* AuthOptionsViewController.swift */,
 				5679530623D806C00077BA08 /* Assets.xcassets */,
 				5679530823D806C00077BA08 /* LaunchScreen.storyboard */,
-				BA584C73243796B900417DC5 /* GoogleService-Info.plist */,
 				5679530B23D806C00077BA08 /* Info.plist */,
 				567E9A3123E93EA2004C1B2E /* Constants.swift */,
 				BA4EE44E23EE91D1003E6D87 /* SignUpViewController.swift */,
@@ -602,6 +602,7 @@
 				BA49A0192420875F00BB4BD8 /* more-horizontal.svg in Resources */,
 				BA74976D2429D6B100C1C17C /* edit-2.svg in Resources */,
 				BA54CD6D2435692400A944BC /* save.svg in Resources */,
+				BA584C7824381D0C00417DC5 /* GoogleService-Info.plist in Resources */,
 				BA49213723E6289B00A74A73 /* Roboto-Medium.ttf in Resources */,
 				5679530A23D806C00077BA08 /* LaunchScreen.storyboard in Resources */,
 				BA49213623E6289B00A74A73 /* Roboto-Regular.ttf in Resources */,
@@ -611,7 +612,6 @@
 				BAEE4ACC2426E122005C2023 /* arrow-down.svg in Resources */,
 				BA54CD792436D52700A944BC /* flag.svg in Resources */,
 				5679530723D806C00077BA08 /* Assets.xcassets in Resources */,
-				BA584C74243796B900417DC5 /* GoogleService-Info.plist in Resources */,
 				5681771823FDCE7500CA7AB5 /* DetailedPostCell.xib in Resources */,
 				5659D9D823FD02980043FA6A /* AnswerPostCell.xib in Resources */,
 				5679530523D806BE0077BA08 /* Main.storyboard in Resources */,
