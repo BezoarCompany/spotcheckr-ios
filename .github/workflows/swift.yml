@@ -9,11 +9,9 @@ on:
 jobs:
   build:
 
-    runs-on: macos-latest
+    runs-on: [self-hosted, macos]
 
     steps:
     - uses: actions/checkout@v2
     - name: Build
-      run: swift build -v
-    - name: Run tests
-      run: swift test -v
+      run: xcodebuild -scheme spotcheck-ios -workspace spotcheck-ios.xcworkspace
