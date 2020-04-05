@@ -296,7 +296,6 @@
 		567952FC23D806BE0077BA08 /* spotcheck-ios */ = {
 			isa = PBXGroup;
 			children = (
-				BA584C7724381D0C00417DC5 /* GoogleService-Info.plist */,
 				BAA340FB23F39A7000C7392C /* Factories */,
 				BAA340F823F3931A00C7392C /* Extensions */,
 				BA4EE45023EECE5D003E6D87 /* Icons */,
@@ -304,25 +303,13 @@
 				567E9A3323E93F15004C1B2E /* Views */,
 				BA49212C23E6285600A74A73 /* Fonts */,
 				56B79E3623E2AFA700568685 /* Models */,
+				BABAA3E02439D81500FF5C33 /* Controllers */,
 				567952FD23D806BE0077BA08 /* AppDelegate.swift */,
-				5679533923D988910077BA08 /* ProfileViewController.swift */,
-				5679533723D980E40077BA08 /* FeedViewController.swift */,
-				5645AFE723F51C0700B64D0B /* CreatePostViewController.swift */,
-				5686D2E124051C0300E09868 /* CreatePostViewController+helpers.swift */,
-				569794D023F11DBC00994B71 /* PostDetailViewController.swift */,
-				564FA33723FFBF81006017FB /* CreateAnswerViewController.swift */,
-				5679533323D972F00077BA08 /* AuthOptionsViewController.swift */,
+				567E9A3123E93EA2004C1B2E /* Constants.swift */,
 				5679530623D806C00077BA08 /* Assets.xcassets */,
 				5679530823D806C00077BA08 /* LaunchScreen.storyboard */,
 				5679530B23D806C00077BA08 /* Info.plist */,
-				567E9A3123E93EA2004C1B2E /* Constants.swift */,
-				BA4EE44E23EE91D1003E6D87 /* SignUpViewController.swift */,
-				BA4EE45923EF1408003E6D87 /* ForgotPasswordViewController.swift */,
-				BA4EE45B23EF6814003E6D87 /* PasswordResetConfirmationViewController.swift */,
-				BA4EDA4024025F0D00206267 /* EditProfileViewController.swift */,
-				BA49A016241F488500BB4BD8 /* TabBarController.swift */,
-				BA749770242ACEF100C1C17C /* SettingsViewController.swift */,
-				BA54CD7A2436D60C00A944BC /* ReportViewController.swift */,
+				BA584C7724381D0C00417DC5 /* GoogleService-Info.plist */,
 			);
 			path = "spotcheck-ios";
 			sourceTree = "<group>";
@@ -478,6 +465,59 @@
 				BAEE4ACD24274D49005C2023 /* Colors.swift */,
 			);
 			path = Factories;
+			sourceTree = "<group>";
+		};
+		BABAA3E02439D81500FF5C33 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				BABAA3E12439D85000FF5C33 /* Authentication */,
+				BABAA3E42439D8F300FF5C33 /* Posts */,
+				BABAA3E32439D8B600FF5C33 /* Profile */,
+				BABAA3E22439D88300FF5C33 /* Settings */,
+				BA49A016241F488500BB4BD8 /* TabBarController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		BABAA3E12439D85000FF5C33 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				5679533323D972F00077BA08 /* AuthOptionsViewController.swift */,
+				BA4EE44E23EE91D1003E6D87 /* SignUpViewController.swift */,
+				BA4EE45B23EF6814003E6D87 /* PasswordResetConfirmationViewController.swift */,
+				BA4EE45923EF1408003E6D87 /* ForgotPasswordViewController.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		BABAA3E22439D88300FF5C33 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				BA749770242ACEF100C1C17C /* SettingsViewController.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		BABAA3E32439D8B600FF5C33 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				5679533923D988910077BA08 /* ProfileViewController.swift */,
+				BA4EDA4024025F0D00206267 /* EditProfileViewController.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		BABAA3E42439D8F300FF5C33 /* Posts */ = {
+			isa = PBXGroup;
+			children = (
+				5679533723D980E40077BA08 /* FeedViewController.swift */,
+				BA54CD7A2436D60C00A944BC /* ReportViewController.swift */,
+				569794D023F11DBC00994B71 /* PostDetailViewController.swift */,
+				5645AFE723F51C0700B64D0B /* CreatePostViewController.swift */,
+				5686D2E124051C0300E09868 /* CreatePostViewController+helpers.swift */,
+				564FA33723FFBF81006017FB /* CreateAnswerViewController.swift */,
+			);
+			path = Posts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
