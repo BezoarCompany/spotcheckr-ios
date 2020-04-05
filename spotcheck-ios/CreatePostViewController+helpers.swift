@@ -251,6 +251,7 @@ extension CreatePostViewController {
                 updatePostDetailView(copyPost)
             }
             self.dismiss(animated: true) {
+                print("updatePostWorkflow: inside dismssed")
                 self.snackbarMessage.text = "Post Updated."
                 MDCSnackbarManager.show(self.snackbarMessage)
             }
@@ -267,7 +268,9 @@ extension CreatePostViewController {
         //queue up parallel execution of storage delete old image, storage-upload-new image, and firestore-update post
         var exercises = [Exercise]()
         if (self.selectedExercise != nil ) {
-            exercises.append(self.selectedExercise!)
+            // TODO: till we have tagging system
+            print("selected-exercise: \(self.selectedExercise)")
+//            exercises.append(self.selectedExercise!)
         }
         var exercisePost = ExercisePost(title: subjectTextField.text!,
                                        description: bodyTextField.text!,
@@ -290,11 +293,12 @@ extension CreatePostViewController {
         firstly {
             when(fulfilled: uploadImagePromise, Services.exercisePostService.createPost(post: exercisePost))
         }.done { voidResult, newPost in
-            
+            print("success creating post")
             if let updateTableView = self.diffedPostsDataClosure {
                 updateTableView(.add, newPost)
             }
             self.dismiss(animated: true) {
+                print("submitPostWorkflow: inside dismissed")
                 self.snackbarMessage.text = "Post created."
                 let action = MDCSnackbarMessageAction()
                 action.handler = {() in
@@ -306,7 +310,7 @@ extension CreatePostViewController {
             }
         }.catch { err in
             //TODO: Show snackbar error message.
-            print("error executing updatePostWorflow promises!")
+            print("error executing submitPostWorflow promises!")
             print(err)
         }.finally {
             self.activityIndicator.stopAnimating()
