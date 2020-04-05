@@ -130,8 +130,15 @@ class PostDetailViewController : UIViewController {
                     self.navigationController?.popViewController(animated: true)
                 }.catch { err in
                     self.activityIndicator.stopAnimating()
-                    print("ERROR deleting post(\(self.post?.id))")
+                    let postId = self.post?.id ?? ""
+                    print(err)
+                    let msg = "ERROR deleting post \(postId)"
                     
+                    let snackbarMessage = MDCSnackbarMessage()
+                    snackbarMessage.text = msg
+                    print(msg)
+                    self.navigationController?.popViewController(animated: true)
+                    MDCSnackbarManager.show(snackbarMessage)
                 }
             })
             deleteOption.setValue(UIColor.systemRed, forKey: "titleTextColor")
