@@ -138,7 +138,7 @@ class UserService: UserProtocol {
             
             let userId = Auth.auth().currentUser?.uid
             
-            if let user = cache[userId!] {
+            if let userId = userId, let user = cache[userId] {
                 return promise.fulfill(user)
             }
             firstly {
