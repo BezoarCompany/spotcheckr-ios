@@ -1,0 +1,19 @@
+name: Swift
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: [self-hosted, macos]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install Dependencies
+      run: pod install
+    - name: Build
+      run: xcodebuild -scheme spotcheck-ios -workspace spotcheck-ios.xcworkspace
