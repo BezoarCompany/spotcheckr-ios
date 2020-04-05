@@ -81,20 +81,22 @@ class PostDetailViewController : UIViewController {
         firstly {
             Services.exercisePostService.getPost(withId: postId!)
         }.done { post in
+            
+            //access control for the modify menu
+            firstly {
+                Services.userService.getCurrentUser()
+            }.done { user in
+                if let postUserId = post.createdBy?.id, postUserId == user.id{
+                    self.appBarViewController.navigationBar.trailingBarButtonItem = UIBarButtonItem(image: Images.edit, style: .plain, target: self, action: #selector(self.modifyPost))
+                }
+            }
+            
             self.post = post
             self.appBarViewController.navigationBar.title = "\(self.post?.answers.count ?? 0) Answers"
             self.appBarViewController.navigationBar.leadingBarButtonItem = UIBarButtonItem(image: Images.back, style: .done, target: self, action: #selector(self.backOnClick(sender:)))
             self.tableView.reloadData()
         }
         
-        //access control for the modify menu
-        firstly {
-            Services.userService.getCurrentUser()
-        }.done { user in
-            if let postUserId = self.post?.createdBy?.id, postUserId == user.id{
-                self.appBarViewController.navigationBar.trailingBarButtonItem = UIBarButtonItem(image: Images.edit, style: .plain, target: self, action: #selector(self.modifyPost))
-            }
-        }
     }
     
     @objc func backOnClick(sender: Any) {
