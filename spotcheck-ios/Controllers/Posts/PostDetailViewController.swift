@@ -79,13 +79,14 @@ class PostDetailViewController : UIViewController {
         applyConstraints()
         
         firstly {
+
             when(fulfilled: Services.exercisePostService.getPost(withId: postId!), Services.userService.getCurrentUser())
         }.done { post, user in
             self.post = post
             self.appBarViewController.navigationBar.title = "\(self.post?.answers.count ?? 0) Answers"
             self.appBarViewController.navigationBar.leadingBarButtonItem = UIBarButtonItem(image: Images.back, style: .done, target: self, action: #selector(self.backOnClick(sender:)))
             if let postUserId = self.post?.createdBy?.id, postUserId == user.id {
-                self.appBarViewController.navigationBar.trailingBarButtonItem = UIBarButtonItem(image: Images.moreHorizontal, style: .plain, target: self, action: #selector(self.modifyPost))
+                self.appBarViewController.navigationBar.trailingBarButtonItem = UIBarButtonItem(image: Images.moreVertical, style: .plain, target: self, action: #selector(self.modifyPost))
             }
             self.tableView.reloadData()
         }
@@ -125,6 +126,17 @@ class PostDetailViewController : UIViewController {
                     self.navigationController?.popViewController(animated: true)
                 }.catch { err in
                     self.activityIndicator.stopAnimating()
+
+                    let postId = self.post?.id ?? ""
+                    print(err)
+                    let msg = "ERROR deleting post \(postId)"
+                    
+                    let snackbarMessage = MDCSnackbarMessage()
+                    snackbarMessage.text = msg
+                    print(msg)
+                    self.navigationController?.popViewController(animated: true)
+                    MDCSnackbarManager.show(snackbarMessage)
+
                 }
             })
             

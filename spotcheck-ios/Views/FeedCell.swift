@@ -249,7 +249,7 @@ class FeedCell: MDCCardCollectionCell {
     let overflowMenu: MDCFlatButton = {
         let button = MDCFlatButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(Images.moreHorizontal, for: .normal)
+        button.setImage(UIImage(systemName: "flag"), for: .normal)
         button.tintColor = ApplicationScheme.instance.containerScheme.colorScheme.onSurfaceColor
         return button
     }()

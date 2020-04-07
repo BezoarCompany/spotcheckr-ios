@@ -128,6 +128,7 @@
 /* Begin PBXFileReference section */
 		1BAF183FCC50189FBD943ED6 /* Pods_spotcheck_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_spotcheck_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5607DA0D2426221000B283D2 /* PromiseKit+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PromiseKit+extensions.swift"; sourceTree = "<group>"; };
+		561648A0243A6641003DB6CA /* Spotcheckr.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Spotcheckr.entitlements; sourceTree = "<group>"; };
 		5644F61C2406435C00A103EF /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		5644F61E2406459B00A103EF /* StorageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageProtocol.swift; sourceTree = "<group>"; };
 		5645AFE723F51C0700B64D0B /* CreatePostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostViewController.swift; sourceTree = "<group>"; };
@@ -296,6 +297,7 @@
 		567952FC23D806BE0077BA08 /* spotcheck-ios */ = {
 			isa = PBXGroup;
 			children = (
+				561648A0243A6641003DB6CA /* Spotcheckr.entitlements */,
 				BAA340FB23F39A7000C7392C /* Factories */,
 				BAA340F823F3931A00C7392C /* Extensions */,
 				BA4EE45023EECE5D003E6D87 /* Icons */,
@@ -997,8 +999,11 @@
 			baseConfigurationReference = B5E373BCDADE2E7A555D2190 /* Pods-spotcheck-ios.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "spotcheck-ios/Spotcheckr.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4V8V3L4FYS;
+				CURRENT_PROJECT_VERSION = 3;
+				DEVELOPMENT_TEAM = 8U9GL9JNNQ;
 				INFOPLIST_FILE = "spotcheck-ios/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1006,6 +1011,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = app.spotcheckr;
 				PRODUCT_NAME = Spotcheckr;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1016,8 +1022,11 @@
 			baseConfigurationReference = 9B3F6A3B5A83E7CE38E189A3 /* Pods-spotcheck-ios.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "spotcheck-ios/Spotcheckr.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4V8V3L4FYS;
+				CURRENT_PROJECT_VERSION = 3;
+				DEVELOPMENT_TEAM = 8U9GL9JNNQ;
 				INFOPLIST_FILE = "spotcheck-ios/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1025,6 +1034,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = app.spotcheckr;
 				PRODUCT_NAME = Spotcheckr;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

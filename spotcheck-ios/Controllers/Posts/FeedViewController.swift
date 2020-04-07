@@ -338,6 +338,7 @@ private extension FeedViewController {
       var indexFound = -1
       for (i, val) in self.posts.enumerated() {
           if (val.id == exercisePost.id) {
+              print("i=\(i)")
               indexFound = i
           }
           
@@ -349,12 +350,15 @@ private extension FeedViewController {
           newPostsCopy.insert(exercisePost, at: 0)
       }
       else if (diffType == .edit) { //using Notification center to get the updated post. DiffTool isn't detecting changes b/c Old Post is same as New Posts, as if it were strongly refenced/changed.
-          
-        newPostsCopy[indexFound] = exercisePost
-        feedView.performBatchUpdates({
-            let idxPath = IndexPath(row: indexFound, section: 0)
-            self.feedView.reloadItems(at: [idxPath])
-        })
+        print("indexFound: \(indexFound)")
+        
+        if(indexFound >= 0) {
+            newPostsCopy[indexFound] = exercisePost
+            feedView.performBatchUpdates({
+                let idxPath = IndexPath(row: indexFound, section: 0)
+                self.feedView.reloadItems(at: [idxPath])
+            })
+        }        
         
       } else if (diffType == .delete) {
           newPostsCopy.remove(at: indexFound)
