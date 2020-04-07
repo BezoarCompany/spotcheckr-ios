@@ -29,6 +29,7 @@ target 'spotcheck-ios' do
   pod 'Firebase/Firestore'
   pod 'FirebaseFirestoreSwift'
   pod 'Firebase/Analytics'
+  pod 'Firebase/Crashlytics'
   
   # Material design dependencies
   pod 'MaterialComponents/TextFields'
