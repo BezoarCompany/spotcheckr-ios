@@ -533,6 +533,7 @@
 				567952F823D806BE0077BA08 /* Resources */,
 				79D62714D134489C2249ABD7 /* [CP] Embed Pods Frameworks */,
 				A96EF8782724C9320B7B0709 /* [CP] Copy Pods Resources */,
+				BABAA3E5243CCFFC00FF5C33 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -711,6 +712,23 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		BABAA3E5243CCFFC00FF5C33 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
 		};
 		EFDC925EFD384A46C613D372 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
