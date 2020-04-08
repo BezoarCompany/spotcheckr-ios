@@ -16,4 +16,4 @@ jobs:
     - name: Install Dependencies
       run: pod install
     - name: Build
-      run: xcodebuild -scheme spotcheck-ios -workspace spotcheck-ios.xcworkspace
+      run: xcodebuild -scheme spotcheck-ios -workspace spotcheck-ios.xcworkspace -allowProvisioningUpdates
