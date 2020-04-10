@@ -37,7 +37,6 @@ struct K {
     }
     
     struct Firestore {
-        static let posts = "posts"
         static let answers = "answers"
         
         struct Storage {
