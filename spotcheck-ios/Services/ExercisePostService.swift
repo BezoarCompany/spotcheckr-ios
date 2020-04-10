@@ -12,7 +12,7 @@ class ExercisePostService: ExercisePostProtocol {
                 if let post = cache[id] {
                     return promise.fulfill(post)
                 }
-                
+                print("postCollection: \(CollectionConstants.postsCollection) [\(id)]")
                 let docRef = Firestore.firestore().collection(CollectionConstants.postsCollection).document(id)
                 docRef.getDocument { doc, error in
                     guard error == nil, let doc = doc, doc.exists else {
@@ -163,7 +163,7 @@ class ExercisePostService: ExercisePostProtocol {
         return Promise { promise in
 
             let db = Firestore.firestore()
-            var query = db.collection(K.Firestore.posts).order(by: "modified-date", descending: true).limit(to: limit)
+            var query = db.collection(CollectionConstants.postsCollection).order(by: "modified-date", descending: true).limit(to: limit)
             
             if let lastPostSnapshot = lastPostSnapshot {
                 query = query.start(afterDocument: lastPostSnapshot)
@@ -310,8 +310,11 @@ class ExercisePostService: ExercisePostProtocol {
     
     func getViewsCount(forPostWithId postId: String) -> Promise<Int> {
         return Promise { promise in
-            //TODO: Pull from cache for a post
-            let viewsRef = Firestore.firestore().collection("\(CollectionConstants.postsCollection)/\(postId)/\(CollectionConstants.viewsCollection)")
+            //TODO: Pull from cache for a post\
+            //temp fix
+            return promise.fulfill(0)
+            /*
+            let viewsRef = Firestore.firestore().collection("\(CollectionConstants.postsCollection)/\(postId)/\(CollectionConstant.viewsCollection)")
             viewsRef.getDocuments { (viewsSnapshot, error) in
                 if let error = error {
                     return promise.reject(error)
@@ -319,6 +322,7 @@ class ExercisePostService: ExercisePostProtocol {
                 //TODO: Store in cache if necessary. When someone hits the detail view for a post we will add their entry to post views subcollection, pull the current value from the cache, increment the views in the cache and then store it back there too.
                 return promise.fulfill(viewsSnapshot!.documents.count)
             }
+             */
         }
     }
     
@@ -501,7 +505,7 @@ class ExercisePostService: ExercisePostProtocol {
             }
             
             let db = Firestore.firestore()
-            let docRef = db.collection(K.Firestore.posts).document(id)
+            let docRef = db.collection(CollectionConstants.postsCollection).document(id)
             
             docRef.setData(DomainToFirebaseMapper.mapExercisePost(post: newPost), merge:true) { err in
                 if let err = err {
