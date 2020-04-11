@@ -10,6 +10,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        #if DEVEL
+            print("########################## DEVELOPMENT ##########################")
+        #elseif STAGE
+            print("########################## STAGING ##########################")
+        #else
+            print("########################## PROD-Release ##########################")
+        #endif
+        
         styleNavigationBar()
         styleTabBar()
         configureServices()
