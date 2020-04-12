@@ -25,8 +25,8 @@ jobs:
     - name: Install Dependencies
       run: pod install
 
-    - name: Build for Development environment
-      if: !(github.event_name == 'pull_request' && ( contains( github.base_ref, 'master') || contains(github.base_ref, 'release')))
+    - name: Build for Development environment (all non-prod events)
+      if: github.event_name != 'pull_request' ||  !contains( github.base_ref, 'master')  && !contains(github.base_ref, 'release')
       run: xcodebuild build -scheme "spotcheck-ios (Development)" -workspace spotcheck-ios.xcworkspace -allowProvisioningUpdates    
 
     - name: Build for Staging environment
