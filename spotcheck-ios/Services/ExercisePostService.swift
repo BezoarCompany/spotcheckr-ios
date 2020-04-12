@@ -26,14 +26,12 @@ class ExercisePostService: ExercisePostProtocol {
                         var metricsPromises = [Promise<Int>]()
                         var exercisePromises = [Promise<[Exercise]>]()
                         var voteDirectionPromises = [Promise<VoteDirection>]()
-                        var answerPromises = [Promise<[Answer]>]() //TODO: More efficient such that a count of answers is directly on the exercisePost structure. Same with other metrics.
                         
                         metricsPromises.append(self.getUpvoteCount(forPostWithId: doc.documentID, collection: CollectionConstants.postsCollection))
                         metricsPromises.append(self.getDownvoteCount(forPostWithId: doc.documentID, collection: CollectionConstants.postsCollection))
                         metricsPromises.append(self.getViewsCount(forPostWithId: doc.documentID))
                         exercisePromises.append(self.getExercises(forPostWithId: doc.documentID))
                         voteDirectionPromises.append(self.getVoteDirection(id: doc.documentID, collection: CollectionConstants.postsCollection))
-                        answerPromises.append(self.getAnswers(forPostWithId: doc.documentID))
                         
                         firstly {
                             when(fulfilled: metricsPromises)
@@ -44,25 +42,20 @@ class ExercisePostService: ExercisePostProtocol {
                                 firstly {
                                     when(fulfilled: voteDirectionPromises)
                                 }.done { voteDirectionResults in
-                                    firstly {
-                                        when(fulfilled: answerPromises)
-                                    }.done { answerResults in
-                                        let metrics = Metrics(views: metricsResults[2],
-                                                             upvotes: metricsResults[0],
-                                                             downvotes: metricsResults[1],
-                                                             currentVoteDirection: voteDirectionResults[0])
+                                    let metrics = Metrics(views: metricsResults[2],
+                                                         upvotes: metricsResults[0],
+                                                         downvotes: metricsResults[1],
+                                                         currentVoteDirection: voteDirectionResults[0])
 
-                                        let postExercises = exercisesResults[0]
-                                        var exercisePost = FirebaseToDomainMapper.mapExercisePost(fromData: doc.data()!,
-                                                                               metrics: metrics,
-                                                                               exercises: postExercises,
-                                                                               answers: answerResults[0])
-                                        exercisePost.createdBy = user
-                                        //store in cache
-                                        self.cache[exercisePost.id] = exercisePost
-                                        
-                                        return promise.fulfill(exercisePost)
-                                    }
+                                    let postExercises = exercisesResults[0]
+                                    let exercisePost = FirebaseToDomainMapper.mapExercisePost(fromData: doc.data()!,
+                                                                           metrics: metrics,
+                                                                           exercises: postExercises)
+                                    exercisePost.createdBy = user
+                                    //store in cache
+                                    self.cache[exercisePost.id] = exercisePost
+                                    
+                                    return promise.fulfill(exercisePost)
                                 }
                             }
                         }
@@ -223,7 +216,6 @@ class ExercisePostService: ExercisePostProtocol {
                 var metricsPromises = [Promise<Int>]()
                 var exercisePromises = [Promise<[Exercise]>]()
                 var voteDirectionPromises = [Promise<VoteDirection>]()
-                var answerPromises = [Promise<[Answer]>]() //TODO: More efficient such that a count of answers is directly on the exercisePost structure. Same with other metrics.
                 
                 for document in postsSnapshot!.documents {
                     metricsPromises.append(self.getUpvoteCount(forPostWithId: document.documentID, collection: CollectionConstants.postsCollection))
@@ -231,7 +223,6 @@ class ExercisePostService: ExercisePostProtocol {
                     metricsPromises.append(self.getViewsCount(forPostWithId: document.documentID))
                     exercisePromises.append(self.getExercises(forPostWithId: document.documentID))
                     voteDirectionPromises.append(self.getVoteDirection(id: document.documentID, collection: CollectionConstants.postsCollection))
-                    answerPromises.append(self.getAnswers(forPostWithId: document.documentID))
                 }
                 
                 //TODO: Figure out how to execute different types of array of promises at the same time intead of chaining like this :/
@@ -244,35 +235,28 @@ class ExercisePostService: ExercisePostProtocol {
                         firstly {
                             when(fulfilled: voteDirectionPromises)
                         }.done{ voteDirectionResults in
-                            firstly {
-                                when(fulfilled: answerPromises)
-                            }.done { answerResults in
-                                var userPosts = [ExercisePost]()
-                                var metricsIndex = 0
-                                var exercisesIndex = 0
-                                var voteDirectionIndex = 0
-                                var answerIndex = 0
-                                for document in postsSnapshot!.documents {
-                                    let metrics = Metrics(views: metricsResults[metricsIndex + 2],
-                                                         upvotes: metricsResults[metricsIndex],
-                                                         downvotes: metricsResults[metricsIndex + 1],
-                                                         currentVoteDirection: voteDirectionResults[voteDirectionIndex])
-                                    
-                                    let postExercises = exercisesResults[exercisesIndex]
-                                    var exercisePost = FirebaseToDomainMapper.mapExercisePost(fromData: document.data(),
-                                                                           metrics: metrics,
-                                                                           exercises: postExercises,
-                                                                           answers: answerResults[answerIndex])
-                                    exercisePost.createdBy = user
-                                    userPosts.append(exercisePost)
-                                    metricsIndex += 3
-                                    exercisesIndex += 1
-                                    voteDirectionIndex += 1
-                                    answerIndex += 1
-                                }
-
-                                return promise.fulfill(userPosts)
+                            var userPosts = [ExercisePost]()
+                            var metricsIndex = 0
+                            var exercisesIndex = 0
+                            var voteDirectionIndex = 0
+                            for document in postsSnapshot!.documents {
+                                let metrics = Metrics(views: metricsResults[metricsIndex + 2],
+                                                     upvotes: metricsResults[metricsIndex],
+                                                     downvotes: metricsResults[metricsIndex + 1],
+                                                     currentVoteDirection: voteDirectionResults[voteDirectionIndex])
+                                
+                                let postExercises = exercisesResults[exercisesIndex]
+                                var exercisePost = FirebaseToDomainMapper.mapExercisePost(fromData: document.data(),
+                                                                       metrics: metrics,
+                                                                       exercises: postExercises)
+                                exercisePost.createdBy = user
+                                userPosts.append(exercisePost)
+                                metricsIndex += 3
+                                exercisesIndex += 1
+                                voteDirectionIndex += 1
                             }
+
+                            return promise.fulfill(userPosts)
                         }
                     }
                 }
@@ -452,25 +436,37 @@ class ExercisePostService: ExercisePostProtocol {
         }
     }
     
-    func writeAnswer(answer: Answer) -> Promise<Void> {
+    func createAnswer(answer: Answer) -> Promise<Void> {
         return Promise { promise in
-            let newAnswerRef = Firestore.firestore().collection(CollectionConstants.answerCollection).document()
-            var newAnswer = answer
-            newAnswer.id = newAnswerRef.documentID
-            newAnswerRef.setData(DomainToFirebaseMapper.mapAnswer(from: newAnswer), completion: { error in
+            let exercisePostRef = Firestore.firestore().document("/\(CollectionConstants.postsCollection)/\(answer.exercisePostId!)")
+            Firestore.firestore().runTransaction({ (transaction, errorPointer) -> Any? in
+                do {
+                    let exercisePostDoc = try transaction.getDocument(exercisePostRef).data()
+                    guard var exercisePost = exercisePostDoc else { return nil }
+                    
+                    exercisePost["answers-count"] = (exercisePost["answers-count"] as! Int) + 1
+                    transaction.setData(exercisePost, forDocument: exercisePostRef)
+                    let newAnswerRef = Firestore.firestore().collection(CollectionConstants.answerCollection).document()
+                    var newAnswer = answer
+                    newAnswer.id = newAnswerRef.documentID
+                    transaction.setData(DomainToFirebaseMapper.mapAnswer(from: newAnswer), forDocument: newAnswerRef)
+                } catch { error
+                    return promise.reject(error)
+                }
+                return nil
+            }) { (obj, error) in
                 if let error = error {
                     return promise.reject(error)
                 }
-                return promise.fulfill_()
-            })
-            
+                promise.fulfill_()
+            }
         }
     }
        
     func createPost(post: ExercisePost) -> Promise<ExercisePost> {
         return Promise { promise in
             let newDocRef = Firestore.firestore().collection(CollectionConstants.postsCollection).document()
-            var newPost = post
+            let newPost = post
             newPost.id = newDocRef.documentID
             
             newDocRef.setData(DomainToFirebaseMapper.mapExercisePost(post: newPost)) { error in

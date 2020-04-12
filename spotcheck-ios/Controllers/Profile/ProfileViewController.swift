@@ -235,7 +235,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             cell.votingUserId = self.currentUser?.id
             cell.postId = post.id
             cell.voteDirection = post.metrics.currentVoteDirection
-            cell.answersCountLabel.text = "\(post.answers.count)"
+            cell.answersCountLabel.text = "\(post.answersCount)"
             cell.upvoteOnTap = { (voteDirection: VoteDirection) in
                 Services.exercisePostService.votePost(postId: post.id, userId: self.currentUser!.id!, direction: voteDirection)
             }

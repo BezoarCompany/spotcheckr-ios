@@ -120,7 +120,7 @@ extension CreateAnswerViewController {
         
         return Promise { promise in
             firstly {
-                Services.exercisePostService.writeAnswer(answer: answer)
+                Services.exercisePostService.createAnswer(answer: answer)
             }.done {
                 return promise.fulfill(answer)
             }

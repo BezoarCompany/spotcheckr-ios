@@ -47,6 +47,7 @@ class PostDetailViewController : UIViewController {
         return button
     }()
     var currentUser: User?
+    var answers = [Answer]()
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -92,7 +93,7 @@ class PostDetailViewController : UIViewController {
             when(fulfilled: Services.exercisePostService.getPost(withId: postId!), Services.userService.getCurrentUser())
         }.done { post, user in
             self.post = post
-            self.appBarViewController.navigationBar.title = "\(self.post?.answers.count ?? 0) Answers"
+            self.appBarViewController.navigationBar.title = "\(self.post?.answersCount ?? 0) Answers"
             self.appBarViewController.navigationBar.leadingBarButtonItem = UIBarButtonItem(image: Images.back, style: .done, target: self, action: #selector(self.backOnClick(sender:)))
             self.currentUser = user
             if let postUserId = self.post?.createdBy?.id, postUserId == user.id {
@@ -274,7 +275,7 @@ extension PostDetailViewController {
     }
     
     func appendAnswerToPost(ans: Answer) {
-        post?.answers.append(ans)
+        //ost?.answers.append(ans)
         //tableView.reloadSections(IndexSet(integer: 1), with: UITableView.RowAnimation.none)//re-render only answers section
     }
 }

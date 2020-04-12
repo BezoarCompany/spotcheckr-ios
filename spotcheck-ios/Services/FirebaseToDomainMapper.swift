@@ -17,8 +17,7 @@ class FirebaseToDomainMapper {
     
     static func mapExercisePost(fromData data:[String: Any],
                                  metrics: Metrics,
-                                 exercises: [Exercise],
-                                 answers: [Answer] = [Answer]()) -> ExercisePost {
+                                 exercises: [Exercise]) -> ExercisePost {
         let post = ExercisePost()
         post.id = data.keys.contains("id") ? data["id"] as! String : ""
         post.title = data.keys.contains("title") ? data["title"] as! String : ""
@@ -28,7 +27,7 @@ class FirebaseToDomainMapper {
         post.imagePath = data.keys.contains("image-path") ? data["image-path"] as? String : nil
         post.metrics = metrics
         post.exercises = exercises
-        post.answers = answers
+        post.answersCount = data.keys.contains("answers-count") ? data["answers-count"] as! Int : 0
         return post
     }
     
