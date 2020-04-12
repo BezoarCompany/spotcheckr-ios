@@ -99,7 +99,7 @@ class FeedViewController: UIViewController {
         feedView.collectionViewLayout = layout
         feedView.delegate = self
         feedView.dataSource = self
-        feedView.register(FeedCell.self, forCellWithReuseIdentifier: FeedCell.cellId)
+        feedView.register(FeedCell.self, forCellWithReuseIdentifier: K.Storyboard.feedCellId)
         feedView.register(LoadingCell.self, forCellWithReuseIdentifier: LoadingCell.cellId)
         feedView.backgroundColor = ApplicationScheme.instance.containerScheme.colorScheme.backgroundColor
     }
@@ -196,7 +196,7 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
             return cell
         }
         let post = posts[indexPath.row]
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedCell.cellId,
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: K.Storyboard.feedCellId,
         for: indexPath) as! FeedCell
         cell.setShadowElevation(ShadowElevation(rawValue: 10), for: .normal)
         cell.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
@@ -380,7 +380,7 @@ private extension FeedViewController {
     }
     
     func viewPostHandler(exercisePost: ExercisePost)  {
-        let postDetailViewController = PostDetailViewController.create(postId: exercisePost.id, diffedPostsDataClosure: self.diffedPostsHandler  )
+        let postDetailViewController = PostDetailViewController.create(postId: exercisePost.id, diffedPostsDataClosure: self.diffedPostsHandler)
         self.navigationController?.pushViewController(postDetailViewController, animated: true)
     }
 }

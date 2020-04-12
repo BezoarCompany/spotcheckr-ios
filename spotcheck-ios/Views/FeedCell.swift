@@ -2,7 +2,6 @@ import MaterialComponents
 import PromiseKit
 
 class FeedCell: MDCCardCollectionCell {
-    static let cellId = "FeedCell"
     static let IMAGE_HEIGHT = 200
     
     lazy var widthConstraint: NSLayoutConstraint = {
@@ -10,8 +9,6 @@ class FeedCell: MDCCardCollectionCell {
         width.isActive = true
         return width
     }()    
-        
-    typealias UpdateVoteClosureType = ((_ post:ExercisePost) -> Void)
     
     var postId: String?
     var mediaHeightConstraint: NSLayoutConstraint?
