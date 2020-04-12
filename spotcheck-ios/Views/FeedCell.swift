@@ -16,12 +16,13 @@ class FeedCell: MDCCardCollectionCell {
     var postId: String?
     var votingUserId: String?
     var voteDirection: VoteDirection?
+    var upvoteOnTap: ((_ voteDirection: VoteDirection) -> Promise<Void>)?
+    var downvoteOnTap: ((_ voteDirection: VoteDirection) -> Promise<Void>)?
     let upvoteColor = Colors.upvote
     let downvoteColor = Colors.downvote
     let neutralColor: UIColor = Colors.neutralVote
     var mediaHeightConstraint: NSLayoutConstraint?
     var post: ExercisePost?
-    var updateVoteClosure: UpdateVoteClosureType?
     var overflowMenuTap: (() -> Void)? = nil
     
     override init(frame: CGRect) {
@@ -105,53 +106,37 @@ class FeedCell: MDCCardCollectionCell {
     }
     
     @objc func upvoteOnClick(_ sender: Any) {
-        if self.downvoteButton.tintColor == self.downvoteColor { // Going from downvote to upvote
+        if self.downvoteButton.tintColor == self.downvoteColor || self.upvoteButton.tintColor == self.neutralColor { // Going from downvote to upvote or upvoting for the first time
             self.voteDirection = .Up
         }
         else if self.upvoteButton.tintColor == self.upvoteColor { // Already upvoted, removing upvote
             self.voteDirection = .Neutral
         }
-        else if self.upvoteButton.tintColor == self.neutralColor { // Upvoting for the first time
-            self.voteDirection = .Up
-        }
         
-        if let post = self.post, let updateVoteClosure = self.updateVoteClosure {
-            post.metrics.currentVoteDirection = self.voteDirection!
-            updateVoteClosure(post)
-        }
+        self.renderVotingControls()
         
         firstly {
-            Services.exercisePostService.votePost(postId: postId!, userId: votingUserId!, direction: VoteDirection.Up)
+            self.upvoteOnTap!(self.voteDirection!)
         }.catch { error in
-            //Ignore errors for voting.
+            //Do nothing
         }
-
-        self.renderVotingControls()
     }
     
     @objc func downvoteOnClick(_ sender: Any) {
-        if self.upvoteButton.tintColor == self.upvoteColor { // Going from upvote to downvote
+        if self.upvoteButton.tintColor == self.upvoteColor || self.downvoteButton.tintColor == self.neutralColor { // Going from upvote to downvote or downvoting for the first time
             self.voteDirection = .Down
         }
         else if self.downvoteButton.tintColor == self.downvoteColor { // Already downvoted, removing downvote
             self.voteDirection = .Neutral
         }
-        else if self.downvoteButton.tintColor == self.neutralColor { // Downvoting for the first time
-            self.voteDirection = .Down
-        }
         
-        if let post = self.post, let updateVoteClosure = self.updateVoteClosure {            
-            post.metrics.currentVoteDirection = self.voteDirection!
-            updateVoteClosure(post)
-        }
+        self.renderVotingControls()
         
         firstly {
-            Services.exercisePostService.votePost(postId: postId!, userId: votingUserId!, direction: VoteDirection.Down)
+            self.downvoteOnTap!(self.voteDirection!)
         }.catch { error in
             //Ignore voting errors
         }
-        
-        self.renderVotingControls()
     }
     
     func renderVotingControls() {

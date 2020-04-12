@@ -202,6 +202,13 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
         cell.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
         cell.headerLabel.text = post.title
         cell.subHeadLabel.text = "\(post.dateCreated?.toDisplayFormat() ?? "") • \(post.answers.count) Answers"
+        cell.upvoteOnTap = { (voteDirection: VoteDirection) in
+            Services.exercisePostService.votePost(postId: post.id, userId: self.currentUser!.id!, direction: voteDirection)
+        }
+        cell.downvoteOnTap = { (voteDirection: VoteDirection) in
+            Services.exercisePostService.votePost(postId: post.id, userId: self.currentUser!.id!, direction: voteDirection)
+        }
+        
         //TODO: Add once profile picture edit is ready
 //        if let picturePath = post.createdBy?.profilePicturePath {
 //            // Set default image for placeholder
@@ -240,7 +247,6 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
         cell.post = post
         cell.votingUserId = currentUser?.id
         cell.voteDirection = post.metrics.currentVoteDirection
-        cell.updateVoteClosure = alterPostViaVotesHandler
         cell.renderVotingControls()
         cell.cornerRadius = 0
         cell.overflowMenuTap = {
@@ -376,11 +382,5 @@ private extension FeedViewController {
     func viewPostHandler(exercisePost: ExercisePost)  {
         let postDetailViewController = PostDetailViewController.create(postId: exercisePost.id, diffedPostsDataClosure: self.diffedPostsHandler  )
         self.navigationController?.pushViewController(postDetailViewController, animated: true)
-    }
-    
-    //Closure for cell to update the post's Vote w/in collectionView's self.posts.
-    //Rerendering the local data structure, rather than re-fetching from Datastore
-    func alterPostViaVotesHandler(post: ExercisePost) {
-        diffedPostsHandler(diffType: .edit, exercisePost: post)
     }
 }
