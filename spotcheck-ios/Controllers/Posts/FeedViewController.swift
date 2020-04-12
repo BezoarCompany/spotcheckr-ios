@@ -202,10 +202,10 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
         cell.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
         cell.headerLabel.text = post.title
         cell.subHeadLabel.text = "\(post.dateCreated?.toDisplayFormat() ?? "") • \(post.answers.count) Answers"
-        cell.upvoteOnTap = { (voteDirection: VoteDirection) in
+        cell.votingControls.upvoteOnTap = { (voteDirection: VoteDirection) in
             Services.exercisePostService.votePost(postId: post.id, userId: self.currentUser!.id!, direction: voteDirection)
         }
-        cell.downvoteOnTap = { (voteDirection: VoteDirection) in
+        cell.votingControls.downvoteOnTap = { (voteDirection: VoteDirection) in
             Services.exercisePostService.votePost(postId: post.id, userId: self.currentUser!.id!, direction: voteDirection)
         }
         
@@ -245,9 +245,9 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
         cell.supportingTextLabel.text = post.description
         cell.postId = post.id
         cell.post = post
-        cell.votingUserId = currentUser?.id
-        cell.voteDirection = post.metrics.currentVoteDirection
-        cell.renderVotingControls()
+        cell.votingControls.votingUserId = currentUser?.id
+        cell.votingControls.voteDirection = post.metrics.currentVoteDirection
+        cell.votingControls.renderVotingControls()
         cell.cornerRadius = 0
         cell.overflowMenuTap = {
             let actionSheet = UIElementFactory.getActionSheet()

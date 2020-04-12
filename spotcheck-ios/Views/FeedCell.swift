@@ -14,15 +14,13 @@ class FeedCell: MDCCardCollectionCell {
     typealias UpdateVoteClosureType = ((_ post:ExercisePost) -> Void)
     
     var postId: String?
-    var votingUserId: String?
-    var voteDirection: VoteDirection?
-    var upvoteOnTap: ((_ voteDirection: VoteDirection) -> Promise<Void>)?
-    var downvoteOnTap: ((_ voteDirection: VoteDirection) -> Promise<Void>)?
-    let upvoteColor = Colors.upvote
-    let downvoteColor = Colors.downvote
-    let neutralColor: UIColor = Colors.neutralVote
     var mediaHeightConstraint: NSLayoutConstraint?
     var post: ExercisePost?
+    var votingControls: VotingControls = {
+        let controls = VotingControls()
+        controls.translatesAutoresizingMaskIntoConstraints = false
+        return controls
+    }()
     var overflowMenuTap: (() -> Void)? = nil
     
     override init(frame: CGRect) {
@@ -57,8 +55,7 @@ class FeedCell: MDCCardCollectionCell {
         contentView.addSubview(subHeadLabel)
         contentView.addSubview(media)
         contentView.addSubview(supportingTextLabel)
-        contentView.addSubview(upvoteButton)
-        contentView.addSubview(downvoteButton)
+        contentView.addSubview(votingControls)
         contentView.addSubview(overflowMenu)
     }
     
@@ -86,74 +83,18 @@ class FeedCell: MDCCardCollectionCell {
         supportingTextLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
         supportingTextLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
         
-        upvoteButton.topAnchor.constraint(equalTo: supportingTextLabel.bottomAnchor, constant: 24),
-        upvoteButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 4),
-        
-        downvoteButton.topAnchor.constraint(equalTo: supportingTextLabel.bottomAnchor, constant: 24),
-        downvoteButton.leadingAnchor.constraint(equalTo: upvoteButton.trailingAnchor, constant: 8),
+        votingControls.topAnchor.constraint(equalTo: supportingTextLabel.bottomAnchor, constant: 24),
+        contentView.bottomAnchor.constraint(equalTo: votingControls.bottomAnchor, constant: 16),
         
         overflowMenu.topAnchor.constraint(equalTo: supportingTextLabel.bottomAnchor, constant: 24),
         contentView.trailingAnchor.constraint(equalTo: overflowMenu.trailingAnchor, constant: 8),
-        
-        contentView.bottomAnchor.constraint(equalTo: upvoteButton.bottomAnchor, constant: 16)
+        contentView.bottomAnchor.constraint(equalTo: overflowMenu.bottomAnchor, constant: 16)
         ])
     }
     
     func initControls() {
-        upvoteButton.addTarget(self, action: #selector(upvoteOnClick(_:)), for: .touchUpInside)
-        downvoteButton.addTarget(self, action: #selector(downvoteOnClick(_:)), for: .touchUpInside)
         overflowMenu.addTarget(self, action: #selector(overflowMenuOnTapped(_:)), for: .touchUpInside)
     }
-    
-    @objc func upvoteOnClick(_ sender: Any) {
-        if self.downvoteButton.tintColor == self.downvoteColor || self.upvoteButton.tintColor == self.neutralColor { // Going from downvote to upvote or upvoting for the first time
-            self.voteDirection = .Up
-        }
-        else if self.upvoteButton.tintColor == self.upvoteColor { // Already upvoted, removing upvote
-            self.voteDirection = .Neutral
-        }
-        
-        self.renderVotingControls()
-        
-        firstly {
-            self.upvoteOnTap!(self.voteDirection!)
-        }.catch { error in
-            //Do nothing
-        }
-    }
-    
-    @objc func downvoteOnClick(_ sender: Any) {
-        if self.upvoteButton.tintColor == self.upvoteColor || self.downvoteButton.tintColor == self.neutralColor { // Going from upvote to downvote or downvoting for the first time
-            self.voteDirection = .Down
-        }
-        else if self.downvoteButton.tintColor == self.downvoteColor { // Already downvoted, removing downvote
-            self.voteDirection = .Neutral
-        }
-        
-        self.renderVotingControls()
-        
-        firstly {
-            self.downvoteOnTap!(self.voteDirection!)
-        }.catch { error in
-            //Ignore voting errors
-        }
-    }
-    
-    func renderVotingControls() {
-        switch self.voteDirection {
-        case .Up:
-            self.upvoteButton.tintColor = self.upvoteColor
-            self.downvoteButton.tintColor = self.neutralColor
-        case .Down:
-            self.downvoteButton.tintColor = self.downvoteColor
-            self.upvoteButton.tintColor = self.neutralColor
-        default:
-            self.upvoteButton.tintColor = self.neutralColor
-            self.downvoteButton.tintColor = self.neutralColor
-            break
-        }
-    }
-    
     
     func setConstraintsWithMedia() {
         mediaHeightConstraint!.constant = CGFloat(FeedCell.IMAGE_HEIGHT)
@@ -215,20 +156,6 @@ class FeedCell: MDCCardCollectionCell {
         label.numberOfLines = 3
         label.lineBreakMode = .byWordWrapping
         return label
-    }()
-    
-    let upvoteButton: MDCFlatButton = {
-        let button = MDCFlatButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(Images.arrowUp, for: .normal)
-        return button
-    }()
-    
-    let downvoteButton: MDCFlatButton = {
-        let button = MDCFlatButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(Images.arrowDown, for: .normal)
-        return button
     }()
     
     let overflowMenu: MDCFlatButton = {

@@ -99,6 +99,7 @@
 		BAA340FA23F3932900C7392C /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA340F923F3932900C7392C /* DateExtensions.swift */; };
 		BAA340FF23F39AA500C7392C /* FakeDataFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA340FE23F39AA500C7392C /* FakeDataFactory.swift */; };
 		BABAA3E72443337400FF5C33 /* x.svg in Resources */ = {isa = PBXBuildFile; fileRef = BABAA3E62443337300FF5C33 /* x.svg */; };
+		BABAA3EA2443454D00FF5C33 /* VotingControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABAA3E92443454D00FF5C33 /* VotingControls.swift */; };
 		BACCABEA241E162100BEC89E /* UIElementFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACCABE9241E162100BEC89E /* UIElementFactory.swift */; };
 		BAEE4AC624263579005C2023 /* reply.svg in Resources */ = {isa = PBXBuildFile; fileRef = BAEE4AC524263579005C2023 /* reply.svg */; };
 		BAEE4AC82426D133005C2023 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEE4AC72426D133005C2023 /* FeedCell.swift */; };
@@ -237,6 +238,7 @@
 		BAA340F923F3932900C7392C /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		BAA340FE23F39AA500C7392C /* FakeDataFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeDataFactory.swift; sourceTree = "<group>"; };
 		BABAA3E62443337300FF5C33 /* x.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = x.svg; sourceTree = "<group>"; };
+		BABAA3E92443454D00FF5C33 /* VotingControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VotingControls.swift; sourceTree = "<group>"; };
 		BACCABE9241E162100BEC89E /* UIElementFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIElementFactory.swift; sourceTree = "<group>"; };
 		BAEE4AC524263579005C2023 /* reply.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = reply.svg; sourceTree = "<group>"; };
 		BAEE4AC72426D133005C2023 /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
@@ -333,6 +335,7 @@
 				BA4EE45023EECE5D003E6D87 /* Icons */,
 				BA4EE42423E94A4E003E6D87 /* Services */,
 				567E9A3323E93F15004C1B2E /* Views */,
+				BABAA3E8244344B200FF5C33 /* Components */,
 				BA49212C23E6285600A74A73 /* Fonts */,
 				56B79E3623E2AFA700568685 /* Models */,
 				BABAA3E02439D81500FF5C33 /* Controllers */,
@@ -549,6 +552,14 @@
 				564FA33723FFBF81006017FB /* CreateAnswerViewController.swift */,
 			);
 			path = Posts;
+			sourceTree = "<group>";
+		};
+		BABAA3E8244344B200FF5C33 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				BABAA3E92443454D00FF5C33 /* VotingControls.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -837,6 +848,7 @@
 				5686D2E224051C0300E09868 /* CreatePostViewController+helpers.swift in Sources */,
 				BA54CD712436528300A944BC /* ReportingProtocol.swift in Sources */,
 				5653ABCF24161921001E9CF0 /* Cache.swift in Sources */,
+				BABAA3EA2443454D00FF5C33 /* VotingControls.swift in Sources */,
 				BA4EE45E23EFEC39003E6D87 /* UserProtocol.swift in Sources */,
 				BA828EFD241CE3E30012509D /* DomainToFirebaseMapper.swift in Sources */,
 				BA54CD7F2436F9E100A944BC /* CollectionConstants.swift in Sources */,
