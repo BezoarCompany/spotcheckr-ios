@@ -29,7 +29,6 @@ class ExercisePostService: ExercisePostProtocol {
                         
                         metricsPromises.append(self.getUpvoteCount(forPostWithId: doc.documentID, collection: CollectionConstants.postsCollection))
                         metricsPromises.append(self.getDownvoteCount(forPostWithId: doc.documentID, collection: CollectionConstants.postsCollection))
-                        metricsPromises.append(self.getViewsCount(forPostWithId: doc.documentID))
                         exercisePromises.append(self.getExercises(forPostWithId: doc.documentID))
                         voteDirectionPromises.append(self.getVoteDirection(id: doc.documentID, collection: CollectionConstants.postsCollection))
                         
@@ -220,7 +219,6 @@ class ExercisePostService: ExercisePostProtocol {
                 for document in postsSnapshot!.documents {
                     metricsPromises.append(self.getUpvoteCount(forPostWithId: document.documentID, collection: CollectionConstants.postsCollection))
                     metricsPromises.append(self.getDownvoteCount(forPostWithId: document.documentID, collection: CollectionConstants.postsCollection))
-                    metricsPromises.append(self.getViewsCount(forPostWithId: document.documentID))
                     exercisePromises.append(self.getExercises(forPostWithId: document.documentID))
                     voteDirectionPromises.append(self.getVoteDirection(id: document.documentID, collection: CollectionConstants.postsCollection))
                 }
@@ -289,24 +287,6 @@ class ExercisePostService: ExercisePostProtocol {
                 //TODO: Store in cache. When a post/answer is downvoted we will pull the item from the cache, increment it, and store it back.
                 return promise.fulfill(downvoteSnapshot!.documents.count)
             }
-        }
-    }
-    
-    func getViewsCount(forPostWithId postId: String) -> Promise<Int> {
-        return Promise { promise in
-            //TODO: Pull from cache for a post\
-            //temp fix
-            return promise.fulfill(0)
-            /*
-            let viewsRef = Firestore.firestore().collection("\(CollectionConstants.postsCollection)/\(postId)/\(CollectionConstant.viewsCollection)")
-            viewsRef.getDocuments { (viewsSnapshot, error) in
-                if let error = error {
-                    return promise.reject(error)
-                }
-                //TODO: Store in cache if necessary. When someone hits the detail view for a post we will add their entry to post views subcollection, pull the current value from the cache, increment the views in the cache and then store it back there too.
-                return promise.fulfill(viewsSnapshot!.documents.count)
-            }
-             */
         }
     }
     
