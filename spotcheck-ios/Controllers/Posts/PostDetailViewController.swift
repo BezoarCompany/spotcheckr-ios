@@ -7,14 +7,24 @@ import PromiseKit
 import MaterialComponents
 
 class PostDetailViewController : UIViewController {
+    let collectionView: UICollectionView = {
+        let view = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    var layout: UICollectionViewFlowLayout = {
+        let layout = UICollectionViewFlowLayout()
+        return layout
+    }()
+    let cellHeightEstimate = 185.0
+    let cellEstimatedSize: CGSize = {
+        let w = UIScreen.main.bounds.size.width
+        let h = CGFloat(185)
+        let size = CGSize(width: w, height: h)
+        return size
+    }()
     
-    @IBOutlet weak var postLabel: UILabel!
-    @IBOutlet weak var postAuthorLabel: UILabel!
-    @IBOutlet weak var descLabel: UILabel!
-    @IBOutlet weak var numAnswersLabel: UILabel!
-    var tableView: UITableView!
-    
-    @IBAction func addAnswerButton(_ sender: Any) {
+    @objc func addAnswerButton(_ sender: Any) {
         let createAnswerViewController = CreateAnswerViewController.create(post: post)
         createAnswerViewController.createAnswerClosure = appendAnswerToPost
         self.present(createAnswerViewController, animated: true)
@@ -27,7 +37,6 @@ class PostDetailViewController : UIViewController {
     var post: ExercisePost?
     var postId: String?
     
-
     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
     let appBarViewController = UIElementFactory.getAppBar()
     let answerReplyButton: MDCFloatingButton = {
@@ -37,6 +46,7 @@ class PostDetailViewController : UIViewController {
         button.setImage(Images.reply, for: .normal)
         return button
     }()
+    var currentUser: User?
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -48,9 +58,9 @@ class PostDetailViewController : UIViewController {
         self.post = argPost
         let idxPath = IndexPath(row: 0, section: 0)
         
-        self.tableView.beginUpdates()
-        self.tableView.reloadRows(at: [idxPath], with: .automatic)
-        self.tableView.endUpdates()
+//        self.tableView.beginUpdates()
+//        self.tableView.reloadRows(at: [idxPath], with: .automatic)
+//        self.tableView.endUpdates()
     }
     
     static func create(postId: String?, diffedPostsDataClosure: DiffedPostsDataUpdateClosureType? = nil) -> PostDetailViewController {
@@ -73,22 +83,22 @@ class PostDetailViewController : UIViewController {
         view.addSubview(appBarViewController.view)
         appBarViewController.didMove(toParent: self)
         
-        initDetail()
+        initCollectionView()
         initActivityIndicator()
         initReplyButton()
         applyConstraints()
         
         firstly {
-
             when(fulfilled: Services.exercisePostService.getPost(withId: postId!), Services.userService.getCurrentUser())
         }.done { post, user in
             self.post = post
             self.appBarViewController.navigationBar.title = "\(self.post?.answers.count ?? 0) Answers"
             self.appBarViewController.navigationBar.leadingBarButtonItem = UIBarButtonItem(image: Images.back, style: .done, target: self, action: #selector(self.backOnClick(sender:)))
+            self.currentUser = user
             if let postUserId = self.post?.createdBy?.id, postUserId == user.id {
                 self.appBarViewController.navigationBar.trailingBarButtonItem = UIBarButtonItem(image: Images.moreVertical, style: .plain, target: self, action: #selector(self.modifyPost))
             }
-            self.tableView.reloadData()
+            self.collectionView.reloadData()
         }
     }
     
@@ -155,37 +165,107 @@ class PostDetailViewController : UIViewController {
     }
 }
 
-extension PostDetailViewController {
-    
-    func initDetail() {
-        tableView = UITableView()
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.backgroundColor = ApplicationScheme.instance.containerScheme.colorScheme.backgroundColor
-        tableView.dataSource = self
-        tableView.register(UINib(nibName:K.Storyboard.detailedPostNibName , bundle: nil), forCellReuseIdentifier: K.Storyboard.detailedPostCellId)
-        tableView.register(UINib(nibName:K.Storyboard.answerNibName, bundle: nil), forCellReuseIdentifier: K.Storyboard.answerCellId)
-        tableView.addSubview(answerReplyButton)
-        tableView.separatorInset = UIEdgeInsets(top: -10,left: 0,bottom: 0,right: 0)
-        view.addSubview(tableView)
+extension PostDetailViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    enum CollectionViewSections: Int {
+        case PostInformation, Answers
     }
     
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        switch section {
+        case CollectionViewSections.PostInformation.rawValue:
+            return 1
+        default:
+            return 0
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if indexPath.row == 0 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: K.Storyboard.feedCellId,
+            for: indexPath) as! FeedCell
+            cell.setShadowElevation(ShadowElevation(rawValue: 10), for: .normal)
+            cell.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
+            cell.isInteractable = false
+            cell.headerLabel.text = post?.title
+            cell.headerLabel.numberOfLines = 0
+            cell.subHeadLabel.text = "\(post?.dateCreated?.toDisplayFormat() ?? "")"
+            cell.votingControls.upvoteOnTap = { (voteDirection: VoteDirection) in
+                Services.exercisePostService.votePost(postId: self.post!.id, userId: (self.currentUser?.id!)!, direction: voteDirection)
+            }
+            cell.votingControls.downvoteOnTap = { (voteDirection: VoteDirection) in
+                Services.exercisePostService.votePost(postId: self.post!.id, userId: (self.currentUser?.id!)!, direction: voteDirection)
+            }
+    
+            if post?.imagePath != nil {
+                // Set default image for placeholder
+                let placeholderImage = UIImage(named:"squatLogoPlaceholder")!
+                
+                // Get a reference to the storage service using the default Firebase App
+                let storage = Storage.storage()
+                let pathname = K.Firestore.Storage.IMAGES_ROOT_DIR + "/" + (post?.imagePath ?? "")
+                
+                // Create a reference with an initial file path and name
+                let storagePathReference = storage.reference(withPath: pathname)
+                
+                // Load the image using SDWebImage
+                cell.media.sd_setImage(with: storagePathReference, placeholderImage: placeholderImage)
+                
+                cell.setConstraintsWithMedia()
+            } else {
+                cell.setConstraintsWithNoMedia()
+            }
+            cell.supportingTextLabel.text = post?.description
+            cell.supportingTextLabel.numberOfLines = 0
+            cell.postId = post?.id
+            cell.post = post
+            cell.votingControls.votingUserId = currentUser?.id
+            cell.votingControls.voteDirection = post?.metrics.currentVoteDirection
+            cell.votingControls.renderVotingControls()
+            cell.cornerRadius = 0
+            cell.overflowMenuTap = {
+                let actionSheet = UIElementFactory.getActionSheet()
+                let reportAction = MDCActionSheetAction(title: "Report", image: Images.flag, handler: { (MDCActionSheetHandler) in
+                    let reportViewController = ReportViewController.create(postId: self.post?.id)
+                    self.present(reportViewController, animated: true)
+                })
+                actionSheet.addAction(reportAction)
+                self.present(actionSheet, animated: true)
+            }
+            return cell
+        }
+        
+        return UICollectionViewCell()
+    }
+    
+    func initCollectionView() {
+        view.addSubview(collectionView)
+        layout.estimatedItemSize = cellEstimatedSize
+        collectionView.collectionViewLayout = layout
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(FeedCell.self, forCellWithReuseIdentifier: K.Storyboard.feedCellId)
+        collectionView.backgroundColor = ApplicationScheme.instance.containerScheme.colorScheme.backgroundColor
+    }
+}
+extension PostDetailViewController {
     func initActivityIndicator() {
         activityIndicator.center = self.view.center
         activityIndicator.hidesWhenStopped = true
         activityIndicator.style = UIActivityIndicatorView.Style.whiteLarge
-        self.view.addSubview(activityIndicator)
+        collectionView.addSubview(activityIndicator)
     }
     
     func initReplyButton() {
         answerReplyButton.addTarget(self, action: #selector(addAnswerButton(_:)), for: .touchUpInside)
+        collectionView.addSubview(answerReplyButton)
     }
     
     func applyConstraints() {
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: appBarViewController.view.bottomAnchor),
-            tableView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: 0),
-            tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -55),
+            collectionView.topAnchor.constraint(equalTo: appBarViewController.view.bottomAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: 0),
+            collectionView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -55),
             answerReplyButton.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor , constant: -20),
             answerReplyButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -75),
             answerReplyButton.widthAnchor.constraint(equalToConstant: 64),
@@ -195,78 +275,6 @@ extension PostDetailViewController {
     
     func appendAnswerToPost(ans: Answer) {
         post?.answers.append(ans)
-        tableView.reloadSections(IndexSet(integer: 1), with: UITableView.RowAnimation.none)//re-render only answers section
-    }
-}
-
-enum SectionTypes: Int {
-    case post = 0
-    case answers = 1
-}
-
-extension PostDetailViewController: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        //[0]Post, [1]=Answers
-        return 2
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == SectionTypes.post.rawValue {
-            return 1
-        } else {
-            return post?.answers.count ?? 0
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        //The original question/post
-        if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: K.Storyboard.detailedPostCellId, for: indexPath)
-            as! DetailedPostCell
-            
-            cell.postTitleLabel.text = post?.title
-            cell.posterNameLabel.text = (post?.createdBy?.information?.name ?? "Anonymous")
-            cell.posterDetailLabel.text = "\(post?.dateCreated?.toDisplayFormat() ?? "")"
-            
-            cell.postBodyLabel.text = post?.description
-            
-            //this mocking logic if a post has an image attached
-            if let imagePath = post?.imagePath {
-                let placeholderImage = UIImage(named:"squatLogoPlaceholder")!
-                
-                let storage = Storage.storage()
-                let pathname = K.Firestore.Storage.IMAGES_ROOT_DIR + "/" + (imagePath)
-                
-                let storagePathReference = storage.reference(withPath: pathname)
-                cell.photoView.sd_setImage(with: storagePathReference, placeholderImage: placeholderImage)
-                cell.photoHeightConstraint.constant = CGFloat(FeedCell.IMAGE_HEIGHT)
-                cell.photoView.isHidden = false
-            } else {
-                cell.photoHeightConstraint.constant = 0 //CGFloat(FeedViewController.IMAGE_HEIGHT)
-                cell.photoView.isHidden = true
-            }
-            
-            return cell
-             
-        } else { //The answers
-            let cell = tableView.dequeueReusableCell(withIdentifier: K.Storyboard.answerCellId, for: indexPath)
-                as! AnswerPostCell
-                    
-            let answer = post?.answers[indexPath.row]
-            cell.answerBodyLabel.text = answer?.text
-            cell.answererNameLabel.text = answer?.createdBy?.information?.name
-            
-            //TODO: Profile upload. Adding placeholder b/c it looks to visually jarring and hard to distinguish the different answers without the profile pic cue
-            if let picturePath = post?.createdBy?.profilePicturePath {
-                let placeholderImage = UIImage(systemName: "person.crop.circle")!
-                let storage = Storage.storage()
-                let storagePathReference = storage.reference(withPath: picturePath)
-                cell.thumbnailImageView.sd_setImage(with: storagePathReference, placeholderImage: placeholderImage)
-            }
-            
-            return cell
-        }
-
+        //tableView.reloadSections(IndexSet(integer: 1), with: UITableView.RowAnimation.none)//re-render only answers section
     }
 }
