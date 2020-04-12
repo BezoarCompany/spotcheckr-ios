@@ -15,19 +15,30 @@ jobs:
     - name: Github Event
       run: echo "Event - ${{ github.event_name }}"
     - name: Branch name
-      run: echo "Branch - githubRef ${{ github.ref }} - baseRef ${{ github.head_ref }}"
+      run: echo "Branch - githubRef ${{ github.ref }}"
       
-    - name: Pull Request to master NEED TO TEST
-      if: github.event_name == 'pull_request' && contains(github.base_ref, 'master')
-      run: echo "Pull Request to ${{ github.base_ref }}(Master) from ${{ github.head_ref }}"
-
-    - name: Pull Request to develop branch
-      if: github.event_name == 'pull_request' && contains(github.base_ref, 'develop')
-      run: echo "Pull Request to ${{ github.base_ref }}(Master) from ${{ github.head_ref }}"
-
+    - name: Pull Request
+      if: github.event_name == 'pull_request'
+      run: echo "Pull Request to ${{ github.base_ref }} from ${{ github.head_ref }}"
 
     - uses: actions/checkout@v2
     - name: Install Dependencies
       run: pod install
-    - name: Build
-      run: xcodebuild build -scheme "spotcheck-ios (Staging)" -workspace spotcheck-ios.xcworkspace -allowProvisioningUpdates
+
+    - name: Build for Development environment
+      if: !(github.event_name == 'pull_request' && ( contains( github.base_ref, 'master') || contains(github.base_ref, 'release')))
+      run: xcodebuild build -scheme "spotcheck-ios (Development)" -workspace spotcheck-ios.xcworkspace -allowProvisioningUpdates    
+
+    - name: Build for Staging environment
+      if: github.event_name == 'pull_request' && contains( github.base_ref, 'master')    
+      run: xcodebuild build -scheme "spotcheck-ios (Staging)" -workspace spotcheck-ios.xcworkspace -allowProvisioningUpdates    
+
+    - name: Build for Production
+      if: github.event_name == 'pull_request' && contains( github.base_ref, 'release')
+      run: xcodebuild build -scheme "spotcheck-ios" -workspace spotcheck-ios.xcworkspace -allowProvisioningUpdates
+
+    - name: Send to Firebase App Testing
+      run: echo TODO this
+
+    - name: Send to App Store
+      run: echo TODO this
