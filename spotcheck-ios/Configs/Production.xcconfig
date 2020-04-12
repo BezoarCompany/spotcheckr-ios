@@ -1,0 +1,9 @@
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+#include "Pods/Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios.debug (production).xcconfig"
+#include "Pods/Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios.release (production).xcconfig"
+
+// App Settings
+APP_NAME = $(PRODUCT_NAME)
+APP_BUNDLE_ID = $(PRODUCT_BUNDLE_IDENTIFIER)

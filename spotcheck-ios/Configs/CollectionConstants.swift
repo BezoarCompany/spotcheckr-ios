@@ -3,7 +3,9 @@
 class CollectionConstants {
     static var postsCollection: String {
         get {
-            #if DEBUG
+            #if DEVEL
+                return "posts-test"
+            #elseif STAGE
                 return "posts-test"
             #else
                 return "posts"
@@ -12,8 +14,10 @@ class CollectionConstants {
     }
     static var votesCollection: String {
         get {
-            #if DEBUG
+            #if DEVEL
                 return "votes-test"
+            #elseif STAGE
+                return "posts-test"
             #else
                 return "votes"
             #endif
@@ -21,7 +25,9 @@ class CollectionConstants {
     }
     static var exerciseCollection: String {
         get {
-            #if DEBUG
+            #if DEVEL
+                return "exercises-test"
+            #elseif STAGE
                 return "exercises-test"
             #else
                 return "exercises"
@@ -30,7 +36,9 @@ class CollectionConstants {
     }
     static var answerCollection: String {
         get {
-            #if DEBUG
+            #if DEVEL
+                return "answers-test"
+            #elseif STAGE
                 return "answers-test"
             #else
                 return "answers"
@@ -39,7 +47,9 @@ class CollectionConstants {
     }
     static var reportTypesCollection: String {
         get {
-            #if DEBUG
+            #if DEVEL
+                return "report-types-test"
+            #elseif STAGE
                 return "report-types-test"
             #else
                 return "report-types"
@@ -48,7 +58,9 @@ class CollectionConstants {
     }
     static var reportsCollection: String {
         get {
-            #if DEBUG
+            #if DEVEL
+                return "reports-test"
+            #elseif STAGE
                 return "reports-test"
             #else
                 return "reports"
@@ -57,7 +69,9 @@ class CollectionConstants {
     }
     static var userCollection: String {
         get {
-            #if DEBUG
+            #if DEVEL
+                return "users-test"
+            #elseif STAGE
                 return "users-test"
             #else
                 return "users"
@@ -66,7 +80,9 @@ class CollectionConstants {
     }
     static var genderCollection: String {
         get {
-            #if DEBUG
+            #if DEVEL
+                return "genders-test"
+            #elseif STAGE
                 return "genders-test"
             #else
                 return "genders"
@@ -75,7 +91,9 @@ class CollectionConstants {
     }
     static var userTypeCollection: String {
         get {
-            #if DEBUG
+            #if DEVEL
+                return "user-test"
+            #elseif STAGE
                 return "user-test"
             #else
                 return "user"
@@ -84,7 +102,9 @@ class CollectionConstants {
     }
     static var certificationCollection: String {
         get {
-            #if DEBUG
+            #if DEVEL
+                return "certifications-test"
+            #elseif STAGE
                 return "certifications-test"
             #else
                 return "certifications"
@@ -93,7 +113,9 @@ class CollectionConstants {
     }
     static var salutationCollection: String {
        get {
-            #if DEBUG
+            #if DEVEL
+                return "salutations-test"
+            #elseif STAGE
                 return "salutations-test"
             #else
                 return "salutations"
