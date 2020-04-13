@@ -21,21 +21,40 @@ jobs:
       if: github.event_name == 'pull_request'
       run: echo "Pull Request to ${{ github.base_ref }} from ${{ github.head_ref }}"
 
+    - name: Clean all workspaces per scheme
+      run: |
+      	   xcodebuild clean -workspace spotcheck-ios.xcworkspace -scheme "spotcheck-ios (Development)"
+      	   xcodebuild clean -workspace spotcheck-ios.xcworkspace -scheme "spotcheck-ios (Staging)"
+      	   xcodebuild clean -workspace spotcheck-ios.xcworkspace -scheme "spotcheck-ios"	   
+
     - uses: actions/checkout@v2
     - name: Install Dependencies
       run: pod install
 
     - name: Build for Development environment (all non-prod events)
       if: github.event_name != 'pull_request' ||  !contains( github.base_ref, 'master')  && !contains(github.base_ref, 'release')
-      run: xcodebuild build -scheme "spotcheck-ios (Development)" -workspace spotcheck-ios.xcworkspace -allowProvisioningUpdates
+      run: >
+      	   xcodebuild build
+	   -scheme "spotcheck-ios (Development)"
+	   -workspace spotcheck-ios.xcworkspace
+	   -allowProvisioningUpdates
+
+    - name: Archive for Development environment (all non-prod events)
+      if: github.event_name != 'pull_request' ||  !contains( github.base_ref, 'master')  && !contains(github.base_ref, 'release')
+      run: >
+      	   xcodebuild archive
+	   -scheme "spotcheck-ios (Development)"
+	   -workspace spotcheck-ios.xcworkspace
+	   -allowProvisioningUpdates
+	   -archivePath $PWD/build/spotcheckr-ios.xcarchive
 
     - name: Build for Staging environment
       if: github.event_name == 'pull_request' && contains( github.base_ref, 'master')
-      run: xcodebuild build -scheme "spotcheck-ios (Staging)" -workspace spotcheck-ios.xcworkspace -allowProvisioningUpdates
+      run: xcodebuild build -scheme "spotcheck-ios (Staging)" -workspace spotcheck-ios.xcworkspace -allowProvisioningUpdates -destination "generic/platform=iOS"
 
     - name: Build for Production
       if: github.event_name == 'pull_request' && contains( github.base_ref, 'release')
-      run: xcodebuild build -scheme "spotcheck-ios" -workspace spotcheck-ios.xcworkspace -allowProvisioningUpdates
+      run: xcodebuild build -scheme "spotcheck-ios" -workspace spotcheck-ios.xcworkspace -allowProvisioningUpdates -destination "generic/platform=iOS"
 
     - name: Send to Firebase App Testing
       run: echo TODO this
