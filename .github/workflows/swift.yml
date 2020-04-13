@@ -47,12 +47,12 @@ jobs:
     - name: Archive for Development environment (all non-prod events)
       if: github.event_name != 'pull_request' ||  !contains( github.base_ref, 'master')  && !contains(github.base_ref, 'release')
       run: >
-      xcodebuild archive
-      -scheme "spotcheck-ios (Development)"
-      -workspace spotcheck-ios.xcworkspace
-      -allowProvisioningUpdates
-      -destination "generic/platform=iOS"
-      -archivePath ./build/spotcheckr-ios.xcarchive
+       xcodebuild archive
+       -scheme "spotcheck-ios (Development)"
+       -workspace spotcheck-ios.xcworkspace
+       -allowProvisioningUpdates
+       -destination "generic/platform=iOS"
+       -archivePath ./build/spotcheckr-ios.xcarchive
 
     - name: Build for Staging environment
       if: github.event_name == 'pull_request' && contains( github.base_ref, 'master')
