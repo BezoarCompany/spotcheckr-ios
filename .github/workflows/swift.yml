@@ -23,8 +23,9 @@ jobs:
 
     - name: Clean all workspaces per scheme
       run: |
-      	   xcodebuild clean -workspace spotcheck-ios.xcworkspace -scheme spotcheck-ios
-       	   xcodebuild clean -workspace spotcheck-ios.xcworkspace -scheme spotcheck-ios (Staging)   
+        xcodebuild clean -workspace spotcheck-ios.xcworkspace -scheme spotcheck-ios
+      	xcodebuild clean -workspace spotcheck-ios.xcworkspace -scheme spotcheck-ios (Staging)
+	xcodebuild clean -workspace spotcheck-ios.xcworkspace -scheme spotcheck-ios (Development)   
 
     - uses: actions/checkout@v2
     - name: Install Dependencies
