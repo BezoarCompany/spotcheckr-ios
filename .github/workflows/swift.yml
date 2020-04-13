@@ -23,9 +23,9 @@ jobs:
 
     - name: Clean all workspaces per scheme
       run: |
-      	   xcodebuild clean -workspace spotcheck-ios.xcworkspace -scheme "spotcheck-ios (Development)"
-      	   xcodebuild clean -workspace spotcheck-ios.xcworkspace -scheme "spotcheck-ios (Staging)"
-      	   xcodebuild clean -workspace spotcheck-ios.xcworkspace -scheme "spotcheck-ios"	   
+      	   xcodebuild clean -workspace spotcheck-ios.xcworkspace -scheme \"spotcheck-ios (Development)\"
+      	   xcodebuild clean -workspace spotcheck-ios.xcworkspace -scheme \"spotcheck-ios (Staging)\"
+      	   xcodebuild clean -workspace spotcheck-ios.xcworkspace -scheme \"spotcheck-ios\"	   
 
     - uses: actions/checkout@v2
     - name: Install Dependencies
@@ -47,7 +47,8 @@ jobs:
 	   -scheme "spotcheck-ios (Development)"
 	   -workspace spotcheck-ios.xcworkspace
 	   -allowProvisioningUpdates
-	   -archivePath $PWD/build/spotcheckr-ios.xcarchive
+	   -destination "generic/platform=iOS"
+	   -archivePath ./build/spotcheckr-ios.xcarchive
 
     - name: Build for Staging environment
       if: github.event_name == 'pull_request' && contains( github.base_ref, 'master')
