@@ -22,8 +22,7 @@ jobs:
       run: echo "Pull Request to ${{ github.base_ref }} from ${{ github.head_ref }}"
 
     - name: Clean all workspaces per scheme
-      run: |
-      	   xcodebuild clean -workspace spotcheck-ios.xcworkspace -scheme spotcheck-ios   
+      run: xcodebuild clean -workspace spotcheck-ios.xcworkspace -scheme spotcheck-ios   
 
     - uses: actions/checkout@v2
     - name: Install Dependencies
