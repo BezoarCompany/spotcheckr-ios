@@ -28,6 +28,7 @@ class FirebaseToDomainMapper {
         post.metrics = metrics
         post.exercises = exercises
         post.answersCount = data.keys.contains("answers-count") ? data["answers-count"] as! Int : 0
+        
         return post
     }
     

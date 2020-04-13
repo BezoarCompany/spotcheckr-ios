@@ -14,8 +14,6 @@ protocol ExercisePostProtocol {
     func getPost(withId id: String) -> Promise<ExercisePost>
     func getPosts(limit: Int, lastPostSnapshot: DocumentSnapshot?) -> Promise<PaginatedGetPostsResult>
     func getPosts(forUser user: User) -> Promise<[ExercisePost]>
-    func getUpvoteCount(forPostWithId postId: String, collection: String) -> Promise<Int>
-    func getDownvoteCount(forPostWithId postId: String, collection: String) -> Promise<Int>
     func getExercises(forPostWithId postId: String) -> Promise<[Exercise]>
     func getExercises() -> Promise<[String:Exercise]>
     func getAnswers(byUserWithId userId: String) -> Promise<[Answer]>

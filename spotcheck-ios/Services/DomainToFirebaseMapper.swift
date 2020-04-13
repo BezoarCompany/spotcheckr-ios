@@ -10,6 +10,8 @@ class DomainToFirebaseMapper {
         firebaseAnswer["modified-date"] = from.dateModified
         firebaseAnswer["text"] = from.text
         firebaseAnswer["exercise-post"] = from.exercisePostId
+        firebaseAnswer["upvote-count"] = from.metrics?.upvotes ?? 0
+        firebaseAnswer["downvote-count"] = from.metrics?.downvotes ?? 0
         return firebaseAnswer
     }
     
@@ -23,6 +25,9 @@ class DomainToFirebaseMapper {
         firebaseExercisePost["modified-date"] = post.dateModified
         firebaseExercisePost["image-path"] = post.imagePath
         firebaseExercisePost["answers-count"] = post.answersCount
+        firebaseExercisePost["upvote-count"] = post.metrics.upvotes
+        firebaseExercisePost["downvote-count"] = post.metrics.downvotes
+        
         return firebaseExercisePost
     }
     
