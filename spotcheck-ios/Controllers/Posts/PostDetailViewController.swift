@@ -100,6 +100,13 @@ class PostDetailViewController : UIViewController {
                 self.appBarViewController.navigationBar.trailingBarButtonItem = UIBarButtonItem(image: Images.moreVertical, style: .plain, target: self, action: #selector(self.modifyPost))
             }
             self.collectionView.reloadData()
+        }.then {
+            firstly {
+                Services.exercisePostService.getAnswers(forPostWithId: self.post!.id)
+            }.done { answers in
+                self.answers = answers
+                self.collectionView.reloadData()
+            }
         }
     }
     
@@ -171,17 +178,23 @@ extension PostDetailViewController: UICollectionViewDataSource, UICollectionView
         case PostInformation, Answers
     }
     
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 2
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
         case CollectionViewSections.PostInformation.rawValue:
             return 1
+        case CollectionViewSections.Answers.rawValue:
+            return answers.count
         default:
             return 0
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if indexPath.row == 0 {
+        if indexPath.section == CollectionViewSections.PostInformation.rawValue {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: K.Storyboard.feedCellId,
             for: indexPath) as! FeedCell
             cell.setShadowElevation(ShadowElevation(rawValue: 10), for: .normal)
@@ -235,7 +248,37 @@ extension PostDetailViewController: UICollectionViewDataSource, UICollectionView
             return cell
         }
         
-        return UICollectionViewCell()
+        let answer = answers[indexPath.row]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: K.Storyboard.answerCellId,
+                                                      for: indexPath) as! AnswerCell
+        cell.setShadowElevation(ShadowElevation(rawValue: 10), for: .normal)
+        cell.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
+        cell.isInteractable = false
+        cell.headerLabel.text = answer.createdBy?.information?.name
+        cell.headerLabel.numberOfLines = 0
+        cell.subHeadLabel.text = "\(answer.dateCreated?.toDisplayFormat() ?? "")"
+        cell.votingControls.upvoteOnTap = { (voteDirection: VoteDirection) in
+            Services.exercisePostService.voteAnswer(answerId: answer.id!, userId: (self.currentUser?.id!)!, direction: voteDirection)
+        }
+        cell.votingControls.downvoteOnTap = { (voteDirection: VoteDirection) in
+            Services.exercisePostService.voteAnswer(answerId: answer.id!, userId: (self.currentUser?.id!)!, direction: voteDirection)
+        }
+        cell.supportingTextLabel.text = answer.text
+        cell.supportingTextLabel.numberOfLines = 0
+        cell.votingControls.votingUserId = currentUser?.id
+        //cell.votingControls.voteDirection = answer.metrics?.currentVoteDirection
+        cell.votingControls.renderVotingControls()
+        cell.cornerRadius = 0
+        cell.overflowMenuTap = {
+            let actionSheet = UIElementFactory.getActionSheet()
+            let reportAction = MDCActionSheetAction(title: "Report", image: Images.flag, handler: { (MDCActionSheetHandler) in
+                let reportViewController = ReportViewController.create(postId: self.post?.id)
+                self.present(reportViewController, animated: true)
+            })
+            actionSheet.addAction(reportAction)
+            self.present(actionSheet, animated: true)
+        }
+        return cell
     }
     
     func initCollectionView() {
@@ -245,6 +288,7 @@ extension PostDetailViewController: UICollectionViewDataSource, UICollectionView
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(FeedCell.self, forCellWithReuseIdentifier: K.Storyboard.feedCellId)
+        collectionView.register(AnswerCell.self, forCellWithReuseIdentifier: K.Storyboard.answerCellId)
         collectionView.backgroundColor = ApplicationScheme.instance.containerScheme.colorScheme.backgroundColor
     }
 }
