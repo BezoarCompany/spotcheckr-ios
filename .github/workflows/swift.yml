@@ -21,13 +21,13 @@ jobs:
       if: github.event_name == 'pull_request'
       run: echo "Pull Request to ${{ github.base_ref }} from ${{ github.head_ref }}"
 
-    - name: Clean all Development Scheme
+    - name: Clean Development Scheme
       run: xcodebuild clean -workspace spotcheck-ios.xcworkspace -scheme "spotcheck-ios (Development)"
 
-    - name: Clean all Staging Scheme
+    - name: Clean Staging Scheme
       run: xcodebuild clean -workspace spotcheck-ios.xcworkspace -scheme "spotcheck-ios (Staging)"
 
-    - name: Clean all Prod Scheme
+    - name: Clean Prod Scheme
       run: xcodebuild clean -workspace spotcheck-ios.xcworkspace -scheme "spotcheck-ios"
 
 
@@ -44,7 +44,7 @@ jobs:
        -workspace spotcheck-ios.xcworkspace
        -allowProvisioningUpdates
 
-    - name: Archive for Development environment (all non-prod events)
+    - name: Archive for Development environment (all non-prod events) TODO WILL Use this For Staging and Production Schemes only
       if: github.event_name != 'pull_request' ||  !contains( github.base_ref, 'master')  && !contains(github.base_ref, 'release')
       run: >
        xcodebuild archive
@@ -52,7 +52,7 @@ jobs:
        -workspace spotcheck-ios.xcworkspace
        -allowProvisioningUpdates
        -destination "generic/platform=iOS"
-       -archivePath ./build/spotcheckr-ios.xcarchive
+       -archivePath ./Archives/spotcheckr-ios.xcarchive
 
     - name: Build for Staging environment
       if: github.event_name == 'pull_request' && contains( github.base_ref, 'master')
