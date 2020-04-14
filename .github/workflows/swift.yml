@@ -25,11 +25,14 @@ jobs:
       run: xcodebuild clean -workspace spotcheck-ios.xcworkspace -scheme "spotcheck-ios (Development)"
 
     - name: Clean Staging Scheme
-      run: xcodebuild clean -workspace spotcheck-ios.xcworkspace -scheme "spotcheck-ios (Staging)"
+      run: |
+      rm -rf ./Archives/
+      xcodebuild clean -workspace spotcheck-ios.xcworkspace -scheme "spotcheck-ios (Staging)"
 
     - name: Clean Prod Scheme
-      run: xcodebuild clean -workspace spotcheck-ios.xcworkspace -scheme "spotcheck-ios"
-
+      run: |
+       rm -rf ./Archives/
+       xcodebuild clean -workspace spotcheck-ios.xcworkspace -scheme "spotcheck-ios"
 
     - uses: actions/checkout@v2
     - name: Install Dependencies
