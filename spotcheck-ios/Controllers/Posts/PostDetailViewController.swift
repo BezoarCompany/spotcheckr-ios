@@ -96,9 +96,6 @@ class PostDetailViewController : UIViewController {
             self.appBarViewController.navigationBar.title = "\(self.post?.answersCount ?? 0) Answers"
             self.appBarViewController.navigationBar.leadingBarButtonItem = UIBarButtonItem(image: Images.back, style: .done, target: self, action: #selector(self.backOnClick(sender:)))
             self.currentUser = user
-            if let postUserId = self.post?.createdBy?.id, postUserId == user.id {
-                self.appBarViewController.navigationBar.trailingBarButtonItem = UIBarButtonItem(image: Images.moreVertical, style: .plain, target: self, action: #selector(self.modifyPost))
-            }
             self.collectionView.reloadData()
         }.then {
             firstly {
@@ -112,64 +109,6 @@ class PostDetailViewController : UIViewController {
     
     @objc func backOnClick(sender: Any) {
         self.navigationController?.popViewController(animated: true)
-    }
-    
-    @objc func modifyPost () {
-        let userActionSheet = UIElementFactory.getActionSheet()
-        userActionSheet.title = "Choose Action"
-        
-        let editAction = MDCActionSheetAction(title: "Edit", image: Images.edit, handler: { (MDCActionSheetAction) in
-            let createPostViewController = CreatePostViewController.create(updatePostMode: .edit, post: self.post, diffedPostsDataClosure: self.diffedPostsDataClosure,
-                                                                           updatePostDetailClosure: self.updatePostDetail )
-            
-            //TODO: Update PostDetail after edit, as well as in Feed TableView
-            self.present(createPostViewController, animated: true)
-        })
-        
-        let deleteAction = MDCActionSheetAction(title: "Delete", image: Images.trash) { (MDCActionSheetAction) in
-            let deleteAlertController = MDCAlertController(title: "Are you sure you want to delete this post?", message: "This will delete all included answers too.")
-            
-            let deleteAlertAction = MDCAlertAction(title: "Delete", emphasis: .high, handler: { (MDCAlertAction) in
-                self.activityIndicator.startAnimating()
-                
-                firstly {
-                    Services.exercisePostService.deletePost(self.post!)
-                }.done {
-                    self.activityIndicator.stopAnimating()
-                    
-                    if let updateTableView = self.diffedPostsDataClosure {
-                        updateTableView(.delete, self.post!)
-                    }
-                    
-                    self.navigationController?.popViewController(animated: true)
-                }.catch { err in
-                    self.activityIndicator.stopAnimating()
-
-                    let postId = self.post?.id ?? ""
-                    print(err)
-                    let msg = "ERROR deleting post \(postId)"
-                    
-                    let snackbarMessage = MDCSnackbarMessage()
-                    snackbarMessage.text = msg
-                    print(msg)
-                    self.navigationController?.popViewController(animated: true)
-                    MDCSnackbarManager.show(snackbarMessage)
-
-                }
-            })
-            
-            deleteAlertController.addAction(deleteAlertAction)
-            deleteAlertController.addAction(MDCAlertAction(title: "Cancel", emphasis:.high, handler: nil))
-            deleteAlertController.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
-            
-            self.present(deleteAlertController, animated: true, completion: nil)
-        }
-        
-        userActionSheet.addAction(editAction)
-        userActionSheet.addAction(deleteAction)
-        
-        self.present(userActionSheet, animated: true, completion: nil)
-    
     }
 }
 
@@ -242,9 +181,63 @@ extension PostDetailViewController: UICollectionViewDataSource, UICollectionView
                     let reportViewController = ReportViewController.create(postId: self.post?.id)
                     self.present(reportViewController, animated: true)
                 })
+                
+                let editAction = MDCActionSheetAction(title: "Edit", image: Images.edit, handler: { (MDCActionSheetAction) in
+                    let createPostViewController = CreatePostViewController.create(updatePostMode: .edit, post: self.post, diffedPostsDataClosure: self.diffedPostsDataClosure,
+                                                                                   updatePostDetailClosure: self.updatePostDetail )
+                    
+                    //TODO: Update PostDetail after edit, as well as in Feed TableView
+                    self.present(createPostViewController, animated: true)
+                })
+                
+                let deleteAction = MDCActionSheetAction(title: "Delete", image: Images.trash) { (MDCActionSheetAction) in
+                    let deleteAlertController = MDCAlertController(title: "Are you sure you want to delete this post?", message: "This will delete all included answers too.")
+                    
+                    let deleteAlertAction = MDCAlertAction(title: "Delete", emphasis: .high, handler: { (MDCAlertAction) in
+                        self.activityIndicator.startAnimating()
+                        
+                        firstly {
+                            Services.exercisePostService.deletePost(self.post!)
+                        }.done {
+                            self.activityIndicator.stopAnimating()
+                            
+                            if let updateTableView = self.diffedPostsDataClosure {
+                                updateTableView(.delete, self.post!)
+                            }
+                            
+                            self.navigationController?.popViewController(animated: true)
+                        }.catch { err in
+                            self.activityIndicator.stopAnimating()
+
+                            let postId = self.post?.id ?? ""
+                            print(err)
+                            let msg = "ERROR deleting post \(postId)"
+                            
+                            let snackbarMessage = MDCSnackbarMessage()
+                            snackbarMessage.text = msg
+                            print(msg)
+                            self.navigationController?.popViewController(animated: true)
+                            MDCSnackbarManager.show(snackbarMessage)
+
+                        }
+                    })
+                    
+                    deleteAlertController.addAction(deleteAlertAction)
+                    deleteAlertController.addAction(MDCAlertAction(title: "Cancel", emphasis:.high, handler: nil))
+                    deleteAlertController.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
+                    
+                    self.present(deleteAlertController, animated: true, completion: nil)
+                }
+                
+                if self.currentUser?.id == self.post?.createdBy?.id {
+                    actionSheet.addAction(editAction)
+                    actionSheet.addAction(deleteAction)
+                }
                 actionSheet.addAction(reportAction)
+               
                 self.present(actionSheet, animated: true)
             }
+            cell.setOverflowMenuLocation(location: .top)
             return cell
         }
         
@@ -278,6 +271,7 @@ extension PostDetailViewController: UICollectionViewDataSource, UICollectionView
             actionSheet.addAction(reportAction)
             self.present(actionSheet, animated: true)
         }
+        
         return cell
     }
     

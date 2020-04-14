@@ -258,6 +258,7 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
             actionSheet.addAction(reportAction)
             self.present(actionSheet, animated: true)
         }
+        cell.setOverflowMenuLocation(location: .top)
         return cell
     }
     

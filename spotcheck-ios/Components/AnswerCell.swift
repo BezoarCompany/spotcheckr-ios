@@ -13,6 +13,7 @@ class AnswerCell : MDCCardCollectionCell {
         return controls
     }()
     var overflowMenuTap: (() -> Void)? = nil
+    private var overflowMenuLayoutConstraints: [NSLayoutConstraint]!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -47,6 +48,10 @@ class AnswerCell : MDCCardCollectionCell {
     }
     
     func applyConstraints() {
+        overflowMenuLayoutConstraints = [overflowMenu.topAnchor.constraint(equalTo: supportingTextLabel.bottomAnchor, constant: 24),
+               contentView.trailingAnchor.constraint(equalTo: overflowMenu.trailingAnchor, constant: 8),
+               contentView.bottomAnchor.constraint(equalTo: overflowMenu.bottomAnchor, constant: 16)]
+        
         NSLayoutConstraint.activate([
             
 //        thumbnailImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
@@ -66,15 +71,30 @@ class AnswerCell : MDCCardCollectionCell {
         
         votingControls.topAnchor.constraint(equalTo: supportingTextLabel.bottomAnchor, constant: 24),
         contentView.bottomAnchor.constraint(equalTo: votingControls.bottomAnchor, constant: 16),
-        
-        overflowMenu.topAnchor.constraint(equalTo: supportingTextLabel.bottomAnchor, constant: 24),
-        contentView.trailingAnchor.constraint(equalTo: overflowMenu.trailingAnchor, constant: 8),
-        contentView.bottomAnchor.constraint(equalTo: overflowMenu.bottomAnchor, constant: 16)
         ])
+        NSLayoutConstraint.activate(overflowMenuLayoutConstraints)
     }
     
     func initControls() {
         overflowMenu.addTarget(self, action: #selector(overflowMenuOnTapped(_:)), for: .touchUpInside)
+    }
+    
+    func setOverflowMenuLocation(location: OverflowMenuLocation) {
+        for constraint in overflowMenuLayoutConstraints {
+            constraint.isActive = false
+        }
+        
+        if location == .bottom {
+            overflowMenuLayoutConstraints = [overflowMenu.topAnchor.constraint(equalTo: supportingTextLabel.bottomAnchor, constant: 24),
+            contentView.trailingAnchor.constraint(equalTo: overflowMenu.trailingAnchor, constant: 8),
+            contentView.bottomAnchor.constraint(equalTo: overflowMenu.bottomAnchor, constant: 16)]
+        }
+        else {
+            overflowMenuLayoutConstraints = [overflowMenu.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            contentView.trailingAnchor.constraint(equalTo: overflowMenu.trailingAnchor, constant: 8)]
+        }
+        
+        NSLayoutConstraint.activate(overflowMenuLayoutConstraints!)
     }
     
     @objc func overflowMenuOnTapped(_ sender: Any) {
@@ -123,7 +143,7 @@ class AnswerCell : MDCCardCollectionCell {
     let overflowMenu: MDCFlatButton = {
         let button = MDCFlatButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(systemName: "flag"), for: .normal)
+        button.setImage(Images.moreHorizontal, for: .normal)
         button.tintColor = ApplicationScheme.instance.containerScheme.colorScheme.onSurfaceColor
         return button
     }()
