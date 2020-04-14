@@ -26,8 +26,8 @@ jobs:
 
     - name: Clean Staging Scheme
       run: |
-      rm -rf ./Archives/
-      xcodebuild clean -workspace spotcheck-ios.xcworkspace -scheme "spotcheck-ios (Staging)"
+       rm -rf ./Archives/
+       xcodebuild clean -workspace spotcheck-ios.xcworkspace -scheme "spotcheck-ios (Staging)"
 
     - name: Clean Prod Scheme
       run: |
