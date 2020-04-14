@@ -40,34 +40,24 @@ jobs:
 
     - name: Build for Development environment (all non-prod events)
       if: github.event_name != 'pull_request' ||  !contains( github.base_ref, 'master')  && !contains(github.base_ref, 'release')
-
       run: >
        xcodebuild build
        -scheme "spotcheck-ios (Development)"
        -workspace spotcheck-ios.xcworkspace
        -allowProvisioningUpdates
 
-    - name: Archive for Development environment (all non-prod events) TODO WILL Use this For Staging and Production Schemes only
-      if: github.event_name != 'pull_request' ||  !contains( github.base_ref, 'master')  && !contains(github.base_ref, 'release')
+    - name: Archive for Staging environment (all non-prod events) TODO WILL Use this For Staging and Production Schemes only
+      if: github.event_name == 'pull_request' && contains(github.base_ref, 'master')
       run: >
        xcodebuild archive
-       -scheme "spotcheck-ios (Development)"
+       -scheme "spotcheck-ios (Staging)"
        -workspace spotcheck-ios.xcworkspace
        -allowProvisioningUpdates
        -destination "generic/platform=iOS"
        -archivePath ./Archives/spotcheckr-ios.xcarchive
 
-    - name: Build for Staging environment
-      if: github.event_name == 'pull_request' && contains( github.base_ref, 'master')
-      run: xcodebuild build -scheme "spotcheck-ios (Staging)" -workspace spotcheck-ios.xcworkspace -allowProvisioningUpdates -destination "generic/platform=iOS"
-
-    - name: Build for Production
-      if: github.event_name == 'pull_request' && contains( github.base_ref, 'release')
-      run: xcodebuild build -scheme "spotcheck-ios" -workspace spotcheck-ios.xcworkspace -allowProvisioningUpdates -destination "generic/platform=iOS"
-
-
-    - name: Create ipa file from Archive(xcarchive) (TODO should only be for Staging or PRs to Master)
-      if: github.event_name == 'pull_request' && (contains( github.base_ref, 'release') || contains(github.base_ref, 'master'))
+    - name: Create ipa file from Archive(xcarchive)  should only be for Staging or PRs to Master)
+      if: github.event_name == 'pull_request' && contains(github.base_ref, 'master')
       run: >
        xcodebuild -exportArchive
        -archivePath ./Archives/spotcheck-ios.xcarchive
