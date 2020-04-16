@@ -242,6 +242,11 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
         } else {
             cell.setConstraintsWithNoMedia()
         }
+        
+        if (post.videoPath != nil ) {
+            print("Cell has a video!!!!!!!!")
+        }
+        
         cell.supportingTextLabel.text = post.description
         cell.postId = post.id
         cell.post = post

@@ -13,11 +13,12 @@ class ExercisePost {
     var exercises = [Exercise]()
     var answersCount: Int = 0
     var imagePath: String?
+    var videoPath: String?
     
     init(id: String = "", title: String = "", description: String = "",
          createdBy: User? = nil, dateCreated: Date? = nil, dateModified: Date? = nil,
          metrics: Metrics = Metrics(), answers: [Answer] = [], media: [Media] = [],
-         exercises: [Exercise] = [], answersCount: Int = 0, imagePath: String? = nil) {
+         exercises: [Exercise] = [], answersCount: Int = 0, imagePath: String? = nil, videoPath: String? = nil) {
     
         self.id = id
         self.title = title
@@ -33,6 +34,7 @@ class ExercisePost {
         self.exercises = exercises
         self.answersCount = answersCount
         self.imagePath = imagePath
+        self.videoPath = imagePath
     }
     
 }
@@ -54,7 +56,9 @@ extension ExercisePost: ListDiffable {
         if (self.dateModified != b.dateModified
             || self.title != b.title
             || self.description != b.description
-            || self.imagePath != self.imagePath) {
+            || self.imagePath != b.imagePath
+            || self.videoPath != b.videoPath
+            ) {
             return false
         }
         
