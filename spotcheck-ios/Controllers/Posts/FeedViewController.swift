@@ -244,7 +244,9 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
         }
         
         if (post.videoPath != nil ) {
-            print("Cell has a video!!!!!!!!")
+            cell.setVisibilityPlayButton(isVisible: true)
+        } else {
+            cell.setVisibilityPlayButton(isVisible: false)
         }
         
         cell.supportingTextLabel.text = post.description

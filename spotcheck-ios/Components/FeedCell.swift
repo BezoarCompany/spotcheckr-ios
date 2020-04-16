@@ -56,6 +56,7 @@ class FeedCell: MDCCardCollectionCell {
         contentView.addSubview(headerLabel)
         contentView.addSubview(subHeadLabel)
         contentView.addSubview(media)
+        contentView.addSubview(playButton)
         contentView.addSubview(supportingTextLabel)
         contentView.addSubview(votingControls)
         contentView.addSubview(overflowMenu)
@@ -80,6 +81,11 @@ class FeedCell: MDCCardCollectionCell {
         media.topAnchor.constraint(equalTo: subHeadLabel.bottomAnchor, constant: 16),
         media.widthAnchor.constraint(equalToConstant: contentView.frame.width),
         
+        playButton.centerXAnchor.constraint(equalTo: media.centerXAnchor),
+        playButton.centerYAnchor.constraint(equalTo: media.centerYAnchor),
+        playButton.widthAnchor.constraint(equalToConstant: 200),
+        playButton.heightAnchor.constraint(equalToConstant: 200),
+        
         supportingTextLabel.topAnchor.constraint(equalTo: media.bottomAnchor, constant: 16),
         supportingTextLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
         supportingTextLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
@@ -103,6 +109,11 @@ class FeedCell: MDCCardCollectionCell {
         mediaHeightConstraint!.constant = 0
         mediaHeightConstraint!.isActive = true
         media.isHidden = true
+        setVisibilityPlayButton(isVisible: false)
+    }
+    
+    func setVisibilityPlayButton(isVisible: Bool) {
+        playButton.isHidden = !isVisible
     }
     
     func setOverflowMenuLocation(location: OverflowMenuLocation) {
@@ -176,6 +187,15 @@ class FeedCell: MDCCardCollectionCell {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(Images.moreHorizontal, for: .normal)
         button.tintColor = ApplicationScheme.instance.containerScheme.colorScheme.onSurfaceColor
+        return button
+    }()
+    
+    let playButton: UIButton = {
+        let button = UIButton(type: UIButton.ButtonType.system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        let img = UIImage(systemName: "play.circle.fill")
+        button.tintColor = UIColor.white
+        button.setImage(img, for: .normal)
         return button
     }()
 }
