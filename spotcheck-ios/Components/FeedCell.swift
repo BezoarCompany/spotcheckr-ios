@@ -23,7 +23,7 @@ class FeedCell: MDCCardCollectionCell {
         return controls
     }()
     var overflowMenuTap: (() -> Void)? = nil
-    private var overflowMenuLayoutConstraints: [NSLayoutConstraint]!
+    private var overflowMenuLayoutConstraints: [NSLayoutConstraint]?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -64,10 +64,6 @@ class FeedCell: MDCCardCollectionCell {
     func applyConstraints() {
         
         mediaHeightConstraint = media.heightAnchor.constraint(equalToConstant: CGFloat(0))
-        overflowMenuLayoutConstraints = [overflowMenu.topAnchor.constraint(equalTo: supportingTextLabel.bottomAnchor, constant: 24),
-        contentView.trailingAnchor.constraint(equalTo: overflowMenu.trailingAnchor, constant: 8),
-        contentView.bottomAnchor.constraint(equalTo: overflowMenu.bottomAnchor, constant: 16)]
-        
         NSLayoutConstraint.activate([
             
 //        thumbnailImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
@@ -89,9 +85,8 @@ class FeedCell: MDCCardCollectionCell {
         supportingTextLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
         
         votingControls.topAnchor.constraint(equalTo: supportingTextLabel.bottomAnchor, constant: 24),
-        contentView.bottomAnchor.constraint(equalTo: votingControls.bottomAnchor, constant: 16),
+        contentView.bottomAnchor.constraint(equalTo: votingControls.bottomAnchor, constant: 8)
         ])
-        NSLayoutConstraint.activate(overflowMenuLayoutConstraints!)
     }
     
     func initControls() {
@@ -111,21 +106,19 @@ class FeedCell: MDCCardCollectionCell {
     }
     
     func setOverflowMenuLocation(location: OverflowMenuLocation) {
-        for constraint in overflowMenuLayoutConstraints {
-            constraint.isActive = false
+        if overflowMenuLayoutConstraints == nil {
+            if location == .bottom {
+                overflowMenuLayoutConstraints = [overflowMenu.topAnchor.constraint(equalTo: supportingTextLabel.bottomAnchor, constant: 24),
+                contentView.trailingAnchor.constraint(equalTo: overflowMenu.trailingAnchor, constant: 8),
+                contentView.bottomAnchor.constraint(equalTo: overflowMenu.bottomAnchor, constant: 16)]
+            }
+            else {
+                overflowMenuLayoutConstraints = [overflowMenu.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+                                                 contentView.trailingAnchor.constraint(equalTo: overflowMenu.trailingAnchor, constant: 8)]
+            }
+            
+            NSLayoutConstraint.activate(overflowMenuLayoutConstraints!)
         }
-        
-        if location == .bottom {
-            overflowMenuLayoutConstraints = [overflowMenu.topAnchor.constraint(equalTo: supportingTextLabel.bottomAnchor, constant: 24),
-            contentView.trailingAnchor.constraint(equalTo: overflowMenu.trailingAnchor, constant: 8),
-            contentView.bottomAnchor.constraint(equalTo: overflowMenu.bottomAnchor, constant: 16)]
-        }
-        else {
-            overflowMenuLayoutConstraints = [overflowMenu.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            contentView.trailingAnchor.constraint(equalTo: overflowMenu.trailingAnchor, constant: 8)]
-        }
-        
-        NSLayoutConstraint.activate(overflowMenuLayoutConstraints!)
     }
     
     @objc func overflowMenuOnTapped(_ sender: Any) {

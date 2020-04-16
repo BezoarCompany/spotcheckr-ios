@@ -271,7 +271,7 @@ extension PostDetailViewController: UICollectionViewDataSource, UICollectionView
             actionSheet.addAction(reportAction)
             self.present(actionSheet, animated: true)
         }
-        
+        cell.setOverflowMenuLocation(location: .top)
         return cell
     }
     

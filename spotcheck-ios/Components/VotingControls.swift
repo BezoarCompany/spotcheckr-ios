@@ -10,6 +10,10 @@ class VotingControls: UIView {
     let downvoteColor = Colors.downvote
     let neutralColor: UIColor = Colors.neutralVote
     
+    override class var requiresConstraintBasedLayout: Bool {
+      return true
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         upvoteButton.addTarget(self, action: #selector(upvoteOnClick(_:)), for: .touchUpInside)
@@ -18,10 +22,12 @@ class VotingControls: UIView {
         addSubview(downvoteButton)
         NSLayoutConstraint.activate([
             upvoteButton.leadingAnchor.constraint(equalTo: leadingAnchor),
-            downvoteButton.leadingAnchor.constraint(equalTo: upvoteButton.trailingAnchor, constant: 8),
+            downvoteButton.leadingAnchor.constraint(equalTo: upvoteButton.trailingAnchor),
             trailingAnchor.constraint(equalTo: downvoteButton.trailingAnchor),
             upvoteButton.centerYAnchor.constraint(equalTo: centerYAnchor),
-            downvoteButton.centerYAnchor.constraint(equalTo: centerYAnchor)
+            downvoteButton.centerYAnchor.constraint(equalTo: centerYAnchor),
+            bottomAnchor.constraint(equalTo: upvoteButton.bottomAnchor),
+            bottomAnchor.constraint(equalTo: downvoteButton.bottomAnchor)
         ])
     }
     
