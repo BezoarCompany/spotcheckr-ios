@@ -26,6 +26,8 @@ struct K {
         static let CreateAnswerViewControllerId = "CreateAnswerViewController"
         static let ReportViewControllerId = "ReportViewController"
         
+        static let feedCellId = "FeedCell"
+        
         static let answerCellId = "AnswerReuseCell" //Reusable CellID
         static let answerNibName = "AnswerPostCell" //<name>.xib
         

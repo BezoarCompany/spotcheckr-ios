@@ -14,9 +14,6 @@ protocol ExercisePostProtocol {
     func getPost(withId id: String) -> Promise<ExercisePost>
     func getPosts(limit: Int, lastPostSnapshot: DocumentSnapshot?) -> Promise<PaginatedGetPostsResult>
     func getPosts(forUser user: User) -> Promise<[ExercisePost]>
-    func getUpvoteCount(forPostWithId postId: String, collection: String) -> Promise<Int>
-    func getDownvoteCount(forPostWithId postId: String, collection: String) -> Promise<Int>
-    func getViewsCount(forPostWithId postId: String) -> Promise<Int>
     func getExercises(forPostWithId postId: String) -> Promise<[Exercise]>
     func getExercises() -> Promise<[String:Exercise]>
     func getAnswers(byUserWithId userId: String) -> Promise<[Answer]>
@@ -26,7 +23,7 @@ protocol ExercisePostProtocol {
     func getVoteDirection(id: String, collection: String) -> Promise<VoteDirection>
     
     func createPost(post: ExercisePost) -> Promise<ExercisePost>
-    func writeAnswer(answer: Answer) -> Promise<Void>
+    func createAnswer(answer: Answer) -> Promise<Void>
         
     func updatePost(post: ExercisePost) -> Promise<Void>
     

@@ -23,47 +23,31 @@ class ExercisePostService: ExercisePostProtocol {
                     firstly {
                         Services.userService.getUser(withId: userId)
                     }.done { user in
-                        var metricsPromises = [Promise<Int>]()
                         var exercisePromises = [Promise<[Exercise]>]()
                         var voteDirectionPromises = [Promise<VoteDirection>]()
-                        var answerPromises = [Promise<[Answer]>]() //TODO: More efficient such that a count of answers is directly on the exercisePost structure. Same with other metrics.
                         
-                        metricsPromises.append(self.getUpvoteCount(forPostWithId: doc.documentID, collection: CollectionConstants.postsCollection))
-                        metricsPromises.append(self.getDownvoteCount(forPostWithId: doc.documentID, collection: CollectionConstants.postsCollection))
-                        metricsPromises.append(self.getViewsCount(forPostWithId: doc.documentID))
                         exercisePromises.append(self.getExercises(forPostWithId: doc.documentID))
                         voteDirectionPromises.append(self.getVoteDirection(id: doc.documentID, collection: CollectionConstants.postsCollection))
-                        answerPromises.append(self.getAnswers(forPostWithId: doc.documentID))
                         
                         firstly {
-                            when(fulfilled: metricsPromises)
-                        }.done { metricsResults in
+                            when(fulfilled: exercisePromises)
+                        }.done { exercisesResults in
                             firstly {
-                                when(fulfilled: exercisePromises)
-                            }.done { exercisesResults in
-                                firstly {
-                                    when(fulfilled: voteDirectionPromises)
-                                }.done { voteDirectionResults in
-                                    firstly {
-                                        when(fulfilled: answerPromises)
-                                    }.done { answerResults in
-                                        let metrics = Metrics(views: metricsResults[2],
-                                                             upvotes: metricsResults[0],
-                                                             downvotes: metricsResults[1],
-                                                             currentVoteDirection: voteDirectionResults[0])
+                                when(fulfilled: voteDirectionPromises)
+                            }.done { voteDirectionResults in
+                                let metrics = Metrics(upvotes: doc.data()?["upvote-count"] != nil ? doc.data()?["upvote-count"] as! Int : 0,
+                                                      downvotes: doc.data()?["downvote-count"] != nil ? doc.data()?["downvote-count"] as! Int : 0,
+                                                     currentVoteDirection: voteDirectionResults[0])
 
-                                        let postExercises = exercisesResults[0]
-                                        var exercisePost = FirebaseToDomainMapper.mapExercisePost(fromData: doc.data()!,
-                                                                               metrics: metrics,
-                                                                               exercises: postExercises,
-                                                                               answers: answerResults[0])
-                                        exercisePost.createdBy = user
-                                        //store in cache
-                                        self.cache[exercisePost.id] = exercisePost
-                                        
-                                        return promise.fulfill(exercisePost)
-                                    }
-                                }
+                                let postExercises = exercisesResults[0]
+                                let exercisePost = FirebaseToDomainMapper.mapExercisePost(fromData: doc.data()!,
+                                                                       metrics: metrics,
+                                                                       exercises: postExercises)
+                                exercisePost.createdBy = user
+                                //store in cache
+                                self.cache[exercisePost.id] = exercisePost
+                                
+                                return promise.fulfill(exercisePost)
                             }
                         }
                     }.catch { error in
@@ -81,38 +65,29 @@ class ExercisePostService: ExercisePostProtocol {
                     return promise.reject(error)
                 }
                 
-                var metricsPromises = [Promise<Int>]()
                 var voteDirectionPromises = [Promise<VoteDirection>]()
                 for document in answersSnapshot!.documents {
-                    metricsPromises.append(self.getUpvoteCount(forPostWithId: document.documentID, collection: CollectionConstants.answerCollection))
-                    metricsPromises.append(self.getDownvoteCount(forPostWithId: document.documentID, collection: CollectionConstants.answerCollection))
                     voteDirectionPromises.append(self.getVoteDirection(id: document.documentID, collection: CollectionConstants.answerCollection))
                 }
                 
                 firstly {
                     Services.userService.getUser(withId: userId)
                 }.done { userDetails in
-                    firstly {
-                        when(fulfilled: metricsPromises)
-                    }.done { metricsResults in
-                        firstly {
-                            when(fulfilled: voteDirectionPromises)
-                        }.done { voteDirections in
-                            var answers = [Answer]()
-                            var metricsIndex = 0
-                            var voteDirectionIndex = 0
-                            
-                            for document in answersSnapshot!.documents {
-                                answers.append(FirebaseToDomainMapper.mapAnswer(fromData: document.data(),
-                                                              metrics: Metrics(upvotes: metricsResults[metricsIndex],
-                                                                               downvotes: metricsResults[metricsIndex + 1],
-                                                                               currentVoteDirection: voteDirections[voteDirectionIndex]),
-                                                              createdBy: userDetails))
-                                metricsIndex += 2
-                                voteDirectionIndex += 1
-                            }
-                            return promise.fulfill(answers)
+                   firstly {
+                        when(fulfilled: voteDirectionPromises)
+                    }.done { voteDirections in
+                        var answers = [Answer]()
+                        var voteDirectionIndex = 0
+                        
+                        for document in answersSnapshot!.documents {
+                            answers.append(FirebaseToDomainMapper.mapAnswer(fromData: document.data(),
+                                                                            metrics: Metrics(upvotes: document.data()["upvote-count"] != nil ? document.data()["upvote-count"] as! Int : 0,
+                                                                                             downvotes: document.data()["downvote-count"] != nil ? document.data()["downvote-count"] as! Int : 0,
+                                                                           currentVoteDirection: voteDirections[voteDirectionIndex]),
+                                                          createdBy: userDetails))
+                            voteDirectionIndex += 1
                         }
+                        return promise.fulfill(answers)
                     }
                 }
             }
@@ -128,32 +103,22 @@ class ExercisePostService: ExercisePostProtocol {
                 }
                 
                 let answersCreatedBy = answersSnapshot!.documents.map{ Services.userService.getUser(withId: $0.data()["created-by"] as! String)}
-                var metricsPromises = [Promise<Int>]()
-                for document in answersSnapshot!.documents {
-                    metricsPromises.append(self.getUpvoteCount(forPostWithId: document.documentID, collection: CollectionConstants.answerCollection))
-                    metricsPromises.append(self.getDownvoteCount(forPostWithId: document.documentID, collection: CollectionConstants.answerCollection))
-                }
                 
                 firstly {
                     when(fulfilled: answersCreatedBy)
                 }.done { createdByResults in
-                    firstly {
-                        when(fulfilled: metricsPromises)
-                    }.done { metricsResults in
-                        var answers = [Answer]()
-                        var usersIndex = 0
-                        var metricsIndex = 0
-                        for document in answersSnapshot!.documents {
-                            answers.append(FirebaseToDomainMapper.mapAnswer(fromData: document.data(),
-                                                          metrics: Metrics(upvotes: metricsResults[metricsIndex],
-                                                                           downvotes: metricsResults[metricsIndex + 1]),
-                                                          createdBy: createdByResults[usersIndex]))
-                            usersIndex += 1
-                            metricsIndex += 2
-                        }
-                        
-                        return promise.fulfill(answers)
+                    var answers = [Answer]()
+                    var usersIndex = 0
+                    
+                    for document in answersSnapshot!.documents {
+                        answers.append(FirebaseToDomainMapper.mapAnswer(fromData: document.data(),
+                                                                        metrics: Metrics(upvotes: document.data()["upvote-count"] != nil ? document.data()["upvote-count"] as! Int : 0,
+                                                                                         downvotes: document.data()["downvote-count"] != nil ? document.data()["downvote-count"] as! Int : 0),
+                                                      createdBy: createdByResults[usersIndex]))
+                        usersIndex += 1
                     }
+                    
+                    return promise.fulfill(answers)
                 }
             }
         }
@@ -220,109 +185,43 @@ class ExercisePostService: ExercisePostProtocol {
                     return promise.reject(error)
                 }
                 
-                var metricsPromises = [Promise<Int>]()
                 var exercisePromises = [Promise<[Exercise]>]()
                 var voteDirectionPromises = [Promise<VoteDirection>]()
-                var answerPromises = [Promise<[Answer]>]() //TODO: More efficient such that a count of answers is directly on the exercisePost structure. Same with other metrics.
                 
                 for document in postsSnapshot!.documents {
-                    metricsPromises.append(self.getUpvoteCount(forPostWithId: document.documentID, collection: CollectionConstants.postsCollection))
-                    metricsPromises.append(self.getDownvoteCount(forPostWithId: document.documentID, collection: CollectionConstants.postsCollection))
-                    metricsPromises.append(self.getViewsCount(forPostWithId: document.documentID))
                     exercisePromises.append(self.getExercises(forPostWithId: document.documentID))
                     voteDirectionPromises.append(self.getVoteDirection(id: document.documentID, collection: CollectionConstants.postsCollection))
-                    answerPromises.append(self.getAnswers(forPostWithId: document.documentID))
                 }
                 
                 //TODO: Figure out how to execute different types of array of promises at the same time intead of chaining like this :/
                 firstly {
-                    when(fulfilled: metricsPromises)
-                }.done { metricsResults in
+                    when(fulfilled: exercisePromises)
+                }.done { exercisesResults in
                     firstly {
-                        when(fulfilled: exercisePromises)
-                    }.done { exercisesResults in
-                        firstly {
-                            when(fulfilled: voteDirectionPromises)
-                        }.done{ voteDirectionResults in
-                            firstly {
-                                when(fulfilled: answerPromises)
-                            }.done { answerResults in
-                                var userPosts = [ExercisePost]()
-                                var metricsIndex = 0
-                                var exercisesIndex = 0
-                                var voteDirectionIndex = 0
-                                var answerIndex = 0
-                                for document in postsSnapshot!.documents {
-                                    let metrics = Metrics(views: metricsResults[metricsIndex + 2],
-                                                         upvotes: metricsResults[metricsIndex],
-                                                         downvotes: metricsResults[metricsIndex + 1],
-                                                         currentVoteDirection: voteDirectionResults[voteDirectionIndex])
-                                    
-                                    let postExercises = exercisesResults[exercisesIndex]
-                                    var exercisePost = FirebaseToDomainMapper.mapExercisePost(fromData: document.data(),
-                                                                           metrics: metrics,
-                                                                           exercises: postExercises,
-                                                                           answers: answerResults[answerIndex])
-                                    exercisePost.createdBy = user
-                                    userPosts.append(exercisePost)
-                                    metricsIndex += 3
-                                    exercisesIndex += 1
-                                    voteDirectionIndex += 1
-                                    answerIndex += 1
-                                }
-
-                                return promise.fulfill(userPosts)
-                            }
+                        when(fulfilled: voteDirectionPromises)
+                    }.done{ voteDirectionResults in
+                        var userPosts = [ExercisePost]()
+                        var exercisesIndex = 0
+                        var voteDirectionIndex = 0
+                        for document in postsSnapshot!.documents {
+                            let metrics = Metrics(upvotes: document.data()["upvote-count"] != nil ? document.data()["upvote-count"] as! Int : 0,
+                                                  downvotes: document.data()["downvote-count"] != nil ? document.data()["downvote-count"] as! Int : 0,
+                                                 currentVoteDirection: voteDirectionResults[voteDirectionIndex])
+                            
+                            let postExercises = exercisesResults[exercisesIndex]
+                            let exercisePost = FirebaseToDomainMapper.mapExercisePost(fromData: document.data(),
+                                                                   metrics: metrics,
+                                                                   exercises: postExercises)
+                            exercisePost.createdBy = user
+                            userPosts.append(exercisePost)
+                            exercisesIndex += 1
+                            voteDirectionIndex += 1
                         }
+
+                        return promise.fulfill(userPosts)
                     }
-                }
             }
-        }
-    }
-    
-    func getUpvoteCount(forPostWithId postId: String, collection: String) -> Promise<Int> {
-        return Promise { promise in
-            //TODO: Pull from cache for a post/answer
-            let upvotesRef = Firestore.firestore().collection("\(collection)/\(postId)/\(CollectionConstants.votesCollection)").whereField("status", isEqualTo: 1)
-            upvotesRef.getDocuments { (upvoteSnapshot, error) in
-                if let error = error {
-                    return promise.reject(error)
-                }
-                //TODO: Store in cache. When a post/answer is upvoted we will pull the item from the cache, increment it, and store it back.
-                return promise.fulfill(upvoteSnapshot!.documents.count)
             }
-        }
-    }
-    
-    func getDownvoteCount(forPostWithId postId: String, collection: String) -> Promise<Int> {
-        return Promise { promise in
-            //TODO: Pull from cache for a post/answer
-            let downvotesRef = Firestore.firestore().collection("\(CollectionConstants.postsCollection)/\(postId)/\(CollectionConstants.votesCollection)").whereField("status", isEqualTo: -1)
-            downvotesRef.getDocuments { (downvoteSnapshot, error) in
-                if let error = error {
-                    return promise.reject(error)
-                }
-                //TODO: Store in cache. When a post/answer is downvoted we will pull the item from the cache, increment it, and store it back.
-                return promise.fulfill(downvoteSnapshot!.documents.count)
-            }
-        }
-    }
-    
-    func getViewsCount(forPostWithId postId: String) -> Promise<Int> {
-        return Promise { promise in
-            //TODO: Pull from cache for a post\
-            //temp fix
-            return promise.fulfill(0)
-            /*
-            let viewsRef = Firestore.firestore().collection("\(CollectionConstants.postsCollection)/\(postId)/\(CollectionConstant.viewsCollection)")
-            viewsRef.getDocuments { (viewsSnapshot, error) in
-                if let error = error {
-                    return promise.reject(error)
-                }
-                //TODO: Store in cache if necessary. When someone hits the detail view for a post we will add their entry to post views subcollection, pull the current value from the cache, increment the views in the cache and then store it back there too.
-                return promise.fulfill(viewsSnapshot!.documents.count)
-            }
-             */
         }
     }
     
@@ -388,41 +287,85 @@ class ExercisePostService: ExercisePostProtocol {
     }
     
     private func adjustVote(rootCollection: String, postOrAnswerId: String, userId: String, direction: VoteDirection) -> Promise<Void> {
-        let collectionPath = "\(rootCollection)/\(postOrAnswerId)/\(CollectionConstants.votesCollection)"
+        let parentDocPath = "/\(rootCollection)/\(postOrAnswerId)"
+        let parentDocRef = Firestore.firestore().document(parentDocPath)
+        let collectionPath = "\(parentDocPath)/\(CollectionConstants.votesCollection)"
         return Promise { promise in
             let voteRef = Firestore.firestore().collection(collectionPath).whereField("voted-by", isEqualTo: userId)
             voteRef.getDocuments { (voteSnapshot, error) in
                 if let error = error {
                     return promise.reject(error)
                 }
-                let updatedStatus = direction.get()
-                
-                //Vote does not exist so add the vote
-                if voteSnapshot?.count == 0 {
-                    Firestore.firestore().collection(collectionPath).addDocument(data: [
-                        "status": updatedStatus,
-                        "voted-by": userId
-                    ]){ error in
-                        if error != nil {
-                          return promise.reject(error!)
+                Firestore.firestore().runTransaction({(transaction, errorPointer) -> Any? in
+                    do {
+                        let updatedStatus = direction.get()
+                        var voteCountField: String? = nil
+                        
+                        let parentDoc = try transaction.getDocument(parentDocRef).data()
+                        guard let parentDocData = parentDoc else { return nil }
+                        
+                        //Vote does not exist so add the vote
+                        if voteSnapshot?.count == 0 {
+                            let newVoteRef = Firestore.firestore().collection(collectionPath).document()
+                            transaction.setData([
+                                "status": updatedStatus,
+                                "voted-by": userId
+                            ], forDocument: newVoteRef)
+                            switch direction {
+                            case .Up:
+                                voteCountField = "upvote-count"
+                            case .Down:
+                                voteCountField = "downvote-count"
+                            default:
+                                break
+                            }
+                            if let voteCountField = voteCountField {
+                                let oldVoteCount = parentDocData[voteCountField] != nil ? parentDocData[voteCountField] as! Int : 0
+                                let newVoteCount = oldVoteCount + 1
+                                transaction.updateData([voteCountField: newVoteCount], forDocument: parentDocRef)
+                            }
                         }
-                        promise.fulfill_()
+                        else {
+                            //Vote already exists so update the value
+                            let doc = voteSnapshot?.documents[0]
+                            var upvoteCount = parentDocData["upvote-count"] != nil ? parentDocData["upvote-count"] as! Int : 0
+                            var downvoteCount = parentDocData["downvote-count"] != nil ? parentDocData["downvote-count"] as! Int : 0
+                            let oldStatus = VoteDirection(rawValue: doc!.data()["status"] as! Int)
+                            if oldStatus == .Up && direction == .Down {
+                                upvoteCount -= 1
+                                downvoteCount += 1
+                            }
+                            else if oldStatus == .Up && direction == .Neutral {
+                                upvoteCount -= 1
+                            }
+                            else if oldStatus == .Down && direction == .Up {
+                                upvoteCount += 1
+                                downvoteCount -= 1
+                            }
+                            else if oldStatus == .Down && direction == .Neutral {
+                                downvoteCount -= 1
+                            }
+                            else if oldStatus == .Neutral && direction == .Up {
+                                upvoteCount += 1
+                            }
+                            else if oldStatus == .Neutral && direction == .Down {
+                                downvoteCount += 1
+                            }
+                            
+                            transaction.updateData(["upvote-count": upvoteCount, "downvote-count": downvoteCount], forDocument: parentDocRef)
+                            transaction.updateData(["status" : updatedStatus], forDocument: doc!.reference)
+                        }
+                    } catch {
+                        
                     }
-                }
-                else {
-                    //Vote already exists so update the value
-                    let doc = voteSnapshot?.documents[0]
                     
-                    Firestore.firestore().runTransaction({ (transaction, errorPointer) -> Any? in
-                        transaction.updateData(["status" : updatedStatus], forDocument: doc!.reference)
-                    }) { (obj, error) in
-                        if let error = error {
-                            return promise.reject(error)
-                        }
-                        promise.fulfill_()
+                    return nil
+                }) { (obj, error) in
+                    if let error = error {
+                        return promise.reject(error)
                     }
+                    promise.fulfill_()
                 }
-                
             }
         }
         
@@ -452,25 +395,37 @@ class ExercisePostService: ExercisePostProtocol {
         }
     }
     
-    func writeAnswer(answer: Answer) -> Promise<Void> {
+    func createAnswer(answer: Answer) -> Promise<Void> {
         return Promise { promise in
-            let newAnswerRef = Firestore.firestore().collection(CollectionConstants.answerCollection).document()
-            var newAnswer = answer
-            newAnswer.id = newAnswerRef.documentID
-            newAnswerRef.setData(DomainToFirebaseMapper.mapAnswer(from: newAnswer), completion: { error in
+            let exercisePostRef = Firestore.firestore().document("/\(CollectionConstants.postsCollection)/\(answer.exercisePostId!)")
+            Firestore.firestore().runTransaction({ (transaction, errorPointer) -> Any? in
+                do {
+                    let exercisePostDoc = try transaction.getDocument(exercisePostRef).data()
+                    guard var exercisePost = exercisePostDoc else { return nil }
+                    
+                    exercisePost["answers-count"] = (exercisePost["answers-count"] as! Int) + 1
+                    transaction.updateData(exercisePost, forDocument: exercisePostRef)
+                    let newAnswerRef = Firestore.firestore().collection(CollectionConstants.answerCollection).document()
+                    var newAnswer = answer
+                    newAnswer.id = newAnswerRef.documentID
+                    transaction.setData(DomainToFirebaseMapper.mapAnswer(from: newAnswer), forDocument: newAnswerRef)
+                } catch { error
+                    return promise.reject(error)
+                }
+                return nil
+            }) { (obj, error) in
                 if let error = error {
                     return promise.reject(error)
                 }
-                return promise.fulfill_()
-            })
-            
+                promise.fulfill_()
+            }
         }
     }
        
     func createPost(post: ExercisePost) -> Promise<ExercisePost> {
         return Promise { promise in
             let newDocRef = Firestore.firestore().collection(CollectionConstants.postsCollection).document()
-            var newPost = post
+            let newPost = post
             newPost.id = newDocRef.documentID
             
             newDocRef.setData(DomainToFirebaseMapper.mapExercisePost(post: newPost)) { error in
