@@ -207,7 +207,7 @@ class CreatePostViewController: UIViewController {
         initTextViewPlaceholders()
         
         photoImageView.isUserInteractionEnabled = true
-        photoImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openPhotoGallery)))
+        photoImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openMediaOptions)))
         self.view.addSubview(photoImageView)
         
         applyConstraints()
