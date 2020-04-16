@@ -120,7 +120,7 @@ extension CreateAnswerViewController {
         
         return Promise { promise in
             firstly {
-                Services.exercisePostService.writeAnswer(answer: answer)
+                Services.exercisePostService.createAnswer(answer: answer)
             }.done {
                 return promise.fulfill(answer)
             }
@@ -134,8 +134,8 @@ extension CreateAnswerViewController {
         appBarViewController.didMove(toParent: self)
         appBarViewController.inferTopSafeAreaInsetFromViewController = true
         appBarViewController.navigationBar.title = "Add Answer"
-        appBarViewController.navigationBar.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(self.cancelAnswer(_:)))
-        appBarViewController.navigationBar.rightBarButtonItem = UIBarButtonItem(title: "Post", style: .done, target: self, action: #selector(self.submitAction(_:)))
+        appBarViewController.navigationBar.leftBarButtonItem = UIBarButtonItem(image: Images.close, style: .done, target: self, action: #selector(self.cancelAnswer(_:)))
+        appBarViewController.navigationBar.rightBarButtonItem = UIBarButtonItem(image: Images.plus, style: .done, target: self, action: #selector(self.submitAction(_:)))
         appBarViewController.navigationBar.rightBarButtonItem?.isEnabled = false
         view.addSubview(appBarViewController.view)
     }

@@ -9,7 +9,6 @@ class ExercisePost {
     var dateCreated: Date?
     var dateModified: Date?
     var metrics = Metrics()
-    var answers = [Answer]()
     var media = [Media]()
     var exercises = [Exercise]()
     var answersCount: Int = 0
@@ -29,7 +28,6 @@ class ExercisePost {
         self.dateModified = dateModified
         
         self.metrics = metrics
-        self.answers = answers
         self.media = media
         
         self.exercises = exercises

@@ -1,8 +1,11 @@
 import MaterialComponents
 import PromiseKit
 
+enum OverflowMenuLocation {
+    case top, bottom
+}
+
 class FeedCell: MDCCardCollectionCell {
-    static let cellId = "FeedCell"
     static let IMAGE_HEIGHT = 200
     
     lazy var widthConstraint: NSLayoutConstraint = {
@@ -10,19 +13,17 @@ class FeedCell: MDCCardCollectionCell {
         width.isActive = true
         return width
     }()    
-        
-    typealias UpdateVoteClosureType = ((_ post:ExercisePost) -> Void)
     
     var postId: String?
-    var votingUserId: String?
-    var voteDirection: VoteDirection?
-    let upvoteColor = Colors.upvote
-    let downvoteColor = Colors.downvote
-    let neutralColor: UIColor = Colors.neutralVote
     var mediaHeightConstraint: NSLayoutConstraint?
     var post: ExercisePost?
-    var updateVoteClosure: UpdateVoteClosureType?
+    var votingControls: VotingControls = {
+        let controls = VotingControls()
+        controls.translatesAutoresizingMaskIntoConstraints = false
+        return controls
+    }()
     var overflowMenuTap: (() -> Void)? = nil
+    private var overflowMenuLayoutConstraints: [NSLayoutConstraint]?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -56,15 +57,13 @@ class FeedCell: MDCCardCollectionCell {
         contentView.addSubview(subHeadLabel)
         contentView.addSubview(media)
         contentView.addSubview(supportingTextLabel)
-        contentView.addSubview(upvoteButton)
-        contentView.addSubview(downvoteButton)
+        contentView.addSubview(votingControls)
         contentView.addSubview(overflowMenu)
     }
     
     func applyConstraints() {
         
         mediaHeightConstraint = media.heightAnchor.constraint(equalToConstant: CGFloat(0))
-        
         NSLayoutConstraint.activate([
             
 //        thumbnailImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
@@ -85,90 +84,14 @@ class FeedCell: MDCCardCollectionCell {
         supportingTextLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
         supportingTextLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
         
-        upvoteButton.topAnchor.constraint(equalTo: supportingTextLabel.bottomAnchor, constant: 24),
-        upvoteButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 4),
-        
-        downvoteButton.topAnchor.constraint(equalTo: supportingTextLabel.bottomAnchor, constant: 24),
-        downvoteButton.leadingAnchor.constraint(equalTo: upvoteButton.trailingAnchor, constant: 8),
-        
-        overflowMenu.topAnchor.constraint(equalTo: supportingTextLabel.bottomAnchor, constant: 24),
-        contentView.trailingAnchor.constraint(equalTo: overflowMenu.trailingAnchor, constant: 8),
-        
-        contentView.bottomAnchor.constraint(equalTo: upvoteButton.bottomAnchor, constant: 16)
+        votingControls.topAnchor.constraint(equalTo: supportingTextLabel.bottomAnchor, constant: 24),
+        contentView.bottomAnchor.constraint(equalTo: votingControls.bottomAnchor, constant: 8)
         ])
     }
     
     func initControls() {
-        upvoteButton.addTarget(self, action: #selector(upvoteOnClick(_:)), for: .touchUpInside)
-        downvoteButton.addTarget(self, action: #selector(downvoteOnClick(_:)), for: .touchUpInside)
         overflowMenu.addTarget(self, action: #selector(overflowMenuOnTapped(_:)), for: .touchUpInside)
     }
-    
-    @objc func upvoteOnClick(_ sender: Any) {
-        if self.downvoteButton.tintColor == self.downvoteColor { // Going from downvote to upvote
-            self.voteDirection = .Up
-        }
-        else if self.upvoteButton.tintColor == self.upvoteColor { // Already upvoted, removing upvote
-            self.voteDirection = .Neutral
-        }
-        else if self.upvoteButton.tintColor == self.neutralColor { // Upvoting for the first time
-            self.voteDirection = .Up
-        }
-        
-        if let post = self.post, let updateVoteClosure = self.updateVoteClosure {
-            post.metrics.currentVoteDirection = self.voteDirection!
-            updateVoteClosure(post)
-        }
-        
-        firstly {
-            Services.exercisePostService.votePost(postId: postId!, userId: votingUserId!, direction: VoteDirection.Up)
-        }.catch { error in
-            //Ignore errors for voting.
-        }
-
-        self.renderVotingControls()
-    }
-    
-    @objc func downvoteOnClick(_ sender: Any) {
-        if self.upvoteButton.tintColor == self.upvoteColor { // Going from upvote to downvote
-            self.voteDirection = .Down
-        }
-        else if self.downvoteButton.tintColor == self.downvoteColor { // Already downvoted, removing downvote
-            self.voteDirection = .Neutral
-        }
-        else if self.downvoteButton.tintColor == self.neutralColor { // Downvoting for the first time
-            self.voteDirection = .Down
-        }
-        
-        if let post = self.post, let updateVoteClosure = self.updateVoteClosure {            
-            post.metrics.currentVoteDirection = self.voteDirection!
-            updateVoteClosure(post)
-        }
-        
-        firstly {
-            Services.exercisePostService.votePost(postId: postId!, userId: votingUserId!, direction: VoteDirection.Down)
-        }.catch { error in
-            //Ignore voting errors
-        }
-        
-        self.renderVotingControls()
-    }
-    
-    func renderVotingControls() {
-        switch self.voteDirection {
-        case .Up:
-            self.upvoteButton.tintColor = self.upvoteColor
-            self.downvoteButton.tintColor = self.neutralColor
-        case .Down:
-            self.downvoteButton.tintColor = self.downvoteColor
-            self.upvoteButton.tintColor = self.neutralColor
-        default:
-            self.upvoteButton.tintColor = self.neutralColor
-            self.downvoteButton.tintColor = self.neutralColor
-            break
-        }
-    }
-    
     
     func setConstraintsWithMedia() {
         mediaHeightConstraint!.constant = CGFloat(FeedCell.IMAGE_HEIGHT)
@@ -180,6 +103,22 @@ class FeedCell: MDCCardCollectionCell {
         mediaHeightConstraint!.constant = 0
         mediaHeightConstraint!.isActive = true
         media.isHidden = true
+    }
+    
+    func setOverflowMenuLocation(location: OverflowMenuLocation) {
+        if overflowMenuLayoutConstraints == nil {
+            if location == .bottom {
+                overflowMenuLayoutConstraints = [overflowMenu.topAnchor.constraint(equalTo: supportingTextLabel.bottomAnchor, constant: 24),
+                contentView.trailingAnchor.constraint(equalTo: overflowMenu.trailingAnchor, constant: 8),
+                contentView.bottomAnchor.constraint(equalTo: overflowMenu.bottomAnchor, constant: 16)]
+            }
+            else {
+                overflowMenuLayoutConstraints = [overflowMenu.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+                                                 contentView.trailingAnchor.constraint(equalTo: overflowMenu.trailingAnchor, constant: 8)]
+            }
+            
+            NSLayoutConstraint.activate(overflowMenuLayoutConstraints!)
+        }
     }
     
     @objc func overflowMenuOnTapped(_ sender: Any) {
@@ -232,24 +171,10 @@ class FeedCell: MDCCardCollectionCell {
         return label
     }()
     
-    let upvoteButton: MDCFlatButton = {
-        let button = MDCFlatButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(Images.arrowUp, for: .normal)
-        return button
-    }()
-    
-    let downvoteButton: MDCFlatButton = {
-        let button = MDCFlatButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(Images.arrowDown, for: .normal)
-        return button
-    }()
-    
     let overflowMenu: MDCFlatButton = {
         let button = MDCFlatButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(systemName: "flag"), for: .normal)
+        button.setImage(Images.moreHorizontal, for: .normal)
         button.tintColor = ApplicationScheme.instance.containerScheme.colorScheme.onSurfaceColor
         return button
     }()
