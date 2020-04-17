@@ -55,8 +55,9 @@ class FeedCell: MDCCardCollectionCell {
         //contentView.addSubview(thumbnailImageView)
         contentView.addSubview(headerLabel)
         contentView.addSubview(subHeadLabel)
-        contentView.addSubview(media)
-        contentView.addSubview(playButton)
+        contentView.addSubview(mediaContainerView)
+        mediaContainerView.addSubview(media)
+        mediaContainerView.addSubview(playButton)
         contentView.addSubview(supportingTextLabel)
         contentView.addSubview(votingControls)
         contentView.addSubview(overflowMenu)
@@ -64,7 +65,7 @@ class FeedCell: MDCCardCollectionCell {
     
     func applyConstraints() {
         
-        mediaHeightConstraint = media.heightAnchor.constraint(equalToConstant: CGFloat(0))
+        mediaHeightConstraint = mediaContainerView.heightAnchor.constraint(equalToConstant: CGFloat(0))
         NSLayoutConstraint.activate([
             
 //        thumbnailImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
@@ -78,15 +79,19 @@ class FeedCell: MDCCardCollectionCell {
         subHeadLabel.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 8),
         subHeadLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
         
-        media.topAnchor.constraint(equalTo: subHeadLabel.bottomAnchor, constant: 16),
-        media.widthAnchor.constraint(equalToConstant: contentView.frame.width),
+        mediaContainerView.topAnchor.constraint(equalTo: subHeadLabel.bottomAnchor, constant: 16),
+        mediaContainerView.widthAnchor.constraint(equalToConstant: contentView.frame.width),
+                
+        media.centerXAnchor.constraint(equalTo: mediaContainerView.centerXAnchor),
+        media.centerYAnchor.constraint(equalTo: mediaContainerView.centerYAnchor),
+        media.widthAnchor.constraint(equalToConstant: contentView.frame.width),        
         
-        playButton.centerXAnchor.constraint(equalTo: media.centerXAnchor),
-        playButton.centerYAnchor.constraint(equalTo: media.centerYAnchor),
+        playButton.centerXAnchor.constraint(equalTo: mediaContainerView.centerXAnchor),
+        playButton.centerYAnchor.constraint(equalTo: mediaContainerView.centerYAnchor),
         playButton.widthAnchor.constraint(equalToConstant: 200),
         playButton.heightAnchor.constraint(equalToConstant: 200),
         
-        supportingTextLabel.topAnchor.constraint(equalTo: media.bottomAnchor, constant: 16),
+        supportingTextLabel.topAnchor.constraint(equalTo: mediaContainerView.bottomAnchor, constant: 16),
         supportingTextLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
         supportingTextLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
         
@@ -102,13 +107,13 @@ class FeedCell: MDCCardCollectionCell {
     func setConstraintsWithMedia() {
         mediaHeightConstraint!.constant = CGFloat(FeedCell.IMAGE_HEIGHT)
         mediaHeightConstraint!.isActive = true
-        media.isHidden = false
+        mediaContainerView.isHidden = false
     }
     
     func setConstraintsWithNoMedia() {
         mediaHeightConstraint!.constant = 0
         mediaHeightConstraint!.isActive = true
-        media.isHidden = true
+        mediaContainerView.isHidden = true
         setVisibilityPlayButton(isVisible: false)
     }
     
@@ -163,6 +168,14 @@ class FeedCell: MDCCardCollectionCell {
         image.tintColor = .white
         //TODO: Clicking on the image should take you to its location.
         return image
+    }()
+    
+    let mediaContainerView: UIView = {
+       let view = UIView()
+        view.backgroundColor = .blue
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.masksToBounds = true
+        return view
     }()
     
     let media: UIImageView = {
