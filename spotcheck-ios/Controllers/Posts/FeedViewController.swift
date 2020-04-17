@@ -274,6 +274,24 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
         viewPostHandler(exercisePost: post)
     }
     
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+        if indexPath.section == 1 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LoadingCell.cellId,
+            for: indexPath) as! LoadingCell            
+            return
+        }
+        
+        let post = posts[indexPath.row]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: K.Storyboard.feedCellId,
+        for: indexPath) as! FeedCell
+        if let vidPlayer = cell.player,  let vidPlayerLayer = cell.playerLayer {
+            vidPlayer.pause()
+            vidPlayerLayer.removeFromSuperlayer()
+            print("pausing any video for: \(cell.post?.title)")
+        }
+    }
+    
     //Cache cell height to prevent jumpy recalc behavior
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if indexPath.section == 1 {

@@ -28,6 +28,8 @@ class FeedCell: MDCCardCollectionCell {
     private var overflowMenuLayoutConstraints: [NSLayoutConstraint]?
     
     var playerLayer: AVPlayerLayer?
+    var player: AVPlayer?
+    let activityIndicator = UIElementFactory.getActivityIndicator()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -53,8 +55,10 @@ class FeedCell: MDCCardCollectionCell {
         //when cell is being reused, must reset every property since cell isn't fully cleaned automatically
         media.sd_cancelCurrentImageLoad()
         media.image = UIImage(named:"squatLogoPlaceholder")!//nil
-        
+        print("reusing!\(post?.title)")
+        player?.pause()
         playerLayer?.removeFromSuperlayer()
+        activityIndicator.stopAnimating()
     }
 
     func addSubviews() {
@@ -63,7 +67,8 @@ class FeedCell: MDCCardCollectionCell {
         contentView.addSubview(subHeadLabel)
         contentView.addSubview(mediaContainerView)
         mediaContainerView.addSubview(media)
-        mediaContainerView.addSubview(playButton)
+        mediaContainerView.addSubview(activityIndicator)
+        mediaContainerView.addSubview(playButton)        
         contentView.addSubview(supportingTextLabel)
         contentView.addSubview(votingControls)
         contentView.addSubview(overflowMenu)
@@ -96,6 +101,11 @@ class FeedCell: MDCCardCollectionCell {
         playButton.centerYAnchor.constraint(equalTo: mediaContainerView.centerYAnchor),
         playButton.widthAnchor.constraint(equalToConstant: 200),
         playButton.heightAnchor.constraint(equalToConstant: 200),
+        
+        activityIndicator.centerXAnchor.constraint(equalTo: mediaContainerView.centerXAnchor),
+        activityIndicator.centerYAnchor.constraint(equalTo: mediaContainerView.centerYAnchor),
+        activityIndicator.widthAnchor.constraint(equalToConstant: 200),
+        activityIndicator.heightAnchor.constraint(equalToConstant: 200),
         
         supportingTextLabel.topAnchor.constraint(equalTo: mediaContainerView.bottomAnchor, constant: 16),
         supportingTextLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
@@ -157,13 +167,15 @@ class FeedCell: MDCCardCollectionCell {
             firstly {
                 Services.storageService.getVideoDownloadURL(filename: videoFileName)
             }.done { url in
-                let player = AVPlayer(url: url)
+                self.player = AVPlayer(url: url)
                 
-                self.playerLayer = AVPlayerLayer(player: player)
+                self.playerLayer = AVPlayerLayer(player: self.player)
                 self.playerLayer?.frame = self.mediaContainerView.bounds
                 self.mediaContainerView.layer.addSublayer(self.playerLayer!)
                 
-                player.play()
+                self.player?.play()
+                self.activityIndicator.startAnimating()
+                self.playButton.isHidden = true
             }
         }
     }
