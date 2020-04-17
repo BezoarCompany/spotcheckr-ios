@@ -284,7 +284,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         let moreIconActionSheet = UIElementFactory.getActionSheet()
         let deleteAction = MDCActionSheetAction(title: "Delete", image: Images.trash, handler: { (MDCActionSheetHandler) in
             firstly {
-                Services.exercisePostService.deleteAnswer(withId: answer.id!)
+                Services.exercisePostService.deleteAnswer(answer)
             }.done {
                 self.answers.remove(at: indexPath.row)
                 self.answersTableView.deleteRows(at: [indexPath], with: .right)

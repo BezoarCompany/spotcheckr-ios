@@ -29,7 +29,7 @@ protocol ExercisePostProtocol {
     
     func deletePost(_ post: ExercisePost) -> Promise<Void>
     func deleteAnswers(forPostWithId postId: String) -> Promise<Void>
-    func deleteAnswer(withId id: String) -> Promise<Void>
+    func deleteAnswer(_ answer: Answer) -> Promise<Void>
     
     func deleteVotes(forPostWithId postId: String) -> Promise<Void>
     func deleteVote(forPostId postId: String, withId id: String) -> Promise<Void>

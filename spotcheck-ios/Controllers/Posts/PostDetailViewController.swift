@@ -46,8 +46,14 @@ class PostDetailViewController : UIViewController {
         button.setImage(Images.reply, for: .normal)
         return button
     }()
+    let snackbarMessage: MDCSnackbarMessage = {
+       let message = MDCSnackbarMessage()
+        MDCSnackbarTypographyThemer.applyTypographyScheme(ApplicationScheme.instance.containerScheme.typographyScheme)
+       return message
+    }()
     var currentUser: User?
     var answers = [Answer]()
+    var answersCount = 0
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -102,6 +108,7 @@ class PostDetailViewController : UIViewController {
                 Services.exercisePostService.getAnswers(forPostWithId: self.post!.id)
             }.done { answers in
                 self.answers = answers
+                self.answersCount = self.answers.count
                 self.collectionView.reloadData()
             }
         }
@@ -268,6 +275,34 @@ extension PostDetailViewController: UICollectionViewDataSource, UICollectionView
                 let reportViewController = ReportViewController.create(postId: self.post?.id)
                 self.present(reportViewController, animated: true)
             })
+            
+            if answer.createdBy?.id == self.currentUser?.id {
+                let deleteCommentAction = MDCActionSheetAction(title: "Delete", image: Images.trash) { (MDCActionSheetAction) in
+                    let deleteCommentAlertController = MDCAlertController(title: nil, message: "Are you sure you want to delete your comment?")
+                
+                let deleteCommentAlertAction = MDCAlertAction(title: "Delete", emphasis: .high, handler: { (MDCAlertAction) in
+                        //TODO: Show activity indicator
+                        firstly {
+                            Services.exercisePostService.deleteAnswer(answer)
+                        }.done {
+                            //TODO: Stop animating activity indicator
+                            self.answersCount -= 1
+                            self.appBarViewController.navigationBar.title = "\(self.answersCount) Answers"
+                            collectionView.deleteItems(at: [indexPath])
+                        }.catch { err in
+                            self.snackbarMessage.text = "Unable to delete answer."
+                            MDCSnackbarManager.show(self.snackbarMessage)
+                        }
+                    })
+                    
+                deleteCommentAlertController.addAction(deleteCommentAlertAction)
+                deleteCommentAlertController.addAction(MDCAlertAction(title: "Cancel", emphasis:.high, handler: nil))
+                deleteCommentAlertController.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
+                self.present(deleteCommentAlertController, animated: true)
+                }
+                actionSheet.addAction(deleteCommentAction);
+            }
+            
             actionSheet.addAction(reportAction)
             self.present(actionSheet, animated: true)
         }
