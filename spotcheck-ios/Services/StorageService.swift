@@ -3,6 +3,7 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import FirebaseStorage
 import PromiseKit
+import AVFoundation
 
 enum SupportedImageType {
     case jpeg
@@ -69,6 +70,22 @@ class StorageService: StorageProtocol {
                     return promise.reject(error)
                 }
                 return promise.fulfill(UIImage(data: data!)!)
+            }
+        }
+    }
+    
+    //convert Firebase Storage reference into https: url
+    func getVideoDownloadURL(filename: String) -> Promise<URL> {
+        return Promise { promise in
+            let firebaseVideoStorageRef = Storage.storage().reference().child(K.Firestore.Storage.VIDEOS_ROOT_DIR)
+            let vidStorageRef = firebaseVideoStorageRef.child(filename)
+
+            vidStorageRef.downloadURL { url, err in
+                if let error = err {
+                    return promise.reject(error)
+                } else {
+                    return promise.fulfill(url!)
+                }
             }
         }
     }

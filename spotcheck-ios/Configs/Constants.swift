@@ -43,6 +43,7 @@ struct K {
         
         struct Storage {
             static let IMAGES_ROOT_DIR = "images"
+            static let VIDEOS_ROOT_DIR = "videos"
         }
     }
 }

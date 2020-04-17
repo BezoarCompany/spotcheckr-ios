@@ -1,12 +1,14 @@
 import MaterialComponents
 import PromiseKit
+import AVFoundation
+import PromiseKit
 
 enum OverflowMenuLocation {
     case top, bottom
 }
 
 class FeedCell: MDCCardCollectionCell {
-    static let IMAGE_HEIGHT = 200
+    static let IMAGE_HEIGHT = 300
     
     lazy var widthConstraint: NSLayoutConstraint = {
         let width = contentView.widthAnchor.constraint(equalToConstant: bounds.size.width)
@@ -24,6 +26,8 @@ class FeedCell: MDCCardCollectionCell {
     }()
     var overflowMenuTap: (() -> Void)? = nil
     private var overflowMenuLayoutConstraints: [NSLayoutConstraint]?
+    
+    var playerLayer: AVPlayerLayer?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -49,6 +53,8 @@ class FeedCell: MDCCardCollectionCell {
         //when cell is being reused, must reset every property since cell isn't fully cleaned automatically
         media.sd_cancelCurrentImageLoad()
         media.image = UIImage(named:"squatLogoPlaceholder")!//nil
+        
+        playerLayer?.removeFromSuperlayer()
     }
 
     func addSubviews() {
@@ -102,6 +108,7 @@ class FeedCell: MDCCardCollectionCell {
     
     func initControls() {
         overflowMenu.addTarget(self, action: #selector(overflowMenuOnTapped(_:)), for: .touchUpInside)
+        playButton.addTarget(self, action: #selector(handlePlay), for: .touchUpInside)
     }
     
     func setConstraintsWithMedia() {
@@ -140,6 +147,24 @@ class FeedCell: MDCCardCollectionCell {
     @objc func overflowMenuOnTapped(_ sender: Any) {
         if let event = overflowMenuTap {
             event()
+        }
+    }
+    
+    @objc func handlePlay() {
+        if let videoFileName = post?.videoPath {
+            print("\(videoFileName)")
+            
+            firstly {
+                Services.storageService.getVideoDownloadURL(filename: videoFileName)
+            }.done { url in
+                let player = AVPlayer(url: url)
+                
+                self.playerLayer = AVPlayerLayer(player: player)
+                self.playerLayer?.frame = self.mediaContainerView.bounds
+                self.mediaContainerView.layer.addSublayer(self.playerLayer!)
+                
+                player.play()
+            }
         }
     }
     
@@ -211,4 +236,5 @@ class FeedCell: MDCCardCollectionCell {
         button.setImage(img, for: .normal)
         return button
     }()
+    
 }
