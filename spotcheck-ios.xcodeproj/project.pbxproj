@@ -90,6 +90,7 @@
 		BA5DE7102419ADAC002C98E6 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5DE70F2419ADAC002C98E6 /* Images.swift */; };
 		BA6305272422E6A500DA0AE1 /* chevron-left.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA6305262422E6A500DA0AE1 /* chevron-left.svg */; };
 		BA6305292422E97100DA0AE1 /* log-out.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA6305282422E97100DA0AE1 /* log-out.svg */; };
+		BA65CBAF244B8A3300901812 /* heart.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA65CBAE244B8A3200901812 /* heart.svg */; };
 		BA733D5524038E4100395895 /* ErrorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA733D5424038E4100395895 /* ErrorExtensions.swift */; };
 		BA74976D2429D6B100C1C17C /* edit-2.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA74976C2429D6B100C1C17C /* edit-2.svg */; };
 		BA74976F2429DA6400C1C17C /* settings.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA74976E2429DA6400C1C17C /* settings.svg */; };
@@ -231,6 +232,7 @@
 		BA5DE70F2419ADAC002C98E6 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		BA6305262422E6A500DA0AE1 /* chevron-left.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "chevron-left.svg"; sourceTree = "<group>"; };
 		BA6305282422E97100DA0AE1 /* log-out.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "log-out.svg"; sourceTree = "<group>"; };
+		BA65CBAE244B8A3200901812 /* heart.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = heart.svg; sourceTree = "<group>"; };
 		BA733D5424038E4100395895 /* ErrorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorExtensions.swift; sourceTree = "<group>"; };
 		BA74976C2429D6B100C1C17C /* edit-2.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "edit-2.svg"; sourceTree = "<group>"; };
 		BA74976E2429DA6400C1C17C /* settings.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = settings.svg; sourceTree = "<group>"; };
@@ -464,6 +466,7 @@
 				BA49A01A242090DA00BB4BD8 /* trash-2.svg */,
 				BA54CD6C2435692400A944BC /* save.svg */,
 				BA54CD782436D52700A944BC /* flag.svg */,
+				BA65CBAE244B8A3200901812 /* heart.svg */,
 				BA54CD7C2436F13000A944BC /* send.svg */,
 				BA74976E2429DA6400C1C17C /* settings.svg */,
 				BAEE4ACB2426E122005C2023 /* arrow-down.svg */,
@@ -689,6 +692,7 @@
 				BAEE4ACA2426DEFB005C2023 /* arrow-up.svg in Resources */,
 				BA4EE45323EECE84003E6D87 /* eye.svg in Resources */,
 				BA49A0192420875F00BB4BD8 /* more-horizontal.svg in Resources */,
+				BA65CBAF244B8A3300901812 /* heart.svg in Resources */,
 				BA74976D2429D6B100C1C17C /* edit-2.svg in Resources */,
 				BA54CD6D2435692400A944BC /* save.svg in Resources */,
 				BA584C7824381D0C00417DC5 /* GoogleService-Info.plist in Resources */,
