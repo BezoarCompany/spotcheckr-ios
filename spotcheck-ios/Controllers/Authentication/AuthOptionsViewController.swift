@@ -96,6 +96,16 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
         return button
     }()
     
+    let anonSignUpButton: MDCButton = {
+        let button = MDCButton()
+        button.setTitle("Skip Sign Up", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.applyTextTheme(withScheme: ApplicationScheme.instance.containerScheme)
+        button.setTitleColor(ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor, for: .normal)
+        button.addTarget(self, action: #selector(onAnonSignUpClick(sender:)), for: .touchUpInside)
+        return button
+    }()
+    
     let errorLabel: UILabel = {
         let label = UILabel()
         label.layer.backgroundColor = ApplicationScheme.instance.containerScheme.colorScheme.errorColor.cgColor
@@ -180,30 +190,38 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
         self.view.addSubview(forgotPasswordLabel)
         self.view.addSubview(signUpButton)
         self.view.addSubview(signInButton)
+        self.view.addSubview(anonSignUpButton)
     }
     
     private func applyConstraints() {
-        spotcheckHeadline.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor, constant: 0).isActive = true
-        spotcheckHeadline.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 90).isActive = true
-        spotcheckSubtitle.topAnchor.constraint(equalTo: spotcheckHeadline.bottomAnchor, constant: 16).isActive = true
-        spotcheckSubtitle.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor, constant: 0).isActive = true
-        errorLabel.topAnchor.constraint(equalTo: spotcheckSubtitle.bottomAnchor, constant: 30).isActive = true
-        errorLabel.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 40).isActive = true
-        self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: errorLabel.trailingAnchor, constant: 40).isActive = true
-        emailAddressTextField.topAnchor.constraint(equalTo: errorLabel.bottomAnchor, constant: 15).isActive = true
-        emailAddressTextField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 40).isActive = true
-        self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: emailAddressTextField.trailingAnchor, constant: 40).isActive = true
-        passwordTextField.topAnchor.constraint(equalTo: emailAddressTextField.bottomAnchor, constant: 10).isActive = true
-        passwordTextField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 40).isActive = true
-        self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: passwordTextField.trailingAnchor, constant: 40).isActive = true
-        forgotPasswordLabel.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 0).isActive = true
-        self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: forgotPasswordLabel.trailingAnchor, constant: 40).isActive = true
-        signUpButton.topAnchor.constraint(equalTo: forgotPasswordLabel.bottomAnchor, constant: 30).isActive = true
-        signUpButton.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 40).isActive = true
-        signInButton.widthAnchor.constraint(equalTo: signUpButton.widthAnchor).isActive = true
-        signInButton.topAnchor.constraint(equalTo: forgotPasswordLabel.bottomAnchor, constant: 30).isActive = true
-        signInButton.leadingAnchor.constraint(equalTo: signUpButton.trailingAnchor, constant: 20).isActive = true
-        self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: signInButton.trailingAnchor, constant: 40).isActive = true
+        let safeArea = self.view.safeAreaLayoutGuide
+        
+        NSLayoutConstraint.activate([
+            spotcheckHeadline.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor, constant: 0),
+            spotcheckHeadline.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 90),
+            spotcheckSubtitle.topAnchor.constraint(equalTo: spotcheckHeadline.bottomAnchor, constant: 16),
+            spotcheckSubtitle.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor, constant: 0),
+            errorLabel.topAnchor.constraint(equalTo: spotcheckSubtitle.bottomAnchor, constant: 30),
+            errorLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 40),
+            safeArea.trailingAnchor.constraint(equalTo: errorLabel.trailingAnchor, constant: 40),
+            emailAddressTextField.topAnchor.constraint(equalTo: errorLabel.bottomAnchor, constant: 15),
+            emailAddressTextField.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 40),
+            safeArea.trailingAnchor.constraint(equalTo: emailAddressTextField.trailingAnchor, constant: 40),
+            passwordTextField.topAnchor.constraint(equalTo: emailAddressTextField.bottomAnchor, constant: 10),
+            passwordTextField.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 40),
+            safeArea.trailingAnchor.constraint(equalTo: passwordTextField.trailingAnchor, constant: 40),
+            forgotPasswordLabel.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 0),
+            safeArea.trailingAnchor.constraint(equalTo: forgotPasswordLabel.trailingAnchor, constant: 40),
+            signUpButton.topAnchor.constraint(equalTo: forgotPasswordLabel.bottomAnchor, constant: 30),
+            signUpButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 40),
+            signInButton.widthAnchor.constraint(equalTo: signUpButton.widthAnchor),
+            signInButton.topAnchor.constraint(equalTo: forgotPasswordLabel.bottomAnchor, constant: 30),
+            signInButton.leadingAnchor.constraint(equalTo: signUpButton.trailingAnchor, constant: 20),
+            safeArea.trailingAnchor.constraint(equalTo: signInButton.trailingAnchor, constant: 40),
+            anonSignUpButton.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
+            anonSignUpButton.topAnchor.constraint(equalTo: signUpButton.bottomAnchor, constant: 20),
+            anonSignUpButton.topAnchor.constraint(equalTo: signInButton.bottomAnchor, constant: 20)
+        ])
     }
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
@@ -239,6 +257,30 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
     @objc private func onSignInClick(sender: Any) {
         errorLabel.isHidden = true
         validator.validate(self)
+    }
+    
+    @objc private func onAnonSignUpClick(sender: Any) {
+        anonSignUpButton.addSubview(activityIndicator)
+        NSLayoutConstraint.activate([
+            activityIndicator.centerYAnchor.constraint(equalTo: anonSignUpButton.centerYAnchor),
+            activityIndicator.centerXAnchor.constraint(equalTo: anonSignUpButton.centerXAnchor)
+        ])
+        anonSignUpButton.setTitle("", for: .normal)
+        
+        anonSignUpButton.isUserInteractionEnabled = false
+        activityIndicator.startAnimating()
+        firstly {
+            Services.authenticationService.anonymousSignUp()
+        }.done {
+            self.authenticationFinished()
+        }.catch { error in
+            self.snackbarMessage.text = "Failed to continue"
+            MDCSnackbarManager.show(self.snackbarMessage)
+        }.finally {
+            self.activityIndicator.stopAnimating()
+            self.anonSignUpButton.setTitle("Skip Sign Up", for: .normal)
+            self.anonSignUpButton.isUserInteractionEnabled = true
+        }
     }
         
     func validationSuccessful() {

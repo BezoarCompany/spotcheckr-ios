@@ -92,11 +92,11 @@ class CollectionConstants {
     static var userTypeCollection: String {
         get {
             #if DEVEL
-                return "user-test"
+                return "user-types-test"
             #elseif STAGE
-                return "user-test"
+                return "user-types-test"
             #else
-                return "user"
+                return "user-types"
             #endif
         }
     }

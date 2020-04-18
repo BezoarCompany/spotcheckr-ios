@@ -20,7 +20,9 @@ class UserService: UserProtocol {
                 
                 Firestore.firestore().collection(CollectionConstants.userCollection).document(user.id!).setData([
                     "id": user.id!,
-                    "type": userTypeDocRef
+                    "type": userTypeDocRef,
+                    "is-anonymous": user.isAnonymous,
+                    "date-created": user.dateCreated ?? Date()
                 ]){ error in
                     return error != nil ? promise.reject(error!) : promise.fulfill_()
                 }
