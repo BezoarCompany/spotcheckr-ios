@@ -43,6 +43,8 @@ class DomainToFirebaseMapper {
         var firebaseUser = [String:Any]()
         firebaseUser["first-name"] = user.information?.firstName
         firebaseUser["last-name"] = user.information?.lastName
+        firebaseUser["is-anonymous"] = user.isAnonymous
+        firebaseUser["date-created"] = user.dateCreated
         return firebaseUser
     }
     
