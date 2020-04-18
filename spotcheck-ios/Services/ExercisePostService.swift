@@ -522,7 +522,7 @@ class ExercisePostService: ExercisePostProtocol {
                 
                 var answersDeletePromises = [Promise<Void>]()
                 for document in answersSnapshot!.documents {
-                    answersDeletePromises.append(self.deleteAnswer(withId: document.documentID))
+                    answersDeletePromises.append(self.deleteAnswer(Answer(id: document.documentID, exercisePostId: postId)))
                 }
                 
                 firstly {
@@ -539,19 +539,27 @@ class ExercisePostService: ExercisePostProtocol {
     
     //TODO: Create delete policy: because deleting answer only deletes document at Answers (not a recurse delete on collection its subcollections. NOT the subcollection documents like VOTES-
     //so it'll look like an nil intermediate node
-    func deleteAnswer(withId id: String) -> Promise<Void> {
+    func deleteAnswer(_ answer: Answer) -> Promise<Void> {
         return Promise { promise in
-            let answerRef = Firestore.firestore().collection(CollectionConstants.answerCollection).document(id)
-            
-            answerRef.delete() { err in
-                if let error = err {
-                    print("deleteAnswer: failure delete answer(\(id))")
+            let exercisePostRef = Firestore.firestore().document("/\(CollectionConstants.postsCollection)/\(answer.exercisePostId!)")
+            Firestore.firestore().runTransaction({ (transaction, errorPointer) -> Any? in
+                do {
+                    let exercisePostDoc = try transaction.getDocument(exercisePostRef).data()
+                    guard var exercisePost = exercisePostDoc else { return nil }
+                    
+                    exercisePost["answers-count"] = (exercisePost["answers-count"] as! Int) - 1
+                    transaction.updateData(exercisePost, forDocument: exercisePostRef)
+                    let answerRef = Firestore.firestore().collection(CollectionConstants.answerCollection).document(answer.id!)
+                    transaction.deleteDocument(answerRef)
+                } catch { error
                     return promise.reject(error)
-                } else {
-                    print("deleteAnswer: success delete answer(\(id))")
-                    return promise.fulfill_()
                 }
-                
+                return nil
+            }) { (obj, error) in
+                if let error = error {
+                    return promise.reject(error)
+                }
+                promise.fulfill_()
             }
         }
     }
