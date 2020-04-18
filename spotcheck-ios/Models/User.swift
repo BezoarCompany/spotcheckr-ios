@@ -8,6 +8,8 @@ class User {
     var measurement: BodyMeasurement?
     var contactInformation: Contact?
     var exercisePosts = [ExercisePost]()
+    var isAnonymous = false
+    var dateCreated: Date?
     
     init(id: String?) {
         self.id = id

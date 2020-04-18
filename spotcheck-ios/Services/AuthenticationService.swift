@@ -32,7 +32,29 @@ class AuthenticationService: AuthenticationProtocol {
         }
     }
     
-    public func signIn(emailAddress: String, password: String) -> Promise<Void> {
+    func anonymousSignUp() -> Promise<Void> {
+        return Promise { promise in
+            Auth.auth().signInAnonymously { (result, error) in
+                if let error = error {
+                    promise.reject(error)
+                }
+                
+                let user = User(id: result?.user.uid)
+                user.isAnonymous = true
+                user.dateCreated = Date()
+                
+                firstly {
+                    Services.userService.createUser(user: user)
+                }.catch { error in
+                    return promise.reject(error)
+                }.finally {
+                    return promise.fulfill_()
+                }
+            }
+        }
+    }
+    
+    func signIn(emailAddress: String, password: String) -> Promise<Void> {
         return Promise { promise in
             Auth.auth().signIn(withEmail: emailAddress, password: password) {
                 authResult, error in
