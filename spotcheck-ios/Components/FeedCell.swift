@@ -27,9 +27,12 @@ class FeedCell: MDCCardCollectionCell {
     var overflowMenuTap: (() -> Void)? = nil
     private var overflowMenuLayoutConstraints: [NSLayoutConstraint]?
     
+    var postDetailClosure:  (() -> Void)? = nil
+    
     var playerLayer: AVPlayerLayer?
     var player: AVPlayer?
     let activityIndicator = UIElementFactory.getActivityIndicator()
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -119,6 +122,21 @@ class FeedCell: MDCCardCollectionCell {
     func initControls() {
         overflowMenu.addTarget(self, action: #selector(overflowMenuOnTapped(_:)), for: .touchUpInside)
         playButton.addTarget(self, action: #selector(handlePlay), for: .touchUpInside)
+        
+        //Tap Gesture Recognizer is only referenced by last UIElement to Add it.
+        //Although they share the same action selector, we must create a gesture for each UI element to use
+        let tap = UITapGestureRecognizer(target: self, action: #selector(toPostDetailOnClick(_:)))
+        let tap2 = UITapGestureRecognizer(target: self, action: #selector(toPostDetailOnClick(_:)))
+        let tap3 = UITapGestureRecognizer(target: self, action: #selector(toPostDetailOnClick(_:)))
+        
+        headerLabel.isUserInteractionEnabled = true
+        subHeadLabel.isUserInteractionEnabled = true
+        supportingTextLabel.isUserInteractionEnabled = true
+        
+        headerLabel.addGestureRecognizer(tap)
+        subHeadLabel.addGestureRecognizer(tap2)
+        supportingTextLabel.addGestureRecognizer(tap3)
+        
     }
     
     func setConstraintsWithMedia() {
@@ -157,6 +175,12 @@ class FeedCell: MDCCardCollectionCell {
     @objc func overflowMenuOnTapped(_ sender: Any) {
         if let event = overflowMenuTap {
             event()
+        }
+    }
+    
+    @objc func toPostDetailOnClick(_ sender: Any) {
+        if let postDetailClosure = postDetailClosure {
+            postDetailClosure()
         }
     }
     

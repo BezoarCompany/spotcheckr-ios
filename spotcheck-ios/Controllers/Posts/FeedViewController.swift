@@ -209,6 +209,9 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
             Services.exercisePostService.votePost(postId: post.id, userId: self.currentUser!.id!, direction: voteDirection)
         }
         
+        cell.postDetailClosure = {
+            self.viewPostHandler(exercisePost: post)
+        }
         //TODO: Add once profile picture edit is ready
 //        if let picturePath = post.createdBy?.profilePicturePath {
 //            // Set default image for placeholder
@@ -269,10 +272,11 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let post = posts[indexPath.row]
-        viewPostHandler(exercisePost: post)
-    }
+    //turned off, because click event too strong. Placing Post Detail on title & description press instead of the whole cell.
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        let post = posts[indexPath.row]
+//        viewPostHandler(exercisePost: post)
+//    }
     
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         
