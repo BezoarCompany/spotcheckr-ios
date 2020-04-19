@@ -29,7 +29,7 @@ class FlatButton: UIView {
     let view: MDCButton = {
         let button = MDCButton()
         button.applyTextTheme(withScheme: ApplicationScheme.instance.containerScheme)
-        button.setImageTintColor(.white, for: .highlighted)
+        button.setImageTintColor(ApplicationScheme.instance.containerScheme.colorScheme.onSurfaceColor, for: .highlighted)
     
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
