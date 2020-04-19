@@ -32,4 +32,5 @@ class Images {
     static let save = SVGKImage(named: "save").uiImage.withRenderingMode(.alwaysTemplate)
     static let send = SVGKImage(named: "send").uiImage.withRenderingMode(.alwaysTemplate)
     static let close = SVGKImage(named: "x").uiImage.withRenderingMode(.alwaysTemplate)
+    static let heart = SVGKImage(named: "heart").uiImage.withRenderingMode(.alwaysTemplate)
 }
