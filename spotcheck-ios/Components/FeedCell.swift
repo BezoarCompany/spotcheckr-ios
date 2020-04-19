@@ -180,6 +180,10 @@ class FeedCell: MDCCardCollectionCell {
     
     @objc func toPostDetailOnClick(_ sender: Any) {
         if let postDetailClosure = postDetailClosure {
+            self.isVideoPlaying = false
+            if let player = self.player {
+                player.pause()
+            }
             postDetailClosure()
         }
     }
