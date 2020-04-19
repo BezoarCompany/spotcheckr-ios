@@ -245,6 +245,7 @@ extension PostDetailViewController: UICollectionViewDataSource, UICollectionView
                 self.present(actionSheet, animated: true)
             }
             cell.setOverflowMenuLocation(location: .top)
+            cell.setFullBleedDivider()
             return cell
         }
         

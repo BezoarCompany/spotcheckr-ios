@@ -17,6 +17,7 @@ class FeedCell: MDCCardCollectionCell {
     var postId: String?
     var mediaHeightConstraint: NSLayoutConstraint?
     var post: ExercisePost?
+    var dividerLeadingConstraint: NSLayoutConstraint?
     var votingControls: VotingControls = {
         let controls = VotingControls()
         controls.translatesAutoresizingMaskIntoConstraints = false
@@ -65,6 +66,8 @@ class FeedCell: MDCCardCollectionCell {
     func applyConstraints() {
         
         mediaHeightConstraint = media.heightAnchor.constraint(equalToConstant: CGFloat(0))
+        dividerLeadingConstraint = cellDivider.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16)
+        
         NSLayoutConstraint.activate([
             
 //        thumbnailImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
@@ -86,7 +89,7 @@ class FeedCell: MDCCardCollectionCell {
         supportingTextLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
         
         votingControls.topAnchor.constraint(equalTo: supportingTextLabel.bottomAnchor, constant: 24),
-        cellDivider.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+        dividerLeadingConstraint!,
         cellDivider.topAnchor.constraint(equalTo: votingControls.bottomAnchor, constant: 8),
         contentView.trailingAnchor.constraint(equalTo: cellDivider.trailingAnchor),
         contentView.bottomAnchor.constraint(equalTo: cellDivider.bottomAnchor)
@@ -133,6 +136,10 @@ class FeedCell: MDCCardCollectionCell {
     
     func hideDivider() {
         cellDivider.isHidden = true
+    }
+    
+    func setFullBleedDivider() {
+        dividerLeadingConstraint?.constant = 0
     }
     
     let headerLabel: UILabel = {
