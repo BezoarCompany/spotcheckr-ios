@@ -32,7 +32,7 @@ class FeedCell: MDCCardCollectionCell {
     var playerLayer: AVPlayerLayer?
     var player: AVPlayer?
     let activityIndicator = UIElementFactory.getActivityIndicator()
-    
+    var isVideoPlaying = false
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -102,8 +102,8 @@ class FeedCell: MDCCardCollectionCell {
         
         playButton.centerXAnchor.constraint(equalTo: mediaContainerView.centerXAnchor),
         playButton.centerYAnchor.constraint(equalTo: mediaContainerView.centerYAnchor),
-        playButton.widthAnchor.constraint(equalToConstant: 200),
-        playButton.heightAnchor.constraint(equalToConstant: 200),
+        playButton.widthAnchor.constraint(equalToConstant: CGFloat(FeedCell.IMAGE_HEIGHT)),
+        playButton.heightAnchor.constraint(equalToConstant: CGFloat(FeedCell.IMAGE_HEIGHT)),
         
         activityIndicator.centerXAnchor.constraint(equalTo: mediaContainerView.centerXAnchor),
         activityIndicator.centerYAnchor.constraint(equalTo: mediaContainerView.centerYAnchor),
@@ -121,7 +121,7 @@ class FeedCell: MDCCardCollectionCell {
     
     func initControls() {
         overflowMenu.addTarget(self, action: #selector(overflowMenuOnTapped(_:)), for: .touchUpInside)
-        playButton.addTarget(self, action: #selector(handlePlay), for: .touchUpInside)
+        playButton.addTarget(self, action: #selector(togglePlay), for: .touchUpInside)
         
         //Tap Gesture Recognizer is only referenced by last UIElement to Add it.
         //Although they share the same action selector, we must create a gesture for each UI element to use
@@ -184,23 +184,39 @@ class FeedCell: MDCCardCollectionCell {
         }
     }
     
-    @objc func handlePlay() {
-        if let videoFileName = post?.videoPath {
-            print("\(videoFileName)")
+    func initVideoPlayer(videoFileName: String) {
+        
+        firstly {
+            Services.storageService.getVideoDownloadURL(filename: videoFileName)
+        }.done { url in
+            self.player = AVPlayer(url: url)
             
-            firstly {
-                Services.storageService.getVideoDownloadURL(filename: videoFileName)
-            }.done { url in
-                self.player = AVPlayer(url: url)
-                
-                self.playerLayer = AVPlayerLayer(player: self.player)
-                self.playerLayer?.frame = self.mediaContainerView.bounds
-                self.mediaContainerView.layer.addSublayer(self.playerLayer!)
-                
-                self.player?.play()
-                self.activityIndicator.startAnimating()
-                self.playButton.isHidden = true
+            self.playerLayer = AVPlayerLayer(player: self.player)
+            self.playerLayer?.frame = self.mediaContainerView.bounds
+            self.mediaContainerView.layer.addSublayer(self.playerLayer!)
+            
+            self.player?.play()
+            self.activityIndicator.startAnimating()
+        }
+    }
+    
+    @objc func togglePlay() {
+        guard let videoFileName = post?.videoPath else {
+            return
+        }
+        
+        if let player = self.player, let _ = self.playerLayer {
+            
+            self.isVideoPlaying = !self.isVideoPlaying
+            
+            if self.isVideoPlaying {
+                player.play()
+            } else {
+                player.pause()
             }
+            
+        } else {
+            initVideoPlayer(videoFileName: videoFileName)
         }
     }
     
