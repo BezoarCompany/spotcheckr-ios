@@ -74,9 +74,21 @@ class StorageService: StorageProtocol {
         }
     }
     
+    #if DEVEL
+    func getVideoDownloadURL(filename: String) -> Promise<URL> {
+        print("stubbed DEVEL")
+        return Promise { promise in
+            let urlPath = Bundle.main.path(forResource: "bulletTrain", ofType: "mp4")!
+            let url = URL(fileURLWithPath: urlPath)
+            return promise.fulfill(url)
+        }
+    }
+    
+    #else
+    
     //convert Firebase Storage reference into https: url
     func getVideoDownloadURL(filename: String) -> Promise<URL> {
-        return Promise { promise in
+        return Promise { promise in            
             let firebaseVideoStorageRef = Storage.storage().reference().child(K.Firestore.Storage.VIDEOS_ROOT_DIR)
             let vidStorageRef = firebaseVideoStorageRef.child(filename)
 
@@ -89,4 +101,6 @@ class StorageService: StorageProtocol {
             }
         }
     }
+    
+    #endif
 }
