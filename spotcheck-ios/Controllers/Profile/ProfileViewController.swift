@@ -383,18 +383,20 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension ProfileViewController: MDCTabBarDelegate {
-    private func initTabBar() {
-        self.tabBar = MDCTabBar(frame: self.view.bounds)
-        self.tabBar?.delegate = self
-        self.tabBar?.translatesAutoresizingMaskIntoConstraints = false
-        self.tabBar?.items = [
+    func initTabBar() {
+        tabBar = MDCTabBar(frame: self.view.bounds)
+        tabBar?.delegate = self
+        tabBar?.translatesAutoresizingMaskIntoConstraints = false
+        tabBar?.items = [
             UITabBarItem(title: "\(posts.count) Posts", image: nil, tag: 0),
             UITabBarItem(title: "\(answers.count) Answers", image: nil, tag: 1)
         ]
-        self.tabBar?.itemAppearance = .titles
-        self.tabBar?.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
-        self.tabBar?.sizeToFit()
-        self.tabBar?.applyPrimaryTheme(withScheme: ApplicationScheme.instance.containerScheme)
+        tabBar?.itemAppearance = .titles
+        tabBar?.alignment = .justified
+        
+        tabBar?.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
+        tabBar?.sizeToFit()
+        tabBar?.applyPrimaryTheme(withScheme: ApplicationScheme.instance.containerScheme)
     }
     
     func position(for bar: UIBarPositioning) -> UIBarPosition {
