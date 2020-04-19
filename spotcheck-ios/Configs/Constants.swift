@@ -3,6 +3,7 @@ import Foundation
 struct K {
     struct App {
         static let BundleId = "com.spotcheck"
+        static let iTunesId = "1506367283"
         static let CacheLifespanSeconds = 1 * 60 * 60
     }
     

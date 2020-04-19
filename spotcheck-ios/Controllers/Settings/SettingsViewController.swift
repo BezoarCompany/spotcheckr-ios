@@ -1,5 +1,6 @@
 import UIKit
 import MaterialComponents
+import StoreKit
 
 class SettingsViewController: UIViewController {
     var window: UIWindow?
@@ -60,7 +61,9 @@ class SettingsViewController: UIViewController {
             view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: settingsView.bottomAnchor, constant: 55),
         ])
     }
-    
+}
+
+extension SettingsViewController {
     func logout() {
         do {
             try Services.userService.signOut()
@@ -73,11 +76,22 @@ class SettingsViewController: UIViewController {
             MDCSnackbarManager.show(self.snackbarMessage)
         }
     }
+    
+    func rate() {
+        if let writeReviewURL = URL(string: "https://itunes.apple.com/app/id\(K.App.iTunesId)?action=write-review") {
+            UIApplication.shared.open(writeReviewURL, options: [:], completionHandler: nil)
+        }
+        else {
+            self.snackbarMessage.text = "Error going to the App Store."
+            MDCSnackbarManager.show(self.snackbarMessage)
+        }
+        
+    }
 }
 
 extension SettingsViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return CellLocations.allCases.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -89,6 +103,9 @@ extension SettingsViewController: UICollectionViewDataSource, UICollectionViewDe
         case CellLocations.Logout.rawValue:
             cell.titleLabel.text = "Log out"
             cell.leadingImageView.image = Images.logOut
+        case CellLocations.Rate.rawValue:
+            cell.titleLabel.text = "Rate Spotcheckr"
+            cell.leadingImageView.image = Images.heart
         default:
             break
         }
@@ -100,11 +117,14 @@ extension SettingsViewController: UICollectionViewDataSource, UICollectionViewDe
         switch indexPath.row {
         case CellLocations.Logout.rawValue:
             logout()
+        case CellLocations.Rate.rawValue:
+            rate()
         default: break
         }
     }
 }
 
-enum CellLocations: Int {
-    case Logout = 0
+enum CellLocations: Int, CaseIterable {
+    case Rate = 0
+    case Logout = 1
 }
