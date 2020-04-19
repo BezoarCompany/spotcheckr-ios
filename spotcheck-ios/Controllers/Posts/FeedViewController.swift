@@ -43,6 +43,8 @@ class FeedViewController: UIViewController {
     }()
     var layout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
         return layout
     }()
     var currentUser: User?
@@ -198,6 +200,12 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
         let post = posts[indexPath.row]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: K.Storyboard.feedCellId,
         for: indexPath) as! FeedCell
+        
+        let isLastCell = { (indexPath: IndexPath) in return indexPath.row == self.posts.count - 1 }
+        if isLastCell(indexPath) {
+            cell.hideDivider()
+        }
+        
         cell.setShadowElevation(ShadowElevation(rawValue: 10), for: .normal)
         cell.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
         cell.headerLabel.text = post.title

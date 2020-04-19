@@ -90,6 +90,8 @@
 		BA5DE7102419ADAC002C98E6 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5DE70F2419ADAC002C98E6 /* Images.swift */; };
 		BA6305272422E6A500DA0AE1 /* chevron-left.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA6305262422E6A500DA0AE1 /* chevron-left.svg */; };
 		BA6305292422E97100DA0AE1 /* log-out.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA6305282422E97100DA0AE1 /* log-out.svg */; };
+		BA65CBB1244C386B00901812 /* Divider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA65CBB0244C386B00901812 /* Divider.swift */; };
+		BA65CBB3244C43D100901812 /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA65CBB2244C43D100901812 /* UIColorExtensions.swift */; };
 		BA733D5524038E4100395895 /* ErrorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA733D5424038E4100395895 /* ErrorExtensions.swift */; };
 		BA74976D2429D6B100C1C17C /* edit-2.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA74976C2429D6B100C1C17C /* edit-2.svg */; };
 		BA74976F2429DA6400C1C17C /* settings.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA74976E2429DA6400C1C17C /* settings.svg */; };
@@ -231,6 +233,8 @@
 		BA5DE70F2419ADAC002C98E6 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		BA6305262422E6A500DA0AE1 /* chevron-left.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "chevron-left.svg"; sourceTree = "<group>"; };
 		BA6305282422E97100DA0AE1 /* log-out.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "log-out.svg"; sourceTree = "<group>"; };
+		BA65CBB0244C386B00901812 /* Divider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Divider.swift; sourceTree = "<group>"; };
+		BA65CBB2244C43D100901812 /* UIColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
 		BA733D5424038E4100395895 /* ErrorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorExtensions.swift; sourceTree = "<group>"; };
 		BA74976C2429D6B100C1C17C /* edit-2.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "edit-2.svg"; sourceTree = "<group>"; };
 		BA74976E2429DA6400C1C17C /* settings.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = settings.svg; sourceTree = "<group>"; };
@@ -490,6 +494,7 @@
 				BA4EDA4224026CE200206267 /* IntExtensions.swift */,
 				BA733D5424038E4100395895 /* ErrorExtensions.swift */,
 				BA828EF8241CE0270012509D /* StringExtensions.swift */,
+				BA65CBB2244C43D100901812 /* UIColorExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -564,6 +569,7 @@
 				BABAA3EB244404D200FF5C33 /* AnswerCell.swift */,
 				BAEE4AC72426D133005C2023 /* FeedCell.swift */,
 				BABAA3E92443454D00FF5C33 /* VotingControls.swift */,
+				BA65CBB0244C386B00901812 /* Divider.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -824,10 +830,12 @@
 				5645AFE823F51C0700B64D0B /* CreatePostViewController.swift in Sources */,
 				BA733D5524038E4100395895 /* ErrorExtensions.swift in Sources */,
 				5644F61D2406435C00A103EF /* StorageService.swift in Sources */,
+				BA65CBB3244C43D100901812 /* UIColorExtensions.swift in Sources */,
 				BACCABEA241E162100BEC89E /* UIElementFactory.swift in Sources */,
 				BA1FB51723F104B400E091B1 /* PhoneNumber.swift in Sources */,
 				BA1FB52523F116BD00E091B1 /* ExercisePostService.swift in Sources */,
 				564FA33823FFBF81006017FB /* CreateAnswerViewController.swift in Sources */,
+				BA65CBB1244C386B00901812 /* Divider.swift in Sources */,
 				BA4EE45C23EF6814003E6D87 /* PasswordResetConfirmationViewController.swift in Sources */,
 				BAA340FA23F3932900C7392C /* DateExtensions.swift in Sources */,
 				BAEE4AC82426D133005C2023 /* FeedCell.swift in Sources */,

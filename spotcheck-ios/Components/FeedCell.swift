@@ -59,6 +59,7 @@ class FeedCell: MDCCardCollectionCell {
         contentView.addSubview(supportingTextLabel)
         contentView.addSubview(votingControls)
         contentView.addSubview(overflowMenu)
+        contentView.addSubview(cellDivider)
     }
     
     func applyConstraints() {
@@ -85,7 +86,10 @@ class FeedCell: MDCCardCollectionCell {
         supportingTextLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
         
         votingControls.topAnchor.constraint(equalTo: supportingTextLabel.bottomAnchor, constant: 24),
-        contentView.bottomAnchor.constraint(equalTo: votingControls.bottomAnchor, constant: 8)
+        cellDivider.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+        cellDivider.topAnchor.constraint(equalTo: votingControls.bottomAnchor, constant: 8),
+        contentView.trailingAnchor.constraint(equalTo: cellDivider.trailingAnchor),
+        contentView.bottomAnchor.constraint(equalTo: cellDivider.bottomAnchor)
         ])
     }
     
@@ -125,6 +129,10 @@ class FeedCell: MDCCardCollectionCell {
         if let event = overflowMenuTap {
             event()
         }
+    }
+    
+    func hideDivider() {
+        cellDivider.isHidden = true
     }
     
     let headerLabel: UILabel = {
@@ -177,5 +185,11 @@ class FeedCell: MDCCardCollectionCell {
         button.setImage(Images.moreHorizontal, for: .normal)
         button.tintColor = ApplicationScheme.instance.containerScheme.colorScheme.onSurfaceColor
         return button
+    }()
+    
+    let cellDivider: Divider = {
+        let divider = Divider()
+        divider.translatesAutoresizingMaskIntoConstraints = false
+        return divider
     }()
 }
