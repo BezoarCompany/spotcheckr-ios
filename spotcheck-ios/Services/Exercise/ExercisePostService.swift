@@ -357,6 +357,7 @@ class ExercisePostService: ExercisePostProtocol {
                             transaction.updateData(["upvote-count": upvoteCount, "downvote-count": downvoteCount], forDocument: parentDocRef)
                             transaction.updateData(["status" : updatedStatus], forDocument: doc!.reference)
                         }
+                        
                         transaction.updateData(["\(userVoteField).\(parentDocRef.documentID)": updatedStatus], forDocument: userRef)
                     } catch {
                         

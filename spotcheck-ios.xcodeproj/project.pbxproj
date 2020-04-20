@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5607DA0E2426221000B283D2 /* PromiseKit+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5607DA0D2426221000B283D2 /* PromiseKit+extensions.swift */; };
+		5607DA0E2426221000B283D2 /* PromiseKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5607DA0D2426221000B283D2 /* PromiseKitExtensions.swift */; };
 		5644F61D2406435C00A103EF /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5644F61C2406435C00A103EF /* StorageService.swift */; };
 		5644F61F2406459B00A103EF /* StorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5644F61E2406459B00A103EF /* StorageProtocol.swift */; };
 		5645AFE823F51C0700B64D0B /* CreatePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5645AFE723F51C0700B64D0B /* CreatePostViewController.swift */; };
@@ -139,7 +139,7 @@
 /* Begin PBXFileReference section */
 		1BAF183FCC50189FBD943ED6 /* Pods_spotcheck_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_spotcheck_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		54E1D9A2DBA4B2C5F2E04AE7 /* Pods-spotcheck-ios.release (production).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios.release (production).xcconfig"; path = "Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios.release (production).xcconfig"; sourceTree = "<group>"; };
-		5607DA0D2426221000B283D2 /* PromiseKit+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PromiseKit+extensions.swift"; sourceTree = "<group>"; };
+		5607DA0D2426221000B283D2 /* PromiseKitExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromiseKitExtensions.swift; sourceTree = "<group>"; };
 		561648A0243A6641003DB6CA /* Spotcheckr.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Spotcheckr.entitlements; sourceTree = "<group>"; };
 		5644F61C2406435C00A103EF /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		5644F61E2406459B00A103EF /* StorageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageProtocol.swift; sourceTree = "<group>"; };
@@ -448,23 +448,15 @@
 		BA4EE42423E94A4E003E6D87 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				BA4EE42523E94A6E003E6D87 /* AuthenticationService.swift */,
-				BA4EE42723E94BBF003E6D87 /* AuthenticationProtocol.swift */,
-				BA4EE45D23EFEC39003E6D87 /* UserProtocol.swift */,
-				BA4EE45F23EFEC7B003E6D87 /* UserService.swift */,
-				BA1FB52223F116AE00E091B1 /* ExercisePostProtocol.swift */,
-				BA1FB52423F116BD00E091B1 /* ExercisePostService.swift */,
+				BA65CBC2244D466800901812 /* Authentication */,
+				BA65CBC5244D467F00901812 /* User */,
+				BA65CBC4244D467500901812 /* Exercise */,
+				BA65CBC6244D468600901812 /* Storage */,
+				BA65CBC3244D467000901812 /* Analytics */,
+				BA65CBC7244D468F00901812 /* Reporting */,
+				BA65CBC8244D46C700901812 /* Mapping */,
 				BA59197523F92DBA00E8B900 /* Services.swift */,
-				5644F61E2406459B00A103EF /* StorageProtocol.swift */,
-				5644F61C2406435C00A103EF /* StorageService.swift */,
-				BA3DDD2A241CB1F600692100 /* AnalyticsService.swift */,
-				BA3DDD2C241CB20F00692100 /* AnalyticsProtocol.swift */,
 				5653ABCE24161921001E9CF0 /* Cache.swift */,
-				BA828EFA241CE2F10012509D /* FirebaseToDomainMapper.swift */,
-				BA828EFC241CE3E30012509D /* DomainToFirebaseMapper.swift */,
-				5607DA0D2426221000B283D2 /* PromiseKit+extensions.swift */,
-				BA54CD6E2436526B00A944BC /* ReportingService.swift */,
-				BA54CD702436528300A944BC /* ReportingProtocol.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -510,6 +502,69 @@
 			path = Identifiers;
 			sourceTree = "<group>";
 		};
+		BA65CBC2244D466800901812 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				BA4EE42523E94A6E003E6D87 /* AuthenticationService.swift */,
+				BA4EE42723E94BBF003E6D87 /* AuthenticationProtocol.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		BA65CBC3244D467000901812 /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				BA3DDD2A241CB1F600692100 /* AnalyticsService.swift */,
+				BA3DDD2C241CB20F00692100 /* AnalyticsProtocol.swift */,
+			);
+			path = Analytics;
+			sourceTree = "<group>";
+		};
+		BA65CBC4244D467500901812 /* Exercise */ = {
+			isa = PBXGroup;
+			children = (
+				BA1FB52223F116AE00E091B1 /* ExercisePostProtocol.swift */,
+				BA1FB52423F116BD00E091B1 /* ExercisePostService.swift */,
+			);
+			path = Exercise;
+			sourceTree = "<group>";
+		};
+		BA65CBC5244D467F00901812 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				BA4EE45D23EFEC39003E6D87 /* UserProtocol.swift */,
+				BA4EE45F23EFEC7B003E6D87 /* UserService.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		BA65CBC6244D468600901812 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				5644F61E2406459B00A103EF /* StorageProtocol.swift */,
+				5644F61C2406435C00A103EF /* StorageService.swift */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
+		BA65CBC7244D468F00901812 /* Reporting */ = {
+			isa = PBXGroup;
+			children = (
+				BA54CD6E2436526B00A944BC /* ReportingService.swift */,
+				BA54CD702436528300A944BC /* ReportingProtocol.swift */,
+			);
+			path = Reporting;
+			sourceTree = "<group>";
+		};
+		BA65CBC8244D46C700901812 /* Mapping */ = {
+			isa = PBXGroup;
+			children = (
+				BA828EFA241CE2F10012509D /* FirebaseToDomainMapper.swift */,
+				BA828EFC241CE3E30012509D /* DomainToFirebaseMapper.swift */,
+			);
+			path = Mapping;
+			sourceTree = "<group>";
+		};
 		BAA340F823F3931A00C7392C /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -518,6 +573,7 @@
 				BA733D5424038E4100395895 /* ErrorExtensions.swift */,
 				BA828EF8241CE0270012509D /* StringExtensions.swift */,
 				BA65CBB2244C43D100901812 /* UIColorExtensions.swift */,
+				5607DA0D2426221000B283D2 /* PromiseKitExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -904,7 +960,7 @@
 				BA1FB51D23F106E500E091B1 /* Certification.swift in Sources */,
 				BA65CBBF244D10BF00901812 /* UserID.swift in Sources */,
 				BA1FB52123F1148700E091B1 /* ExercisePost.swift in Sources */,
-				5607DA0E2426221000B283D2 /* PromiseKit+extensions.swift in Sources */,
+				5607DA0E2426221000B283D2 /* PromiseKitExtensions.swift in Sources */,
 				BA4EE46023EFEC7B003E6D87 /* UserService.swift in Sources */,
 				BA4EDA4324026CE200206267 /* IntExtensions.swift in Sources */,
 				BA1FB52F23F11C3400E091B1 /* Exercise.swift in Sources */,
