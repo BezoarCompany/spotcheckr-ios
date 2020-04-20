@@ -14,7 +14,7 @@ class FeedCell: MDCCardCollectionCell {
         return width
     }()    
     
-    var postId: String?
+    var postId: ExercisePostID?
     var mediaHeightConstraint: NSLayoutConstraint?
     var post: ExercisePost?
     var dividerLeadingConstraint: NSLayoutConstraint?

@@ -237,10 +237,10 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             cell.voteDirection = post.metrics.currentVoteDirection
             cell.answersCountLabel.text = "\(post.answersCount)"
             cell.upvoteOnTap = { (voteDirection: VoteDirection) in
-                Services.exercisePostService.votePost(postId: post.id, userId: self.currentUser!.id!, direction: voteDirection)
+                Services.exercisePostService.voteContent(contentId: post.id!, userId: self.currentUser!.id!, direction: voteDirection)
             }
             cell.downvoteOnTap = { (voteDirection: VoteDirection) in
-                Services.exercisePostService.votePost(postId: post.id, userId: self.currentUser!.id!, direction: voteDirection)
+                Services.exercisePostService.voteContent(contentId: post.id!, userId: self.currentUser!.id!, direction: voteDirection)
             }
             
             let moreIconActionSheet = UIElementFactory.getActionSheet()
@@ -275,10 +275,10 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         cell.voteDirection = answer.metrics?.currentVoteDirection
         cell.hideAnswers = true
         cell.upvoteOnTap = { (voteDirection: VoteDirection) in
-            Services.exercisePostService.voteAnswer(answerId: answer.id!, userId: self.currentUser!.id!, direction: voteDirection)
+            Services.exercisePostService.voteContent(contentId: answer.id!, userId: self.currentUser!.id!, direction: voteDirection)
         }
         cell.downvoteOnTap = { (voteDirection: VoteDirection) in
-            Services.exercisePostService.voteAnswer(answerId: answer.id!, userId: self.currentUser!.id!, direction: voteDirection)
+            Services.exercisePostService.voteContent(contentId: answer.id!, userId: self.currentUser!.id!, direction: voteDirection)
         }
         
         let moreIconActionSheet = UIElementFactory.getActionSheet()

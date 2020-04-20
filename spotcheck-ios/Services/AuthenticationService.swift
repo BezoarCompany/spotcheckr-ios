@@ -18,7 +18,7 @@ class AuthenticationService: AuthenticationProtocol {
                 guard  authResult != nil else {
                     return promise.reject(error!)
                 }
-                let user = isTrainer ? Trainer(id: authResult?.user.uid) : User(id: authResult?.user.uid)
+                let user = isTrainer ? Trainer(id: UserID((authResult?.user.uid)!)) : User(id: UserID((authResult?.user.uid)!))
                 
                 firstly {
                     Services.userService.createUser(user: user)
@@ -39,7 +39,7 @@ class AuthenticationService: AuthenticationProtocol {
                     promise.reject(error)
                 }
                 
-                let user = User(id: result?.user.uid)
+                let user = User(id: UserID((result?.user.uid)!))
                 user.isAnonymous = true
                 user.dateCreated = Date()
                 

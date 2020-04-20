@@ -6,7 +6,7 @@ import PromiseKit
 import Foundation
 
 class UserService: UserProtocol {
-    private let cache = Cache<String, User>() // (userID<String>: User)
+    private let cache = Cache<UserID, User>() // (userID<String>: User)
     private let firebaseMapCache = Cache<String, Any>()
     
     func createUser(user: User) -> Promise<Void> {
@@ -18,7 +18,7 @@ class UserService: UserProtocol {
                 let userTypePath = (userTypes as NSDictionary).allKeys(for: userType)[0] as! String
                 let userTypeDocRef = Firestore.firestore().document("\(userTypePath)")
                 
-                Firestore.firestore().collection(CollectionConstants.userCollection).document(user.id!).setData([
+                Firestore.firestore().collection(CollectionConstants.userCollection).document(user.id!.value).setData([
                     "id": user.id!,
                     "type": userTypeDocRef,
                     "is-anonymous": user.isAnonymous,
@@ -32,20 +32,20 @@ class UserService: UserProtocol {
         }
     }
     
-    func getUser(withId id: String) -> Promise<User> {
+    func getUser(withId id: UserID) -> Promise<User> {
         return Promise { promise in
             if let user = cache[id] {
                 return promise.fulfill(user)
             }
 
-            let docRef = Firestore.firestore().collection(CollectionConstants.userCollection).document(id)
+            let docRef = Firestore.firestore().collection(CollectionConstants.userCollection).document(id.value)
             docRef.getDocument { doc, error in
                 guard error == nil, let doc = doc, doc.exists else {
                     return promise.reject(error!)
                 }
                 
                 let data = doc.data()
-                let userId = data?.keys.contains("id") != nil ? data?["id"] as! String : doc.documentID
+                let userId = UserID(doc.documentID)
                 var salutations: [String:String] = [:]
                 var genders: [String:String] = [:]
                 var userTypes: [String:String] = [:]
@@ -107,7 +107,7 @@ class UserService: UserProtocol {
         }
     }
     
-    func getCertifications(forUserWithId id: String) -> Promise<[Certification]> {
+    func getCertifications(forUserWithId id: UserID) -> Promise<[Certification]> {
         return Promise { promise in
             var certifications: [String:Certification] = [:]
             
@@ -138,13 +138,13 @@ class UserService: UserProtocol {
     func getCurrentUser() -> Promise<User> {
         return Promise { promise in
             
-            let userId = Auth.auth().currentUser?.uid
+            let userId = UserID(Auth.auth().currentUser!.uid)
             
-            if let userId = userId, let user = cache[userId] {
+            if let user = cache[userId] {
                 return promise.fulfill(user)
             }
             firstly {
-                self.getUser(withId: userId!)
+                self.getUser(withId: userId)
             }.done { user in
                 self.cache[user.id!] = user
                 return promise.fulfill(user)
@@ -236,7 +236,7 @@ class UserService: UserProtocol {
         return Promise { promise in
             let updatedUser = DomainToFirebaseMapper.mapUser(user: user)
             
-            let userDocRef = Firestore.firestore().collection(CollectionConstants.userCollection).document(user.id!)
+            let userDocRef = Firestore.firestore().collection(CollectionConstants.userCollection).document(user.id!.value)
             userDocRef.updateData(updatedUser, completion: { (error) in
                 if let error = error {
                     promise.reject(error)

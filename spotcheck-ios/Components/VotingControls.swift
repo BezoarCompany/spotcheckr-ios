@@ -2,7 +2,7 @@ import MaterialComponents
 import PromiseKit
 
 class VotingControls: UIView {
-    var votingUserId: String?
+    var votingUserId: UserID?
     var voteDirection: VoteDirection?
     var upvoteOnTap: ((_ voteDirection: VoteDirection) -> Promise<Void>)?
     var downvoteOnTap: ((_ voteDirection: VoteDirection) -> Promise<Void>)?

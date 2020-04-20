@@ -90,10 +90,14 @@
 		BA5DE7102419ADAC002C98E6 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5DE70F2419ADAC002C98E6 /* Images.swift */; };
 		BA6305272422E6A500DA0AE1 /* chevron-left.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA6305262422E6A500DA0AE1 /* chevron-left.svg */; };
 		BA6305292422E97100DA0AE1 /* log-out.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA6305282422E97100DA0AE1 /* log-out.svg */; };
+		BA65CBAF244B8A3300901812 /* heart.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA65CBAE244B8A3200901812 /* heart.svg */; };
 		BA65CBB1244C386B00901812 /* Divider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA65CBB0244C386B00901812 /* Divider.swift */; };
 		BA65CBB3244C43D100901812 /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA65CBB2244C43D100901812 /* UIColorExtensions.swift */; };
 		BA65CBB5244C6BF700901812 /* FlatButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA65CBB4244C6BF700901812 /* FlatButton.swift */; };
-		BA65CBAF244B8A3300901812 /* heart.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA65CBAE244B8A3200901812 /* heart.svg */; };
+		BA65CBB9244D0B1800901812 /* AnswerID.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA65CBB8244D0B1800901812 /* AnswerID.swift */; };
+		BA65CBBB244D0B6A00901812 /* ExercisePostID.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA65CBBA244D0B6A00901812 /* ExercisePostID.swift */; };
+		BA65CBBD244D0CF000901812 /* GenericID.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA65CBBC244D0CF000901812 /* GenericID.swift */; };
+		BA65CBBF244D10BF00901812 /* UserID.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA65CBBE244D10BF00901812 /* UserID.swift */; };
 		BA733D5524038E4100395895 /* ErrorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA733D5424038E4100395895 /* ErrorExtensions.swift */; };
 		BA74976D2429D6B100C1C17C /* edit-2.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA74976C2429D6B100C1C17C /* edit-2.svg */; };
 		BA74976F2429DA6400C1C17C /* settings.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA74976E2429DA6400C1C17C /* settings.svg */; };
@@ -102,7 +106,6 @@
 		BA828EFB241CE2F10012509D /* FirebaseToDomainMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA828EFA241CE2F10012509D /* FirebaseToDomainMapper.swift */; };
 		BA828EFD241CE3E30012509D /* DomainToFirebaseMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA828EFC241CE3E30012509D /* DomainToFirebaseMapper.swift */; };
 		BAA340FA23F3932900C7392C /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA340F923F3932900C7392C /* DateExtensions.swift */; };
-		BAA340FF23F39AA500C7392C /* FakeDataFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA340FE23F39AA500C7392C /* FakeDataFactory.swift */; };
 		BABAA3E72443337400FF5C33 /* x.svg in Resources */ = {isa = PBXBuildFile; fileRef = BABAA3E62443337300FF5C33 /* x.svg */; };
 		BABAA3EA2443454D00FF5C33 /* VotingControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABAA3E92443454D00FF5C33 /* VotingControls.swift */; };
 		BABAA3EC244404D200FF5C33 /* AnswerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABAA3EB244404D200FF5C33 /* AnswerCell.swift */; };
@@ -235,10 +238,14 @@
 		BA5DE70F2419ADAC002C98E6 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		BA6305262422E6A500DA0AE1 /* chevron-left.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "chevron-left.svg"; sourceTree = "<group>"; };
 		BA6305282422E97100DA0AE1 /* log-out.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "log-out.svg"; sourceTree = "<group>"; };
+		BA65CBAE244B8A3200901812 /* heart.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = heart.svg; sourceTree = "<group>"; };
 		BA65CBB0244C386B00901812 /* Divider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Divider.swift; sourceTree = "<group>"; };
 		BA65CBB2244C43D100901812 /* UIColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
 		BA65CBB4244C6BF700901812 /* FlatButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlatButton.swift; sourceTree = "<group>"; };
-		BA65CBAE244B8A3200901812 /* heart.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = heart.svg; sourceTree = "<group>"; };
+		BA65CBB8244D0B1800901812 /* AnswerID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerID.swift; sourceTree = "<group>"; };
+		BA65CBBA244D0B6A00901812 /* ExercisePostID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisePostID.swift; sourceTree = "<group>"; };
+		BA65CBBC244D0CF000901812 /* GenericID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericID.swift; sourceTree = "<group>"; };
+		BA65CBBE244D10BF00901812 /* UserID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserID.swift; sourceTree = "<group>"; };
 		BA733D5424038E4100395895 /* ErrorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorExtensions.swift; sourceTree = "<group>"; };
 		BA74976C2429D6B100C1C17C /* edit-2.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "edit-2.svg"; sourceTree = "<group>"; };
 		BA74976E2429DA6400C1C17C /* settings.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = settings.svg; sourceTree = "<group>"; };
@@ -247,7 +254,6 @@
 		BA828EFA241CE2F10012509D /* FirebaseToDomainMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseToDomainMapper.swift; sourceTree = "<group>"; };
 		BA828EFC241CE3E30012509D /* DomainToFirebaseMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainToFirebaseMapper.swift; sourceTree = "<group>"; };
 		BAA340F923F3932900C7392C /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
-		BAA340FE23F39AA500C7392C /* FakeDataFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeDataFactory.swift; sourceTree = "<group>"; };
 		BABAA3E62443337300FF5C33 /* x.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = x.svg; sourceTree = "<group>"; };
 		BABAA3E92443454D00FF5C33 /* VotingControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VotingControls.swift; sourceTree = "<group>"; };
 		BABAA3EB244404D200FF5C33 /* AnswerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerCell.swift; sourceTree = "<group>"; };
@@ -398,6 +404,7 @@
 		56B79E3623E2AFA700568685 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				BA65CBB7244D0A7C00901812 /* Identifiers */,
 				BA1FB52023F1148600E091B1 /* ExercisePost.swift */,
 				BA4EE44423EBA221003E6D87 /* User.swift */,
 				BA4EE44623EBA347003E6D87 /* Identity.swift */,
@@ -492,6 +499,17 @@
 			path = Icons;
 			sourceTree = "<group>";
 		};
+		BA65CBB7244D0A7C00901812 /* Identifiers */ = {
+			isa = PBXGroup;
+			children = (
+				BA65CBBC244D0CF000901812 /* GenericID.swift */,
+				BA65CBB8244D0B1800901812 /* AnswerID.swift */,
+				BA65CBBA244D0B6A00901812 /* ExercisePostID.swift */,
+				BA65CBBE244D10BF00901812 /* UserID.swift */,
+			);
+			path = Identifiers;
+			sourceTree = "<group>";
+		};
 		BAA340F823F3931A00C7392C /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -507,7 +525,6 @@
 		BAA340FB23F39A7000C7392C /* Factories */ = {
 			isa = PBXGroup;
 			children = (
-				BAA340FE23F39AA500C7392C /* FakeDataFactory.swift */,
 				BA5DE70F2419ADAC002C98E6 /* Images.swift */,
 				BACCABE9241E162100BEC89E /* UIElementFactory.swift */,
 				BAEE4ACD24274D49005C2023 /* Colors.swift */,
@@ -832,6 +849,7 @@
 				BA1FB51923F1058500E091B1 /* EmailAddress.swift in Sources */,
 				BA54CD6F2436526B00A944BC /* ReportingService.swift in Sources */,
 				BA3DDD2F241CB33600692100 /* AnalyticsEvent.swift in Sources */,
+				BA65CBBB244D0B6A00901812 /* ExercisePostID.swift in Sources */,
 				BA1FB52723F119CB00E091B1 /* Metrics.swift in Sources */,
 				5644F61F2406459B00A103EF /* StorageProtocol.swift in Sources */,
 				5645AFE823F51C0700B64D0B /* CreatePostViewController.swift in Sources */,
@@ -863,9 +881,11 @@
 				BA1FB51F23F1071000E091B1 /* Organization.swift in Sources */,
 				BA3DDD2D241CB20F00692100 /* AnalyticsProtocol.swift in Sources */,
 				BA1FB52323F116AE00E091B1 /* ExercisePostProtocol.swift in Sources */,
+				BA65CBBD244D0CF000901812 /* GenericID.swift in Sources */,
 				567E9A3223E93EA2004C1B2E /* Constants.swift in Sources */,
 				BA828EFB241CE2F10012509D /* FirebaseToDomainMapper.swift in Sources */,
 				BA1FB51B23F106B600E091B1 /* Trainer.swift in Sources */,
+				BA65CBB9244D0B1800901812 /* AnswerID.swift in Sources */,
 				BA828EF9241CE0270012509D /* StringExtensions.swift in Sources */,
 				BA4EE44F23EE91D1003E6D87 /* SignUpViewController.swift in Sources */,
 				5686D2E224051C0300E09868 /* CreatePostViewController+helpers.swift in Sources */,
@@ -882,6 +902,7 @@
 				56EA7F87242B0D3A00EEDF34 /* LoadingCell.swift in Sources */,
 				5679533423D972F00077BA08 /* AuthOptionsViewController.swift in Sources */,
 				BA1FB51D23F106E500E091B1 /* Certification.swift in Sources */,
+				BA65CBBF244D10BF00901812 /* UserID.swift in Sources */,
 				BA1FB52123F1148700E091B1 /* ExercisePost.swift in Sources */,
 				5607DA0E2426221000B283D2 /* PromiseKit+extensions.swift in Sources */,
 				BA4EE46023EFEC7B003E6D87 /* UserService.swift in Sources */,
@@ -890,7 +911,6 @@
 				BA4EE45A23EF1408003E6D87 /* ForgotPasswordViewController.swift in Sources */,
 				BA4EE44523EBA221003E6D87 /* User.swift in Sources */,
 				BABAA3EC244404D200FF5C33 /* AnswerCell.swift in Sources */,
-				BAA340FF23F39AA500C7392C /* FakeDataFactory.swift in Sources */,
 				BA4EE42623E94A6E003E6D87 /* AuthenticationService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

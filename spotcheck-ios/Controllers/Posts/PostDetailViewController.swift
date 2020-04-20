@@ -35,7 +35,7 @@ class PostDetailViewController : UIViewController {
     var diffedPostsDataClosure: DiffedPostsDataUpdateClosureType? //To dynamically update FeedView's cell with the new/updated post
     
     var post: ExercisePost?
-    var postId: String?
+    var postId: ExercisePostID?
     
     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
     let appBarViewController = UIElementFactory.getAppBar()
@@ -70,7 +70,7 @@ class PostDetailViewController : UIViewController {
 //        self.tableView.endUpdates()
     }
     
-    static func create(postId: String?, diffedPostsDataClosure: DiffedPostsDataUpdateClosureType? = nil) -> PostDetailViewController {
+    static func create(postId: ExercisePostID?, diffedPostsDataClosure: DiffedPostsDataUpdateClosureType? = nil) -> PostDetailViewController {
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         
         let postDetailViewController = storyboard.instantiateViewController(withIdentifier: K.Storyboard.PostDetailViewControllerId) as! PostDetailViewController
@@ -105,7 +105,7 @@ class PostDetailViewController : UIViewController {
             self.collectionView.reloadData()
         }.then {
             firstly {
-                Services.exercisePostService.getAnswers(forPostWithId: self.post!.id)
+                Services.exercisePostService.getAnswers(forPostWithId: self.post!.id!)
             }.done { answers in
                 self.answers = answers
                 self.answersCount = self.answers.count
@@ -150,10 +150,10 @@ extension PostDetailViewController: UICollectionViewDataSource, UICollectionView
             cell.headerLabel.numberOfLines = 0
             cell.subHeadLabel.text = "\(post?.dateCreated?.toDisplayFormat() ?? "")"
             cell.votingControls.upvoteOnTap = { (voteDirection: VoteDirection) in
-                Services.exercisePostService.votePost(postId: self.post!.id, userId: (self.currentUser?.id!)!, direction: voteDirection)
+                Services.exercisePostService.voteContent(contentId: self.post!.id!, userId: (self.currentUser?.id!)!, direction: voteDirection)
             }
             cell.votingControls.downvoteOnTap = { (voteDirection: VoteDirection) in
-                Services.exercisePostService.votePost(postId: self.post!.id, userId: (self.currentUser?.id!)!, direction: voteDirection)
+                Services.exercisePostService.voteContent(contentId: self.post!.id!, userId: (self.currentUser?.id!)!, direction: voteDirection)
             }
     
             if post?.imagePath != nil {
@@ -216,7 +216,7 @@ extension PostDetailViewController: UICollectionViewDataSource, UICollectionView
                         }.catch { err in
                             self.activityIndicator.stopAnimating()
 
-                            let postId = self.post?.id ?? ""
+                            let postId = self.post?.id ?? nil
                             print(err)
                             let msg = "ERROR deleting post \(postId)"
                             
@@ -259,10 +259,10 @@ extension PostDetailViewController: UICollectionViewDataSource, UICollectionView
         cell.headerLabel.numberOfLines = 0
         cell.subHeadLabel.text = "\(answer.dateCreated?.toDisplayFormat() ?? "")"
         cell.votingControls.upvoteOnTap = { (voteDirection: VoteDirection) in
-            Services.exercisePostService.voteAnswer(answerId: answer.id!, userId: (self.currentUser?.id!)!, direction: voteDirection)
+            Services.exercisePostService.voteContent(contentId: answer.id!, userId: (self.currentUser?.id!)!, direction: voteDirection)
         }
         cell.votingControls.downvoteOnTap = { (voteDirection: VoteDirection) in
-            Services.exercisePostService.voteAnswer(answerId: answer.id!, userId: (self.currentUser?.id!)!, direction: voteDirection)
+            Services.exercisePostService.voteContent(contentId: answer.id!, userId: (self.currentUser?.id!)!, direction: voteDirection)
         }
         cell.supportingTextLabel.text = answer.text
         cell.supportingTextLabel.numberOfLines = 0

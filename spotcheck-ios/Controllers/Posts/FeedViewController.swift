@@ -211,10 +211,10 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
         cell.headerLabel.text = post.title
         cell.subHeadLabel.text = "\(post.dateCreated?.toDisplayFormat() ?? "") • \(post.answersCount) Answers"
         cell.votingControls.upvoteOnTap = { (voteDirection: VoteDirection) in
-            Services.exercisePostService.votePost(postId: post.id, userId: self.currentUser!.id!, direction: voteDirection)
+            Services.exercisePostService.voteContent(contentId: post.id!, userId: self.currentUser!.id!, direction: voteDirection)
         }
         cell.votingControls.downvoteOnTap = { (voteDirection: VoteDirection) in
-            Services.exercisePostService.votePost(postId: post.id, userId: self.currentUser!.id!, direction: voteDirection)
+            Services.exercisePostService.voteContent(contentId: post.id!, userId: self.currentUser!.id!, direction: voteDirection)
         }
         
         //TODO: Add once profile picture edit is ready

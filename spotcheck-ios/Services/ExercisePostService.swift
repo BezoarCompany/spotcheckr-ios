@@ -3,31 +3,31 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 class ExercisePostService: ExercisePostProtocol {
-    private let cache = Cache<String, ExercisePost>()
+    private let cache = Cache<ExercisePostID, ExercisePost>()
     private let firebaseMappingCache = Cache<String, Any>() //Used to hold firebase document ids to internal domain object like Exercise
     
-    func getPost(withId id: String) -> Promise<ExercisePost> {
+    func getPost(withId id: ExercisePostID) -> Promise<ExercisePost> {
             return Promise { promise in
                 
                 if let post = cache[id] {
                     return promise.fulfill(post)
                 }
                 print("postCollection: \(CollectionConstants.postsCollection) [\(id)]")
-                let docRef = Firestore.firestore().collection(CollectionConstants.postsCollection).document(id)
+                let docRef = Firestore.firestore().collection(CollectionConstants.postsCollection).document(id.value)
                 docRef.getDocument { doc, error in
                     guard error == nil, let doc = doc, doc.exists else {
                         return promise.reject(error!)
                     }
 
-                    let userId = doc.data()?["created-by"] as! String
+                    let userId = UserID(doc.data()?["created-by"] as! String)
                     firstly {
                         Services.userService.getUser(withId: userId)
                     }.done { user in
                         var exercisePromises = [Promise<[Exercise]>]()
                         var voteDirectionPromises = [Promise<VoteDirection>]()
                         
-                        exercisePromises.append(self.getExercises(forPostWithId: doc.documentID))
-                        voteDirectionPromises.append(self.getVoteDirection(id: doc.documentID, collection: CollectionConstants.postsCollection))
+                        exercisePromises.append(self.getExercises(forPostWithId: ExercisePostID(doc.documentID)))
+                        voteDirectionPromises.append(self.getVoteDirection(contentId: ExercisePostID(doc.documentID), collection: CollectionConstants.postsCollection))
                         
                         firstly {
                             when(fulfilled: exercisePromises)
@@ -45,7 +45,7 @@ class ExercisePostService: ExercisePostProtocol {
                                                                        exercises: postExercises)
                                 exercisePost.createdBy = user
                                 //store in cache
-                                self.cache[exercisePost.id] = exercisePost
+                                self.cache[exercisePost.id!] = exercisePost
                                 
                                 return promise.fulfill(exercisePost)
                             }
@@ -57,9 +57,9 @@ class ExercisePostService: ExercisePostProtocol {
         }
     }
     
-    func getAnswers(byUserWithId userId: String) -> Promise<[Answer]> {
+    func getAnswers(byUserWithId userId: UserID) -> Promise<[Answer]> {
         return Promise { promise in
-            let answersRef = Firestore.firestore().collection(CollectionConstants.answerCollection).whereField("created-by", isEqualTo: userId)
+            let answersRef = Firestore.firestore().collection(CollectionConstants.answerCollection).whereField("created-by", isEqualTo: userId.value)
             answersRef.getDocuments { (answersSnapshot, error) in
                 if let error = error {
                     return promise.reject(error)
@@ -67,7 +67,7 @@ class ExercisePostService: ExercisePostProtocol {
                 
                 var voteDirectionPromises = [Promise<VoteDirection>]()
                 for document in answersSnapshot!.documents {
-                    voteDirectionPromises.append(self.getVoteDirection(id: document.documentID, collection: CollectionConstants.answerCollection))
+                    voteDirectionPromises.append(self.getVoteDirection(contentId: AnswerID(document.documentID), collection: CollectionConstants.answerCollection))
                 }
                 
                 firstly {
@@ -94,15 +94,15 @@ class ExercisePostService: ExercisePostProtocol {
         }
     }
     
-    func getAnswers(forPostWithId postId: String) -> Promise<[Answer]> {
+    func getAnswers(forPostWithId postId: ExercisePostID) -> Promise<[Answer]> {
         return Promise { promise in
-            let answersRef = Firestore.firestore().collection(CollectionConstants.answerCollection).whereField("exercise-post", isEqualTo: postId)
+            let answersRef = Firestore.firestore().collection(CollectionConstants.answerCollection).whereField("exercise-post", isEqualTo: postId.value)
             answersRef.getDocuments { (answersSnapshot, error) in
                 if let error = error {
                     return promise.reject(error)
                 }
                 
-                let answersCreatedBy = answersSnapshot!.documents.map{ Services.userService.getUser(withId: $0.data()["created-by"] as! String)}
+                let answersCreatedBy = answersSnapshot!.documents.map{ Services.userService.getUser(withId: UserID($0.data()["created-by"] as! String))}
                 
                 firstly {
                     when(fulfilled: answersCreatedBy)
@@ -157,7 +157,7 @@ class ExercisePostService: ExercisePostProtocol {
                         return Promise<ExercisePost> { pr in
                             //actually call individual getPost(id)
                             firstly {
-                                self.getPost(withId:doc.documentID)
+                                self.getPost(withId: ExercisePostID(doc.documentID))
                             }.done { post in
                                 pr.fulfill(post)
                             }.catch { err in
@@ -179,7 +179,7 @@ class ExercisePostService: ExercisePostProtocol {
     
     func getPosts(forUser user: User) -> Promise<[ExercisePost]> {
         return Promise {promise in
-            let exercisePostRef = Firestore.firestore().collection(CollectionConstants.postsCollection).whereField("created-by", isEqualTo: user.id!)
+            let exercisePostRef = Firestore.firestore().collection(CollectionConstants.postsCollection).whereField("created-by", isEqualTo: user.id!.value)
             exercisePostRef.getDocuments { (postsSnapshot, error) in
                 if let error = error {
                     return promise.reject(error)
@@ -189,8 +189,8 @@ class ExercisePostService: ExercisePostProtocol {
                 var voteDirectionPromises = [Promise<VoteDirection>]()
                 
                 for document in postsSnapshot!.documents {
-                    exercisePromises.append(self.getExercises(forPostWithId: document.documentID))
-                    voteDirectionPromises.append(self.getVoteDirection(id: document.documentID, collection: CollectionConstants.postsCollection))
+                    exercisePromises.append(self.getExercises(forPostWithId: ExercisePostID(document.documentID)))
+                    voteDirectionPromises.append(self.getVoteDirection(contentId: ExercisePostID(document.documentID), collection: CollectionConstants.postsCollection))
                 }
                 
                 //TODO: Figure out how to execute different types of array of promises at the same time intead of chaining like this :/
@@ -225,7 +225,7 @@ class ExercisePostService: ExercisePostProtocol {
         }
     }
     
-    func getExercises(forPostWithId postId: String) -> Promise<[Exercise]> {
+    func getExercises(forPostWithId postId: ExercisePostID) -> Promise<[Exercise]> {
         return Promise { promise in
             //TODO: Pull from cache
             let exercisesRef = Firestore.firestore().collection("\(CollectionConstants.postsCollection)/\(postId)/\(CollectionConstants.exerciseCollection)")
@@ -278,20 +278,21 @@ class ExercisePostService: ExercisePostProtocol {
         }
     }
     
-    func votePost(postId: String, userId: String, direction: VoteDirection) -> Promise<Void> {
-        return adjustVote(rootCollection: CollectionConstants.postsCollection, postOrAnswerId: postId, userId: userId, direction: direction)
-    }
-    
-    func voteAnswer(answerId: String, userId: String, direction: VoteDirection) -> Promise<Void> {
-        return adjustVote(rootCollection: CollectionConstants.answerCollection, postOrAnswerId: answerId, userId: userId, direction: direction)
-    }
-    
-    private func adjustVote(rootCollection: String, postOrAnswerId: String, userId: String, direction: VoteDirection) -> Promise<Void> {
-        let parentDocPath = "/\(rootCollection)/\(postOrAnswerId)"
+    func voteContent(contentId: GenericID, userId: UserID, direction: VoteDirection) -> Promise<Void> {
+        var contentCollection: String
+        if contentId is AnswerID {
+            contentCollection = CollectionConstants.answerCollection
+        }
+        else {
+            contentCollection = CollectionConstants.postsCollection
+        }
+        
+        let parentDocPath = "/\(contentCollection)/\(contentId.value)"
         let parentDocRef = Firestore.firestore().document(parentDocPath)
         let collectionPath = "\(parentDocPath)/\(CollectionConstants.votesCollection)"
         return Promise { promise in
-            let voteRef = Firestore.firestore().collection(collectionPath).whereField("voted-by", isEqualTo: userId)
+            let voteRef = Firestore.firestore().collection(collectionPath).whereField("voted-by", isEqualTo: userId.value)
+            
             voteRef.getDocuments { (voteSnapshot, error) in
                 if let error = error {
                     return promise.reject(error)
@@ -368,15 +369,14 @@ class ExercisePostService: ExercisePostProtocol {
                 }
             }
         }
-        
     }
     
-    func getVoteDirection(id: String, collection: String) -> Promise<VoteDirection> {
+    func getVoteDirection(contentId: GenericID, collection: String) -> Promise<VoteDirection> {
         return Promise { promise in
             firstly {
                 Services.userService.getCurrentUser()
             }.done { currentUser in
-                let voteRef = Firestore.firestore().collection("\(collection)/\(id)/\(CollectionConstants.votesCollection)").whereField("voted-by", isEqualTo: currentUser.id!)
+                let voteRef = Firestore.firestore().collection("\(collection)/\(contentId.value)/\(CollectionConstants.votesCollection)").whereField("voted-by", isEqualTo: currentUser.id!.value)
                 voteRef.getDocuments { (voteSnapshot, error) in
                     if let error = error {
                         return promise.reject(error)
@@ -407,7 +407,7 @@ class ExercisePostService: ExercisePostProtocol {
                     transaction.updateData(exercisePost, forDocument: exercisePostRef)
                     let newAnswerRef = Firestore.firestore().collection(CollectionConstants.answerCollection).document()
                     var newAnswer = answer
-                    newAnswer.id = newAnswerRef.documentID
+                    newAnswer.id = AnswerID(newAnswerRef.documentID)
                     transaction.setData(DomainToFirebaseMapper.mapAnswer(from: newAnswer), forDocument: newAnswerRef)
                 } catch { error
                     return promise.reject(error)
@@ -426,7 +426,7 @@ class ExercisePostService: ExercisePostProtocol {
         return Promise { promise in
             let newDocRef = Firestore.firestore().collection(CollectionConstants.postsCollection).document()
             let newPost = post
-            newPost.id = newDocRef.documentID
+            newPost.id = ExercisePostID(newDocRef.documentID)
             
             newDocRef.setData(DomainToFirebaseMapper.mapExercisePost(post: newPost)) { error in
                 if let error = error {
@@ -455,12 +455,12 @@ class ExercisePostService: ExercisePostProtocol {
             let id = post.id
             let newPost = post
             //invalidate cache item
-            if let tmp = cache[id] {
-                cache[id] = nil
+            if let tmp = cache[id!] {
+                cache[id!] = nil
             }
             
             let db = Firestore.firestore()
-            let docRef = db.collection(CollectionConstants.postsCollection).document(id)
+            let docRef = db.collection(CollectionConstants.postsCollection).document(id!.value)
             
             docRef.setData(DomainToFirebaseMapper.mapExercisePost(post: newPost), merge:true) { err in
                 if let err = err {
@@ -479,16 +479,16 @@ class ExercisePostService: ExercisePostProtocol {
             let id = post.id
             
             //invalidate cache item
-            if let tmp = cache[id] {
-                cache[id] = nil
+            if let tmp = cache[id!] {
+                cache[id!] = nil
             }
             
-            let docRef = Firestore.firestore().collection(CollectionConstants.postsCollection).document(id)
+            let docRef = Firestore.firestore().collection(CollectionConstants.postsCollection).document(id!.value)
             
             //setup execution the firestore delete answers request, delete votes request, and storage-delete-request in parallel
             var voidPromises = [Promise<Void>]()
-            voidPromises.append(self.deleteAnswers(forPostWithId: id))
-            voidPromises.append(self.deleteVotes(forPostWithId: id))
+            voidPromises.append(self.deleteAnswers(forPostWithId: id!))
+            voidPromises.append(self.deleteVotes(forPostWithId: id!))
             
             if let imagefilename = post.imagePath {
                 voidPromises.append(Services.storageService.deleteImage(filename: imagefilename))
@@ -511,10 +511,10 @@ class ExercisePostService: ExercisePostProtocol {
     }
     
     //Recursively deletes all the answer(documents) for a given PostID
-    func deleteAnswers(forPostWithId postId: String) -> Promise<Void> {
+    func deleteAnswers(forPostWithId postId: ExercisePostID) -> Promise<Void> {
     
         return Promise { promise in
-            let answersRef = Firestore.firestore().collection(CollectionConstants.answerCollection).whereField("exercise-post", isEqualTo: postId)
+            let answersRef = Firestore.firestore().collection(CollectionConstants.answerCollection).whereField("exercise-post", isEqualTo: postId.value)
             answersRef.getDocuments { (answersSnapshot, error) in
                 if let error = error {
                     return promise.reject(error)
@@ -522,7 +522,7 @@ class ExercisePostService: ExercisePostProtocol {
                 
                 var answersDeletePromises = [Promise<Void>]()
                 for document in answersSnapshot!.documents {
-                    answersDeletePromises.append(self.deleteAnswer(Answer(id: document.documentID, exercisePostId: postId)))
+                    answersDeletePromises.append(self.deleteAnswer(Answer(id: AnswerID(document.documentID), exercisePostId: postId)))
                 }
                 
                 firstly {
@@ -549,7 +549,7 @@ class ExercisePostService: ExercisePostProtocol {
                     
                     exercisePost["answers-count"] = (exercisePost["answers-count"] as! Int) - 1
                     transaction.updateData(exercisePost, forDocument: exercisePostRef)
-                    let answerRef = Firestore.firestore().collection(CollectionConstants.answerCollection).document(answer.id!)
+                    let answerRef = Firestore.firestore().collection(CollectionConstants.answerCollection).document(answer.id!.value)
                     transaction.deleteDocument(answerRef)
                 } catch { error
                     return promise.reject(error)
@@ -565,9 +565,9 @@ class ExercisePostService: ExercisePostProtocol {
     }
     
     //Recursively deletes all the votes(documents) for a given PostID
-    func deleteVotes(forPostWithId postId: String) -> Promise<Void> {
+    func deleteVotes(forPostWithId postId: ExercisePostID) -> Promise<Void> {
         return Promise { promise in
-            let votesRef = Firestore.firestore().collection(CollectionConstants.postsCollection).document(postId)
+            let votesRef = Firestore.firestore().collection(CollectionConstants.postsCollection).document(postId.value)
                 .collection(CollectionConstants.votesCollection)
             
             votesRef.getDocuments { (votesSnapshot, error) in
@@ -592,9 +592,9 @@ class ExercisePostService: ExercisePostProtocol {
         }
     }
     
-    func deleteVote(forPostId postId: String, withId id: String) -> Promise<Void> {
+    func deleteVote(forPostId postId: ExercisePostID, withId id: String) -> Promise<Void> {
         return Promise { promise in
-            let voteRef = Firestore.firestore().collection(CollectionConstants.postsCollection).document(postId)
+            let voteRef = Firestore.firestore().collection(CollectionConstants.postsCollection).document(postId.value)
                 .collection(CollectionConstants.votesCollection).document(id)
             
             voteRef.delete() { err in

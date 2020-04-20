@@ -12,8 +12,8 @@ class ProfilePostCell: UITableViewCell {
     @IBOutlet weak var upvoteButton: UIButton!
     @IBOutlet weak var downvoteButton: UIButton!
     
-    var postId: String?
-    var votingUserId: String?
+    var postId: ExercisePostID?
+    var votingUserId: UserID?
     var voteDirection: VoteDirection?
     var upvoteOnTap: ((_ voteDirection: VoteDirection) -> Promise<Void>)?
     var downvoteOnTap: ((_ voteDirection: VoteDirection) -> Promise<Void>)?
