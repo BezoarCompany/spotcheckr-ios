@@ -4,8 +4,8 @@ import FirebaseFirestore.FIRCollectionReference
 protocol UserProtocol {
     func createUser(user: User) -> Promise<Void>
     
-    func getUser(withId id: String) -> Promise<User>
-    func getCertifications(forUserWithId id: String) -> Promise<[Certification]>
+    func getUser(withId id: UserID) -> Promise<User>
+    func getCertifications(forUserWithId id: UserID) -> Promise<[Certification]>
     func getUserTypes() -> Promise<[String:String]>
     func getGenders() -> Promise<[String:String]>
     func getSalutations() -> Promise<[String:String]>

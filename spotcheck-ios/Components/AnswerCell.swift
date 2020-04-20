@@ -76,7 +76,7 @@ class AnswerCell : MDCCardCollectionCell {
     }
     
     func initControls() {
-        overflowMenu.addTarget(self, action: #selector(overflowMenuOnTapped(_:)), for: .touchUpInside)
+        overflowMenu.view.addTarget(self, action: #selector(overflowMenuOnTapped(_:)), for: .touchUpInside)
     }
     
     func setOverflowMenuLocation(location: OverflowMenuLocation) {
@@ -140,11 +140,11 @@ class AnswerCell : MDCCardCollectionCell {
         return label
     }()
     
-    let overflowMenu: MDCFlatButton = {
-        let button = MDCFlatButton()
+    let overflowMenu: FlatButton = {
+        let button = FlatButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(Images.moreHorizontal, for: .normal)
-        button.tintColor = ApplicationScheme.instance.containerScheme.colorScheme.onSurfaceColor
+        button.view.setImage(Images.moreHorizontal, for: .normal)
+        button.view.setImageTintColor(ApplicationScheme.instance.containerScheme.colorScheme.onSurfaceColor, for: .normal)
         return button
     }()
 }

@@ -2,7 +2,7 @@ import MaterialComponents
 import PromiseKit
 
 class VotingControls: UIView {
-    var votingUserId: String?
+    var votingUserId: UserID?
     var voteDirection: VoteDirection?
     var upvoteOnTap: ((_ voteDirection: VoteDirection) -> Promise<Void>)?
     var downvoteOnTap: ((_ voteDirection: VoteDirection) -> Promise<Void>)?
@@ -16,8 +16,9 @@ class VotingControls: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        upvoteButton.addTarget(self, action: #selector(upvoteOnClick(_:)), for: .touchUpInside)
-        downvoteButton.addTarget(self, action: #selector(downvoteOnClick(_:)), for: .touchUpInside)
+        upvoteButton.view.addTarget(self, action: #selector(upvoteOnClick(_:)), for: .touchUpInside)
+        downvoteButton.view.addTarget(self, action: #selector(downvoteOnClick(_:)), for: .touchUpInside)
+        
         addSubview(upvoteButton)
         addSubview(downvoteButton)
         NSLayoutConstraint.activate([
@@ -36,65 +37,65 @@ class VotingControls: UIView {
     }
     
     @objc func upvoteOnClick(_ sender: Any) {
-        if self.downvoteButton.tintColor == self.downvoteColor || self.upvoteButton.tintColor == self.neutralColor { // Going from downvote to upvote or upvoting for the first time
-            self.voteDirection = .Up
+        if downvoteButton.view.imageTintColor(for: .normal) == downvoteColor || upvoteButton.view.imageTintColor(for: .normal) == neutralColor { // Going from downvote to upvote or upvoting for the first time
+            voteDirection = .Up
         }
-        else if self.upvoteButton.tintColor == self.upvoteColor { // Already upvoted, removing upvote
-            self.voteDirection = .Neutral
+        else if upvoteButton.view.imageTintColor(for: .normal) == upvoteColor { // Already upvoted, removing upvote
+            voteDirection = .Neutral
         }
         
-        self.renderVotingControls()
+        renderVotingControls()
         
         firstly {
-            self.upvoteOnTap!(self.voteDirection!)
+            upvoteOnTap!(voteDirection!)
         }.catch { error in
             //Do nothing
         }
     }
     
     @objc func downvoteOnClick(_ sender: Any) {
-        if self.upvoteButton.tintColor == self.upvoteColor || self.downvoteButton.tintColor == self.neutralColor { // Going from upvote to downvote or downvoting for the first time
-            self.voteDirection = .Down
+        if upvoteButton.view.imageTintColor(for: .normal) == upvoteColor || downvoteButton.view.imageTintColor(for: .normal) == neutralColor { // Going from upvote to downvote or downvoting for the first time
+            voteDirection = .Down
         }
-        else if self.downvoteButton.tintColor == self.downvoteColor { // Already downvoted, removing downvote
-            self.voteDirection = .Neutral
+        else if downvoteButton.view.imageTintColor(for: .normal) == downvoteColor { // Already downvoted, removing downvote
+            voteDirection = .Neutral
         }
         
-        self.renderVotingControls()
+        renderVotingControls()
         
         firstly {
-            self.downvoteOnTap!(self.voteDirection!)
+            downvoteOnTap!(voteDirection!)
         }.catch { error in
             //Ignore voting errors
         }
     }
     
     func renderVotingControls() {
-        switch self.voteDirection {
+        switch voteDirection {
         case .Up:
-            self.upvoteButton.tintColor = self.upvoteColor
-            self.downvoteButton.tintColor = self.neutralColor
+            downvoteButton.view.setImageTintColor(neutralColor, for: .normal)
+            upvoteButton.view.setImageTintColor(upvoteColor, for: .normal)
         case .Down:
-            self.downvoteButton.tintColor = self.downvoteColor
-            self.upvoteButton.tintColor = self.neutralColor
+            downvoteButton.view.setImageTintColor(downvoteColor, for: .normal)
+            upvoteButton.view.setImageTintColor(neutralColor, for: .normal)
         default:
-            self.upvoteButton.tintColor = self.neutralColor
-            self.downvoteButton.tintColor = self.neutralColor
+            downvoteButton.view.setImageTintColor(neutralColor, for: .normal)
+            upvoteButton.view.setImageTintColor(neutralColor, for: .normal)
             break
         }
     }
     
-    let upvoteButton: MDCFlatButton = {
-        let button = MDCFlatButton()
+    let upvoteButton: FlatButton = {
+        let button = FlatButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(Images.arrowUp, for: .normal)
+        button.view.setImage(Images.arrowUp, for: .normal)
         return button
     }()
     
-    let downvoteButton: MDCFlatButton = {
-        let button = MDCFlatButton()
+    let downvoteButton: FlatButton = {
+        let button = FlatButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(Images.arrowDown, for: .normal)
+        button.view.setImage(Images.arrowDown, for: .normal)
         return button
     }()
 }

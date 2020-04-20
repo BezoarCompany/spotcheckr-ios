@@ -1,11 +1,11 @@
 import Foundation
 
 struct Answer {
-    var id: String?
+    var id: AnswerID?
     var createdBy: User?
     var dateCreated: Date?
     var dateModified: Date?
-    var exercisePostId: String?
+    var exercisePostId: ExercisePostID?
     var text = ""
     var media = [Media]()
     var metrics: Metrics?

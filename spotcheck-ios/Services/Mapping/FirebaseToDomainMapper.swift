@@ -5,8 +5,8 @@ class FirebaseToDomainMapper {
                            metrics: Metrics,
                            createdBy: User) -> Answer {
         var answer = Answer()
-        answer.id = data.keys.contains("id") ? data["id"] as? String : nil
-        answer.exercisePostId = data.keys.contains("exercise-post") ? data["exercise-post"] as? String : nil
+        answer.id = data.keys.contains("id") ? AnswerID(data["id"] as! String) : nil
+        answer.exercisePostId = data.keys.contains("exercise-post") ? ExercisePostID(data["exercise-post"] as! String) : nil
         answer.text = data.keys.contains("text") ? data["text"] as! String : ""
         answer.metrics = metrics
         answer.dateCreated = data.keys.contains("created-date") ? (data["created-date"] as! Timestamp).dateValue() : nil
@@ -19,7 +19,7 @@ class FirebaseToDomainMapper {
                                  metrics: Metrics,
                                  exercises: [Exercise]) -> ExercisePost {
         let post = ExercisePost()
-        post.id = data.keys.contains("id") ? data["id"] as! String : ""
+        post.id = data.keys.contains("id") ? ExercisePostID(data["id"] as! String) : nil
         post.title = data.keys.contains("title") ? data["title"] as! String : ""
         post.description = data.keys.contains("description") ? data["description"] as! String : ""
         post.dateCreated = data.keys.contains("created-date") ? (data["created-date"] as! Timestamp).dateValue() : nil

@@ -26,10 +26,10 @@ class ReportingService: ReportingProtocol {
         }
     }
     
-    func submitReport(postId: String?, details: Report) -> Promise<Void> {
+    func submitReport(contentId: GenericID?, details: Report) -> Promise<Void> {
         return Promise { promise in
             let docRef = Firestore.firestore().collection(CollectionConstants.reportsCollection).document()
-            docRef.setData(DomainToFirebaseMapper.mapReport(postId: postId, details: details)) { error in
+            docRef.setData(DomainToFirebaseMapper.mapReport(contentId: contentId, details: details)) { error in
                 if let error = error {
                     return promise.reject(error)
                 }

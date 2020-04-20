@@ -14,9 +14,10 @@ class FeedCell: MDCCardCollectionCell {
         return width
     }()    
     
-    var postId: String?
+    var postId: ExercisePostID?
     var mediaHeightConstraint: NSLayoutConstraint?
     var post: ExercisePost?
+    var dividerLeadingConstraint: NSLayoutConstraint?
     var votingControls: VotingControls = {
         let controls = VotingControls()
         controls.translatesAutoresizingMaskIntoConstraints = false
@@ -59,11 +60,14 @@ class FeedCell: MDCCardCollectionCell {
         contentView.addSubview(supportingTextLabel)
         contentView.addSubview(votingControls)
         contentView.addSubview(overflowMenu)
+        contentView.addSubview(cellDivider)
     }
     
     func applyConstraints() {
         
         mediaHeightConstraint = media.heightAnchor.constraint(equalToConstant: CGFloat(0))
+        dividerLeadingConstraint = cellDivider.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16)
+        
         NSLayoutConstraint.activate([
             
 //        thumbnailImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
@@ -85,12 +89,15 @@ class FeedCell: MDCCardCollectionCell {
         supportingTextLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
         
         votingControls.topAnchor.constraint(equalTo: supportingTextLabel.bottomAnchor, constant: 24),
-        contentView.bottomAnchor.constraint(equalTo: votingControls.bottomAnchor, constant: 8)
+        dividerLeadingConstraint!,
+        cellDivider.topAnchor.constraint(equalTo: votingControls.bottomAnchor, constant: 8),
+        contentView.trailingAnchor.constraint(equalTo: cellDivider.trailingAnchor),
+        contentView.bottomAnchor.constraint(equalTo: cellDivider.bottomAnchor)
         ])
     }
     
     func initControls() {
-        overflowMenu.addTarget(self, action: #selector(overflowMenuOnTapped(_:)), for: .touchUpInside)
+        overflowMenu.view.addTarget(self, action: #selector(overflowMenuOnTapped(_:)), for: .touchUpInside)
     }
     
     func setConstraintsWithMedia() {
@@ -125,6 +132,14 @@ class FeedCell: MDCCardCollectionCell {
         if let event = overflowMenuTap {
             event()
         }
+    }
+    
+    func hideDivider() {
+        cellDivider.isHidden = true
+    }
+    
+    func setFullBleedDivider() {
+        dividerLeadingConstraint?.constant = 0
     }
     
     let headerLabel: UILabel = {
@@ -171,11 +186,17 @@ class FeedCell: MDCCardCollectionCell {
         return label
     }()
     
-    let overflowMenu: MDCFlatButton = {
-        let button = MDCFlatButton()
+    let overflowMenu: FlatButton = {
+        let button = FlatButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(Images.moreHorizontal, for: .normal)
-        button.tintColor = ApplicationScheme.instance.containerScheme.colorScheme.onSurfaceColor
+        button.view.setImage(Images.moreHorizontal, for: .normal)
+        button.view.setImageTintColor(ApplicationScheme.instance.containerScheme.colorScheme.onSurfaceColor, for: .normal)
         return button
+    }()
+    
+    let cellDivider: Divider = {
+        let divider = Divider()
+        divider.translatesAutoresizingMaskIntoConstraints = false
+        return divider
     }()
 }

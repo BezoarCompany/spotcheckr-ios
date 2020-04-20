@@ -4,12 +4,12 @@ import Firebase
 class DomainToFirebaseMapper {
     static func mapAnswer(from: Answer) -> [String:Any] {
         var firebaseAnswer = [String:Any]()
-        firebaseAnswer["id"] = from.id
-        firebaseAnswer["created-by"] = from.createdBy?.id
+        firebaseAnswer["id"] = from.id?.value
+        firebaseAnswer["created-by"] = from.createdBy?.id?.value
         firebaseAnswer["created-date"] = from.dateCreated
         firebaseAnswer["modified-date"] = from.dateModified
         firebaseAnswer["text"] = from.text
-        firebaseAnswer["exercise-post"] = from.exercisePostId
+        firebaseAnswer["exercise-post"] = from.exercisePostId?.value
         firebaseAnswer["upvote-count"] = from.metrics?.upvotes ?? 0
         firebaseAnswer["downvote-count"] = from.metrics?.downvotes ?? 0
         return firebaseAnswer
@@ -17,8 +17,8 @@ class DomainToFirebaseMapper {
     
     static func mapExercisePost(post: ExercisePost) -> [String:Any] {
         var firebaseExercisePost = [String:Any]()
-        firebaseExercisePost["id"] = post.id
-        firebaseExercisePost["created-by"] = post.createdBy?.id
+        firebaseExercisePost["id"] = post.id?.value
+        firebaseExercisePost["created-by"] = post.createdBy?.id?.value
         firebaseExercisePost["created-date"] = post.dateCreated
         firebaseExercisePost["title"] = post.title
         firebaseExercisePost["description"] = post.description
@@ -48,11 +48,11 @@ class DomainToFirebaseMapper {
         return firebaseUser
     }
     
-    static func mapReport(postId: String?, details: Report) -> [String:Any] {
+    static func mapReport(contentId: GenericID?, details: Report) -> [String:Any] {
         var firebaseReport = [String:Any]()
         firebaseReport["type"] = Firestore.firestore().document("/\(CollectionConstants.reportTypesCollection)/\(details.reportType!.id!)")
-        if let postId = postId {
-            firebaseReport["exercise-post"] = Firestore.firestore().document("/\(CollectionConstants.postsCollection)/\(postId)")
+        if let contentId = contentId {
+            firebaseReport["exercise-post"] = Firestore.firestore().document("/\(CollectionConstants.postsCollection)/\(contentId.value)")
         }
         firebaseReport["description"] = details.description
         firebaseReport["created-by"] = Firestore.firestore().document("/\(CollectionConstants.userCollection)/\(details.createdBy!.id!)")

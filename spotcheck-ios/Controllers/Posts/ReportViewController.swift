@@ -46,11 +46,11 @@ class ReportViewController: UIViewController {
     
     var reportTypes = [ReportType]()
     var selectedReportType: ReportType?
-    var postId: String?
+    var postId: ExercisePostID?
     var currentUser: User?
     let validator = Validator()
     
-    static func create(postId: String?) -> ReportViewController {
+    static func create(postId: ExercisePostID?) -> ReportViewController {
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         let reportViewController = storyboard.instantiateViewController(withIdentifier: K.Storyboard.ReportViewControllerId) as! ReportViewController
         
@@ -239,7 +239,7 @@ extension ReportViewController: ValidationDelegate {
         sendReportButton.isEnabled = false
         
         firstly {
-            Services.reportingService.submitReport(postId: postId!, details: userReport)
+            Services.reportingService.submitReport(contentId: postId!, details: userReport)
         }.done {
             self.dismiss(animated: true) {
                 self.snackbarMessage.text = "Report submitted."
