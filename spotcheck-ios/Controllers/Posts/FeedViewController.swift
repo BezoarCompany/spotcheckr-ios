@@ -246,10 +246,8 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
             cell.setConstraintsWithNoMedia()
         }
         
-        if (post.videoPath != nil ) {
-            cell.setVisibilityPlayButton(isVisible: true)
-        } else {
-            cell.setVisibilityPlayButton(isVisible: false)
+        if let vidFilename = post.videoPath {
+            cell.initVideoPlayer(videoFileName: vidFilename)
         }
         
         cell.supportingTextLabel.text = post.description
@@ -289,9 +287,9 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
         let post = posts[indexPath.row]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: K.Storyboard.feedCellId,
         for: indexPath) as! FeedCell
-        if let vidPlayer = cell.player,  let vidPlayerLayer = cell.playerLayer {
-            vidPlayer.pause()
-            vidPlayerLayer.removeFromSuperlayer()
+        if let player = cell.avPlayerViewController.player {
+            player.pause()
+            cell.avPlayerViewController.removeFromParent()
             print("pausing any video for: \(cell.post?.title)")
         }
     }

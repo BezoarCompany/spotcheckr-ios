@@ -1,6 +1,7 @@
 import MaterialComponents
 import PromiseKit
 import AVFoundation
+import AVKit
 import PromiseKit
 
 enum OverflowMenuLocation {
@@ -29,10 +30,8 @@ class FeedCell: MDCCardCollectionCell {
     
     var postDetailClosure:  (() -> Void)? = nil
     
-    var playerLayer: AVPlayerLayer?
-    var player: AVPlayer?
+    var avPlayerViewController = AVPlayerViewController()
     let activityIndicator = UIElementFactory.getActivityIndicator()
-    var isVideoPlaying = false
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -59,8 +58,7 @@ class FeedCell: MDCCardCollectionCell {
         media.sd_cancelCurrentImageLoad()
         media.image = UIImage(named:"squatLogoPlaceholder")!//nil
         print("reusing!\(post?.title)")
-        player?.pause()
-        playerLayer?.removeFromSuperlayer()
+        avPlayerViewController.removeFromParent()
         activityIndicator.stopAnimating()
     }
 
@@ -71,7 +69,6 @@ class FeedCell: MDCCardCollectionCell {
         contentView.addSubview(mediaContainerView)
         mediaContainerView.addSubview(media)
         mediaContainerView.addSubview(activityIndicator)
-        mediaContainerView.addSubview(playButton)        
         contentView.addSubview(supportingTextLabel)
         contentView.addSubview(votingControls)
         contentView.addSubview(overflowMenu)
@@ -98,12 +95,7 @@ class FeedCell: MDCCardCollectionCell {
                 
         media.centerXAnchor.constraint(equalTo: mediaContainerView.centerXAnchor),
         media.centerYAnchor.constraint(equalTo: mediaContainerView.centerYAnchor),
-        media.widthAnchor.constraint(equalToConstant: contentView.frame.width),        
-        
-        playButton.centerXAnchor.constraint(equalTo: mediaContainerView.centerXAnchor),
-        playButton.centerYAnchor.constraint(equalTo: mediaContainerView.centerYAnchor),
-        playButton.widthAnchor.constraint(equalToConstant: CGFloat(FeedCell.IMAGE_HEIGHT)),
-        playButton.heightAnchor.constraint(equalToConstant: CGFloat(FeedCell.IMAGE_HEIGHT)),
+        media.widthAnchor.constraint(equalToConstant: contentView.frame.width),
         
         activityIndicator.centerXAnchor.constraint(equalTo: mediaContainerView.centerXAnchor),
         activityIndicator.centerYAnchor.constraint(equalTo: mediaContainerView.centerYAnchor),
@@ -121,7 +113,7 @@ class FeedCell: MDCCardCollectionCell {
     
     func initControls() {
         overflowMenu.addTarget(self, action: #selector(overflowMenuOnTapped(_:)), for: .touchUpInside)
-        playButton.addTarget(self, action: #selector(togglePlay), for: .touchUpInside)
+        
         
         //Tap Gesture Recognizer is only referenced by last UIElement to Add it.
         //Although they share the same action selector, we must create a gesture for each UI element to use
@@ -149,13 +141,8 @@ class FeedCell: MDCCardCollectionCell {
         mediaHeightConstraint!.constant = 0
         mediaHeightConstraint!.isActive = true
         mediaContainerView.isHidden = true
-        setVisibilityPlayButton(isVisible: false)
     }
-    
-    func setVisibilityPlayButton(isVisible: Bool) {
-        playButton.isHidden = !isVisible
-    }
-    
+        
     func setOverflowMenuLocation(location: OverflowMenuLocation) {
         if overflowMenuLayoutConstraints == nil {
             if location == .bottom {
@@ -180,10 +167,6 @@ class FeedCell: MDCCardCollectionCell {
     
     @objc func toPostDetailOnClick(_ sender: Any) {
         if let postDetailClosure = postDetailClosure {
-            self.isVideoPlaying = false
-            if let player = self.player {
-                player.pause()
-            }
             postDetailClosure()
         }
     }
@@ -193,34 +176,14 @@ class FeedCell: MDCCardCollectionCell {
         firstly {
             Services.storageService.getVideoDownloadURL(filename: videoFileName)
         }.done { url in
-            self.player = AVPlayer(url: url)
+  
+            let player = AVPlayer(url: url)
+            self.avPlayerViewController = AVPlayerViewController()
+            self.avPlayerViewController.player = player
+            self.avPlayerViewController.view.frame = self.mediaContainerView.bounds
             
-            self.playerLayer = AVPlayerLayer(player: self.player)
-            self.playerLayer?.frame = self.mediaContainerView.bounds
-            self.mediaContainerView.layer.addSublayer(self.playerLayer!)
+            self.mediaContainerView.addSubview(self.avPlayerViewController.view)
             
-            self.player?.play()
-            self.activityIndicator.startAnimating()
-        }
-    }
-    
-    @objc func togglePlay() {
-        guard let videoFileName = post?.videoPath else {
-            return
-        }
-        
-        if let player = self.player, let _ = self.playerLayer {
-            
-            self.isVideoPlaying = !self.isVideoPlaying
-            
-            if self.isVideoPlaying {
-                player.play()
-            } else {
-                player.pause()
-            }
-            
-        } else {
-            initVideoPlayer(videoFileName: videoFileName)
         }
     }
     
@@ -265,7 +228,7 @@ class FeedCell: MDCCardCollectionCell {
         image.contentMode = .scaleAspectFit
         return image
     }()
-    
+        
     let supportingTextLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -283,14 +246,4 @@ class FeedCell: MDCCardCollectionCell {
         button.tintColor = ApplicationScheme.instance.containerScheme.colorScheme.onSurfaceColor
         return button
     }()
-    
-    let playButton: UIButton = {
-        let button = UIButton(type: UIButton.ButtonType.system)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        let img = UIImage(systemName: "play.circle.fill")
-        button.tintColor = UIColor.white
-        button.setImage(img, for: .normal)
-        return button
-    }()
-    
 }
