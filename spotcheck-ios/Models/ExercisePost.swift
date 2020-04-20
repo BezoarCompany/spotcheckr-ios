@@ -2,7 +2,7 @@ import Foundation
 import IGListKit
 
 class ExercisePost {
-    var id: String = ""
+    var id: ExercisePostID?
     var title: String = ""
     var description: String = ""
     var createdBy: User?
@@ -20,7 +20,7 @@ class ExercisePost {
          metrics: Metrics = Metrics(), answers: [Answer] = [], media: [Media] = [],
          exercises: [Exercise] = [], answersCount: Int = 0, imagePath: String? = nil, videoPath: String? = nil) {
     
-        self.id = id
+        self.id = ExercisePostID(id)
         self.title = title
         self.description = description
         
@@ -43,7 +43,7 @@ extension ExercisePost: ListDiffable {
     
     //To define the unique identifying attribute of a post
     func diffIdentifier() -> NSObjectProtocol {
-        return id as NSObjectProtocol
+        return id!.value as NSObjectProtocol
     }
     
     //equality operator

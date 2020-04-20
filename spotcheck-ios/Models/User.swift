@@ -1,7 +1,7 @@
 import Foundation
 
 class User {
-    var id: String?
+    var id: UserID?
     var username: String?
     var profilePicturePath: String?
     var information: Identity?
@@ -10,8 +10,10 @@ class User {
     var exercisePosts = [ExercisePost]()
     var isAnonymous = false
     var dateCreated: Date?
+    var answerVotes = [AnswerID:Int]()
+    var exercisePostVotes = [ExercisePostID:Int]()
     
-    init(id: String?) {
+    init(id: UserID) {
         self.id = id
     }
 }

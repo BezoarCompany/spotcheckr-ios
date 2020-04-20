@@ -237,10 +237,10 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             cell.voteDirection = post.metrics.currentVoteDirection
             cell.answersCountLabel.text = "\(post.answersCount)"
             cell.upvoteOnTap = { (voteDirection: VoteDirection) in
-                Services.exercisePostService.votePost(postId: post.id, userId: self.currentUser!.id!, direction: voteDirection)
+                Services.exercisePostService.voteContent(contentId: post.id!, userId: self.currentUser!.id!, direction: voteDirection)
             }
             cell.downvoteOnTap = { (voteDirection: VoteDirection) in
-                Services.exercisePostService.votePost(postId: post.id, userId: self.currentUser!.id!, direction: voteDirection)
+                Services.exercisePostService.voteContent(contentId: post.id!, userId: self.currentUser!.id!, direction: voteDirection)
             }
             
             let moreIconActionSheet = UIElementFactory.getActionSheet()
@@ -275,10 +275,10 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         cell.voteDirection = answer.metrics?.currentVoteDirection
         cell.hideAnswers = true
         cell.upvoteOnTap = { (voteDirection: VoteDirection) in
-            Services.exercisePostService.voteAnswer(answerId: answer.id!, userId: self.currentUser!.id!, direction: voteDirection)
+            Services.exercisePostService.voteContent(contentId: answer.id!, userId: self.currentUser!.id!, direction: voteDirection)
         }
         cell.downvoteOnTap = { (voteDirection: VoteDirection) in
-            Services.exercisePostService.voteAnswer(answerId: answer.id!, userId: self.currentUser!.id!, direction: voteDirection)
+            Services.exercisePostService.voteContent(contentId: answer.id!, userId: self.currentUser!.id!, direction: voteDirection)
         }
         
         let moreIconActionSheet = UIElementFactory.getActionSheet()
@@ -383,18 +383,20 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension ProfileViewController: MDCTabBarDelegate {
-    private func initTabBar() {
-        self.tabBar = MDCTabBar(frame: self.view.bounds)
-        self.tabBar?.delegate = self
-        self.tabBar?.translatesAutoresizingMaskIntoConstraints = false
-        self.tabBar?.items = [
+    func initTabBar() {
+        tabBar = MDCTabBar(frame: self.view.bounds)
+        tabBar?.delegate = self
+        tabBar?.translatesAutoresizingMaskIntoConstraints = false
+        tabBar?.items = [
             UITabBarItem(title: "\(posts.count) Posts", image: nil, tag: 0),
             UITabBarItem(title: "\(answers.count) Answers", image: nil, tag: 1)
         ]
-        self.tabBar?.itemAppearance = .titles
-        self.tabBar?.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
-        self.tabBar?.sizeToFit()
-        self.tabBar?.applyPrimaryTheme(withScheme: ApplicationScheme.instance.containerScheme)
+        tabBar?.itemAppearance = .titles
+        tabBar?.alignment = .justified
+        
+        tabBar?.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
+        tabBar?.sizeToFit()
+        tabBar?.applyPrimaryTheme(withScheme: ApplicationScheme.instance.containerScheme)
     }
     
     func position(for bar: UIBarPositioning) -> UIBarPosition {
