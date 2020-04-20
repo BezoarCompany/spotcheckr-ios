@@ -19,7 +19,7 @@ class UserService: UserProtocol {
                 let userTypeDocRef = Firestore.firestore().document("\(userTypePath)")
                 
                 Firestore.firestore().collection(CollectionConstants.userCollection).document(user.id!.value).setData([
-                    "id": user.id!,
+                    "id": user.id!.value,
                     "type": userTypeDocRef,
                     "is-anonymous": user.isAnonymous,
                     "date-created": user.dateCreated ?? Date()
