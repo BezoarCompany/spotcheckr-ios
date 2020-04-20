@@ -174,6 +174,11 @@ extension PostDetailViewController: UICollectionViewDataSource, UICollectionView
             } else {
                 cell.setConstraintsWithNoMedia()
             }
+            
+            if let vidFilename = post?.videoPath {
+                cell.initVideoPlayer(videoFileName: vidFilename)
+            }
+            
             cell.supportingTextLabel.text = post?.description
             cell.supportingTextLabel.numberOfLines = 0
             cell.postId = post?.id
