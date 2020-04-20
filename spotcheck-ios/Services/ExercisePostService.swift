@@ -292,6 +292,8 @@ class ExercisePostService: ExercisePostProtocol {
         let collectionPath = "\(parentDocPath)/\(CollectionConstants.votesCollection)"
         return Promise { promise in
             let voteRef = Firestore.firestore().collection(collectionPath).whereField("voted-by", isEqualTo: userId.value)
+            let userRef = Firestore.firestore().collection(CollectionConstants.userCollection).document(userId.value)
+            let userVoteField = contentCollection == CollectionConstants.answerCollection ? "answer-votes" : "exercise-post-votes"
             
             voteRef.getDocuments { (voteSnapshot, error) in
                 if let error = error {
@@ -310,7 +312,7 @@ class ExercisePostService: ExercisePostProtocol {
                             let newVoteRef = Firestore.firestore().collection(collectionPath).document()
                             transaction.setData([
                                 "status": updatedStatus,
-                                "voted-by": userId
+                                "voted-by": userId.value
                             ], forDocument: newVoteRef)
                             switch direction {
                             case .Up:
@@ -352,10 +354,10 @@ class ExercisePostService: ExercisePostProtocol {
                             else if oldStatus == .Neutral && direction == .Down {
                                 downvoteCount += 1
                             }
-                            
                             transaction.updateData(["upvote-count": upvoteCount, "downvote-count": downvoteCount], forDocument: parentDocRef)
                             transaction.updateData(["status" : updatedStatus], forDocument: doc!.reference)
                         }
+                        transaction.updateData(["\(userVoteField).\(parentDocRef.documentID)": updatedStatus], forDocument: userRef)
                     } catch {
                         
                     }
@@ -397,7 +399,7 @@ class ExercisePostService: ExercisePostProtocol {
     
     func createAnswer(answer: Answer) -> Promise<Void> {
         return Promise { promise in
-            let exercisePostRef = Firestore.firestore().document("/\(CollectionConstants.postsCollection)/\(answer.exercisePostId!)")
+            let exercisePostRef = Firestore.firestore().document("/\(CollectionConstants.postsCollection)/\(answer.exercisePostId!.value)")
             Firestore.firestore().runTransaction({ (transaction, errorPointer) -> Any? in
                 do {
                     let exercisePostDoc = try transaction.getDocument(exercisePostRef).data()
