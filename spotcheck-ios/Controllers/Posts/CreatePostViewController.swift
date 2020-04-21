@@ -19,7 +19,7 @@ class CreatePostViewController: UIViewController {
     let MAX_SUBJECT_LENGTH = 300
     let appBarViewController = UIElementFactory.getAppBar()
     var imagePickerController = UIImagePickerController()
-    var isImageChanged = false
+    var isMediaChanged = false
     
     var updatePostMode: DiffType = .add
     var exercisePost: ExercisePost?
@@ -78,7 +78,7 @@ class CreatePostViewController: UIViewController {
         cameraImg = cameraImg?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
         button.setImage(cameraImg, for: .normal)
         button.addTarget(self, action:
-        #selector(openPhotoGallery), for: .touchUpInside)
+        #selector(openMediaGallery), for: .touchUpInside)
         button.showsTouchWhenHighlighted = true
         button.tintColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
         return button
@@ -255,17 +255,6 @@ extension CreatePostViewController: MDCMultilineTextInputDelegate {
     //the description text view requires a delegate
 }
 
-extension CreatePostViewController: UINavigationControllerDelegate,UIImagePickerControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
-
-       let chosenImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
-       
-       isImageChanged = true
-       photoImageView.image = chosenImage
-       
-       imagePickerController.dismiss(animated: true, completion: nil)
-    }
-}
 
 extension CreatePostViewController: ValidationDelegate {
     func validationSuccessful() {

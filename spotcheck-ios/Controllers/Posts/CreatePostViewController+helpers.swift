@@ -157,51 +157,7 @@ extension CreatePostViewController {
          self.bodyTextField.textView!.resignFirstResponder()
     }
     
-    @objc func openCamera() {
-        print("openCamera")
-    }
-    
-    @objc func openPhotoGallery() {
-        print("openPhotoGallery")
-        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
-            checkPhotoPermissionsAndShowLib()
-        }
-    }
-    
-    func showPhotoLibraryPicker() {
-       imagePickerController = UIImagePickerController()
-       
-       imagePickerController.delegate = self
-       imagePickerController.sourceType = .savedPhotosAlbum
-       imagePickerController.allowsEditing = false
-       
-       present(imagePickerController, animated: true, completion: nil)
-    }
-    
-    func checkPhotoPermissionsAndShowLib() {
-        let photoAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
-        
-        switch photoAuthorizationStatus {
-        case .authorized:
-            print("Access is granted by user")
-            showPhotoLibraryPicker()
-        case .notDetermined:
-            PHPhotoLibrary.requestAuthorization({ newStatus in
-                print("status is \(newStatus)")
-                if newStatus == PHAuthorizationStatus.authorized {
-                    print("success")
-                    self.showPhotoLibraryPicker()
-                }
-            })
-        case .restricted:
-            print("User do not have access to photo album.")
-        case .denied:
-            print("User has denied the permission.")
-        @unknown default:
-            print("User has unknown authorization to view library")
-        }
-        
-    }
+
     
     //for modifying an existing post
     func updatePostWorkflow(post: ExercisePost?) {
@@ -220,7 +176,7 @@ extension CreatePostViewController {
         //queue up parallel execution of storage delete old image, storage-upload-new image, and firestore-update post
         var voidPromises = [Promise<Void>]()
 
-        if (isImageChanged) {
+        if (isMediaChanged) {
             let newImageName = "\(NSUUID().uuidString)" + ".jpeg"
             copyPost.imagePath = newImageName
             let jpegData = photoImageView.image!.jpegData(compressionQuality: 1.0)
@@ -282,8 +238,9 @@ extension CreatePostViewController {
             return promise.fulfill_()
         }
         
-        if (isImageChanged) {
-            let newImageName = "\(NSUUID().uuidString)" + ".jpeg"
+        if (isMediaChanged) {
+            let baseName = NSUUID().uuidString
+            let newImageName = "\(baseName)" + ".jpeg"
             exercisePost.imagePath = newImageName
             
             let jpegData = photoImageView.image!.jpegData(compressionQuality: 1.0)
