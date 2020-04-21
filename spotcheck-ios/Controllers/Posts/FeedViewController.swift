@@ -216,7 +216,7 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
         cell.votingControls.downvoteOnTap = { (voteDirection: VoteDirection) in
             Services.exercisePostService.voteContent(contentId: post.id!, userId: self.currentUser!.id!, direction: voteDirection)
         }
-        
+                
         cell.postDetailClosure = {
             self.viewPostHandler(exercisePost: post)
         }

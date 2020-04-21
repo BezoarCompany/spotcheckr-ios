@@ -4,6 +4,7 @@ class CardCollectionCell: MDCCardCollectionCell {
     var dividerLeadingConstraint: NSLayoutConstraint?
     var overflowMenuLayoutConstraints: [NSLayoutConstraint]?
     var overflowMenuTap: (() -> Void)? = nil
+    
     let headerLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -61,6 +62,14 @@ class CardCollectionCell: MDCCardCollectionCell {
         return image
     }()
     
+    let mediaContainerView: UIView = {
+       let view = UIView()
+        view.backgroundColor = .blue
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.masksToBounds = true
+        return view
+    }()
+    
     let media: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -84,7 +93,8 @@ class CardCollectionCell: MDCCardCollectionCell {
            //contentView.addSubview(thumbnailImageView)
            contentView.addSubview(headerLabel)
            contentView.addSubview(subHeadLabel)
-           contentView.addSubview(media)
+           contentView.addSubview(mediaContainerView)
+           mediaContainerView.addSubview(media)
            contentView.addSubview(supportingTextLabel)
            contentView.addSubview(votingControls)
            contentView.addSubview(overflowMenu)
