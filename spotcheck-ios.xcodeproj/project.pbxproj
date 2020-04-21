@@ -98,6 +98,7 @@
 		BA65CBBB244D0B6A00901812 /* ExercisePostID.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA65CBBA244D0B6A00901812 /* ExercisePostID.swift */; };
 		BA65CBBD244D0CF000901812 /* GenericID.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA65CBBC244D0CF000901812 /* GenericID.swift */; };
 		BA65CBBF244D10BF00901812 /* UserID.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA65CBBE244D10BF00901812 /* UserID.swift */; };
+		BA65CBCC244E25EE00901812 /* CardCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA65CBCB244E25EE00901812 /* CardCollectionCell.swift */; };
 		BA733D5524038E4100395895 /* ErrorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA733D5424038E4100395895 /* ErrorExtensions.swift */; };
 		BA74976D2429D6B100C1C17C /* edit-2.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA74976C2429D6B100C1C17C /* edit-2.svg */; };
 		BA74976F2429DA6400C1C17C /* settings.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA74976E2429DA6400C1C17C /* settings.svg */; };
@@ -246,6 +247,7 @@
 		BA65CBBA244D0B6A00901812 /* ExercisePostID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisePostID.swift; sourceTree = "<group>"; };
 		BA65CBBC244D0CF000901812 /* GenericID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericID.swift; sourceTree = "<group>"; };
 		BA65CBBE244D10BF00901812 /* UserID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserID.swift; sourceTree = "<group>"; };
+		BA65CBCB244E25EE00901812 /* CardCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCollectionCell.swift; sourceTree = "<group>"; };
 		BA733D5424038E4100395895 /* ErrorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorExtensions.swift; sourceTree = "<group>"; };
 		BA74976C2429D6B100C1C17C /* edit-2.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "edit-2.svg"; sourceTree = "<group>"; };
 		BA74976E2429DA6400C1C17C /* settings.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = settings.svg; sourceTree = "<group>"; };
@@ -565,6 +567,34 @@
 			path = Mapping;
 			sourceTree = "<group>";
 		};
+		BA65CBCD244E25F300901812 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				BA65CBCF244E261F00901812 /* Controls */,
+				BA65CBCB244E25EE00901812 /* CardCollectionCell.swift */,
+				BAEE4AC72426D133005C2023 /* FeedCell.swift */,
+				BABAA3EB244404D200FF5C33 /* AnswerCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		BA65CBCE244E260D00901812 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				BA65CBB4244C6BF700901812 /* FlatButton.swift */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
+		BA65CBCF244E261F00901812 /* Controls */ = {
+			isa = PBXGroup;
+			children = (
+				BA65CBB0244C386B00901812 /* Divider.swift */,
+				BABAA3E92443454D00FF5C33 /* VotingControls.swift */,
+			);
+			path = Controls;
+			sourceTree = "<group>";
+		};
 		BAA340F823F3931A00C7392C /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -644,11 +674,8 @@
 		BABAA3E8244344B200FF5C33 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				BABAA3EB244404D200FF5C33 /* AnswerCell.swift */,
-				BAEE4AC72426D133005C2023 /* FeedCell.swift */,
-				BABAA3E92443454D00FF5C33 /* VotingControls.swift */,
-				BA65CBB0244C386B00901812 /* Divider.swift */,
-				BA65CBB4244C6BF700901812 /* FlatButton.swift */,
+				BA65CBCE244E260D00901812 /* Buttons */,
+				BA65CBCD244E25F300901812 /* Cells */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -943,6 +970,7 @@
 				BA1FB51B23F106B600E091B1 /* Trainer.swift in Sources */,
 				BA65CBB9244D0B1800901812 /* AnswerID.swift in Sources */,
 				BA828EF9241CE0270012509D /* StringExtensions.swift in Sources */,
+				BA65CBCC244E25EE00901812 /* CardCollectionCell.swift in Sources */,
 				BA4EE44F23EE91D1003E6D87 /* SignUpViewController.swift in Sources */,
 				5686D2E224051C0300E09868 /* CreatePostViewController+helpers.swift in Sources */,
 				BA54CD712436528300A944BC /* ReportingProtocol.swift in Sources */,

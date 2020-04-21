@@ -252,6 +252,10 @@ extension PostDetailViewController: UICollectionViewDataSource, UICollectionView
         let answer = answers[indexPath.row]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: K.Storyboard.answerCellId,
                                                       for: indexPath) as! AnswerCell
+        let isLastCell = { (indexPath: IndexPath) in return indexPath.row == self.answersCount - 1 }
+        if isLastCell(indexPath) {
+            cell.hideDivider()
+        }
         cell.setShadowElevation(ShadowElevation(rawValue: 10), for: .normal)
         cell.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
         cell.isInteractable = false
@@ -314,6 +318,8 @@ extension PostDetailViewController: UICollectionViewDataSource, UICollectionView
     func initCollectionView() {
         view.addSubview(collectionView)
         layout.estimatedItemSize = cellEstimatedSize
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
         collectionView.collectionViewLayout = layout
         collectionView.delegate = self
         collectionView.dataSource = self
