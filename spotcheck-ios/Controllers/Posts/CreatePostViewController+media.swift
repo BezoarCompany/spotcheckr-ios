@@ -96,8 +96,15 @@ extension CreatePostViewController: UINavigationControllerDelegate,UIImagePicker
             photoImageView.image = chosenImage
 
         } else if mediaType as! String == kUTTypeMovie as String { // Video
+
+            print("info[UIImagePickerController.InfoKey.mediaURL] phAsset " , info[.phAsset])
+            print("info[UIImagePickerController.InfoKey.mediaURL] mediaURL " , info[.mediaURL])
+            // Saved URL on the controller for later reference in the submit
+            
             
             let videoURL = info[UIImagePickerController.InfoKey.mediaURL] as? URL
+            self.selectedVideoFileURL = videoURL
+            print("selectedVideoFileURL: \(self.selectedVideoFileURL)")
             
             //Create thumbnail from the video
             let asset = AVAsset(url: videoURL!)
@@ -112,8 +119,7 @@ extension CreatePostViewController: UINavigationControllerDelegate,UIImagePicker
                 photoImageView.image = UIImage(cgImage: imageRef)
             } catch {
                 print("Error creating video thumbnail")
-            }
-            print("video url: \(videoURL!)")
+            }            
         }
         
         isMediaChanged = true

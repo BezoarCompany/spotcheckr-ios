@@ -11,6 +11,11 @@ enum SupportedImageType {
     case jpg
 }
 
+enum SupportedVideoType {
+    case mov
+    case mp4
+}
+
 enum MaxImageSizes: Int {
     case profilePicture = 2000000
 }
@@ -103,4 +108,33 @@ class StorageService: StorageProtocol {
     }
     
     #endif
+    
+    
+    func uploadVideo(filename: String, videotype: SupportedVideoType, url: URL) -> Promise<Void> {
+        return Promise { promise in
+            let firebaseVideoStorageRef = Storage.storage().reference().child(K.Firestore.Storage.VIDEOS_ROOT_DIR)
+            let newStorageRef = firebaseVideoStorageRef.child(filename)
+            let metaData = StorageMetadata()
+
+            switch videotype {
+            case .mov:
+                metaData.contentType = "video/quicktime"
+            case .mp4:
+                metaData.contentType = "video/mp4"
+            }
+                                                        
+            //convert from URL to Data. putFile(from: url) function doesn't seem to work b/c of limited access to file system?
+            //https://stackoverflow.com/a/39693142/9882015
+            let data = url.dataRepresentation
+            
+            let uploadTask = newStorageRef.putData(data, metadata: metaData) { metadata, error in
+                if let error = error {
+                    return promise.reject(error)
+                } else {
+                    return promise.fulfill_()
+                }
+            }
+        }
+    }
+    //func deleteVideo(filename: String) -> Promise<Void>
 }

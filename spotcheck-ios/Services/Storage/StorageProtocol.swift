@@ -8,6 +8,8 @@ protocol StorageProtocol {
     func download(path: String, maxSize: Int64) -> Promise<UIImage>
     
     func getVideoDownloadURL(filename: String) -> Promise<URL>
+    func uploadVideo(filename: String, videotype: SupportedVideoType, url: URL) -> Promise<Void>
+//    func deleteVideo(filename: String) -> Promise<Void>
     
 }
 

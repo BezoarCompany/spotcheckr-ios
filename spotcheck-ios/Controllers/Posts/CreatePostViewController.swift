@@ -19,7 +19,8 @@ class CreatePostViewController: UIViewController {
     let MAX_SUBJECT_LENGTH = 300
     let appBarViewController = UIElementFactory.getAppBar()
     var imagePickerController = UIImagePickerController()
-    var isMediaChanged = false
+    var isMediaChanged = false    
+    var selectedVideoFileURL: URL? = nil
     
     var updatePostMode: DiffType = .add
     var exercisePost: ExercisePost?

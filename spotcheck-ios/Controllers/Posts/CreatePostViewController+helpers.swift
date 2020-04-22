@@ -212,7 +212,7 @@ extension CreatePostViewController {
                 MDCSnackbarManager.show(self.snackbarMessage)
             }
         }.catch { err in
-            print("error executing updatePostWorflow promises!")
+            print("## error executing updatePostWorflow promises!")
             print(err)
             //TODO: Error updating post from no image to new image
         }.finally {
@@ -238,6 +238,10 @@ extension CreatePostViewController {
             return promise.fulfill_()
         }
         
+        var uploadVideoPromise: Promise<Void> =  Promise<Void> {promise in
+            return promise.fulfill_()
+        }
+        
         if (isMediaChanged) {
             let baseName = NSUUID().uuidString
             let newImageName = "\(baseName)" + ".jpeg"
@@ -245,11 +249,21 @@ extension CreatePostViewController {
             
             let jpegData = photoImageView.image!.jpegData(compressionQuality: 1.0)
             uploadImagePromise = Services.storageService.uploadImage(filename: newImageName, imagetype: .jpeg, data: jpegData)
+
+            if let  selectedVideoFileURL = selectedVideoFileURL {
+                let newVideoName = "\(baseName)" + ".mov"
+                exercisePost.videoPath = newVideoName
+                uploadVideoPromise = Services.storageService.uploadVideo(filename: newVideoName, videotype: .mov, url: selectedVideoFileURL)
+                print("Added selectedVideoFileURL: \(selectedVideoFileURL)")
+            }
         }
         
+        
         firstly {
-            when(fulfilled: uploadImagePromise, Services.exercisePostService.createPost(post: exercisePost))
-        }.done { voidResult, newPost in
+            when(fulfilled: uploadImagePromise, Services.exercisePostService.createPost(post: exercisePost), uploadVideoPromise)
+            
+        }.done { voidResult, newPost, voidResVideo in
+            
             print("success creating post")
             if let updateTableView = self.diffedPostsDataClosure {
                 updateTableView(.add, newPost)
