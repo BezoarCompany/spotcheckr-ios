@@ -125,7 +125,7 @@ class StorageService: StorageProtocol {
                                                         
             //convert from URL to Data. putFile(from: url) function doesn't seem to work b/c of limited access to file system?
             //https://stackoverflow.com/a/39693142/9882015
-            let data = url.dataRepresentation
+            let data = try Data(contentsOf: url)
             
             let uploadTask = newStorageRef.putData(data, metadata: metaData) { metadata, error in
                 if let error = error {
