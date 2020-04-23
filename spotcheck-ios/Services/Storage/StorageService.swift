@@ -136,5 +136,19 @@ class StorageService: StorageProtocol {
             }
         }
     }
-    //func deleteVideo(filename: String) -> Promise<Void>
+    func deleteVideo(filename: String) -> Promise<Void> {
+        return Promise { promise in
+            let firebaseVideoStorageRef = Storage.storage().reference().child(K.Firestore.Storage.VIDEOS_ROOT_DIR)
+            let vidStorageRef = firebaseVideoStorageRef.child(filename)
+
+            vidStorageRef.delete { err in
+                if let error = err {
+                    return promise.reject(error)
+                } else {
+                    return promise.fulfill_()
+                }
+                
+            }
+        }
+    }
 }

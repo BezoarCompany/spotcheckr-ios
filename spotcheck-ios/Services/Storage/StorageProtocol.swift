@@ -9,7 +9,7 @@ protocol StorageProtocol {
     
     func getVideoDownloadURL(filename: String) -> Promise<URL>
     func uploadVideo(filename: String, videotype: SupportedVideoType, url: URL) -> Promise<Void>
-//    func deleteVideo(filename: String) -> Promise<Void>
+    func deleteVideo(filename: String) -> Promise<Void>
     
 }
 

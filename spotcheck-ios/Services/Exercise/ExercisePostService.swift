@@ -497,6 +497,10 @@ class ExercisePostService: ExercisePostProtocol {
                 voidPromises.append(Services.storageService.deleteImage(filename: imagefilename))
             }
             
+            if let videofilename = post.videoPath {
+                voidPromises.append(Services.storageService.deleteVideo(filename: videofilename))
+            }
+            
             firstly {
                 when(fulfilled: voidPromises)
             }.done { _ in
