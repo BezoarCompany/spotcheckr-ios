@@ -351,8 +351,6 @@ extension PostDetailViewController: UICollectionViewDataSource, UICollectionView
             self.present(actionSheet, animated: true)
         }
         cell.setOverflowMenuLocation(location: .top)
-        
-        print("answers rendered")
         return cell
     }
     
