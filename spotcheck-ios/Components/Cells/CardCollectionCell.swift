@@ -63,8 +63,7 @@ class CardCollectionCell: MDCCardCollectionCell {
     }()
     
     let mediaContainerView: UIView = {
-       let view = UIView()
-        view.backgroundColor = .blue
+       let view = UIView()        
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.masksToBounds = true
         return view
