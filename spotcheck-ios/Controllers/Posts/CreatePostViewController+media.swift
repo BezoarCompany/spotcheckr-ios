@@ -13,18 +13,12 @@ extension CreatePostViewController {
     @objc func openMediaOptions() {
         let mediaActionSheet = UIElementFactory.getActionSheet()
         mediaActionSheet.title = "Choose Media Source"
-        
-        let cameraAction = MDCActionSheetAction(title: "Video Camera", image: UIImage(systemName: "video.badge.plus"), handler: { (MDCActionSheetAction) in
-            print("clicked Video Gallery")
-        })
-        
-        let mediaGalleryAction = MDCActionSheetAction(title: "Photo and Video Gallery", image: Images.edit, handler: { (MDCActionSheetAction) in
+                
+        let mediaGalleryAction = MDCActionSheetAction(title: "Photo and Video Gallery", image: UIImage(systemName: "photo.on.rectangle"), handler: { (MDCActionSheetAction) in
             print("clicked Photo Gallery")
             self.openMediaGallery()
         })
-            
-        
-        mediaActionSheet.addAction(cameraAction)
+                    
         mediaActionSheet.addAction(mediaGalleryAction)
         
         self.present(mediaActionSheet, animated: true, completion: nil)
