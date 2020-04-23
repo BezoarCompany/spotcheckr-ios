@@ -227,7 +227,6 @@ extension PostDetailViewController: UICollectionViewDataSource, UICollectionView
                             
                             let snackbarMessage = MDCSnackbarMessage()
                             snackbarMessage.text = msg
-                            print(msg)
                             self.navigationController?.popViewController(animated: true)
                             MDCSnackbarManager.show(snackbarMessage)
 

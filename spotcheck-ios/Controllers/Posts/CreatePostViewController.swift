@@ -223,7 +223,6 @@ class CreatePostViewController: UIViewController {
             appBarViewController.navigationBar.rightBarButtonItem?.title = "Save"
             
             if let img = exercisePost?.imagePath {
-                print("image exists!")
                 
                 // Set default image for placeholder
                 let placeholderImage = UIImage(named:"squatLogoPlaceholder")!

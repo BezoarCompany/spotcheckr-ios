@@ -254,7 +254,6 @@ extension CreatePostViewController {
                 let newVideoName = "\(baseName)" + ".mov"
                 exercisePost.videoPath = newVideoName
                 uploadVideoPromise = Services.storageService.uploadVideo(filename: newVideoName, videotype: .mov, url: selectedVideoFileURL)
-                print("Added selectedVideoFileURL: \(selectedVideoFileURL)")
             }
         }
         
@@ -269,7 +268,6 @@ extension CreatePostViewController {
                 updateTableView(.add, newPost)
             }
             self.dismiss(animated: true) {
-                print("submitPostWorkflow: inside dismissed")
                 self.snackbarMessage.text = "Post created."
                 let action = MDCSnackbarMessageAction()
                 action.handler = {() in
@@ -281,7 +279,6 @@ extension CreatePostViewController {
             }
         }.catch { err in
             //TODO: Show snackbar error message.
-            print("error executing submitPostWorflow promises!")
             print(err)
         }.finally {
             self.activityIndicator.stopAnimating()

@@ -605,11 +605,9 @@ class ExercisePostService: ExercisePostProtocol {
                 .collection(CollectionConstants.votesCollection).document(id)
             
             voteRef.delete() { err in
-                if let error = err {
-                    print("deleteVote: failure delete vote: post=\(postId).vote=(\(id))")
+                if let error = err {                    
                     return promise.reject(error)
                 } else {
-                    print("deleteVote: success delete vote: post=\(postId).vote=(\(id))")
                     return promise.fulfill_()
                 }
             }

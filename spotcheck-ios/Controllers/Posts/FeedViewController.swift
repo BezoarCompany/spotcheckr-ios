@@ -298,7 +298,6 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
         if let player = cell.avPlayerViewController.player {
             player.pause()
             cell.avPlayerViewController.removeFromParent()
-            print("pausing any video for: \(cell.post?.title)")
         }
     }
     
@@ -392,7 +391,6 @@ private extension FeedViewController {
           newPostsCopy.insert(exercisePost, at: 0)
       }
       else if (diffType == .edit) { //using Notification center to get the updated post. DiffTool isn't detecting changes b/c Old Post is same as New Posts, as if it were strongly refenced/changed.
-        print("indexFound: \(indexFound)")
         
         if(indexFound >= 0) {
             newPostsCopy[indexFound] = exercisePost

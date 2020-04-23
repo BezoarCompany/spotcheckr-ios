@@ -15,7 +15,6 @@ extension CreatePostViewController {
         mediaActionSheet.title = "Choose Media Source"
                 
         let mediaGalleryAction = MDCActionSheetAction(title: "Photo and Video Gallery", image: UIImage(systemName: "photo.on.rectangle"), handler: { (MDCActionSheetAction) in
-            print("clicked Photo Gallery")
             self.openMediaGallery()
         })
                     
@@ -30,7 +29,6 @@ extension CreatePostViewController {
     }
     
     @objc func openMediaGallery() {
-        print("openMediaGallery")
         if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
             checkPhotoPermissionsAndShowLib()
         }
@@ -98,7 +96,6 @@ extension CreatePostViewController: UINavigationControllerDelegate,UIImagePicker
             
             let videoURL = info[UIImagePickerController.InfoKey.mediaURL] as? URL
             self.selectedVideoFileURL = videoURL
-            print("selectedVideoFileURL: \(self.selectedVideoFileURL)")
             
             //Create thumbnail from the video
             let asset = AVAsset(url: videoURL!)
