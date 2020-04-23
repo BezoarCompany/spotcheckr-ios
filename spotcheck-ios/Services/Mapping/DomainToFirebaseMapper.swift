@@ -51,11 +51,10 @@ class DomainToFirebaseMapper {
     static func mapReport(contentId: GenericID?, details: Report) -> [String:Any] {
         var firebaseReport = [String:Any]()
         firebaseReport["type"] = Firestore.firestore().document("/\(CollectionConstants.reportTypesCollection)/\(details.reportType!.id!)")
-        if let contentId = contentId {
-            firebaseReport["exercise-post"] = Firestore.firestore().document("/\(CollectionConstants.postsCollection)/\(contentId.value)")
-        }
+        firebaseReport["content-id"] = Firestore.firestore().document("/\(CollectionConstants.postsCollection)/\(contentId!.value)")
+        firebaseReport["content-type"] = details.contentType?.rawValue ?? ""
         firebaseReport["description"] = details.description
-        firebaseReport["created-by"] = Firestore.firestore().document("/\(CollectionConstants.userCollection)/\(details.createdBy!.id!)")
+        firebaseReport["created-by"] = Firestore.firestore().document("/\(CollectionConstants.userCollection)/\(details.createdBy!.id!.value)")
         firebaseReport["created-date"] = details.createdDate ?? Date()
         return firebaseReport
     }
