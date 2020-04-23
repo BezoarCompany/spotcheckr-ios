@@ -23,7 +23,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Enable Spotcheckr to access your camera roll to upload your photos and save ones you&apos;ve taken with the app</string>
+	<string>Enable Spotcheckr to access your camera roll to upload your photos and videos, and save ones you&apos;ve taken with the app</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Roboto-Regular.ttf</string>
