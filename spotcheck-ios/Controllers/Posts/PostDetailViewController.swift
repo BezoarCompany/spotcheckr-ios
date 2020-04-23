@@ -51,6 +51,18 @@ class PostDetailViewController : UIViewController {
         MDCSnackbarTypographyThemer.applyTypographyScheme(ApplicationScheme.instance.containerScheme.typographyScheme)
        return message
     }()
+    let defaultAnswersSectionLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.isHidden = true
+        label.text = "There are no answers, be the first to help!"
+        label.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
+        label.font = ApplicationScheme.instance.containerScheme.typographyScheme.body1
+        return label
+    }()
+    var postYAxisAnchor: NSLayoutYAxisAnchor!
+    var postCellHeight: CGFloat!
+    
     var currentUser: User?
     var answers = [Answer]()
     var answersCount = 0
@@ -59,7 +71,6 @@ class PostDetailViewController : UIViewController {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         self.addChild(appBarViewController)
     }
-    
     
     func updatePostDetail(argPost: ExercisePost) {
         self.post = argPost
@@ -91,6 +102,7 @@ class PostDetailViewController : UIViewController {
         appBarViewController.didMove(toParent: self)
         
         initCollectionView()
+        initAnswersSection()
         initActivityIndicator()
         initReplyButton()
         applyConstraints()
@@ -103,13 +115,27 @@ class PostDetailViewController : UIViewController {
             self.appBarViewController.navigationBar.leadingBarButtonItem = UIBarButtonItem(image: Images.back, style: .done, target: self, action: #selector(self.backOnClick(sender:)))
             self.currentUser = user
             self.collectionView.reloadData()
-        }.then {
+        }.catch { error in
+            self.dismiss(animated: true) {
+                self.snackbarMessage.text = "There was an error loading the post."
+                MDCSnackbarManager.show(self.snackbarMessage)
+            }
+        }.finally {
             firstly {
                 Services.exercisePostService.getAnswers(forPostWithId: self.post!.id!)
             }.done { answers in
                 self.answers = answers
                 self.answersCount = self.answers.count
                 self.collectionView.reloadData()
+            }.catch { (error) in
+                self.snackbarMessage.text = "There was an error loading answers."
+                MDCSnackbarManager.show(self.snackbarMessage)
+            }.finally {
+                if self.answersCount == 0 {
+                    let h = (self.collectionView.frame.height - self.postCellHeight) / 2
+                    self.defaultAnswersSectionLabel.topAnchor.constraint(equalTo: self.postYAxisAnchor, constant: h).isActive = true
+                    self.defaultAnswersSectionLabel.isHidden = false
+                }
             }
         }
     }
@@ -171,8 +197,10 @@ extension PostDetailViewController: UICollectionViewDataSource, UICollectionView
                 cell.media.sd_setImage(with: storagePathReference, placeholderImage: placeholderImage)
                 
                 cell.setConstraintsWithMedia()
+                postCellHeight = cell.frame.height + CGFloat(FeedCell.IMAGE_HEIGHT)
             } else {
                 cell.setConstraintsWithNoMedia()
+                postCellHeight = cell.frame.height
             }
             cell.supportingTextLabel.text = post?.description
             cell.supportingTextLabel.numberOfLines = 0
@@ -246,6 +274,8 @@ extension PostDetailViewController: UICollectionViewDataSource, UICollectionView
             }
             cell.setOverflowMenuLocation(location: .top)
             cell.setFullBleedDivider()
+            postYAxisAnchor = cell.bottomAnchor
+            
             return cell
         }
         
@@ -312,6 +342,8 @@ extension PostDetailViewController: UICollectionViewDataSource, UICollectionView
             self.present(actionSheet, animated: true)
         }
         cell.setOverflowMenuLocation(location: .top)
+        
+        print("answers rendered")
         return cell
     }
     
@@ -327,7 +359,12 @@ extension PostDetailViewController: UICollectionViewDataSource, UICollectionView
         collectionView.register(AnswerCell.self, forCellWithReuseIdentifier: K.Storyboard.answerCellId)
         collectionView.backgroundColor = ApplicationScheme.instance.containerScheme.colorScheme.backgroundColor
     }
+    
+    func initAnswersSection() {
+        collectionView.addSubview(defaultAnswersSectionLabel)
+    }
 }
+
 extension PostDetailViewController {
     func initActivityIndicator() {
         activityIndicator.center = self.view.center
@@ -342,15 +379,18 @@ extension PostDetailViewController {
     }
     
     func applyConstraints() {
+        let safeArea = view.safeAreaLayoutGuide
+        
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: appBarViewController.view.bottomAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: 0),
-            collectionView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -55),
-            answerReplyButton.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor , constant: -20),
-            answerReplyButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -75),
+            collectionView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: 0),
+            collectionView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -55),
+            answerReplyButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor , constant: -20),
+            answerReplyButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -75),
             answerReplyButton.widthAnchor.constraint(equalToConstant: 64),
             answerReplyButton.heightAnchor.constraint(equalToConstant: 64),
+            defaultAnswersSectionLabel.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor)
         ])
     }
     
