@@ -185,7 +185,7 @@ extension PostDetailViewController: UICollectionViewDataSource, UICollectionView
             cell.overflowMenuTap = {
                 let actionSheet = UIElementFactory.getActionSheet()
                 let reportAction = MDCActionSheetAction(title: "Report", image: Images.flag, handler: { (MDCActionSheetHandler) in
-                    let reportViewController = ReportViewController.create(postId: self.post?.id)
+                    let reportViewController = ReportViewController.create(contentId: self.post?.id)
                     self.present(reportViewController, animated: true)
                 })
                 
@@ -277,7 +277,7 @@ extension PostDetailViewController: UICollectionViewDataSource, UICollectionView
         cell.overflowMenuTap = {
             let actionSheet = UIElementFactory.getActionSheet()
             let reportAction = MDCActionSheetAction(title: "Report", image: Images.flag, handler: { (MDCActionSheetHandler) in
-                let reportViewController = ReportViewController.create(postId: self.post?.id)
+                let reportViewController = ReportViewController.create(contentId: answer.id)
                 self.present(reportViewController, animated: true)
             })
             

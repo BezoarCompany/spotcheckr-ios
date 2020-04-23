@@ -260,7 +260,7 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
         cell.overflowMenuTap = {
             let actionSheet = UIElementFactory.getActionSheet()
             let reportAction = MDCActionSheetAction(title: "Report", image: Images.flag, handler: { (MDCActionSheetHandler) in
-                let reportViewController = ReportViewController.create(postId: post.id)
+                let reportViewController = ReportViewController.create(contentId: post.id)
                 self.present(reportViewController, animated: true)
             })
             actionSheet.addAction(reportAction)

@@ -46,15 +46,15 @@ class ReportViewController: UIViewController {
     
     var reportTypes = [ReportType]()
     var selectedReportType: ReportType?
-    var postId: ExercisePostID?
+    var contentId: GenericID?
     var currentUser: User?
     let validator = Validator()
     
-    static func create(postId: ExercisePostID?) -> ReportViewController {
+    static func create(contentId: GenericID?) -> ReportViewController {
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         let reportViewController = storyboard.instantiateViewController(withIdentifier: K.Storyboard.ReportViewControllerId) as! ReportViewController
         
-        reportViewController.postId = postId
+        reportViewController.contentId = contentId
         
         return reportViewController
     }
@@ -235,11 +235,14 @@ extension ReportViewController: UITextFieldDelegate {
 extension ReportViewController: ValidationDelegate {
     func validationSuccessful() {
         activityIndicator.startAnimating()
-        let userReport = Report(reportType: selectedReportType, description: reportDescriptionTextField.text, createdBy: currentUser)
+        let userReport = Report(reportType: selectedReportType,
+                                contentType: getContentType(),
+                                description: reportDescriptionTextField.text,
+                                createdBy: currentUser)
         sendReportButton.isEnabled = false
         
         firstly {
-            Services.reportingService.submitReport(contentId: postId!, details: userReport)
+            Services.reportingService.submitReport(contentId: contentId!, details: userReport)
         }.done {
             self.dismiss(animated: true) {
                 self.snackbarMessage.text = "Report submitted."
@@ -251,6 +254,15 @@ extension ReportViewController: ValidationDelegate {
         }.finally {
             self.sendReportButton.isEnabled = true
             self.activityIndicator.stopAnimating()
+        }
+    }
+    
+    func getContentType() -> ContentType {
+        if self.contentId is ExercisePostID {
+            return ContentType.exercisePost
+        }
+        else {
+            return ContentType.answer
         }
     }
     
