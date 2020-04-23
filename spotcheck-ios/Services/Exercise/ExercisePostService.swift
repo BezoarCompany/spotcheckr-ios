@@ -8,11 +8,9 @@ class ExercisePostService: ExercisePostProtocol {
     
     func getPost(withId id: ExercisePostID) -> Promise<ExercisePost> {
             return Promise { promise in
-                
                 if let post = cache[id] {
                     return promise.fulfill(post)
                 }
-                print("postCollection: \(CollectionConstants.postsCollection) [\(id)]")
                 let docRef = Firestore.firestore().collection(CollectionConstants.postsCollection).document(id.value)
                 docRef.getDocument { doc, error in
                     guard error == nil, let doc = doc, doc.exists else {

@@ -79,9 +79,9 @@ class FeedCell: CardCollectionCell {
         supportingTextLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
         supportingTextLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
         
-        votingControls.topAnchor.constraint(equalTo: supportingTextLabel.bottomAnchor, constant: 24),
+        votingControls.topAnchor.constraint(equalTo: supportingTextLabel.bottomAnchor, constant: 4),
         dividerLeadingConstraint!,
-        cellDivider.topAnchor.constraint(equalTo: votingControls.bottomAnchor, constant: 8),
+        cellDivider.topAnchor.constraint(equalTo: votingControls.bottomAnchor, constant: 4),
         contentView.trailingAnchor.constraint(equalTo: cellDivider.trailingAnchor),
         contentView.bottomAnchor.constraint(equalTo: cellDivider.bottomAnchor)
         ])

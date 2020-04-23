@@ -108,6 +108,7 @@
 		BA828EF9241CE0270012509D /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA828EF8241CE0270012509D /* StringExtensions.swift */; };
 		BA828EFB241CE2F10012509D /* FirebaseToDomainMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA828EFA241CE2F10012509D /* FirebaseToDomainMapper.swift */; };
 		BA828EFD241CE3E30012509D /* DomainToFirebaseMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA828EFC241CE3E30012509D /* DomainToFirebaseMapper.swift */; };
+		BA95E252245138DA00118DE0 /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA95E251245138DA00118DE0 /* ContentType.swift */; };
 		BAA340FA23F3932900C7392C /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA340F923F3932900C7392C /* DateExtensions.swift */; };
 		BABAA3E72443337400FF5C33 /* x.svg in Resources */ = {isa = PBXBuildFile; fileRef = BABAA3E62443337300FF5C33 /* x.svg */; };
 		BABAA3EA2443454D00FF5C33 /* VotingControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABAA3E92443454D00FF5C33 /* VotingControls.swift */; };
@@ -259,6 +260,7 @@
 		BA828EF8241CE0270012509D /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		BA828EFA241CE2F10012509D /* FirebaseToDomainMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseToDomainMapper.swift; sourceTree = "<group>"; };
 		BA828EFC241CE3E30012509D /* DomainToFirebaseMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainToFirebaseMapper.swift; sourceTree = "<group>"; };
+		BA95E251245138DA00118DE0 /* ContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentType.swift; sourceTree = "<group>"; };
 		BAA340F923F3932900C7392C /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		BABAA3E62443337300FF5C33 /* x.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = x.svg; sourceTree = "<group>"; };
 		BABAA3E92443454D00FF5C33 /* VotingControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VotingControls.swift; sourceTree = "<group>"; };
@@ -436,6 +438,7 @@
 				BA3DDD2E241CB33600692100 /* AnalyticsEvent.swift */,
 				BA54CD72243652E000A944BC /* Report.swift */,
 				BA54CD742436CACE00A944BC /* ReportType.swift */,
+				BA95E251245138DA00118DE0 /* ContentType.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -564,8 +567,8 @@
 		BA65CBC7244D468F00901812 /* Reporting */ = {
 			isa = PBXGroup;
 			children = (
-				BA54CD6E2436526B00A944BC /* ReportingService.swift */,
 				BA54CD702436528300A944BC /* ReportingProtocol.swift */,
+				BA54CD6E2436526B00A944BC /* ReportingService.swift */,
 			);
 			path = Reporting;
 			sourceTree = "<group>";
@@ -1005,6 +1008,7 @@
 				5679533423D972F00077BA08 /* AuthOptionsViewController.swift in Sources */,
 				BA1FB51D23F106E500E091B1 /* Certification.swift in Sources */,
 				BA65CBBF244D10BF00901812 /* UserID.swift in Sources */,
+				BA95E252245138DA00118DE0 /* ContentType.swift in Sources */,
 				BA1FB52123F1148700E091B1 /* ExercisePost.swift in Sources */,
 				5607DA0E2426221000B283D2 /* PromiseKitExtensions.swift in Sources */,
 				BA4EE46023EFEC7B003E6D87 /* UserService.swift in Sources */,
