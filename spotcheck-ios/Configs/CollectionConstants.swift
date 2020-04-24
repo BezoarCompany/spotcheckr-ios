@@ -122,4 +122,16 @@ class CollectionConstants {
             #endif
         }
     }
+    
+    static var systemCollection: String {
+        get {
+            #if DEVEL
+            return "system-test"
+            #elseif STAGE
+            return "system-test"
+            #else
+            return "system"
+            #endif
+        }
+    }
 }

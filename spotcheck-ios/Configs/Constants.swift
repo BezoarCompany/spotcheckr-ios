@@ -7,6 +7,13 @@ struct K {
         static let CacheLifespanSeconds = 1 * 60 * 60
     }
     
+    enum CacheInterval: Int {
+        case Hour = 3600
+        case Day = 86400
+        case Week = 604800
+        case Month = 2629800
+    }
+    
     struct Notifications {
         static let ExercisePostEdits = Notification.Name("ExercisePostEdits")
         static let ProfileEdited = Notification.Name("ProfileEdited")

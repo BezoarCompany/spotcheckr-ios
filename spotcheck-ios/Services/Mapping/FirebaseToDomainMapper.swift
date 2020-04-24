@@ -36,4 +36,13 @@ class FirebaseToDomainMapper {
         let reportType = ReportType(id: id, name: data.keys.contains("name") ? data["name"] as? String : nil)
         return reportType
     }
+    
+    static func mapConfiguration(data: [String:Any]) -> Configuration {
+        let minimumAppVersion = data.keys.contains("minimum-app-version") ? data["minimum-app-version"] as! String : "0.0.0"
+        let major = minimumAppVersion.stringAt(0)
+        let minor = minimumAppVersion.stringAt(2)
+        let patch = minimumAppVersion.stringAt(4)
+        let config = Configuration(minimumAppVersion: SemanticVersion(major: major, minor: minor, patch: patch))
+        return config
+    }
 }

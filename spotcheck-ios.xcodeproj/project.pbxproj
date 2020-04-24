@@ -108,6 +108,10 @@
 		BA828EFD241CE3E30012509D /* DomainToFirebaseMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA828EFC241CE3E30012509D /* DomainToFirebaseMapper.swift */; };
 		BA95E252245138DA00118DE0 /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA95E251245138DA00118DE0 /* ContentType.swift */; };
 		BA95E2552452023800118DE0 /* CircularActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA95E2542452023800118DE0 /* CircularActivityIndicator.swift */; };
+		BA95E25B2452955400118DE0 /* SystemProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA95E25A2452955400118DE0 /* SystemProtocol.swift */; };
+		BA95E25D245295E100118DE0 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA95E25C245295E100118DE0 /* Configuration.swift */; };
+		BA95E25F2452961B00118DE0 /* SemanticVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA95E25E2452961B00118DE0 /* SemanticVersion.swift */; };
+		BA95E2612452970E00118DE0 /* SystemService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA95E2602452970E00118DE0 /* SystemService.swift */; };
 		BAA340FA23F3932900C7392C /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA340F923F3932900C7392C /* DateExtensions.swift */; };
 		BABAA3E72443337400FF5C33 /* x.svg in Resources */ = {isa = PBXBuildFile; fileRef = BABAA3E62443337300FF5C33 /* x.svg */; };
 		BABAA3EA2443454D00FF5C33 /* VotingControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABAA3E92443454D00FF5C33 /* VotingControls.swift */; };
@@ -259,6 +263,10 @@
 		BA828EFC241CE3E30012509D /* DomainToFirebaseMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainToFirebaseMapper.swift; sourceTree = "<group>"; };
 		BA95E251245138DA00118DE0 /* ContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentType.swift; sourceTree = "<group>"; };
 		BA95E2542452023800118DE0 /* CircularActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularActivityIndicator.swift; sourceTree = "<group>"; };
+		BA95E25A2452955400118DE0 /* SystemProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemProtocol.swift; sourceTree = "<group>"; };
+		BA95E25C245295E100118DE0 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		BA95E25E2452961B00118DE0 /* SemanticVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemanticVersion.swift; sourceTree = "<group>"; };
+		BA95E2602452970E00118DE0 /* SystemService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemService.swift; sourceTree = "<group>"; };
 		BAA340F923F3932900C7392C /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		BABAA3E62443337300FF5C33 /* x.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = x.svg; sourceTree = "<group>"; };
 		BABAA3E92443454D00FF5C33 /* VotingControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VotingControls.swift; sourceTree = "<group>"; };
@@ -429,6 +437,8 @@
 				BA54CD72243652E000A944BC /* Report.swift */,
 				BA54CD742436CACE00A944BC /* ReportType.swift */,
 				BA95E251245138DA00118DE0 /* ContentType.swift */,
+				BA95E25C245295E100118DE0 /* Configuration.swift */,
+				BA95E25E2452961B00118DE0 /* SemanticVersion.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -461,6 +471,7 @@
 				BA65CBC6244D468600901812 /* Storage */,
 				BA65CBC3244D467000901812 /* Analytics */,
 				BA65CBC7244D468F00901812 /* Reporting */,
+				BA95E2592452954300118DE0 /* System */,
 				BA65CBC8244D46C700901812 /* Mapping */,
 				BA59197523F92DBA00E8B900 /* Services.swift */,
 				5653ABCE24161921001E9CF0 /* Cache.swift */,
@@ -606,6 +617,15 @@
 				BA95E2542452023800118DE0 /* CircularActivityIndicator.swift */,
 			);
 			path = "Activity Indicators";
+			sourceTree = "<group>";
+		};
+		BA95E2592452954300118DE0 /* System */ = {
+			isa = PBXGroup;
+			children = (
+				BA95E25A2452955400118DE0 /* SystemProtocol.swift */,
+				BA95E2602452970E00118DE0 /* SystemService.swift */,
+			);
+			path = System;
 			sourceTree = "<group>";
 		};
 		BAA340F823F3931A00C7392C /* Extensions */ = {
@@ -956,6 +976,7 @@
 				BA65CBB3244C43D100901812 /* UIColorExtensions.swift in Sources */,
 				BACCABEA241E162100BEC89E /* UIElementFactory.swift in Sources */,
 				BA1FB51723F104B400E091B1 /* PhoneNumber.swift in Sources */,
+				BA95E2612452970E00118DE0 /* SystemService.swift in Sources */,
 				BA1FB52523F116BD00E091B1 /* ExercisePostService.swift in Sources */,
 				564FA33823FFBF81006017FB /* CreateAnswerViewController.swift in Sources */,
 				BA65CBB1244C386B00901812 /* Divider.swift in Sources */,
@@ -987,6 +1008,7 @@
 				BA828EF9241CE0270012509D /* StringExtensions.swift in Sources */,
 				BA65CBCC244E25EE00901812 /* CardCollectionCell.swift in Sources */,
 				BA4EE44F23EE91D1003E6D87 /* SignUpViewController.swift in Sources */,
+				BA95E25F2452961B00118DE0 /* SemanticVersion.swift in Sources */,
 				5686D2E224051C0300E09868 /* CreatePostViewController+helpers.swift in Sources */,
 				BA54CD712436528300A944BC /* ReportingProtocol.swift in Sources */,
 				5653ABCF24161921001E9CF0 /* Cache.swift in Sources */,
@@ -1005,8 +1027,10 @@
 				BA95E252245138DA00118DE0 /* ContentType.swift in Sources */,
 				BA1FB52123F1148700E091B1 /* ExercisePost.swift in Sources */,
 				5607DA0E2426221000B283D2 /* PromiseKitExtensions.swift in Sources */,
+				BA95E25B2452955400118DE0 /* SystemProtocol.swift in Sources */,
 				BA4EE46023EFEC7B003E6D87 /* UserService.swift in Sources */,
 				BA4EDA4324026CE200206267 /* IntExtensions.swift in Sources */,
+				BA95E25D245295E100118DE0 /* Configuration.swift in Sources */,
 				BA1FB52F23F11C3400E091B1 /* Exercise.swift in Sources */,
 				BA4EE45A23EF1408003E6D87 /* ForgotPasswordViewController.swift in Sources */,
 				BA4EE44523EBA221003E6D87 /* User.swift in Sources */,
