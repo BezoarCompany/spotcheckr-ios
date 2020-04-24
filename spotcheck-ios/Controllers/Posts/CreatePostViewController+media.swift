@@ -45,7 +45,7 @@ extension CreatePostViewController {
         present(imagePickerController, animated: true, completion: nil)
     }
     
-    func checkPhotoPermissionsAndShowLib() {
+    @objc func checkPhotoPermissionsAndShowLib() {
         let photoAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
         
         switch photoAuthorizationStatus {
