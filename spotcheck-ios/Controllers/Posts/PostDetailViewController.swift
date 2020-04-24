@@ -7,6 +7,7 @@ import PromiseKit
 import MaterialComponents
 
 class PostDetailViewController : UIViewController {
+    // MARK: -UI Elements
     let collectionView: UICollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -34,6 +35,7 @@ class PostDetailViewController : UIViewController {
     
     var diffedPostsDataClosure: DiffedPostsDataUpdateClosureType? //To dynamically update FeedView's cell with the new/updated post
     
+    // MARK: -Properties
     var post: ExercisePost?
     var postId: ExercisePostID?
     
@@ -202,6 +204,11 @@ extension PostDetailViewController: UICollectionViewDataSource, UICollectionView
                 cell.setConstraintsWithNoMedia()
                 postCellHeight = cell.frame.height
             }
+            
+            if let vidFilename = post?.videoPath {
+                cell.initVideoPlayer(videoFileName: vidFilename)
+            }
+            
             cell.supportingTextLabel.text = post?.description
             cell.supportingTextLabel.numberOfLines = 0
             cell.postId = post?.id
@@ -250,7 +257,6 @@ extension PostDetailViewController: UICollectionViewDataSource, UICollectionView
                             
                             let snackbarMessage = MDCSnackbarMessage()
                             snackbarMessage.text = msg
-                            print(msg)
                             self.navigationController?.popViewController(animated: true)
                             MDCSnackbarManager.show(snackbarMessage)
 

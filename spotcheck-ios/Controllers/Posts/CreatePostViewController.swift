@@ -19,7 +19,8 @@ class CreatePostViewController: UIViewController {
     let MAX_SUBJECT_LENGTH = 300
     let appBarViewController = UIElementFactory.getAppBar()
     var imagePickerController = UIImagePickerController()
-    var isImageChanged = false
+    var isMediaChanged = false    
+    var selectedVideoFileURL: URL? = nil
     
     var updatePostMode: DiffType = .add
     var exercisePost: ExercisePost?
@@ -48,54 +49,7 @@ class CreatePostViewController: UIViewController {
         piv.image = UIImage(systemName: "photo")
         piv.translatesAutoresizingMaskIntoConstraints = false //You need to call this property so the image is added to your view
         return piv
-    }()
-        
-    let keyboardMenuAccessory: UIView = {
-        let accessoryView = UIView(frame: .zero)
-        accessoryView.backgroundColor = .lightGray
-        accessoryView.alpha = 0.6
-        return accessoryView
-    }()
-    
-    let openKeyboardBtn: UIButton = {
-        let button = UIButton(type: .custom)
-        button.setTitleColor(UIColor.red, for: .normal)
-        var cameraImg = UIImage(systemName: "keyboard")
-        cameraImg = cameraImg?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
-        button.setImage(cameraImg, for: .normal)
-        button.addTarget(self, action:
-        #selector(keyboardBtnTapped), for: .touchUpInside)
-        button.showsTouchWhenHighlighted = true
-        button.tintColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
-        return button
-    }()
-    
-    
-    let openPhotoGalleryBtn: UIButton! = {
-        let button = UIButton(type: .custom)
-        button.setTitleColor(UIColor.red, for: .normal)
-        var cameraImg = UIImage(systemName: "photo.on.rectangle")
-        cameraImg = cameraImg?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
-        button.setImage(cameraImg, for: .normal)
-        button.addTarget(self, action:
-        #selector(openPhotoGallery), for: .touchUpInside)
-        button.showsTouchWhenHighlighted = true
-        button.tintColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
-        return button
-    }()
-    
-    let openCameraBtn: UIButton = {
-        let button = UIButton(type: .custom)
-        button.setTitleColor(UIColor.red, for: .normal)
-        var cameraImg = UIImage(systemName: "camera")
-        cameraImg = cameraImg?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
-        button.setImage(cameraImg, for: .normal)
-        button.addTarget(self, action:
-        #selector(openCamera), for: .touchUpInside)
-        button.showsTouchWhenHighlighted = true
-        button.tintColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
-        return button
-    }()
+    }()        
     
     let exerciseDropdown: DropDown = {
         let dropdown = DropDown()
@@ -207,12 +161,11 @@ class CreatePostViewController: UIViewController {
         initTextViewPlaceholders()
         
         photoImageView.isUserInteractionEnabled = true
-        photoImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openPhotoGallery)))
+        photoImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(checkPhotoPermissionsAndShowLib)))
         self.view.addSubview(photoImageView)
         
         applyConstraints()
         initButtonBarItems()
-        addKeyboardMenuAccessory()
         setupValidation()
         
         if (updatePostMode == .edit) {
@@ -222,7 +175,6 @@ class CreatePostViewController: UIViewController {
             appBarViewController.navigationBar.rightBarButtonItem?.title = "Save"
             
             if let img = exercisePost?.imagePath {
-                print("image exists!")
                 
                 // Set default image for placeholder
                 let placeholderImage = UIImage(named:"squatLogoPlaceholder")!
@@ -255,17 +207,6 @@ extension CreatePostViewController: MDCMultilineTextInputDelegate {
     //the description text view requires a delegate
 }
 
-extension CreatePostViewController: UINavigationControllerDelegate,UIImagePickerControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
-
-       let chosenImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
-       
-       isImageChanged = true
-       photoImageView.image = chosenImage
-       
-       imagePickerController.dismiss(animated: true, completion: nil)
-    }
-}
 
 extension CreatePostViewController: ValidationDelegate {
     func validationSuccessful() {
