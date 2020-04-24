@@ -7,6 +7,7 @@ import PromiseKit
 import MaterialComponents
 
 class PostDetailViewController : UIViewController {
+    // MARK: -UI Elements
     let collectionView: UICollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -34,6 +35,7 @@ class PostDetailViewController : UIViewController {
     
     var diffedPostsDataClosure: DiffedPostsDataUpdateClosureType? //To dynamically update FeedView's cell with the new/updated post
     
+    // MARK: -Properties
     var post: ExercisePost?
     var postId: ExercisePostID?
     

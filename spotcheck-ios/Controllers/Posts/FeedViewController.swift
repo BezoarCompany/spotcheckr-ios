@@ -29,6 +29,7 @@ class FeedViewController: UIViewController {
         return size
     }()
     
+    // MARK: - UI Element
     let addPostButton: MDCFloatingButton = {
         let button = MDCFloatingButton()
         button.applySecondaryTheme(withScheme: ApplicationScheme.instance.containerScheme)
@@ -173,7 +174,7 @@ class FeedViewController: UIViewController {
     }
 }
 
-// Mark: Collection View Data Source
+// Mark: -Collection View Data Source
 extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -329,7 +330,7 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
         return res
     }
     
-    //handle infinite scrolling events
+    // MARK: -infinite scrolling events
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetY = scrollView.contentOffset.y
         let contentHeight = scrollView.contentSize.height
@@ -357,6 +358,7 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
 
 }
 
+// MARK: -Closure Navigation
 private extension FeedViewController {
     //Renders the changes between self's posts[] and the arg's posts[]
     func diffedTableViewRenderer(argPosts: [ExercisePost]) {
