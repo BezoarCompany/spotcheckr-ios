@@ -49,54 +49,7 @@ class CreatePostViewController: UIViewController {
         piv.image = UIImage(systemName: "photo")
         piv.translatesAutoresizingMaskIntoConstraints = false //You need to call this property so the image is added to your view
         return piv
-    }()
-        
-    let keyboardMenuAccessory: UIView = {
-        let accessoryView = UIView(frame: .zero)
-        accessoryView.backgroundColor = .lightGray
-        accessoryView.alpha = 0.6
-        return accessoryView
-    }()
-    
-    let openKeyboardBtn: UIButton = {
-        let button = UIButton(type: .custom)
-        button.setTitleColor(UIColor.red, for: .normal)
-        var cameraImg = UIImage(systemName: "keyboard")
-        cameraImg = cameraImg?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
-        button.setImage(cameraImg, for: .normal)
-        button.addTarget(self, action:
-        #selector(keyboardBtnTapped), for: .touchUpInside)
-        button.showsTouchWhenHighlighted = true
-        button.tintColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
-        return button
-    }()
-    
-    
-    let openPhotoGalleryBtn: UIButton! = {
-        let button = UIButton(type: .custom)
-        button.setTitleColor(UIColor.red, for: .normal)
-        var cameraImg = UIImage(systemName: "photo.on.rectangle")
-        cameraImg = cameraImg?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
-        button.setImage(cameraImg, for: .normal)
-        button.addTarget(self, action:
-        #selector(openMediaGallery), for: .touchUpInside)
-        button.showsTouchWhenHighlighted = true
-        button.tintColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
-        return button
-    }()
-    
-    let openCameraBtn: UIButton = {
-        let button = UIButton(type: .custom)
-        button.setTitleColor(UIColor.red, for: .normal)
-        var cameraImg = UIImage(systemName: "camera")
-        cameraImg = cameraImg?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
-        button.setImage(cameraImg, for: .normal)
-        button.addTarget(self, action:
-        #selector(openCamera), for: .touchUpInside)
-        button.showsTouchWhenHighlighted = true
-        button.tintColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
-        return button
-    }()
+    }()        
     
     let exerciseDropdown: DropDown = {
         let dropdown = DropDown()
@@ -213,7 +166,6 @@ class CreatePostViewController: UIViewController {
         
         applyConstraints()
         initButtonBarItems()
-        addKeyboardMenuAccessory()
         setupValidation()
         
         if (updatePostMode == .edit) {
