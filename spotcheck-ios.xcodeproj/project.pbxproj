@@ -473,8 +473,8 @@
 				BA65CBC7244D468F00901812 /* Reporting */,
 				BA95E2592452954300118DE0 /* System */,
 				BA65CBC8244D46C700901812 /* Mapping */,
+				BA95E26824542E5300118DE0 /* Caches */,
 				BA59197523F92DBA00E8B900 /* Services.swift */,
-				5653ABCE24161921001E9CF0 /* Cache.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -626,6 +626,14 @@
 				BA95E2602452970E00118DE0 /* SystemService.swift */,
 			);
 			path = System;
+			sourceTree = "<group>";
+		};
+		BA95E26824542E5300118DE0 /* Caches */ = {
+			isa = PBXGroup;
+			children = (
+				5653ABCE24161921001E9CF0 /* Cache.swift */,
+			);
+			path = Caches;
 			sourceTree = "<group>";
 		};
 		BAA340F823F3931A00C7392C /* Extensions */ = {
