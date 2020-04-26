@@ -189,6 +189,7 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
         return isFetchingMore ? 1 : 0
     }
       
+    // MARK: -When Cell in view
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         if indexPath.section == 1 {
@@ -218,9 +219,6 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
             Services.exercisePostService.voteContent(contentId: post.id!, userId: self.currentUser!.id!, direction: voteDirection)
         }
                 
-        cell.postDetailClosure = {
-            self.viewPostHandler(exercisePost: post)
-        }
         //TODO: Add once profile picture edit is ready
 //        if let picturePath = post.createdBy?.profilePicturePath {
 //            // Set default image for placeholder
@@ -278,12 +276,12 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
         cell.setOverflowMenuLocation(location: .top)
         return cell
     }
-    
-    //turned off, because click event too strong. Placing Post Detail on title & description press instead of the whole cell.
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let post = posts[indexPath.row]
-//        viewPostHandler(exercisePost: post)
-//    }
+        
+    // MARK: -When Cell selected or clicked
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let post = posts[indexPath.row]
+        viewPostHandler(exercisePost: post)
+    }
     
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         
