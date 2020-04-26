@@ -112,7 +112,7 @@ extension SettingsViewController: UICollectionViewDataSource, UICollectionViewDe
             cell.titleLabel.text = "Rate Spotcheckr"
             cell.leadingImageView.image = Images.heart
         case CellLocations.ClearCache.rawValue:
-            cell.titleLabel.text = "Clear Cache"
+            cell.titleLabel.text = "Clear cache"
             cell.leadingImageView.image = Images.database
         case CellLocations.BuildVersion.rawValue:
             cell.titleLabel.translatesAutoresizingMaskIntoConstraints = false
