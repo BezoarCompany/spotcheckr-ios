@@ -316,7 +316,7 @@ extension PostDetailViewController: UICollectionViewDataSource, UICollectionView
         cell.supportingTextLabel.text = answer.text
         cell.supportingTextLabel.numberOfLines = 0
         cell.votingControls.votingUserId = currentUser?.id
-        //cell.votingControls.voteDirection = answer.metrics?.currentVoteDirection
+        cell.votingControls.voteDirection = answer.metrics?.currentVoteDirection
         cell.votingControls.renderVotingControls()
         cell.cornerRadius = 0
         cell.overflowMenuTap = {

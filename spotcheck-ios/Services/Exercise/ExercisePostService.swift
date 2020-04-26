@@ -86,18 +86,23 @@ class ExercisePostService: ExercisePostProtocol {
                 firstly {
                     when(fulfilled: answersCreatedBy)
                 }.done { createdByResults in
-                    var answers = [Answer]()
-                    var usersIndex = 0
-                    
-                    for document in answersSnapshot!.documents {
-                        answers.append(FirebaseToDomainMapper.mapAnswer(fromData: document.data(),
-                                                                        metrics: Metrics(upvotes: document.data()["upvote-count"] != nil ? document.data()["upvote-count"] as! Int : 0,
-                                                                                         downvotes: document.data()["downvote-count"] != nil ? document.data()["downvote-count"] as! Int : 0),
-                                                      createdBy: createdByResults[usersIndex]))
-                        usersIndex += 1
+                    firstly {
+                        Services.userService.getCurrentUser()
+                    }.done { currentUser in
+                        var answers = [Answer]()
+                        var usersIndex = 0
+                        
+                        for document in answersSnapshot!.documents {
+                            answers.append(FirebaseToDomainMapper.mapAnswer(fromData: document.data(),
+                                                                            metrics: Metrics(upvotes: document.data()["upvote-count"] != nil ? document.data()["upvote-count"] as! Int : 0,
+                                                                                             downvotes: document.data()["downvote-count"] != nil ? document.data()["downvote-count"] as! Int : 0,
+                                                                                             currentVoteDirection: currentUser.answerVotes[AnswerID(document.documentID)] ?? .Neutral),
+                                                                            createdBy: createdByResults[usersIndex]))
+                            usersIndex += 1
+                        }
+                        
+                        return promise.fulfill(answers)
                     }
-                    
-                    return promise.fulfill(answers)
                 }
             }
         }
@@ -274,9 +279,10 @@ class ExercisePostService: ExercisePostProtocol {
                 if let error = error {
                     return promise.reject(error)
                 }
+                let updatedStatus = direction.get()
                 Firestore.firestore().runTransaction({(transaction, errorPointer) -> Any? in
                     do {
-                        let updatedStatus = direction.get()
+                        
                         var voteCountField: String? = nil
                         
                         let parentDoc = try transaction.getDocument(parentDocRef).data()
@@ -342,6 +348,12 @@ class ExercisePostService: ExercisePostProtocol {
                 }) { (obj, error) in
                     if let error = error {
                         return promise.reject(error)
+                    }
+                    
+                    if contentId is ExercisePostID {
+                        CacheManager.userCache[userId]?.exercisePostVotes[contentId as! ExercisePostID] = VoteDirection(rawValue: updatedStatus)
+                    } else {
+                        CacheManager.userCache[userId]?.answerVotes[contentId as! AnswerID] = VoteDirection(rawValue: updatedStatus)
                     }
                     
                     promise.fulfill_()
