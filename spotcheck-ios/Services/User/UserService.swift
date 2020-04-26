@@ -6,9 +6,6 @@ import PromiseKit
 import Foundation
 
 class UserService: UserProtocol {
-    private let cache = Cache<UserID, User>() // (userID<String>: User)
-    private let firebaseMapCache = Cache<String, Any>()
-    
     func createUser(user: User) -> Promise<Void> {
         return Promise { promise in
             firstly {
@@ -34,7 +31,7 @@ class UserService: UserProtocol {
     
     func getUser(withId id: UserID) -> Promise<User> {
         return Promise { promise in
-            if let user = cache[id] {
+            if let user = CacheManager.userCache[id] {
                 return promise.fulfill(user)
             }
 
@@ -96,7 +93,7 @@ class UserService: UserProtocol {
                         trainer.certifications = userCertifications
                     }
                     //store in cache
-                    self.cache[user.id!] = user
+                    CacheManager.userCache[user.id!] = user
                     
                     return promise.fulfill(user)
                 }
@@ -140,13 +137,13 @@ class UserService: UserProtocol {
             
             let userId = UserID(Auth.auth().currentUser!.uid)
             
-            if let user = cache[userId] {
+            if let user = CacheManager.userCache[userId] {
                 return promise.fulfill(user)
             }
             firstly {
                 self.getUser(withId: userId)
             }.done { user in
-                self.cache[user.id!] = user
+                CacheManager.userCache[user.id!] = user
                 return promise.fulfill(user)
             }.catch { error in
                 return promise.reject(error)
@@ -157,7 +154,7 @@ class UserService: UserProtocol {
     
     func getUserTypes() -> Promise<[String: String]>{
         return Promise { promise in
-            if let userTypes = firebaseMapCache["user-types"] as? [String:String] {
+            if let userTypes = CacheManager.stringCache["user-types"] as? [String:String] {
                 return promise.fulfill(userTypes)
             }
             
@@ -171,7 +168,7 @@ class UserService: UserProtocol {
                     userTypes[document.reference.path] = document.data()["name"] as? String
                 }
                 
-                self.firebaseMapCache.insert(userTypes, forKey: "user-types")
+                CacheManager.stringCache.insert(userTypes, forKey: "user-types")
                 return promise.fulfill(userTypes)
             }
         }
@@ -242,7 +239,7 @@ class UserService: UserProtocol {
                     promise.reject(error)
                 }
                 
-                self.cache[user.id!] = user
+                CacheManager.userCache[user.id!] = user
                 promise.fulfill_()
             })
         }

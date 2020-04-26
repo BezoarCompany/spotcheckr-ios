@@ -1,6 +1,6 @@
 import Foundation
 
-final class Cache<Key: Hashable, Value> {
+final class MemoryCache<Key: Hashable, Value> {
     private var size = 0
     private let wrapped = NSCache<WrappedKey, Entry>()
     private let dateProvider: () -> Date
@@ -60,7 +60,7 @@ final class Cache<Key: Hashable, Value> {
     }
 }
 
-private extension Cache {
+private extension MemoryCache {
     final class WrappedKey: NSObject {
         let key: Key
 

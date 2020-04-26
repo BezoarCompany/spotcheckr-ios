@@ -3,12 +3,9 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 class ExercisePostService: ExercisePostProtocol {
-    private let cache = Cache<ExercisePostID, ExercisePost>()
-    private let firebaseMappingCache = Cache<String, Any>() //Used to hold firebase document ids to internal domain object like Exercise
-    
     func getPost(withId id: ExercisePostID) -> Promise<ExercisePost> {
             return Promise { promise in
-                if let post = cache[id] {
+                if let post = CacheManager.exercisePostCache[id] {
                     return promise.fulfill(post)
                 }
                 let docRef = Firestore.firestore().collection(CollectionConstants.postsCollection).document(id.value)
@@ -42,8 +39,8 @@ class ExercisePostService: ExercisePostProtocol {
                                                                        metrics: metrics,
                                                                        exercises: postExercises)
                                 exercisePost.createdBy = user
-                                //store in cache
-                                self.cache[exercisePost.id!] = exercisePost
+                                
+                                CacheManager.exercisePostCache[exercisePost.id!] = exercisePost
                                 
                                 return promise.fulfill(exercisePost)
                             }
@@ -250,7 +247,7 @@ class ExercisePostService: ExercisePostProtocol {
     
     func getExercises() -> Promise<[String:Exercise]> {
         return Promise { promise in
-            if let exercises = firebaseMappingCache["exercises"] as? [String:Exercise] {
+            if let exercises = CacheManager.stringCache["exercises"] as? [String:Exercise] {
                 return promise.fulfill(exercises)
             }
             
@@ -270,7 +267,7 @@ class ExercisePostService: ExercisePostProtocol {
                                                               name: document.data()["name"] as! String
                                                             )
                 }
-                self.firebaseMappingCache.insert(exercises, forKey: "exercises")
+                CacheManager.stringCache.insert(exercises, forKey: "exercises")
                 return promise.fulfill(exercises)
             }
         }
@@ -456,8 +453,8 @@ class ExercisePostService: ExercisePostProtocol {
             let id = post.id
             let newPost = post
             //invalidate cache item
-            if let tmp = cache[id!] {
-                cache[id!] = nil
+            if CacheManager.exercisePostCache[id!] != nil {
+                CacheManager.exercisePostCache[id!] = nil
             }
             
             let db = Firestore.firestore()
@@ -480,8 +477,8 @@ class ExercisePostService: ExercisePostProtocol {
             let id = post.id
             
             //invalidate cache item
-            if let tmp = cache[id!] {
-                cache[id!] = nil
+            if CacheManager.exercisePostCache[id!] != nil {
+                CacheManager.exercisePostCache[id!] = nil
             }
             
             let docRef = Firestore.firestore().collection(CollectionConstants.postsCollection).document(id!.value)
@@ -611,6 +608,6 @@ class ExercisePostService: ExercisePostProtocol {
     }
     
     func clearCache() {
-        cache.empty()
+        CacheManager.exercisePostCache.empty()
     }
 }
