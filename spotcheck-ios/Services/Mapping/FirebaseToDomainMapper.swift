@@ -46,4 +46,50 @@ class FirebaseToDomainMapper {
         let config = Configuration(minimumAppVersion: SemanticVersion(major: major, minor: minor, patch: patch))
         return config
     }
+    
+    static func mapUser(userId: UserID,
+                       genders: [String:String],
+                       userTypes: [String:String],
+                       data: [String:Any]?,
+                       mapVoteDetails: Bool = false) -> User {
+        let user: User
+        let userIsTrainer = data?.keys.contains("type") != nil && userTypes[(data?["type"] as! DocumentReference).path] == "Trainer"
+        
+        user = userIsTrainer ? Trainer(id: userId) : User(id: userId)
+        user.username = (data?.keys.contains("username"))! ? data?["username"] as! String : ""
+        user.profilePicturePath = (data?.keys.contains("profile-picture-path"))! ?  data?["profile-picture-path"] as? String : nil
+        user.information = Identity(
+            firstName: (data?.keys.contains("first-name"))! ? data?["first-name"] as! String : "",
+            middleName: (data?.keys.contains("middle-name"))! ? data?["middle-name"] as! String : "",
+            lastName: (data?.keys.contains("last-name"))! ? data?["last-name"] as! String : "",
+            gender: (data?.keys.contains("gender"))! ? genders[(data?["gender"] as! DocumentReference).path]! : "",
+            birthDate: (data?.keys.contains("birthdate"))! ? (data?["birthdate"] as! Timestamp).dateValue() : nil
+        )
+        user.measurement = BodyMeasurement(
+            height: (data?.keys.contains("height"))! ? Int(data?["height"] as! String) : 0,
+            weight: (data?.keys.contains("weight"))! ? Int(data?["weight"] as! String) : 0
+        )
+        
+        if mapVoteDetails {
+            let exercisePostVotes = (data?.keys.contains("exercise-post-votes"))! ? data?["exercise-post-votes"] as? [String:Int] : [String:Int]()
+            for (key, value) in exercisePostVotes! {
+                user.exercisePostVotes.add([ExercisePostID(key):VoteDirection(rawValue: value)!])
+            }
+            
+            let answerVotes = (data?.keys.contains("answer-votes"))! ? data?["answer-votes"] as? [String:Int] : [String:Int]()
+            for (key, value) in answerVotes! {
+                user.answerVotes.add([AnswerID(key):VoteDirection(rawValue: value)!])
+            }
+        }
+        
+        if userIsTrainer {
+            let trainer = user as! Trainer
+            
+            trainer.website = (data?.keys.contains("website"))! ? URL(string: data?["website"] as! String) : nil
+            trainer.occupationTitle = (data?.keys.contains("occupation-title"))! ? data?["occupation-title"] as! String : ""
+            trainer.occupationCompany = (data?.keys.contains("occupation-company"))! ? data?["occupation-company"] as! String : ""
+        }
+        
+        return user
+    }
 }

@@ -427,7 +427,6 @@
 		5697B95E244C40BE003CF236 /* LocalVideos */ = {
 			isa = PBXGroup;
 			children = (
-				567494F924520B4700995B70 /* bulletTrain.mp4 */,
 			);
 			path = LocalVideos;
 			sourceTree = "<group>";
@@ -438,12 +437,12 @@
 				BA65CBB7244D0A7C00901812 /* Identifiers */,
 				BA1FB52023F1148600E091B1 /* ExercisePost.swift */,
 				BA4EE44423EBA221003E6D87 /* User.swift */,
+				BA1FB51A23F106B600E091B1 /* Trainer.swift */,
 				BA4EE44623EBA347003E6D87 /* Identity.swift */,
 				BA1FB51223F1014900E091B1 /* BodyMeasurement.swift */,
 				BA1FB51423F1047A00E091B1 /* Contact.swift */,
 				BA1FB51623F104B400E091B1 /* PhoneNumber.swift */,
 				BA1FB51823F1058500E091B1 /* EmailAddress.swift */,
-				BA1FB51A23F106B600E091B1 /* Trainer.swift */,
 				BA1FB51C23F106E500E091B1 /* Certification.swift */,
 				BA1FB51E23F1071000E091B1 /* Organization.swift */,
 				BA1FB52623F119CB00E091B1 /* Metrics.swift */,
@@ -672,8 +671,6 @@
 			isa = PBXGroup;
 			children = (
 				5697B95E244C40BE003CF236 /* LocalVideos */,
-				BAA340FE23F39AA500C7392C /* FakeDataFactory.swift */,
-
 				BA5DE70F2419ADAC002C98E6 /* Images.swift */,
 				BACCABE9241E162100BEC89E /* UIElementFactory.swift */,
 				BAEE4ACD24274D49005C2023 /* Colors.swift */,
