@@ -29,6 +29,7 @@ class FeedViewController: UIViewController {
         return size
     }()
     
+    // MARK: - UI Element
     let addPostButton: MDCFloatingButton = {
         let button = MDCFloatingButton()
         button.applySecondaryTheme(withScheme: ApplicationScheme.instance.containerScheme)
@@ -173,7 +174,7 @@ class FeedViewController: UIViewController {
     }
 }
 
-// Mark: Collection View Data Source
+// Mark: -Collection View Data Source
 extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -216,7 +217,10 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
         cell.votingControls.downvoteOnTap = { (voteDirection: VoteDirection) in
             Services.exercisePostService.voteContent(contentId: post.id!, userId: self.currentUser!.id!, direction: voteDirection)
         }
-        
+                
+        cell.postDetailClosure = {
+            self.viewPostHandler(exercisePost: post)
+        }
         //TODO: Add once profile picture edit is ready
 //        if let picturePath = post.createdBy?.profilePicturePath {
 //            // Set default image for placeholder
@@ -250,6 +254,11 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
         } else {
             cell.setConstraintsWithNoMedia()
         }
+        
+        if let vidFilename = post.videoPath {
+            cell.initVideoPlayer(videoFileName: vidFilename)
+        }
+        
         cell.supportingTextLabel.text = post.description
         cell.postId = post.id
         cell.post = post
@@ -270,9 +279,27 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    //turned off, because click event too strong. Placing Post Detail on title & description press instead of the whole cell.
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        let post = posts[indexPath.row]
+//        viewPostHandler(exercisePost: post)
+//    }
+    
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+        if indexPath.section == 1 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LoadingCell.cellId,
+            for: indexPath) as! LoadingCell            
+            return
+        }
+        
         let post = posts[indexPath.row]
-        viewPostHandler(exercisePost: post)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: K.Storyboard.feedCellId,
+        for: indexPath) as! FeedCell
+        if let player = cell.avPlayerViewController.player {
+            player.pause()
+            cell.avPlayerViewController.removeFromParent()
+        }
     }
     
     //Cache cell height to prevent jumpy recalc behavior
@@ -303,7 +330,7 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
         return res
     }
     
-    //handle infinite scrolling events
+    // MARK: -infinite scrolling events
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetY = scrollView.contentOffset.y
         let contentHeight = scrollView.contentSize.height
@@ -331,6 +358,7 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
 
 }
 
+// MARK: -Closure Navigation
 private extension FeedViewController {
     //Renders the changes between self's posts[] and the arg's posts[]
     func diffedTableViewRenderer(argPosts: [ExercisePost]) {
@@ -365,7 +393,6 @@ private extension FeedViewController {
           newPostsCopy.insert(exercisePost, at: 0)
       }
       else if (diffType == .edit) { //using Notification center to get the updated post. DiffTool isn't detecting changes b/c Old Post is same as New Posts, as if it were strongly refenced/changed.
-        print("indexFound: \(indexFound)")
         
         if(indexFound >= 0) {
             newPostsCopy[indexFound] = exercisePost

@@ -24,6 +24,7 @@ class DomainToFirebaseMapper {
         firebaseExercisePost["description"] = post.description
         firebaseExercisePost["modified-date"] = post.dateModified
         firebaseExercisePost["image-path"] = post.imagePath
+        firebaseExercisePost["video-path"] = post.videoPath
         firebaseExercisePost["answers-count"] = post.answersCount
         firebaseExercisePost["upvote-count"] = post.metrics.upvotes
         firebaseExercisePost["downvote-count"] = post.metrics.downvotes
