@@ -68,12 +68,12 @@ extension SettingsViewController {
         do {
             try Services.userService.signOut()
             let authViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: K.Storyboard.AuthOptionViewControllerId)
-            self.window = UIWindow(frame: UIScreen.main.bounds)
-            self.window?.rootViewController = authViewController
-            self.window?.makeKeyAndVisible()
+            window = UIWindow(frame: UIScreen.main.bounds)
+            window?.rootViewController = authViewController
+            window?.makeKeyAndVisible()
         } catch {
-            self.snackbarMessage.text = "An error occurred signing out."
-            MDCSnackbarManager.show(self.snackbarMessage)
+            snackbarMessage.text = "An error occurred signing out."
+            MDCSnackbarManager.show(snackbarMessage)
         }
     }
     
@@ -82,10 +82,15 @@ extension SettingsViewController {
             UIApplication.shared.open(writeReviewURL, options: [:], completionHandler: nil)
         }
         else {
-            self.snackbarMessage.text = "Error going to the App Store."
-            MDCSnackbarManager.show(self.snackbarMessage)
+            snackbarMessage.text = "Error going to the App Store."
+            MDCSnackbarManager.show(snackbarMessage)
         }
-        
+    }
+    
+    func clearCache() {
+        CacheManager.clearAllCaches()
+        snackbarMessage.text = "All caches cleared."
+        MDCSnackbarManager.show(snackbarMessage)
     }
 }
 
@@ -106,6 +111,9 @@ extension SettingsViewController: UICollectionViewDataSource, UICollectionViewDe
         case CellLocations.Rate.rawValue:
             cell.titleLabel.text = "Rate Spotcheckr"
             cell.leadingImageView.image = Images.heart
+        case CellLocations.ClearCache.rawValue:
+            cell.titleLabel.text = "Clear Cache"
+            cell.leadingImageView.image = Images.database
         default:
             break
         }
@@ -119,12 +127,15 @@ extension SettingsViewController: UICollectionViewDataSource, UICollectionViewDe
             logout()
         case CellLocations.Rate.rawValue:
             rate()
+        case CellLocations.ClearCache.rawValue:
+            clearCache()
         default: break
         }
     }
 }
 
 enum CellLocations: Int, CaseIterable {
-    case Rate = 0
-    case Logout = 1
+    case ClearCache = 0
+    case Rate = 1
+    case Logout = 2
 }

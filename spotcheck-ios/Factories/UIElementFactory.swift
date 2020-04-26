@@ -1,6 +1,8 @@
 import UIKit
 import MaterialComponents
 
+// TODO: Remove usage in favors of components.
+///Deprecated: Create custom components instead.
 class UIElementFactory {
     static func getLabel() -> UILabel {
         let label = UILabel()
