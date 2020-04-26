@@ -15,6 +15,7 @@
 		5653ABCF24161921001E9CF0 /* MemoryCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5653ABCE24161921001E9CF0 /* MemoryCache.swift */; };
 		5659D9D723FD02980043FA6A /* AnswerPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659D9D523FD02980043FA6A /* AnswerPostCell.swift */; };
 		5659D9D823FD02980043FA6A /* AnswerPostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5659D9D623FD02980043FA6A /* AnswerPostCell.xib */; };
+		567494FC24520B7300995B70 /* bulletTrain.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 567494FB24520B7300995B70 /* bulletTrain.mp4 */; };
 		567952FE23D806BE0077BA08 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567952FD23D806BE0077BA08 /* AppDelegate.swift */; };
 		5679530523D806BE0077BA08 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5679530323D806BE0077BA08 /* Main.storyboard */; };
 		5679530723D806C00077BA08 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5679530623D806C00077BA08 /* Assets.xcassets */; };
@@ -31,6 +32,7 @@
 		568721A323E7EF1100E15F87 /* ApplicationScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568721A223E7EF1100E15F87 /* ApplicationScheme.swift */; };
 		569794D123F11DBC00994B71 /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569794D023F11DBC00994B71 /* PostDetailViewController.swift */; };
 		569A8B99244588EC007CCDD3 /* exportOptions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 569A8B98244588EC007CCDD3 /* exportOptions.plist */; };
+		56B8D03A2447114800E3C157 /* CreatePostViewController+media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B8D0392447114800E3C157 /* CreatePostViewController+media.swift */; };
 		56EA7F87242B0D3A00EEDF34 /* LoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EA7F85242B0D3A00EEDF34 /* LoadingCell.swift */; };
 		BA1FB51323F1014900E091B1 /* BodyMeasurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1FB51223F1014900E091B1 /* BodyMeasurement.swift */; };
 		BA1FB51523F1047A00E091B1 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1FB51423F1047A00E091B1 /* Contact.swift */; };
@@ -158,6 +160,7 @@
 		5653ABCE24161921001E9CF0 /* MemoryCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCache.swift; sourceTree = "<group>"; };
 		5659D9D523FD02980043FA6A /* AnswerPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerPostCell.swift; sourceTree = "<group>"; };
 		5659D9D623FD02980043FA6A /* AnswerPostCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnswerPostCell.xib; sourceTree = "<group>"; };
+		567494FB24520B7300995B70 /* bulletTrain.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; name = bulletTrain.mp4; path = "spotcheck-ios/Factories/LocalVideos/bulletTrain.mp4"; sourceTree = "<group>"; };
 		567860D82441C58100451C3A /* Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
 		567860D92441C62400451C3A /* Staging.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Staging.xcconfig; sourceTree = "<group>"; };
 		567860DA2441C6A100451C3A /* Production.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Production.xcconfig; sourceTree = "<group>"; };
@@ -183,6 +186,7 @@
 		568721A223E7EF1100E15F87 /* ApplicationScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationScheme.swift; sourceTree = "<group>"; };
 		569794D023F11DBC00994B71 /* PostDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
 		569A8B98244588EC007CCDD3 /* exportOptions.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = exportOptions.plist; sourceTree = "<group>"; };
+		56B8D0392447114800E3C157 /* CreatePostViewController+media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CreatePostViewController+media.swift"; sourceTree = "<group>"; };
 		56EA7F85242B0D3A00EEDF34 /* LoadingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCell.swift; sourceTree = "<group>"; };
 		7BE19FCDC24C6084E719EEC0 /* Pods-spotcheck-ios.debug (production).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios.debug (production).xcconfig"; path = "Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios.debug (production).xcconfig"; sourceTree = "<group>"; };
 		8AEB36802E706E9D882E5510 /* Pods-spotcheck-ios.debug (development).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios.debug (development).xcconfig"; path = "Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios.debug (development).xcconfig"; sourceTree = "<group>"; };
@@ -343,6 +347,7 @@
 		567952F123D806BE0077BA08 = {
 			isa = PBXGroup;
 			children = (
+				567494FB24520B7300995B70 /* bulletTrain.mp4 */,
 				567952FC23D806BE0077BA08 /* spotcheck-ios */,
 				5679531323D806C00077BA08 /* spotcheck-iosTests */,
 				5679531E23D806C00077BA08 /* spotcheck-iosUITests */,
@@ -417,6 +422,14 @@
 				56EA7F85242B0D3A00EEDF34 /* LoadingCell.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		5697B95E244C40BE003CF236 /* LocalVideos */ = {
+			isa = PBXGroup;
+			children = (
+				567494F924520B4700995B70 /* bulletTrain.mp4 */,
+			);
+			path = LocalVideos;
 			sourceTree = "<group>";
 		};
 		56B79E3623E2AFA700568685 /* Models */ = {
@@ -658,6 +671,9 @@
 		BAA340FB23F39A7000C7392C /* Factories */ = {
 			isa = PBXGroup;
 			children = (
+				5697B95E244C40BE003CF236 /* LocalVideos */,
+				BAA340FE23F39AA500C7392C /* FakeDataFactory.swift */,
+
 				BA5DE70F2419ADAC002C98E6 /* Images.swift */,
 				BACCABE9241E162100BEC89E /* UIElementFactory.swift */,
 				BAEE4ACD24274D49005C2023 /* Colors.swift */,
@@ -712,6 +728,7 @@
 				BA54CD7A2436D60C00A944BC /* ReportViewController.swift */,
 				569794D023F11DBC00994B71 /* PostDetailViewController.swift */,
 				5645AFE723F51C0700B64D0B /* CreatePostViewController.swift */,
+				56B8D0392447114800E3C157 /* CreatePostViewController+media.swift */,
 				5686D2E124051C0300E09868 /* CreatePostViewController+helpers.swift */,
 				564FA33723FFBF81006017FB /* CreateAnswerViewController.swift */,
 			);
@@ -836,6 +853,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				567494FC24520B7300995B70 /* bulletTrain.mp4 in Resources */,
 				BAEE4AC624263579005C2023 /* reply.svg in Resources */,
 				BA5DE70C241888F2002C98E6 /* chevron-up.svg in Resources */,
 				BA74976F2429DA6400C1C17C /* settings.svg in Resources */,
@@ -1029,6 +1047,7 @@
 				5653ABCF24161921001E9CF0 /* MemoryCache.swift in Sources */,
 				BABAA3EA2443454D00FF5C33 /* VotingControls.swift in Sources */,
 				BA4EE45E23EFEC39003E6D87 /* UserProtocol.swift in Sources */,
+				56B8D03A2447114800E3C157 /* CreatePostViewController+media.swift in Sources */,
 				BA828EFD241CE3E30012509D /* DomainToFirebaseMapper.swift in Sources */,
 				BA54CD7F2436F9E100A944BC /* CollectionConstants.swift in Sources */,
 				BA54CD7B2436D60C00A944BC /* ReportViewController.swift in Sources */,
