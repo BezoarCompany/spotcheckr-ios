@@ -114,6 +114,15 @@ extension SettingsViewController: UICollectionViewDataSource, UICollectionViewDe
         case CellLocations.ClearCache.rawValue:
             cell.titleLabel.text = "Clear Cache"
             cell.leadingImageView.image = Images.database
+        case CellLocations.BuildVersion.rawValue:
+            cell.titleLabel.translatesAutoresizingMaskIntoConstraints = false
+            cell.isUserInteractionEnabled = false
+            cell.titleLabel.centerXAnchor.constraint(equalTo: cell.centerXAnchor).isActive = true
+            if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+                cell.titleLabel.text = "v.\(version)"
+            }
+            cell.titleLabel.textColor = ApplicationScheme.instance.containerScheme.colorScheme.primaryColorVariant
+            cell.titleLabel.font = ApplicationScheme.instance.containerScheme.typographyScheme.subtitle2
         default:
             break
         }
@@ -138,4 +147,5 @@ enum CellLocations: Int, CaseIterable {
     case ClearCache = 0
     case Rate = 1
     case Logout = 2
+    case BuildVersion = 3
 }
