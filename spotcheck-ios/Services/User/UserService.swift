@@ -6,9 +6,6 @@ import PromiseKit
 import Foundation
 
 class UserService: UserProtocol {
-    private let cache = Cache<UserID, User>() // (userID<String>: User)
-    private let firebaseMapCache = Cache<String, Any>()
-    
     func createUser(user: User) -> Promise<Void> {
         return Promise { promise in
             firstly {
@@ -32,9 +29,9 @@ class UserService: UserProtocol {
         }
     }
     
-    func getUser(withId id: UserID) -> Promise<User> {
+    func getUser(withId id: UserID, includeVoteDetails: Bool = false) -> Promise<User> {
         return Promise { promise in
-            if let user = cache[id] {
+            if let user = CacheManager.userCache[id] {
                 return promise.fulfill(user)
             }
 
@@ -46,63 +43,20 @@ class UserService: UserProtocol {
                 
                 let data = doc.data()
                 let userId = UserID(doc.documentID)
-                var salutations: [String:String] = [:]
-                var genders: [String:String] = [:]
-                var userTypes: [String:String] = [:]
-                var userCertifications = [Certification]()
                 
                 firstly {
-                    when(fulfilled: self.getSalutations(),
-                                    self.getGenders(),
-                                    self.getUserTypes(),
-                                    self.getCertifications(forUserWithId: userId))
-                }.done { salutationsResult,
-                         gendersResult,
-                         userTypesResult,
-                         userCertificationsResult in
-                    salutations = salutationsResult
-                    genders = gendersResult
-                    userTypes = userTypesResult
-                    userCertifications = userCertificationsResult
+                    when(fulfilled: self.getGenders(), self.getUserTypes())
+                }.done { gendersResult, userTypesResult in
+                    let user = FirebaseToDomainMapper.mapUser(userId: userId,
+                                                              genders: gendersResult,
+                                                              userTypes: userTypesResult,
+                                                              data: data,
+                                                              mapVoteDetails: includeVoteDetails)
+                    CacheManager.userCache[user.id!] = user
+                    return promise.fulfill(user)
                 }.catch { error in
                     return promise.reject(error)
-                }.finally {
-                    var user: User
-                    
-                    let userIsTrainer = data?.keys.contains("type") != nil && userTypes[(data?["type"] as! DocumentReference).path] == "Trainer"
-                    
-                    user = userIsTrainer ? Trainer(id: userId) : User(id: userId)
-                    user.username = (data?.keys.contains("username"))! ? data?["username"] as! String : ""
-                    user.profilePicturePath = (data?.keys.contains("profile-picture-path"))! ?  data?["profile-picture-path"] as? String : nil
-                    user.information = Identity(
-                        salutation: (data?.keys.contains("salutation"))! ? salutations[(data?["salutation"] as! DocumentReference).path]! : "",
-                        firstName: (data?.keys.contains("first-name"))! ? data?["first-name"] as! String : "",
-                        middleName: (data?.keys.contains("middle-name"))! ? data?["middle-name"] as! String : "",
-                        lastName: (data?.keys.contains("last-name"))! ? data?["last-name"] as! String : "",
-                        gender: (data?.keys.contains("gender"))! ? genders[(data?["gender"] as! DocumentReference).path]! : "",
-                        birthDate: (data?.keys.contains("birthdate"))! ? (data?["birthdate"] as! Timestamp).dateValue() : nil
-                    )
-                    user.measurement = BodyMeasurement(
-                        height: (data?.keys.contains("height"))! ? Int(data?["height"] as! String) : 0,
-                        weight: (data?.keys.contains("weight"))! ? Int(data?["weight"] as! String) : 0
-                    )
-                    
-                    if userIsTrainer {
-                        let trainer = user as! Trainer
-
-                        trainer.website = (data?.keys.contains("website"))! ? URL(string: data?["website"] as! String) : nil
-                        trainer.occupationTitle = (data?.keys.contains("occupation-title"))! ? data?["occupation-title"] as! String : ""
-                        trainer.occupationCompany = (data?.keys.contains("occupation-company"))! ? data?["occupation-company"] as! String : ""
-                        trainer.certifications = userCertifications
-                    }
-                    //store in cache
-                    self.cache[user.id!] = user
-                    
-                    return promise.fulfill(user)
                 }
-                
-                //TODO: Get more complex information about the user.
-                                
             }
         }
     }
@@ -140,13 +94,13 @@ class UserService: UserProtocol {
             
             let userId = UserID(Auth.auth().currentUser!.uid)
             
-            if let user = cache[userId] {
+            if let user = CacheManager.userCache[userId] {
                 return promise.fulfill(user)
             }
             firstly {
-                self.getUser(withId: userId)
+                self.getUser(withId: userId, includeVoteDetails: true)
             }.done { user in
-                self.cache[user.id!] = user
+                CacheManager.userCache[user.id!] = user
                 return promise.fulfill(user)
             }.catch { error in
                 return promise.reject(error)
@@ -157,7 +111,7 @@ class UserService: UserProtocol {
     
     func getUserTypes() -> Promise<[String: String]>{
         return Promise { promise in
-            if let userTypes = firebaseMapCache["user-types"] as? [String:String] {
+            if let userTypes = CacheManager.stringCache["user-types"] as? [String:String] {
                 return promise.fulfill(userTypes)
             }
             
@@ -171,7 +125,7 @@ class UserService: UserProtocol {
                     userTypes[document.reference.path] = document.data()["name"] as? String
                 }
                 
-                self.firebaseMapCache.insert(userTypes, forKey: "user-types")
+                CacheManager.stringCache.insert(userTypes, forKey: "user-types")
                 return promise.fulfill(userTypes)
             }
         }
@@ -242,7 +196,7 @@ class UserService: UserProtocol {
                     promise.reject(error)
                 }
                 
-                self.cache[user.id!] = user
+                CacheManager.userCache[user.id!] = user
                 promise.fulfill_()
             })
         }

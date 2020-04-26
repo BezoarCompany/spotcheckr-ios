@@ -12,7 +12,7 @@
 		5644F61F2406459B00A103EF /* StorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5644F61E2406459B00A103EF /* StorageProtocol.swift */; };
 		5645AFE823F51C0700B64D0B /* CreatePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5645AFE723F51C0700B64D0B /* CreatePostViewController.swift */; };
 		564FA33823FFBF81006017FB /* CreateAnswerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564FA33723FFBF81006017FB /* CreateAnswerViewController.swift */; };
-		5653ABCF24161921001E9CF0 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5653ABCE24161921001E9CF0 /* Cache.swift */; };
+		5653ABCF24161921001E9CF0 /* MemoryCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5653ABCE24161921001E9CF0 /* MemoryCache.swift */; };
 		5659D9D723FD02980043FA6A /* AnswerPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659D9D523FD02980043FA6A /* AnswerPostCell.swift */; };
 		5659D9D823FD02980043FA6A /* AnswerPostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5659D9D623FD02980043FA6A /* AnswerPostCell.xib */; };
 		567494FC24520B7300995B70 /* bulletTrain.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 567494FB24520B7300995B70 /* bulletTrain.mp4 */; };
@@ -109,7 +109,14 @@
 		BA828EFB241CE2F10012509D /* FirebaseToDomainMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA828EFA241CE2F10012509D /* FirebaseToDomainMapper.swift */; };
 		BA828EFD241CE3E30012509D /* DomainToFirebaseMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA828EFC241CE3E30012509D /* DomainToFirebaseMapper.swift */; };
 		BA95E252245138DA00118DE0 /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA95E251245138DA00118DE0 /* ContentType.swift */; };
+		BA95E2552452023800118DE0 /* CircularActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA95E2542452023800118DE0 /* CircularActivityIndicator.swift */; };
+		BA95E25B2452955400118DE0 /* SystemProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA95E25A2452955400118DE0 /* SystemProtocol.swift */; };
+		BA95E25D245295E100118DE0 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA95E25C245295E100118DE0 /* Configuration.swift */; };
+		BA95E25F2452961B00118DE0 /* SemanticVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA95E25E2452961B00118DE0 /* SemanticVersion.swift */; };
+		BA95E2612452970E00118DE0 /* SystemService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA95E2602452970E00118DE0 /* SystemService.swift */; };
+		BA95E26C2454390200118DE0 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA95E26B2454390200118DE0 /* CacheManager.swift */; };
 		BAA340FA23F3932900C7392C /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA340F923F3932900C7392C /* DateExtensions.swift */; };
+		BABA110A24555A3E00FB9D1D /* database.svg in Resources */ = {isa = PBXBuildFile; fileRef = BABA110924555A3E00FB9D1D /* database.svg */; };
 		BABAA3E72443337400FF5C33 /* x.svg in Resources */ = {isa = PBXBuildFile; fileRef = BABAA3E62443337300FF5C33 /* x.svg */; };
 		BABAA3EA2443454D00FF5C33 /* VotingControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABAA3E92443454D00FF5C33 /* VotingControls.swift */; };
 		BABAA3EC244404D200FF5C33 /* AnswerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABAA3EB244404D200FF5C33 /* AnswerCell.swift */; };
@@ -150,7 +157,7 @@
 		5645AFE723F51C0700B64D0B /* CreatePostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostViewController.swift; sourceTree = "<group>"; };
 		5645AFE923F53CF700B64D0B /* iOSDropDown.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = iOSDropDown.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		564FA33723FFBF81006017FB /* CreateAnswerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAnswerViewController.swift; sourceTree = "<group>"; };
-		5653ABCE24161921001E9CF0 /* Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
+		5653ABCE24161921001E9CF0 /* MemoryCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCache.swift; sourceTree = "<group>"; };
 		5659D9D523FD02980043FA6A /* AnswerPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerPostCell.swift; sourceTree = "<group>"; };
 		5659D9D623FD02980043FA6A /* AnswerPostCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnswerPostCell.xib; sourceTree = "<group>"; };
 		567494FB24520B7300995B70 /* bulletTrain.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; name = bulletTrain.mp4; path = "spotcheck-ios/Factories/LocalVideos/bulletTrain.mp4"; sourceTree = "<group>"; };
@@ -261,7 +268,14 @@
 		BA828EFA241CE2F10012509D /* FirebaseToDomainMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseToDomainMapper.swift; sourceTree = "<group>"; };
 		BA828EFC241CE3E30012509D /* DomainToFirebaseMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainToFirebaseMapper.swift; sourceTree = "<group>"; };
 		BA95E251245138DA00118DE0 /* ContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentType.swift; sourceTree = "<group>"; };
+		BA95E2542452023800118DE0 /* CircularActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularActivityIndicator.swift; sourceTree = "<group>"; };
+		BA95E25A2452955400118DE0 /* SystemProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemProtocol.swift; sourceTree = "<group>"; };
+		BA95E25C245295E100118DE0 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		BA95E25E2452961B00118DE0 /* SemanticVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemanticVersion.swift; sourceTree = "<group>"; };
+		BA95E2602452970E00118DE0 /* SystemService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemService.swift; sourceTree = "<group>"; };
+		BA95E26B2454390200118DE0 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		BAA340F923F3932900C7392C /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
+		BABA110924555A3E00FB9D1D /* database.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = database.svg; sourceTree = "<group>"; };
 		BABAA3E62443337300FF5C33 /* x.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = x.svg; sourceTree = "<group>"; };
 		BABAA3E92443454D00FF5C33 /* VotingControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VotingControls.swift; sourceTree = "<group>"; };
 		BABAA3EB244404D200FF5C33 /* AnswerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerCell.swift; sourceTree = "<group>"; };
@@ -413,7 +427,6 @@
 		5697B95E244C40BE003CF236 /* LocalVideos */ = {
 			isa = PBXGroup;
 			children = (
-				567494F924520B4700995B70 /* bulletTrain.mp4 */,
 			);
 			path = LocalVideos;
 			sourceTree = "<group>";
@@ -424,12 +437,12 @@
 				BA65CBB7244D0A7C00901812 /* Identifiers */,
 				BA1FB52023F1148600E091B1 /* ExercisePost.swift */,
 				BA4EE44423EBA221003E6D87 /* User.swift */,
+				BA1FB51A23F106B600E091B1 /* Trainer.swift */,
 				BA4EE44623EBA347003E6D87 /* Identity.swift */,
 				BA1FB51223F1014900E091B1 /* BodyMeasurement.swift */,
 				BA1FB51423F1047A00E091B1 /* Contact.swift */,
 				BA1FB51623F104B400E091B1 /* PhoneNumber.swift */,
 				BA1FB51823F1058500E091B1 /* EmailAddress.swift */,
-				BA1FB51A23F106B600E091B1 /* Trainer.swift */,
 				BA1FB51C23F106E500E091B1 /* Certification.swift */,
 				BA1FB51E23F1071000E091B1 /* Organization.swift */,
 				BA1FB52623F119CB00E091B1 /* Metrics.swift */,
@@ -440,6 +453,8 @@
 				BA54CD72243652E000A944BC /* Report.swift */,
 				BA54CD742436CACE00A944BC /* ReportType.swift */,
 				BA95E251245138DA00118DE0 /* ContentType.swift */,
+				BA95E25C245295E100118DE0 /* Configuration.swift */,
+				BA95E25E2452961B00118DE0 /* SemanticVersion.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -472,9 +487,10 @@
 				BA65CBC6244D468600901812 /* Storage */,
 				BA65CBC3244D467000901812 /* Analytics */,
 				BA65CBC7244D468F00901812 /* Reporting */,
+				BA95E2592452954300118DE0 /* System */,
 				BA65CBC8244D46C700901812 /* Mapping */,
+				BA95E26824542E5300118DE0 /* Caches */,
 				BA59197523F92DBA00E8B900 /* Services.swift */,
-				5653ABCE24161921001E9CF0 /* Cache.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -492,6 +508,7 @@
 				BA65CBAE244B8A3200901812 /* heart.svg */,
 				BA54CD7C2436F13000A944BC /* send.svg */,
 				BA74976E2429DA6400C1C17C /* settings.svg */,
+				BABA110924555A3E00FB9D1D /* database.svg */,
 				BAEE4ACB2426E122005C2023 /* arrow-down.svg */,
 				BA54CD762436CD7B00A944BC /* more-vertical.svg */,
 				BAEE4ACF24276DFD005C2023 /* account-circle.svg */,
@@ -611,6 +628,32 @@
 			path = Controls;
 			sourceTree = "<group>";
 		};
+		BA95E2532452020F00118DE0 /* Activity Indicators */ = {
+			isa = PBXGroup;
+			children = (
+				BA95E2542452023800118DE0 /* CircularActivityIndicator.swift */,
+			);
+			path = "Activity Indicators";
+			sourceTree = "<group>";
+		};
+		BA95E2592452954300118DE0 /* System */ = {
+			isa = PBXGroup;
+			children = (
+				BA95E25A2452955400118DE0 /* SystemProtocol.swift */,
+				BA95E2602452970E00118DE0 /* SystemService.swift */,
+			);
+			path = System;
+			sourceTree = "<group>";
+		};
+		BA95E26824542E5300118DE0 /* Caches */ = {
+			isa = PBXGroup;
+			children = (
+				5653ABCE24161921001E9CF0 /* MemoryCache.swift */,
+				BA95E26B2454390200118DE0 /* CacheManager.swift */,
+			);
+			path = Caches;
+			sourceTree = "<group>";
+		};
 		BAA340F823F3931A00C7392C /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -628,8 +671,6 @@
 			isa = PBXGroup;
 			children = (
 				5697B95E244C40BE003CF236 /* LocalVideos */,
-				BAA340FE23F39AA500C7392C /* FakeDataFactory.swift */,
-
 				BA5DE70F2419ADAC002C98E6 /* Images.swift */,
 				BACCABE9241E162100BEC89E /* UIElementFactory.swift */,
 				BAEE4ACD24274D49005C2023 /* Colors.swift */,
@@ -694,6 +735,7 @@
 		BABAA3E8244344B200FF5C33 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				BA95E2532452020F00118DE0 /* Activity Indicators */,
 				BA65CBCE244E260D00901812 /* Buttons */,
 				BA65CBCD244E25F300901812 /* Cells */,
 			);
@@ -827,6 +869,7 @@
 				BA54CD6D2435692400A944BC /* save.svg in Resources */,
 				BA584C7824381D0C00417DC5 /* GoogleService-Info.plist in Resources */,
 				BA49213723E6289B00A74A73 /* Roboto-Medium.ttf in Resources */,
+				BABA110A24555A3E00FB9D1D /* database.svg in Resources */,
 				5679530A23D806C00077BA08 /* LaunchScreen.storyboard in Resources */,
 				BA49213623E6289B00A74A73 /* Roboto-Regular.ttf in Resources */,
 				BA49A013241ED21300BB4BD8 /* list.svg in Resources */,
@@ -948,6 +991,7 @@
 				BA3DDD2B241CB1F600692100 /* AnalyticsService.swift in Sources */,
 				BA49A017241F488500BB4BD8 /* TabBarController.swift in Sources */,
 				BA1FB51523F1047A00E091B1 /* Contact.swift in Sources */,
+				BA95E2552452023800118DE0 /* CircularActivityIndicator.swift in Sources */,
 				BA4EE42823E94BBF003E6D87 /* AuthenticationProtocol.swift in Sources */,
 				BA1FB52923F11ADA00E091B1 /* Answer.swift in Sources */,
 				BA1FB51923F1058500E091B1 /* EmailAddress.swift in Sources */,
@@ -962,6 +1006,7 @@
 				BA65CBB3244C43D100901812 /* UIColorExtensions.swift in Sources */,
 				BACCABEA241E162100BEC89E /* UIElementFactory.swift in Sources */,
 				BA1FB51723F104B400E091B1 /* PhoneNumber.swift in Sources */,
+				BA95E2612452970E00118DE0 /* SystemService.swift in Sources */,
 				BA1FB52523F116BD00E091B1 /* ExercisePostService.swift in Sources */,
 				564FA33823FFBF81006017FB /* CreateAnswerViewController.swift in Sources */,
 				BA65CBB1244C386B00901812 /* Divider.swift in Sources */,
@@ -993,9 +1038,10 @@
 				BA828EF9241CE0270012509D /* StringExtensions.swift in Sources */,
 				BA65CBCC244E25EE00901812 /* CardCollectionCell.swift in Sources */,
 				BA4EE44F23EE91D1003E6D87 /* SignUpViewController.swift in Sources */,
+				BA95E25F2452961B00118DE0 /* SemanticVersion.swift in Sources */,
 				5686D2E224051C0300E09868 /* CreatePostViewController+helpers.swift in Sources */,
 				BA54CD712436528300A944BC /* ReportingProtocol.swift in Sources */,
-				5653ABCF24161921001E9CF0 /* Cache.swift in Sources */,
+				5653ABCF24161921001E9CF0 /* MemoryCache.swift in Sources */,
 				BABAA3EA2443454D00FF5C33 /* VotingControls.swift in Sources */,
 				BA4EE45E23EFEC39003E6D87 /* UserProtocol.swift in Sources */,
 				56B8D03A2447114800E3C157 /* CreatePostViewController+media.swift in Sources */,
@@ -1005,6 +1051,7 @@
 				BA4EDA4124025F0D00206267 /* EditProfileViewController.swift in Sources */,
 				BA1FB51323F1014900E091B1 /* BodyMeasurement.swift in Sources */,
 				BA4EE44723EBA347003E6D87 /* Identity.swift in Sources */,
+				BA95E26C2454390200118DE0 /* CacheManager.swift in Sources */,
 				56EA7F87242B0D3A00EEDF34 /* LoadingCell.swift in Sources */,
 				5679533423D972F00077BA08 /* AuthOptionsViewController.swift in Sources */,
 				BA1FB51D23F106E500E091B1 /* Certification.swift in Sources */,
@@ -1012,8 +1059,10 @@
 				BA95E252245138DA00118DE0 /* ContentType.swift in Sources */,
 				BA1FB52123F1148700E091B1 /* ExercisePost.swift in Sources */,
 				5607DA0E2426221000B283D2 /* PromiseKitExtensions.swift in Sources */,
+				BA95E25B2452955400118DE0 /* SystemProtocol.swift in Sources */,
 				BA4EE46023EFEC7B003E6D87 /* UserService.swift in Sources */,
 				BA4EDA4324026CE200206267 /* IntExtensions.swift in Sources */,
+				BA95E25D245295E100118DE0 /* Configuration.swift in Sources */,
 				BA1FB52F23F11C3400E091B1 /* Exercise.swift in Sources */,
 				BA4EE45A23EF1408003E6D87 /* ForgotPasswordViewController.swift in Sources */,
 				BA4EE44523EBA221003E6D87 /* User.swift in Sources */,

@@ -168,7 +168,6 @@ PODS:
     - CocoaLumberjack/Core (= 3.6.1)
   - CocoaLumberjack/Core (3.6.1)
   - DropDown (2.3.13)
-  - Fakery (4.1.1)
   - Firebase/Analytics (6.21.0):
     - Firebase/Core
   - Firebase/Auth (6.21.0):
@@ -605,7 +604,6 @@ PODS:
 
 DEPENDENCIES:
   - DropDown (= 2.3.13)
-  - Fakery
   - Firebase/Analytics
   - Firebase/Auth
   - Firebase/Core
@@ -653,7 +651,6 @@ SPEC REPOS:
     - BoringSSL-GRPC
     - CocoaLumberjack
     - DropDown
-    - Fakery
     - Firebase
     - FirebaseAnalytics
     - FirebaseAnalyticsInterop
@@ -712,7 +709,6 @@ SPEC CHECKSUMS:
   BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
   CocoaLumberjack: b17ae15142558d08bbacf69775fa10c4abbebcc9
   DropDown: 8a2116376c1981888557f72ec2ffc9a5e0e456ec
-  Fakery: d3380c4aa1efe7631c0831d7e26aa9db4491f014
   Firebase: f378c80340dd41c0ad0914af740c021eb282a04b
   FirebaseAnalytics: a1a0b3327ceb5cd5b4bacffdb293f6c909aa087d
   FirebaseAnalyticsInterop: 3f86269c38ae41f47afeb43ebf32a001f58fcdae
@@ -752,6 +748,6 @@ SPEC CHECKSUMS:
   SwiftSVG: e55084e4c5534f3f25743003a6a3a88580cacfb0
   SwiftValidator: 249b6b3ae3b294266c5b9de134d94f18f2d5aa47
 
-PODFILE CHECKSUM: c7977f241108991d958b5b87dbcb3106e4dcc5b2
+PODFILE CHECKSUM: 949d3c03e4c1f7c481398a8d994a6cb3bd0df681
 
 COCOAPODS: 1.8.4

@@ -19,7 +19,6 @@ protocol ExercisePostProtocol {
     func getAnswers(byUserWithId userId: UserID) -> Promise<[Answer]>
     func getAnswers(forPostWithId postId: ExercisePostID) -> Promise<[Answer]>
     func voteContent(contentId: GenericID, userId: UserID, direction: VoteDirection) -> Promise<Void>
-    func getVoteDirection(contentId: GenericID, collection: String) -> Promise<VoteDirection>
     
     func createPost(post: ExercisePost) -> Promise<ExercisePost>
     func createAnswer(answer: Answer) -> Promise<Void>
