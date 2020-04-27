@@ -19,9 +19,9 @@ class PostDetailViewController : UIViewController {
     }()
     let cellHeightEstimate = 185.0
     let cellEstimatedSize: CGSize = {
-        let w = UIScreen.main.bounds.size.width
-        let h = CGFloat(185)
-        let size = CGSize(width: w, height: h)
+        let width = UIScreen.main.bounds.size.width
+        let height = CGFloat(185)
+        let size = CGSize(width: width, height: height)
         return size
     }()
     
@@ -158,7 +158,7 @@ class PostDetailViewController : UIViewController {
 
 extension PostDetailViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     enum CollectionViewSections: Int {
-        case PostInformation, Answers
+        case postInformation, answers
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -167,9 +167,9 @@ extension PostDetailViewController: UICollectionViewDataSource, UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
-        case CollectionViewSections.PostInformation.rawValue:
+        case CollectionViewSections.postInformation.rawValue:
             return 1
-        case CollectionViewSections.Answers.rawValue:
+        case CollectionViewSections.answers.rawValue:
             return answers.count
         default:
             return 0
@@ -177,7 +177,7 @@ extension PostDetailViewController: UICollectionViewDataSource, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if indexPath.section == CollectionViewSections.PostInformation.rawValue {
+        if indexPath.section == CollectionViewSections.postInformation.rawValue {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: K.Storyboard.feedCellId,
             for: indexPath) as! FeedCell
             cell.setShadowElevation(ShadowElevation(rawValue: 10), for: .normal)
@@ -199,7 +199,7 @@ extension PostDetailViewController: UICollectionViewDataSource, UICollectionView
                 
                 // Get a reference to the storage service using the default Firebase App
                 let storage = Storage.storage()
-                let pathname = K.Firestore.Storage.IMAGES_ROOT_DIR + "/" + (post?.imagePath ?? "")
+                let pathname = K.Firestore.Storage.imagesRootDirectory + "/" + (post?.imagePath ?? "")
                 
                 // Create a reference with an initial file path and name
                 let storagePathReference = storage.reference(withPath: pathname)
@@ -208,7 +208,7 @@ extension PostDetailViewController: UICollectionViewDataSource, UICollectionView
                 cell.media.sd_setImage(with: storagePathReference, placeholderImage: placeholderImage)
                 
                 cell.setConstraintsWithMedia()
-                postCellHeight = cell.frame.height + CGFloat(FeedCell.IMAGE_HEIGHT)
+                postCellHeight = cell.frame.height + CGFloat(FeedCell.imageHeight)
             } else {
                 cell.setConstraintsWithNoMedia()
                 postCellHeight = cell.frame.height

@@ -45,13 +45,13 @@ class ProfilePostCell: UITableViewCell {
     
     @IBAction func upvoteOnClick(_ sender: Any) {
         if self.downvoteButton.tintColor == self.downvoteColor { // Going from downvote to upvote
-            self.voteDirection = .Up
+            self.voteDirection = .up
         }
         else if self.upvoteButton.tintColor == self.upvoteColor { // Already upvoted, removing upvote
-            self.voteDirection = .Neutral
+            self.voteDirection = .neutral
         }
         else if self.upvoteButton.tintColor == self.neutralColor { // Upvoting for the first time
-            self.voteDirection = .Up
+            self.voteDirection = .up
         }
         self.adjustVotingControls()
         firstly {
@@ -63,13 +63,13 @@ class ProfilePostCell: UITableViewCell {
     
     @IBAction func downvoteOnClick(_ sender: Any) {
         if self.upvoteButton.tintColor == self.upvoteColor { // Going from upvote to downvote
-            self.voteDirection = .Down
+            self.voteDirection = .down
         }
         else if self.downvoteButton.tintColor == self.downvoteColor { // Already downvoted, removing downvote
-            self.voteDirection = .Neutral
+            self.voteDirection = .neutral
         }
         else if self.downvoteButton.tintColor == self.neutralColor { // Downvoting for the first time
-            self.voteDirection = .Down
+            self.voteDirection = .down
         }
         self.adjustVotingControls()
         
@@ -82,10 +82,10 @@ class ProfilePostCell: UITableViewCell {
     
     func adjustVotingControls() {
         switch self.voteDirection {
-        case .Up:
+        case .up:
             self.upvoteButton.tintColor = self.upvoteColor
             self.downvoteButton.tintColor = self.neutralColor
-        case .Down:
+        case .down:
             self.downvoteButton.tintColor = self.downvoteColor
             self.upvoteButton.tintColor = self.neutralColor
         default:

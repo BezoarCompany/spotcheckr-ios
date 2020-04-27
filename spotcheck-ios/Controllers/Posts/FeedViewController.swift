@@ -23,9 +23,9 @@ class FeedViewController: UIViewController {
     
     let cellHeightEstimate = 185.0 // Getting a good approximate is essential to prevent collectionView from jumpy behavior due to reloadData
     let cellEstimatedSize: CGSize = {
-        let w = UIScreen.main.bounds.size.width
-        let h = CGFloat(185)
-        let size = CGSize(width: w, height: h)
+        let width = UIScreen.main.bounds.size.width
+        let height = CGFloat(185)
+        let size = CGSize(width: width, height: height)
         return size
     }()
     
@@ -242,7 +242,7 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
             
             // Get a reference to the storage service using the default Firebase App
             let storage = Storage.storage()
-            let pathname = K.Firestore.Storage.IMAGES_ROOT_DIR + "/" + (post.imagePath ?? "")
+            let pathname = K.Firestore.Storage.imagesRootDirectory + "/" + (post.imagePath ?? "")
             
             // Create a reference with an initial file path and name
             let storagePathReference = storage.reference(withPath: pathname)
@@ -308,24 +308,23 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
             return
         }
         
-        let h = cell.frame.size.height
-        //print("@willDisplay [\(indexPath.item)] = \(h) height")
-        cellHeights[indexPath] = h
+        let height = cell.frame.size.height
+        cellHeights[indexPath] = height
     }
 
     //Query 'cache' for cell height to prevent jumpy recalc behavior
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
            sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let h = cellHeights[indexPath] ?? CGFloat(cellHeightEstimate)
-        let w = UIScreen.main.bounds.size.width
+        let height = cellHeights[indexPath] ?? CGFloat(cellHeightEstimate)
+        let width = UIScreen.main.bounds.size.width
         
         if indexPath.section == 1 {
-            return CGSize(width:w, height: CGFloat(LoadingCell.CELL_HEIGHT))
+            return CGSize(width:width, height: CGFloat(LoadingCell.cellHeight))
         }
         
         
-        let res = CGSize(width: w, height: h)
+        let res = CGSize(width: width, height: height)
         //print("@sizeForItemAt [\(indexPath.item)] = \(h) height")
         return res
     }
@@ -379,10 +378,9 @@ private extension FeedViewController {
       var newPostsCopy: [ExercisePost] = []
       
       var indexFound = -1
-      for (i, val) in self.posts.enumerated() {
+      for (index, val) in self.posts.enumerated() {
           if (val.id == exercisePost.id) {
-              print("i=\(i)")
-              indexFound = i
+              indexFound = index
           }
           
           newPostsCopy.append(val)

@@ -7,7 +7,7 @@ enum OverflowMenuLocation {
 }
 
 class FeedCell: CardCollectionCell {
-    static let IMAGE_HEIGHT = 300
+    static let imageHeight = 300
     
     var postDetailClosure:  (() -> Void)? = nil
     var avPlayerViewController = AVPlayerViewController()
@@ -88,7 +88,7 @@ class FeedCell: CardCollectionCell {
     }
     
     func setConstraintsWithMedia() {
-        mediaHeightConstraint!.constant = CGFloat(FeedCell.IMAGE_HEIGHT)
+        mediaHeightConstraint!.constant = CGFloat(FeedCell.imageHeight)
         mediaHeightConstraint!.isActive = true
         mediaContainerView.isHidden = false
     }

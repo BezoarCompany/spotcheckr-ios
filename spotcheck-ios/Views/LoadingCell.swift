@@ -3,7 +3,7 @@ import PromiseKit
 
 class LoadingCell: MDCCardCollectionCell {
     static let cellId = "LoadingCell"
-    static let CELL_HEIGHT = 67
+    static let cellHeight = 67
     
     var widthConstraint: NSLayoutConstraint?
     var activityIndicator = UIElementFactory.getActivityIndicator()

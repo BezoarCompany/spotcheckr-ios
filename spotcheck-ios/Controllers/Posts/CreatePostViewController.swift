@@ -16,7 +16,7 @@ enum DiffType {
 }
 
 class CreatePostViewController: UIViewController {
-    let MAX_SUBJECT_LENGTH = 300
+    let maxSubjectLength = 300
     let appBarViewController = UIElementFactory.getAppBar()
     var imagePickerController = UIImagePickerController()
     var isMediaChanged = false    
@@ -31,7 +31,9 @@ class CreatePostViewController: UIViewController {
     typealias CreatedPostDetailClosureType = ((_ post:ExercisePost) -> Void)
     typealias DiffedPostsDataUpdateClosureType = ((_ diffType: DiffType, _ post: ExercisePost) -> Void) //takes diff type, and post to be modified
     
-    var createdPostDetailClosure: CreatedPostDetailClosureType? //From the Snackbar Action in FeedView, enter the Post Detail page with newly created Post (b/c Snackbar action created in CreatePost page)...Think React data flowing DOWN Stream
+    //From the Snackbar Action in FeedView, enter the Post Detail page with newly created Post (b/c Snackbar action created in CreatePost page)
+    //...Think React data flowing DOWN Stream
+    var createdPostDetailClosure: CreatedPostDetailClosureType?
     
     var diffedPostsDataClosure: DiffedPostsDataUpdateClosureType? //To dynamically update UITableView with the new post
     var updatePostDetailClosure: CreatedPostDetailClosureType? //To refresh Post Detail page
@@ -127,7 +129,7 @@ class CreatePostViewController: UIViewController {
         self.subjectTextFieldController = MDCTextInputControllerFilled(textInput: subjectTextField)
         self.subjectTextFieldController.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
         self.subjectTextFieldController.characterCountViewMode = .always
-        self.subjectTextFieldController.characterCountMax = UInt(MAX_SUBJECT_LENGTH)
+        self.subjectTextFieldController.characterCountMax = UInt(maxSubjectLength)
         self.subjectTextFieldController.activeColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
         self.subjectTextFieldController.floatingPlaceholderActiveColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
         self.subjectTextFieldController.trailingUnderlineLabelTextColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
@@ -181,7 +183,7 @@ class CreatePostViewController: UIViewController {
                 
                 // Get a reference to the storage service using the default Firebase App
                 let storage = Storage.storage()
-                let pathname = K.Firestore.Storage.IMAGES_ROOT_DIR + "/" + (exercisePost?.imagePath ?? "")
+                let pathname = K.Firestore.Storage.imagesRootDirectory + "/" + (exercisePost?.imagePath ?? "")
                 
                 // Create a reference with an initial file path and name
                 let storagePathReference = storage.reference(withPath: pathname)
