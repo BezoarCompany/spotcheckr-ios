@@ -9,7 +9,6 @@ enum OverflowMenuLocation {
 class FeedCell: CardCollectionCell {
     static let imageHeight = 300
     
-    var postDetailClosure:  (() -> Void)? = nil
     var avPlayerViewController = AVPlayerViewController()
     
     lazy var widthConstraint: NSLayoutConstraint = {
@@ -25,7 +24,6 @@ class FeedCell: CardCollectionCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         applyConstraints()
-        initPostDetailActions()
     }
     
     required init?(coder: NSCoder) {
@@ -43,12 +41,6 @@ class FeedCell: CardCollectionCell {
         media.sd_cancelCurrentImageLoad()
         media.image = UIImage(named:"squatLogoPlaceholder")!//nil
         avPlayerViewController.removeFromParent()
-    }
-    
-    @objc func toPostDetailOnClick(_ sender: Any) {
-        if let postDetailClosure = postDetailClosure {
-            postDetailClosure()
-        }
     }
 
     func applyConstraints() {
@@ -97,23 +89,7 @@ class FeedCell: CardCollectionCell {
         mediaHeightConstraint!.constant = 0
         mediaHeightConstraint!.isActive = true
         mediaContainerView.isHidden = true
-    }
-    
-    func initPostDetailActions() {
-        //Tap Gesture Recognizer is only referenced by last UIElement to Add it.
-        //Although they share the same action selector, we must create a gesture for each UI element to use
-        let tap = UITapGestureRecognizer(target: self, action: #selector(toPostDetailOnClick(_:)))
-        let tap2 = UITapGestureRecognizer(target: self, action: #selector(toPostDetailOnClick(_:)))
-        let tap3 = UITapGestureRecognizer(target: self, action: #selector(toPostDetailOnClick(_:)))
-
-        headerLabel.isUserInteractionEnabled = true
-        subHeadLabel.isUserInteractionEnabled = true
-        supportingTextLabel.isUserInteractionEnabled = true
-
-        headerLabel.addGestureRecognizer(tap)
-        subHeadLabel.addGestureRecognizer(tap2)
-        supportingTextLabel.addGestureRecognizer(tap3)
-    }
+    }    
     
     func initVideoPlayer(videoFileName: String) {
       
