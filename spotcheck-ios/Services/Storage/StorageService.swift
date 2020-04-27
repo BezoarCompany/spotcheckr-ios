@@ -28,7 +28,7 @@ class StorageService: StorageProtocol {
     
     func uploadImage(filename: String, imagetype: SupportedImageType, data: Data?) -> Promise<Void> {
         return Promise { promise in
-            let firebaseImagesStorageRef = Storage.storage().reference().child(K.Firestore.Storage.IMAGES_ROOT_DIR)
+            let firebaseImagesStorageRef = Storage.storage().reference().child(K.Firestore.Storage.imagesRootDirectory)
             let newImageStorageRef = firebaseImagesStorageRef.child(filename)
             let metaData = StorageMetadata()
 
@@ -53,7 +53,7 @@ class StorageService: StorageProtocol {
     
     func deleteImage(filename: String) -> Promise<Void> {
         return Promise { promise in
-            let firebaseImagesStorageRef = Storage.storage().reference().child(K.Firestore.Storage.IMAGES_ROOT_DIR)
+            let firebaseImagesStorageRef = Storage.storage().reference().child(K.Firestore.Storage.imagesRootDirectory)
             let imageStorageRef = firebaseImagesStorageRef.child(filename)
 
             imageStorageRef.delete { err in
@@ -112,7 +112,7 @@ class StorageService: StorageProtocol {
     
     func uploadVideo(filename: String, videotype: SupportedVideoType, url: URL) -> Promise<Void> {
         return Promise { promise in
-            let firebaseVideoStorageRef = Storage.storage().reference().child(K.Firestore.Storage.VIDEOS_ROOT_DIR)
+            let firebaseVideoStorageRef = Storage.storage().reference().child(K.Firestore.Storage.videosRootDirectory)
             let newStorageRef = firebaseVideoStorageRef.child(filename)
             let metaData = StorageMetadata()
 
@@ -138,7 +138,7 @@ class StorageService: StorageProtocol {
     }
     func deleteVideo(filename: String) -> Promise<Void> {
         return Promise { promise in
-            let firebaseVideoStorageRef = Storage.storage().reference().child(K.Firestore.Storage.VIDEOS_ROOT_DIR)
+            let firebaseVideoStorageRef = Storage.storage().reference().child(K.Firestore.Storage.videosRootDirectory)
             let vidStorageRef = firebaseVideoStorageRef.child(filename)
 
             vidStorageRef.delete { err in

@@ -105,16 +105,16 @@ extension SettingsViewController: UICollectionViewDataSource, UICollectionViewDe
         cell.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
         
         switch indexPath.row {
-        case CellLocations.Logout.rawValue:
+        case CellLocations.logout.rawValue:
             cell.titleLabel.text = "Log out"
             cell.leadingImageView.image = Images.logOut
-        case CellLocations.Rate.rawValue:
+        case CellLocations.rate.rawValue:
             cell.titleLabel.text = "Rate Spotcheckr"
             cell.leadingImageView.image = Images.heart
-        case CellLocations.ClearCache.rawValue:
+        case CellLocations.clearCache.rawValue:
             cell.titleLabel.text = "Clear cache"
             cell.leadingImageView.image = Images.database
-        case CellLocations.BuildVersion.rawValue:
+        case CellLocations.buildVersion.rawValue:
             cell.titleLabel.translatesAutoresizingMaskIntoConstraints = false
             cell.isUserInteractionEnabled = false
             cell.titleLabel.centerXAnchor.constraint(equalTo: cell.centerXAnchor).isActive = true
@@ -132,11 +132,11 @@ extension SettingsViewController: UICollectionViewDataSource, UICollectionViewDe
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch indexPath.row {
-        case CellLocations.Logout.rawValue:
+        case CellLocations.logout.rawValue:
             logout()
-        case CellLocations.Rate.rawValue:
+        case CellLocations.rate.rawValue:
             rate()
-        case CellLocations.ClearCache.rawValue:
+        case CellLocations.clearCache.rawValue:
             clearCache()
         default: break
         }
@@ -144,8 +144,8 @@ extension SettingsViewController: UICollectionViewDataSource, UICollectionViewDe
 }
 
 enum CellLocations: Int, CaseIterable {
-    case ClearCache = 0
-    case Rate = 1
-    case Logout = 2
-    case BuildVersion = 3
+    case clearCache = 0
+    case rate = 1
+    case logout = 2
+    case buildVersion = 3
 }

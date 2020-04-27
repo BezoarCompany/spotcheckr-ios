@@ -27,7 +27,7 @@ class ExercisePostService: ExercisePostProtocol {
                         }.done { exercisesResults in
                             let metrics = Metrics(upvotes: doc.data()?["upvote-count"] != nil ? doc.data()?["upvote-count"] as! Int : 0,
                                                   downvotes: doc.data()?["downvote-count"] != nil ? doc.data()?["downvote-count"] as! Int : 0,
-                                                  currentVoteDirection: currentUser.exercisePostVotes[id] ?? .Neutral)
+                                                  currentVoteDirection: currentUser.exercisePostVotes[id] ?? .neutral)
 
                             let postExercises = exercisesResults[0]
                             let exercisePost = FirebaseToDomainMapper.mapExercisePost(fromData: doc.data()!,
@@ -64,7 +64,7 @@ class ExercisePostService: ExercisePostProtocol {
                         answers.append(FirebaseToDomainMapper.mapAnswer(fromData: document.data(),
                                                                         metrics: Metrics(upvotes: document.data()["upvote-count"] != nil ? document.data()["upvote-count"] as! Int : 0,
                                                                                          downvotes: document.data()["downvote-count"] != nil ? document.data()["downvote-count"] as! Int : 0,
-                                                                                         currentVoteDirection: currentUser.answerVotes[answerId] ?? .Neutral),
+                                                                                         currentVoteDirection: currentUser.answerVotes[answerId] ?? .neutral),
                                                       createdBy: userDetails))
                     }
                     return promise.fulfill(answers)
@@ -96,7 +96,7 @@ class ExercisePostService: ExercisePostProtocol {
                             answers.append(FirebaseToDomainMapper.mapAnswer(fromData: document.data(),
                                                                             metrics: Metrics(upvotes: document.data()["upvote-count"] != nil ? document.data()["upvote-count"] as! Int : 0,
                                                                                              downvotes: document.data()["downvote-count"] != nil ? document.data()["downvote-count"] as! Int : 0,
-                                                                                             currentVoteDirection: currentUser.answerVotes[AnswerID(document.documentID)] ?? .Neutral),
+                                                                                             currentVoteDirection: currentUser.answerVotes[AnswerID(document.documentID)] ?? .neutral),
                                                                             createdBy: createdByResults[usersIndex]))
                             usersIndex += 1
                         }
@@ -187,7 +187,7 @@ class ExercisePostService: ExercisePostProtocol {
                         for document in postsSnapshot!.documents {
                             let metrics = Metrics(upvotes: document.data()["upvote-count"] != nil ? document.data()["upvote-count"] as! Int : 0,
                                                   downvotes: document.data()["downvote-count"] != nil ? document.data()["downvote-count"] as! Int : 0,
-                                                  currentVoteDirection: currentUser.exercisePostVotes[ExercisePostID(document.documentID)] ?? .Neutral)
+                                                  currentVoteDirection: currentUser.exercisePostVotes[ExercisePostID(document.documentID)] ?? .neutral)
                             
                             let postExercises = exercisesResults[exercisesIndex]
                             let exercisePost = FirebaseToDomainMapper.mapExercisePost(fromData: document.data(),
@@ -296,9 +296,9 @@ class ExercisePostService: ExercisePostProtocol {
                                 "voted-by": userId.value
                             ], forDocument: newVoteRef)
                             switch direction {
-                            case .Up:
+                            case .up:
                                 voteCountField = "upvote-count"
-                            case .Down:
+                            case .down:
                                 voteCountField = "downvote-count"
                             default:
                                 break
@@ -315,24 +315,24 @@ class ExercisePostService: ExercisePostProtocol {
                             var upvoteCount = parentDocData["upvote-count"] != nil ? parentDocData["upvote-count"] as! Int : 0
                             var downvoteCount = parentDocData["downvote-count"] != nil ? parentDocData["downvote-count"] as! Int : 0
                             let oldStatus = VoteDirection(rawValue: doc!.data()["status"] as! Int)
-                            if oldStatus == .Up && direction == .Down {
+                            if oldStatus == .up && direction == .down {
                                 upvoteCount -= 1
                                 downvoteCount += 1
                             }
-                            else if oldStatus == .Up && direction == .Neutral {
+                            else if oldStatus == .up && direction == .neutral {
                                 upvoteCount -= 1
                             }
-                            else if oldStatus == .Down && direction == .Up {
+                            else if oldStatus == .down && direction == .up {
                                 upvoteCount += 1
                                 downvoteCount -= 1
                             }
-                            else if oldStatus == .Down && direction == .Neutral {
+                            else if oldStatus == .down && direction == .neutral {
                                 downvoteCount -= 1
                             }
-                            else if oldStatus == .Neutral && direction == .Up {
+                            else if oldStatus == .neutral && direction == .up {
                                 upvoteCount += 1
                             }
-                            else if oldStatus == .Neutral && direction == .Down {
+                            else if oldStatus == .neutral && direction == .down {
                                 downvoteCount += 1
                             }
                             transaction.updateData(["upvote-count": upvoteCount, "downvote-count": downvoteCount], forDocument: parentDocRef)

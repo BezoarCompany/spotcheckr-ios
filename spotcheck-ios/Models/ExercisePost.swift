@@ -48,16 +48,16 @@ extension ExercisePost: ListDiffable {
     
     //equality operator
     func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
-        guard let b = (object as? ExercisePost) else {
+        guard let post = (object as? ExercisePost) else {
             return false
         }
         
         
-        if (self.dateModified != b.dateModified
-            || self.title != b.title
-            || self.description != b.description
-            || self.imagePath != b.imagePath
-            || self.videoPath != b.videoPath
+        if (self.dateModified != post.dateModified
+            || self.title != post.title
+            || self.description != post.description
+            || self.imagePath != post.imagePath
+            || self.videoPath != post.videoPath
             ) {
             return false
         }

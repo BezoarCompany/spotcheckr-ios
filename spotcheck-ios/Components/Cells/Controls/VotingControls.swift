@@ -37,11 +37,15 @@ class VotingControls: UIView {
     }
     
     @objc func upvoteOnClick(_ sender: Any) {
-        if downvoteButton.view.imageTintColor(for: .normal) == downvoteColor || upvoteButton.view.imageTintColor(for: .normal) == neutralColor { // Going from downvote to upvote or upvoting for the first time
-            voteDirection = .Up
+        let isDownvoteToUpvote = { return self.downvoteButton.view.imageTintColor(for: .normal) == self.downvoteColor }
+        let isInitialUpvote = { return self.upvoteButton.view.imageTintColor(for: .normal) == self.neutralColor }
+        let isRemovingUpvote = { return self.upvoteButton.view.imageTintColor(for: .normal) == self.upvoteColor }
+        
+        if isDownvoteToUpvote() || isInitialUpvote() {
+            voteDirection = .up
         }
-        else if upvoteButton.view.imageTintColor(for: .normal) == upvoteColor { // Already upvoted, removing upvote
-            voteDirection = .Neutral
+        else if isRemovingUpvote() { // Already upvoted, removing upvote
+            voteDirection = .neutral
         }
         
         renderVotingControls()
@@ -54,11 +58,15 @@ class VotingControls: UIView {
     }
     
     @objc func downvoteOnClick(_ sender: Any) {
-        if upvoteButton.view.imageTintColor(for: .normal) == upvoteColor || downvoteButton.view.imageTintColor(for: .normal) == neutralColor { // Going from upvote to downvote or downvoting for the first time
-            voteDirection = .Down
+        let isUpvoteToDownvote = { return self.upvoteButton.view.imageTintColor(for: .normal) == self.upvoteColor }
+        let isInitialDownvote = { return self.downvoteButton.view.imageTintColor(for: .normal) == self.neutralColor }
+        let isRemovingDownvote = { return self.downvoteButton.view.imageTintColor(for: .normal) == self.downvoteColor }
+        
+        if isUpvoteToDownvote() || isInitialDownvote() {
+            voteDirection = .down
         }
-        else if downvoteButton.view.imageTintColor(for: .normal) == downvoteColor { // Already downvoted, removing downvote
-            voteDirection = .Neutral
+        else if isRemovingDownvote() {
+            voteDirection = .neutral
         }
         
         renderVotingControls()
@@ -72,10 +80,10 @@ class VotingControls: UIView {
     
     func renderVotingControls() {
         switch voteDirection {
-        case .Up:
+        case .up:
             downvoteButton.view.setImageTintColor(neutralColor, for: .normal)
             upvoteButton.view.setImageTintColor(upvoteColor, for: .normal)
-        case .Down:
+        case .down:
             downvoteButton.view.setImageTintColor(downvoteColor, for: .normal)
             upvoteButton.view.setImageTintColor(neutralColor, for: .normal)
         default:

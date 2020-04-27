@@ -19,15 +19,15 @@ extension Promise {
         return Promise<[T]> { promise in
             var out = [T]()
             
-            let fp:Promise<T>? = promisesArray.reduce(nil) { (accumulatedVar, closureElement) in
-                return accumulatedVar?.then { c -> Promise<T> in
-                    out.append(c)
+            let finalPromise:Promise<T>? = promisesArray.reduce(nil) { (accumulatedVar, closureElement) in
+                return accumulatedVar?.then { closure -> Promise<T> in
+                    out.append(closure)
                     return closureElement()
                 } ?? closureElement()
             }
             
-            fp?.done { c -> Void in
-                out.append(c)
+            finalPromise?.done { closure -> Void in
+                out.append(closure)
                 return promise.fulfill(out)
             }.catch { err2 in
                 return promise.reject(err2)

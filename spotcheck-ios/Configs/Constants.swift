@@ -8,10 +8,10 @@ struct K {
     }
     
     enum CacheInterval: Int {
-        case Hour = 3600
-        case Day = 86400
-        case Week = 604800
-        case Month = 2629800
+        case hour = 3600
+        case day = 86400
+        case week = 604800
+        case month = 2629800
     }
     
     struct Notifications {
@@ -50,8 +50,8 @@ struct K {
         static let answers = "answers"
         
         struct Storage {
-            static let IMAGES_ROOT_DIR = "images"
-            static let VIDEOS_ROOT_DIR = "videos"
+            static let imagesRootDirectory = "images"
+            static let videosRootDirectory = "videos"
         }
     }
 }
