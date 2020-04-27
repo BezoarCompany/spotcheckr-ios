@@ -62,6 +62,12 @@ class PostDetailViewController : UIViewController {
         label.font = ApplicationScheme.instance.containerScheme.typographyScheme.body1
         return label
     }()
+    let answersLoadingIndicator: CircularActivityIndicator = {
+        let indicator = CircularActivityIndicator()
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        return indicator
+    }()
+    
     var postYAxisAnchor: NSLayoutYAxisAnchor!
     var postCellHeight: CGFloat!
     
@@ -123,6 +129,9 @@ class PostDetailViewController : UIViewController {
                 MDCSnackbarManager.show(self.snackbarMessage)
             }
         }.finally {
+            let answersCenter = (self.collectionView.frame.height - self.postCellHeight) / 2
+            self.answersLoadingIndicator.topAnchor.constraint(equalTo: self.postYAxisAnchor, constant: answersCenter).isActive = true
+            self.answersLoadingIndicator.indicator.startAnimating()
             firstly {
                 Services.exercisePostService.getAnswers(forPostWithId: self.post!.id!)
             }.done { answers in
@@ -133,9 +142,9 @@ class PostDetailViewController : UIViewController {
                 self.snackbarMessage.text = "There was an error loading answers."
                 MDCSnackbarManager.show(self.snackbarMessage)
             }.finally {
+                self.answersLoadingIndicator.indicator.stopAnimating()
                 if self.answersCount == 0 {
-                    let h = (self.collectionView.frame.height - self.postCellHeight) / 2
-                    self.defaultAnswersSectionLabel.topAnchor.constraint(equalTo: self.postYAxisAnchor, constant: h).isActive = true
+                    self.defaultAnswersSectionLabel.topAnchor.constraint(equalTo: self.postYAxisAnchor, constant: answersCenter).isActive = true
                     self.defaultAnswersSectionLabel.isHidden = false
                 }
             }
@@ -307,7 +316,7 @@ extension PostDetailViewController: UICollectionViewDataSource, UICollectionView
         cell.supportingTextLabel.text = answer.text
         cell.supportingTextLabel.numberOfLines = 0
         cell.votingControls.votingUserId = currentUser?.id
-        //cell.votingControls.voteDirection = answer.metrics?.currentVoteDirection
+        cell.votingControls.voteDirection = answer.metrics?.currentVoteDirection
         cell.votingControls.renderVotingControls()
         cell.cornerRadius = 0
         cell.overflowMenuTap = {
@@ -348,8 +357,6 @@ extension PostDetailViewController: UICollectionViewDataSource, UICollectionView
             self.present(actionSheet, animated: true)
         }
         cell.setOverflowMenuLocation(location: .top)
-        
-        print("answers rendered")
         return cell
     }
     
@@ -368,6 +375,7 @@ extension PostDetailViewController: UICollectionViewDataSource, UICollectionView
     
     func initAnswersSection() {
         collectionView.addSubview(defaultAnswersSectionLabel)
+        collectionView.addSubview(answersLoadingIndicator)
     }
 }
 
@@ -396,7 +404,8 @@ extension PostDetailViewController {
             answerReplyButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -75),
             answerReplyButton.widthAnchor.constraint(equalToConstant: 64),
             answerReplyButton.heightAnchor.constraint(equalToConstant: 64),
-            defaultAnswersSectionLabel.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor)
+            defaultAnswersSectionLabel.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor),
+            answersLoadingIndicator.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor)
         ])
     }
     

@@ -2,11 +2,9 @@ import PromiseKit
 import FirebaseFirestore
 
 class ReportingService: ReportingProtocol {
-    private let cache = Cache<String,Any>()
-    
     func getReportTypes() -> Promise<[ReportType]> {
         return Promise { promise in
-            if let reportTypes = cache["report-types"] as? [ReportType] {
+            if let reportTypes = CacheManager.stringCache["report-types"] as? [ReportType] {
                 return promise.fulfill(reportTypes)
             }
             
@@ -20,7 +18,7 @@ class ReportingService: ReportingProtocol {
                 for document in snapshot!.documents {
                     reportTypes.append(FirebaseToDomainMapper.mapReportType(id: document.documentID, data: document.data()))
                 }
-                self.cache.insert(reportTypes, forKey: "report-types")
+                CacheManager.stringCache.insert(reportTypes, forKey: "report-types")
                 return promise.fulfill(reportTypes)
             }
         }

@@ -10,8 +10,8 @@ class User {
     var exercisePosts = [ExercisePost]()
     var isAnonymous = false
     var dateCreated: Date?
-    var answerVotes = [AnswerID:Int]()
-    var exercisePostVotes = [ExercisePostID:Int]()
+    var answerVotes = [AnswerID:VoteDirection]()
+    var exercisePostVotes = [ExercisePostID:VoteDirection]()
     
     init(id: UserID) {
         self.id = id
