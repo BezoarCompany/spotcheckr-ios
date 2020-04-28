@@ -1,16 +1,13 @@
 # Spotcheckr iOS
-
-Pull project and run, all depedencies are checked into repo.
-Xcode 11
+[![Maintainability](https://api.codeclimate.com/v1/badges/81efc51685c7c2a04046/maintainability)](https://codeclimate.com/github/Spotcheckr/spotcheckr-ios/maintainability)
 
 **Table of Contents**
 
+**Running**
+- [Xcode](doc/runninng.md)
+  
 **Forms**
 - [Validation](docs/form_validation.md)
 
 **UI/UX**
 - [General Information](docs/ui_ux.md)
-
-**Run on Xcode**
-- Select Scheme: spotcheck-ios (Development), or spotcheck-ios (Staging), or spotcheck-ios (Production)
-- Play button:Run (on iphone 11 pro or somethin)
