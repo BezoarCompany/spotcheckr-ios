@@ -599,6 +599,7 @@ PODS:
   - SDWebImage/Core (5.7.1)
   - SVGKit (2.1.0):
     - CocoaLumberjack (~> 3.0)
+  - SwiftLint (0.39.2)
   - SwiftSVG (2.2.1)
   - SwiftValidator (4.0.0)
 
@@ -642,6 +643,7 @@ DEPENDENCIES:
   - "MaterialComponents/TextFields+TypographyThemer"
   - PromiseKit
   - SVGKit (from `https://github.com/SVGKit/SVGKit.git`, branch `3.x`)
+  - SwiftLint
   - SwiftSVG (~> 2.2.1)
   - SwiftValidator (from `https://github.com/jpotts18/SwiftValidator.git`, tag `4.2.0`)
 
@@ -686,6 +688,7 @@ SPEC REPOS:
     - PromiseKit
     - PromisesObjC
     - SDWebImage
+    - SwiftLint
     - SwiftSVG
 
 EXTERNAL SOURCES:
@@ -745,9 +748,10 @@ SPEC CHECKSUMS:
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   SDWebImage: 5d4cf6afccd9ac1d2ee701ed0c4917cbb1b80536
   SVGKit: 8a2fc74258bdb2abb54d3b65f3dd68b0277a9c4d
+  SwiftLint: 22ccbbe3b8008684be5955693bab135e0ed6a447
   SwiftSVG: e55084e4c5534f3f25743003a6a3a88580cacfb0
   SwiftValidator: 249b6b3ae3b294266c5b9de134d94f18f2d5aa47
 
-PODFILE CHECKSUM: 949d3c03e4c1f7c481398a8d994a6cb3bd0df681
+PODFILE CHECKSUM: e770a84fb1c0f4532ced1b2a20e86a8b33f22400
 
 COCOAPODS: 1.8.4
