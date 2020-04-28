@@ -161,7 +161,7 @@
 		5653ABCE24161921001E9CF0 /* MemoryCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCache.swift; sourceTree = "<group>"; };
 		5659D9D523FD02980043FA6A /* AnswerPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerPostCell.swift; sourceTree = "<group>"; };
 		5659D9D623FD02980043FA6A /* AnswerPostCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnswerPostCell.xib; sourceTree = "<group>"; };
-		567494FB24520B7300995B70 /* bulletTrain.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; name = bulletTrain.mp4; path = "spotcheck-ios/Factories/LocalVideos/bulletTrain.mp4"; sourceTree = "<group>"; };
+		567494FB24520B7300995B70 /* bulletTrain.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = bulletTrain.mp4; sourceTree = "<group>"; };
 		567860D82441C58100451C3A /* Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
 		567860D92441C62400451C3A /* Staging.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Staging.xcconfig; sourceTree = "<group>"; };
 		567860DA2441C6A100451C3A /* Production.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Production.xcconfig; sourceTree = "<group>"; };
@@ -333,6 +333,22 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		563772B8245807A0002292B8 /* Sample */ = {
+			isa = PBXGroup;
+			children = (
+				563772B9245807BC002292B8 /* Videos */,
+			);
+			path = Sample;
+			sourceTree = "<group>";
+		};
+		563772B9245807BC002292B8 /* Videos */ = {
+			isa = PBXGroup;
+			children = (
+				567494FB24520B7300995B70 /* bulletTrain.mp4 */,
+			);
+			path = Videos;
+			sourceTree = "<group>";
+		};
 		567860D72441C46500451C3A /* Configs */ = {
 			isa = PBXGroup;
 			children = (
@@ -349,7 +365,6 @@
 		567952F123D806BE0077BA08 = {
 			isa = PBXGroup;
 			children = (
-				567494FB24520B7300995B70 /* bulletTrain.mp4 */,
 				BABA11152457E74100FB9D1D /* .swiftlint.yml */,
 				567952FC23D806BE0077BA08 /* spotcheck-ios */,
 				5679531323D806C00077BA08 /* spotcheck-iosTests */,
@@ -373,6 +388,7 @@
 		567952FC23D806BE0077BA08 /* spotcheck-ios */ = {
 			isa = PBXGroup;
 			children = (
+				563772B8245807A0002292B8 /* Sample */,
 				567860D72441C46500451C3A /* Configs */,
 				561648A0243A6641003DB6CA /* Spotcheckr.entitlements */,
 				BAA340FB23F39A7000C7392C /* Factories */,
