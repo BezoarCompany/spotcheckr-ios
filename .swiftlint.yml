@@ -1,1 +1,7 @@
 force_cast: warning
+function_body_length:
+    - 40
+type_body_length:
+    - 200
+excluded:
+    - Pods
