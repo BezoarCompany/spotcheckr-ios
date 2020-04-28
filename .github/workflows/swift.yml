@@ -46,7 +46,7 @@ jobs:
        -workspace spotcheck-ios.xcworkspace
        -allowProvisioningUpdates
 
-    - name: Archive (Staging) --TODO change from branch: develop to master
+    - name: Archive (Staging) --TODO change from branch develop to master
       if: github.event_name == 'pull_request' && contains(github.base_ref, 'develop')
       run: >
        xcodebuild archive
@@ -56,7 +56,7 @@ jobs:
        -destination "generic/platform=iOS"
        -archivePath ./Archives/spotcheckr-ios.xcarchive
 
-    - name: Create *.ipa artifact (Staging) --TODO change from branch: develop to master
+    - name: Create *.ipa artifact (Staging) --TODO change from branch develop to master
       if: github.event_name == 'pull_request' && contains(github.base_ref, 'develop')
       run: >
        xcodebuild -exportArchive
