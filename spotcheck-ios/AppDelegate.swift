@@ -46,6 +46,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private func configureServices() {
         FirebaseApp.configure()
+        #if DEVEL
+            Analytics.setAnalyticsCollectionEnabled(false)
+        #endif
     }
     
     private func setStartingViewController() {
