@@ -38,8 +38,8 @@ jobs:
     - name: Install Dependencies
       run: pod install
 
-    - name: Build for Development environment (all non-prod events)
-      if: github.event_name != 'pull_request' ||  !contains( github.base_ref, 'master')  && !contains(github.base_ref, 'release')
+    - name: Build for Development environment (all non-prod events) --TODO remove BANGdevelop condition
+      if: github.event_name != 'pull_request' ||  !contains( github.base_ref, 'master')  && !contains(github.base_ref, 'release') || !contains( github.base_ref, 'develop')
       run: >
        xcodebuild build
        -scheme "spotcheck-ios (Development)"
@@ -55,6 +55,7 @@ jobs:
        -allowProvisioningUpdates
        -destination "generic/platform=iOS"
        -archivePath ./Archives/spotcheckr-ios.xcarchive
+       -xcconfig ./spotcheck-ios/Configs/Staging.xcconfig
 
     - name: Create *.ipa artifact (Staging) --TODO change from branch develop to master
       if: github.event_name == 'pull_request' && contains(github.base_ref, 'develop')
