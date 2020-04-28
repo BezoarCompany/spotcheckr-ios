@@ -2,7 +2,7 @@ name: Swift
 
 on:
   push:
-    branches: [ master, develop, yaml* ]
+    branches: [ master, develop ]
   pull_request:
     branches: [ master, develop, release-*]
 
@@ -46,8 +46,8 @@ jobs:
        -workspace spotcheck-ios.xcworkspace
        -allowProvisioningUpdates
 
-    - name: Archive for Staging environment (all non-prod events) TODO WILL Use this For Staging and Production Schemes only
-      if: github.event_name == 'pull_request' && contains(github.base_ref, 'master')
+    - name: Archive (Staging) --TODO change from branch: develop to master
+      if: github.event_name == 'pull_request' && contains(github.base_ref, 'develop')
       run: >
        xcodebuild archive
        -scheme "spotcheck-ios (Staging)"
@@ -56,16 +56,20 @@ jobs:
        -destination "generic/platform=iOS"
        -archivePath ./Archives/spotcheckr-ios.xcarchive
 
-    - name: Create ipa file from Archive(xcarchive)  should only be for Staging or PRs to Master)
-      if: github.event_name == 'pull_request' && contains(github.base_ref, 'master')
+    - name: Create *.ipa artifact (Staging) --TODO change from branch: develop to master
+      if: github.event_name == 'pull_request' && contains(github.base_ref, 'develop')
       run: >
        xcodebuild -exportArchive
        -archivePath ./Archives/spotcheck-ios.xcarchive
        -exportOptionsPlist ./spotcheck-ios/Configs/exportOptions.plist
-       -exportPath ./dist/
+       -exportPath ./dist/spotcheckr-ios.ipa
 
-    - name: Send to Firebase App Testing (TODO should only be for Staging or PRs to Master)
-      run: echo TODO Firebase App Distribution
+    - name: Upload to Firebase App Distribution (Staging)
+      uses: wzieba/Firebase-Distribution-Github-Action@v1.2.1
+      with:
+	appId: ${{secrets.FIREBASE_APP_ID}}
+	token: ${{secrets.FIREBASE_TOKEN}}
+	file: ./dist/spotcheckr-ios.ipa
 
     - name: Send to App Store
       run: echo TODO this
