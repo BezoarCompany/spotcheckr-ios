@@ -38,8 +38,8 @@ jobs:
     - name: Install Dependencies
       run: pod install
 
-    - name: Build for Development environment (all non-prod events) --TODO remove BANGdevelop condition
-      if: github.event_name != 'pull_request' ||  !contains( github.base_ref, 'master')  && !contains(github.base_ref, 'release') || !contains( github.base_ref, 'develop')
+    - name: Build for Development environment (all non-prod events) --TODO remove false && condition
+      if: false && github.event_name != 'pull_request' ||  !contains( github.base_ref, 'master')  && !contains(github.base_ref, 'release') 
       run: >
        xcodebuild build
        -scheme "spotcheck-ios (Development)"
@@ -70,6 +70,7 @@ jobs:
        appId: ${{secrets.FIREBASE_APP_ID}}
        token: ${{secrets.FIREBASE_TOKEN}}
        file: ./dist/spotcheckr-ios.ipa
+       debug: true
 
     - name: Send to App Store
       run: echo TODO this
