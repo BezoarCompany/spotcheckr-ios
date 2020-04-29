@@ -55,13 +55,12 @@ jobs:
        -allowProvisioningUpdates
        -destination "generic/platform=iOS"
        -archivePath ./Archives/spotcheckr-ios.xcarchive
-       -xcconfig ./spotcheck-ios/Configs/Staging.xcconfig
 
     - name: Create *.ipa artifact (Staging) --TODO change from branch develop to master
       if: github.event_name == 'pull_request' && contains(github.base_ref, 'develop')
       run: >
        xcodebuild -exportArchive
-       -archivePath ./Archives/spotcheck-ios.xcarchive
+       -archivePath ./Archives/spotcheckr-ios.xcarchive
        -exportOptionsPlist ./spotcheck-ios/Configs/exportOptions.plist
        -exportPath ./dist/spotcheckr-ios.ipa
 
