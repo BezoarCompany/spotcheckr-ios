@@ -15,7 +15,7 @@ class CircularActivityIndicator: UIView {
             bottomAnchor.constraint(equalTo: indicator.bottomAnchor)
         ])
     }
-    
+
     var indicator: MDCActivityIndicator = {
         let indicator = MDCActivityIndicator()
         indicator.sizeToFit()

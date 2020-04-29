@@ -7,31 +7,31 @@ class Services {
     private static var analyticsSingleton = AnalyticsService()
     private static var reportingSingleton = ReportingService()
     private static var systemSingleton = SystemService()
-    
+
     static var userService: UserService {
         return userServiceSingleton
     }
-    
+
     static var exercisePostService: ExercisePostService {
         return exercisePostSingleton
     }
-    
+
     static var authenticationService: AuthenticationService {
         return authenticationServiceSingleton
     }
-    
+
     static var storageService: StorageService {
         return storageSingleton
     }
-    
+
     static var analyticsService: AnalyticsService {
         return analyticsSingleton
     }
-    
+
     static var reportingService: ReportingService {
         return reportingSingleton
     }
-    
+
     static var systemService: SystemService {
         return systemSingleton
     }

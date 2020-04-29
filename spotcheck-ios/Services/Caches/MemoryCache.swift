@@ -5,13 +5,13 @@ final class MemoryCache<Key: Hashable, Value> {
     private let wrapped = NSCache<WrappedKey, Entry>()
     private let dateProvider: () -> Date
     private let entryLifetime: TimeInterval
-    
+
     init(dateProvider: @escaping () -> Date = Date.init,
          entryLifetime: TimeInterval = Double(K.App.CacheLifespanSeconds)) {
         self.dateProvider = dateProvider
         self.entryLifetime = entryLifetime
     }
-    
+
     func insert(_ value: Value, forKey key: Key, expiration: Date? = nil) {
         let date = dateProvider().addingTimeInterval(entryLifetime)
         let entry = Entry(value: value, expirationDate: expiration ?? date)
@@ -29,23 +29,23 @@ final class MemoryCache<Key: Hashable, Value> {
             self.size -= 1
             return nil
         }
-        
+
         return entry.value
     }
-    
+
     func removeValue(forKey key: Key) {
         wrapped.removeObject(forKey: WrappedKey(key))
         self.size -= 1
     }
-    
+
     func isEmpty() -> Bool {
         return self.size > 0
     }
-    
+
     func empty() {
         wrapped.removeAllObjects()
     }
-    
+
     subscript(key: Key) -> Value? {
         get { return value(forKey: key) }
         set {
@@ -54,7 +54,7 @@ final class MemoryCache<Key: Hashable, Value> {
                 self.size -= 1
                 return
             }
-            
+
             insert(value, forKey: key)
         }
     }
@@ -80,11 +80,11 @@ private extension MemoryCache {
             return value.key == key
         }
     }
-    
+
     final class Entry {
         let value: Value
         let expirationDate: Date
-        
+
         init(value: Value, expirationDate: Date) {
             self.value = value
             self.expirationDate = expirationDate

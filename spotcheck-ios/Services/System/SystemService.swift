@@ -9,13 +9,13 @@ class SystemService: SystemProtocol {
             if let config = CacheManager.stringCache["configuration"] as? Configuration {
                 return promise.fulfill(config)
             }
-            
+
             let configurationDocRef = Firestore.firestore().collection(CollectionConstants.systemCollection).document("configuration")
             configurationDocRef.getDocument { (snapshot, error) in
                 if let error = error {
                     return promise.reject(error)
                 }
-                
+
                 let config = FirebaseToDomainMapper.mapConfiguration(data: snapshot!.data()!)
                 CacheManager.stringCache.insert(config, forKey: "configuration")
                 return promise.fulfill(config)

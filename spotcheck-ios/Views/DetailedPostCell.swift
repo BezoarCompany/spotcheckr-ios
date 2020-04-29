@@ -12,11 +12,10 @@ class DetailedPostCell: UITableViewCell {
     @IBOutlet weak var postTitleLabel: UILabel!
     @IBOutlet weak var posterNameLabel: UILabel!
     @IBOutlet weak var posterDetailLabel: UILabel!
-    @IBOutlet weak var postBodyLabel: UILabel!    
+    @IBOutlet weak var postBodyLabel: UILabel!
     @IBOutlet weak var photoView: UIImageView!
     @IBOutlet weak var photoHeightConstraint: NSLayoutConstraint!
-    
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -27,5 +26,5 @@ class DetailedPostCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+
 }
