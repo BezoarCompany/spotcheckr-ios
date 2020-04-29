@@ -70,5 +70,23 @@ jobs:
        --app ${{ secrets.FIREBASE_APP_ID }}
        --token ${{ secrets.FIREBASE_TOKEN }}
 
+    - name: Archive [PROD]
+      if: github.event_name == 'pull_request' && contains(github.base_ref, 'release')
+      run: >
+       xcodebuild archive
+       -scheme "spotcheck-ios"
+       -workspace spotcheck-ios.xcworkspace
+       -allowProvisioningUpdates
+       -destination "generic/platform=iOS"
+       -archivePath ./Archives/spotcheckr-ios.xcarchive
+
+    - name: Create *.ipa artifact [PROD]
+      if: github.event_name == 'pull_request' && contains(github.base_ref, 'release')
+      run: >
+       xcodebuild -exportArchive
+       -archivePath ./Archives/spotcheckr-ios.xcarchive
+       -exportOptionsPlist ./spotcheck-ios/Configs/exportOptions.plist
+       -exportPath ./dist/spotcheckr-ios.ipa
+
     - name: Send to App Store
       run: echo TODO this
