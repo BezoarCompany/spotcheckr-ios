@@ -6,10 +6,10 @@ class FlatButton: UIView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+
         addSubview(view)
         NSLayoutConstraint.activate([
             view.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -25,7 +25,7 @@ class FlatButton: UIView {
         view.layer.cornerRadius = 0.5 * view.frame.width
         view.clipsToBounds = true
     }
-    
+
     let view: MDCButton = {
         let button = MDCButton()
         button.applyTextTheme(withScheme: ApplicationScheme.instance.containerScheme)

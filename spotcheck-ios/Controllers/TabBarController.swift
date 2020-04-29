@@ -3,24 +3,22 @@ import MaterialComponents
 
 class TabBarController: UITabBarController, MDCBottomNavigationBarDelegate {
     let bottomNav = MDCBottomNavigationBar()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         initBottomNavigation()
     }
-    
-    
+
     @available(iOS 11, *)
-    override func viewSafeAreaInsetsDidChange()
-    {
+    override func viewSafeAreaInsetsDidChange() {
         super.viewSafeAreaInsetsDidChange()
         layoutBottomNavBar()
     }
-    
+
     func layoutBottomNavBar() {
         let size = bottomNav.sizeThatFits(view.bounds.size )
         var bottomNavBarFrame = CGRect(x: 0,
@@ -31,10 +29,10 @@ class TabBarController: UITabBarController, MDCBottomNavigationBarDelegate {
           bottomNavBarFrame.size.height += view.safeAreaInsets.bottom
           bottomNavBarFrame.origin.y -= view.safeAreaInsets.bottom
         }
-        
+
         bottomNav.frame = bottomNavBarFrame
     }
-    
+
     func initBottomNavigation() {
         bottomNav.applyPrimaryTheme(withScheme: ApplicationScheme.instance.containerScheme)
         bottomNav.items = [
@@ -44,13 +42,12 @@ class TabBarController: UITabBarController, MDCBottomNavigationBarDelegate {
         ]
         bottomNav.titleVisibility = .always
         bottomNav.selectedItem = bottomNav.items[0]
-        
+
         bottomNav.delegate = self
         view.addSubview(bottomNav)
-        
+
     }
-    func bottomNavigationBar(_ bottomNavigationBar: MDCBottomNavigationBar, didSelect item: UITabBarItem)
-    {
+    func bottomNavigationBar(_ bottomNavigationBar: MDCBottomNavigationBar, didSelect item: UITabBarItem) {
         self.selectedIndex = item.tag
     }
 }

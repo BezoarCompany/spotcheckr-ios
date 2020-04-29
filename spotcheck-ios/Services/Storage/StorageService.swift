@@ -25,7 +25,7 @@ class StorageService: StorageProtocol {
     // MARK: - Type Alias
     //
     typealias JSONDictionary = [String: Any]
-    
+
     func uploadImage(filename: String, imagetype: SupportedImageType, data: Data?) -> Promise<Void> {
         return Promise { promise in
             let firebaseImagesStorageRef = Storage.storage().reference().child(K.Firestore.Storage.imagesRootDirectory)
@@ -39,9 +39,9 @@ class StorageService: StorageProtocol {
                 metaData.contentType = "image/jpg"
             case .png:
                 metaData.contentType = "image/png"
-            }                        
-                                            
-            let uploadTask = newImageStorageRef.putData(data!, metadata: metaData) { metadata, error in
+            }
+
+            let uploadTask = newImageStorageRef.putData(data!, metadata: metaData) { _, error in
                 if let error = error {
                     return promise.reject(error)
                 } else {
@@ -50,7 +50,7 @@ class StorageService: StorageProtocol {
             }
         }
     }
-    
+
     func deleteImage(filename: String) -> Promise<Void> {
         return Promise { promise in
             let firebaseImagesStorageRef = Storage.storage().reference().child(K.Firestore.Storage.imagesRootDirectory)
@@ -62,11 +62,11 @@ class StorageService: StorageProtocol {
                 } else {
                     return promise.fulfill_()
                 }
-                
+
             }
         }
     }
-    
+
     func download(path: String, maxSize: Int64) -> Promise<UIImage> {
         return Promise { promise in
             let imageRef = Storage.storage().reference().child(path)
@@ -78,7 +78,7 @@ class StorageService: StorageProtocol {
             }
         }
     }
-    
+
     #if DEVEL
     func getVideoDownloadURL(filename: String) -> Promise<URL> {
         print("stubbed DEVEL")
@@ -88,13 +88,15 @@ class StorageService: StorageProtocol {
             return promise.fulfill(url)
         }
     }
-    
+
     #else
-    
+
     //convert Firebase Storage reference into https: url
     func getVideoDownloadURL(filename: String) -> Promise<URL> {
+
         return Promise { promise in            
             let firebaseVideoStorageRef = Storage.storage().reference().child(K.Firestore.Storage.videosRootDirectory)            
+
             let vidStorageRef = firebaseVideoStorageRef.child(filename)
 
             vidStorageRef.downloadURL { url, err in
@@ -106,10 +108,9 @@ class StorageService: StorageProtocol {
             }
         }
     }
-    
+
     #endif
-    
-    
+
     func uploadVideo(filename: String, videotype: SupportedVideoType, url: URL) -> Promise<Void> {
         return Promise { promise in
             let firebaseVideoStorageRef = Storage.storage().reference().child(K.Firestore.Storage.videosRootDirectory)
@@ -122,12 +123,12 @@ class StorageService: StorageProtocol {
             case .mp4:
                 metaData.contentType = "video/mp4"
             }
-                                                        
+
             //convert from URL to Data. putFile(from: url) function doesn't seem to work b/c of limited access to file system?
             //https://stackoverflow.com/a/39693142/9882015
             let data = try Data(contentsOf: url)
-            
-            let uploadTask = newStorageRef.putData(data, metadata: metaData) { metadata, error in
+
+            let uploadTask = newStorageRef.putData(data, metadata: metaData) { _, error in
                 if let error = error {
                     return promise.reject(error)
                 } else {
@@ -147,7 +148,7 @@ class StorageService: StorageProtocol {
                 } else {
                     return promise.fulfill_()
                 }
-                
+
             }
         }
     }

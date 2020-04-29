@@ -4,7 +4,7 @@ class AnswerPostCell: UITableViewCell {
     @IBOutlet weak var answererNameLabel: UILabel!
     @IBOutlet weak var answerBodyLabel: UILabel!
     @IBOutlet weak var thumbnailImageView: UIImageView!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -15,5 +15,5 @@ class AnswerPostCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+
 }

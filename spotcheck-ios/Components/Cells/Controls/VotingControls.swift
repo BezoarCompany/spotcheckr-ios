@@ -9,16 +9,16 @@ class VotingControls: UIView {
     let upvoteColor = Colors.upvote
     let downvoteColor = Colors.downvote
     let neutralColor: UIColor = Colors.neutralVote
-    
+
     override class var requiresConstraintBasedLayout: Bool {
       return true
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         upvoteButton.view.addTarget(self, action: #selector(upvoteOnClick(_:)), for: .touchUpInside)
         downvoteButton.view.addTarget(self, action: #selector(downvoteOnClick(_:)), for: .touchUpInside)
-        
+
         addSubview(upvoteButton)
         addSubview(downvoteButton)
         NSLayoutConstraint.activate([
@@ -31,53 +31,51 @@ class VotingControls: UIView {
             bottomAnchor.constraint(equalTo: downvoteButton.bottomAnchor)
         ])
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
+
     @objc func upvoteOnClick(_ sender: Any) {
         let isDownvoteToUpvote = { return self.downvoteButton.view.imageTintColor(for: .normal) == self.downvoteColor }
         let isInitialUpvote = { return self.upvoteButton.view.imageTintColor(for: .normal) == self.neutralColor }
         let isRemovingUpvote = { return self.upvoteButton.view.imageTintColor(for: .normal) == self.upvoteColor }
-        
+
         if isDownvoteToUpvote() || isInitialUpvote() {
             voteDirection = .up
-        }
-        else if isRemovingUpvote() { // Already upvoted, removing upvote
+        } else if isRemovingUpvote() { // Already upvoted, removing upvote
             voteDirection = .neutral
         }
-        
+
         renderVotingControls()
-        
+
         firstly {
             upvoteOnTap!(voteDirection!)
-        }.catch { error in
+        }.catch { _ in
             //Do nothing
         }
     }
-    
+
     @objc func downvoteOnClick(_ sender: Any) {
         let isUpvoteToDownvote = { return self.upvoteButton.view.imageTintColor(for: .normal) == self.upvoteColor }
         let isInitialDownvote = { return self.downvoteButton.view.imageTintColor(for: .normal) == self.neutralColor }
         let isRemovingDownvote = { return self.downvoteButton.view.imageTintColor(for: .normal) == self.downvoteColor }
-        
+
         if isUpvoteToDownvote() || isInitialDownvote() {
             voteDirection = .down
-        }
-        else if isRemovingDownvote() {
+        } else if isRemovingDownvote() {
             voteDirection = .neutral
         }
-        
+
         renderVotingControls()
-        
+
         firstly {
             downvoteOnTap!(voteDirection!)
-        }.catch { error in
+        }.catch { _ in
             //Ignore voting errors
         }
     }
-    
+
     func renderVotingControls() {
         switch voteDirection {
         case .up:
@@ -92,14 +90,14 @@ class VotingControls: UIView {
             break
         }
     }
-    
+
     let upvoteButton: FlatButton = {
         let button = FlatButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.view.setImage(Images.arrowUp, for: .normal)
         return button
     }()
-    
+
     let downvoteButton: FlatButton = {
         let button = FlatButton()
         button.translatesAutoresizingMaskIntoConstraints = false

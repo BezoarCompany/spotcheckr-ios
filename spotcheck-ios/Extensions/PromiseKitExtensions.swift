@@ -11,28 +11,28 @@
 import PromiseKit
 
 extension Promise {
-    
+
     /**
      * Create a final Promise that chain all delayed promise callback all together.
      */
     static func chain(_ promisesArray:[() -> Promise<T>]) -> Promise<[T]> {
         return Promise<[T]> { promise in
             var out = [T]()
-            
-            let finalPromise:Promise<T>? = promisesArray.reduce(nil) { (accumulatedVar, closureElement) in
+
+            let finalPromise: Promise<T>? = promisesArray.reduce(nil) { (accumulatedVar, closureElement) in
                 return accumulatedVar?.then { closure -> Promise<T> in
                     out.append(closure)
                     return closureElement()
                 } ?? closureElement()
             }
-            
+
             finalPromise?.done { closure -> Void in
                 out.append(closure)
                 return promise.fulfill(out)
             }.catch { err2 in
                 return promise.reject(err2)
             }
-            
+
         }
     }
 }

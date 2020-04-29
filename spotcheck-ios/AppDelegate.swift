@@ -4,6 +4,7 @@ import FirebaseUI
 import DropDown
 import IQKeyboardManagerSwift
 import PromiseKit
+import SwiftyPlistManager
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -11,7 +12,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
+
         #if DEVEL
             print("########################## DEVELOPMENT ##########################")
         #elseif STAGE
@@ -19,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #else
             print("########################## PROD-Release ##########################")
         #endif
-        
+
         styleNavigationBar()
         styleTabBar()
         configureServices()
@@ -29,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared.enableAutoToolbar = false
         return true
     }
-    
+
     private func styleNavigationBar() {
         UINavigationBar.appearance().barTintColor = ApplicationScheme.instance.containerScheme.colorScheme.primaryColor
         UINavigationBar.appearance().tintColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
@@ -38,19 +39,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             NSAttributedString.Key.foregroundColor: ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
         ]
     }
-    
+
     private func styleTabBar() {
         UITabBar.appearance().barTintColor = ApplicationScheme.instance.containerScheme.colorScheme.primaryColor
         UITabBar.appearance().tintColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
     }
-    
+
     private func configureServices() {
         FirebaseApp.configure()
+        let plistFiles = ["Preferences"]
         #if DEVEL
             Analytics.setAnalyticsCollectionEnabled(false)
+            SwiftyPlistManager.shared.start(plistNames: plistFiles, logging: true)
+        #else
+            SwiftyPlistManager.shared.start(plistNames: plistFiles, logging: false)
         #endif
     }
-    
+
     private func setStartingViewController() {
         self.window = UIWindow(frame: UIScreen.main.bounds)
         let currentUser = Auth.auth().currentUser
@@ -61,7 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.rootViewController = baseViewController
         self.window?.makeKeyAndVisible()
     }
-    
+
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions
         // (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

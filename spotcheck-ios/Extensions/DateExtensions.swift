@@ -8,7 +8,7 @@ extension Date {
         let date = dateFormatter.date(from: dateString)!
         self.init(timeInterval: 0, since: date)
     }
-    
+
     func toDisplayFormat() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMM. dd yyyy"
