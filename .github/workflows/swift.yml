@@ -65,12 +65,10 @@ jobs:
        -exportPath ./dist/spotcheckr-ios.ipa
 
     - name: Upload to Firebase App Distribution (Staging)
-      uses: wzieba/Firebase-Distribution-Github-Action@v1.2.1
-      with:
-       appId: ${{secrets.FIREBASE_APP_ID}}
-       token: ${{secrets.FIREBASE_TOKEN}}
-       file: ./dist/spotcheckr-ios.ipa
-       debug: true
+      run: >
+       firebase appdistribution:distribute "./dist/spotcheckr-ios.ipa"
+       --app ${{ secrets.FIREBASE_APP_ID}}
+       --token ${{ secrets.FIREBASE_TOKEN  }}
 
     - name: Send to App Store
       run: echo TODO this
