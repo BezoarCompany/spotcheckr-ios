@@ -39,7 +39,7 @@ jobs:
       run: pod install
 
     - name: Build for Development environment (all non-prod events)
-      if: github.event_name != 'pull_request' ||  !contains( github.base_ref, 'master')  && !contains(github.base_ref, 'release') 
+      if: github.event_name != 'pull_request' &&  !contains( github.base_ref, 'master')  && !contains(github.base_ref, 'release')
       run: >
        xcodebuild build
        -scheme "spotcheck-ios (Development)"
@@ -65,6 +65,7 @@ jobs:
        -exportPath ./dist/spotcheckr-ios.ipa
 
     - name: Upload to Firebase App Distribution [Staging-QA]
+      if: github.event_name == 'pull_request' && contains(github.base_ref, 'master')
       run: >
        firebase appdistribution:distribute "./dist/spotcheckr-ios.ipa/spotcheck-ios (Staging).ipa"
        --app ${{ secrets.FIREBASE_APP_ID }}
