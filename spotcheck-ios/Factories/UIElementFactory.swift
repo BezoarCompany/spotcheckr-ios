@@ -10,25 +10,25 @@ class UIElementFactory {
         label.font = ApplicationScheme.instance.containerScheme.typographyScheme.body2
         return label
     }
-    
+
     static func getSwitch() -> UISwitch {
         let uiSwitch = UISwitch()
         uiSwitch.onTintColor = ApplicationScheme.instance.containerScheme.colorScheme.secondaryColor
         return uiSwitch
     }
-    
+
     static func getActionSheet() -> MDCActionSheetController {
         let sheet = MDCActionSheetController()
         sheet.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
         return sheet
     }
-    
+
     static func getAppBar() -> MDCAppBarViewController {
         let vc = MDCAppBarViewController()
         vc.applyPrimaryTheme(withScheme: ApplicationScheme.instance.containerScheme)
         return vc
     }
-    
+
     static func getActivityIndicator() -> MDCActivityIndicator {
         let indicator = MDCActivityIndicator()
         indicator.translatesAutoresizingMaskIntoConstraints = false

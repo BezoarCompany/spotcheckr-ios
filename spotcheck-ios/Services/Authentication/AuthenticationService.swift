@@ -10,7 +10,7 @@ class AuthenticationService: AuthenticationProtocol {
             }
         }
     }
-    
+
     func signUp(emailAddress: String, password: String, isTrainer: Bool) -> Promise<Void> {
         return Promise { promise in
             Auth.auth().createUser(withEmail: emailAddress, password: password) {
@@ -19,7 +19,7 @@ class AuthenticationService: AuthenticationProtocol {
                     return promise.reject(error!)
                 }
                 let user = isTrainer ? Trainer(id: UserID((authResult?.user.uid)!)) : User(id: UserID((authResult?.user.uid)!))
-                
+
                 firstly {
                     Services.userService.createUser(user: user)
                 }.catch { error in
@@ -31,18 +31,18 @@ class AuthenticationService: AuthenticationProtocol {
             }
         }
     }
-    
+
     func anonymousSignUp() -> Promise<Void> {
         return Promise { promise in
             Auth.auth().signInAnonymously { (result, error) in
                 if let error = error {
                     promise.reject(error)
                 }
-                
+
                 let user = User(id: UserID((result?.user.uid)!))
                 user.isAnonymous = true
                 user.dateCreated = Date()
-                
+
                 firstly {
                     Services.userService.createUser(user: user)
                 }.catch { error in
@@ -53,7 +53,7 @@ class AuthenticationService: AuthenticationProtocol {
             }
         }
     }
-    
+
     func signIn(emailAddress: String, password: String) -> Promise<Void> {
         return Promise { promise in
             Auth.auth().signIn(withEmail: emailAddress, password: password) {

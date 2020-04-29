@@ -4,7 +4,7 @@ class ScrollView: UIView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(contentView)
@@ -15,7 +15,7 @@ class ScrollView: UIView {
             bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
-    
+
     let contentView: UIScrollView = {
         let view = UIScrollView()
         view.translatesAutoresizingMaskIntoConstraints = false

@@ -7,14 +7,14 @@ class Divider: UIView {
         let color = UIColor(red: onSurfaceColor.redValue, green: onSurfaceColor.greenValue, blue: onSurfaceColor.blueValue, alpha: 0.2)
         return color
     }()
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+
         let divider = UILabel()
         divider.backgroundColor = color
         divider.translatesAutoresizingMaskIntoConstraints = false

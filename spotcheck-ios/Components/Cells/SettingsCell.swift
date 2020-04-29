@@ -9,13 +9,13 @@ class SettingsCell: UICollectionViewCell {
         cell.isUserInteractionEnabled = false
         return cell
     }()
-    
+
     let switchView: Switch = {
         let view = Switch()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
+
     var titleLabel: UILabel {
         get {
             return UILabel()
@@ -32,17 +32,17 @@ class SettingsCell: UICollectionViewCell {
             baseCell.detailLabel.text = value.text
         }
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubviews()
         applyConstraints()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     private func addSubviews() {
         addSubview(baseCell)
         addSubview(switchView)

@@ -15,16 +15,16 @@ class SettingsViewController: UIViewController {
         MDCSnackbarTypographyThemer.applyTypographyScheme(ApplicationScheme.instance.containerScheme.typographyScheme)
        return message
     }()
-    
+
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         self.addChild(appBarViewController)
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -33,7 +33,7 @@ class SettingsViewController: UIViewController {
         initSettingsView()
         applyConstraints()
     }
-    
+
     func initAppBar() {
         appBarViewController.didMove(toParent: self)
     }
@@ -86,13 +86,13 @@ extension SettingsViewController {
             MDCSnackbarManager.show(snackbarMessage)
         }
     }
-    
+
     private func clearCache() {
         CacheManager.clearAllCaches()
         snackbarMessage.text = "All caches cleared."
         MDCSnackbarManager.show(snackbarMessage)
     }
-    
+
     private func navigateTo(viewController: UIViewController) {
         self.navigationController?.pushViewController(viewController, animated: true)
     }
@@ -101,17 +101,17 @@ extension SettingsViewController {
 extension SettingsViewController: UICollectionViewDataSource,
                                 UICollectionViewDelegate,
                                 UICollectionViewDelegateFlowLayout {
-   
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return CellLocations.allCases.count
     }
-    
+
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell",
         for: indexPath) as! MDCSelfSizingStereoCell
         cell.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
-        
+
         switch indexPath.row {
         case CellLocations.privacy.rawValue:
             cell.titleLabel.text = "Privacy"
@@ -141,7 +141,7 @@ extension SettingsViewController: UICollectionViewDataSource,
 
         return cell
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch indexPath.row {
         case CellLocations.privacy.rawValue:
@@ -158,7 +158,7 @@ extension SettingsViewController: UICollectionViewDataSource,
         default: break
         }
     }
-    
+
     enum CellLocations: Int, CaseIterable {
         case privacy
         case clearCache
@@ -167,4 +167,3 @@ extension SettingsViewController: UICollectionViewDataSource,
         case buildVersion
     }
 }
-

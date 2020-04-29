@@ -4,7 +4,7 @@ class CollectionView: UIView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(contentView)
@@ -15,7 +15,7 @@ class CollectionView: UIView {
             bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
-    
+
     let contentView: UICollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         view.translatesAutoresizingMaskIntoConstraints = false

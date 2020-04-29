@@ -46,7 +46,7 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate {
     }()
     let savingIndicator = UIElementFactory.getActivityIndicator()
     var currentUser: User?
-    
+
     required init?(coder aDecoder: NSCoder) {
         firstNameTextFieldController = MDCTextInputControllerOutlined(textInput: firstNameTextField)
         firstNameTextFieldController.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
@@ -55,7 +55,7 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate {
         firstNameTextFieldController.inlinePlaceholderColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
         firstNameTextFieldController.floatingPlaceholderNormalColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
         firstNameTextFieldController.floatingPlaceholderActiveColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
-        
+
         lastNameTextFieldController = MDCTextInputControllerOutlined(textInput: lastNameTextField)
         lastNameTextFieldController.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
         lastNameTextFieldController.normalColor  = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
@@ -63,11 +63,11 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate {
         lastNameTextFieldController.inlinePlaceholderColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
         lastNameTextFieldController.floatingPlaceholderNormalColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
         lastNameTextFieldController.floatingPlaceholderActiveColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
-        
+
         super.init(coder: aDecoder)
         self.addChild(appBarViewController)
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         initAppBar()
@@ -75,14 +75,14 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate {
         applyConstraints()
         loadProfile()
     }
-    
+
     func initAppBar() {
         appBarViewController.didMove(toParent: self)
         appBarViewController.inferTopSafeAreaInsetFromViewController = true
         appBarViewController.navigationBar.title = "Edit Profile"
         view.addSubview(appBarViewController.view)
     }
-    
+
     func initControls() {
         view.addSubview(firstNameTextField)
         view.addSubview(lastNameTextField)
@@ -90,10 +90,10 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate {
         view.addSubview(saveButton)
         view.addSubview(savingIndicator)
     }
-    
+
     func applyConstraints() {
         let safeArea = view.safeAreaLayoutGuide
-        
+
         NSLayoutConstraint.activate([
             firstNameTextField.topAnchor.constraint(equalTo: appBarViewController.navigationBar.bottomAnchor, constant: 16),
             firstNameTextField.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 40),
@@ -109,21 +109,21 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate {
             savingIndicator.centerYAnchor.constraint(equalTo: safeArea.centerYAnchor)
         ])
     }
-    
+
     @objc func save() {
         savingIndicator.startAnimating()
         saveButton.isEnabled = false
-        
+
         currentUser?.information?.firstName = firstNameTextField.text ?? ""
         currentUser?.information?.lastName = lastNameTextField.text ?? ""
-        
+
         firstly {
             Services.userService.updateUser(currentUser!)
         }.done {
             self.snackbarMessage.text = "Profile updated."
             MDCSnackbarManager.show(self.snackbarMessage)
             NotificationCenter.default.post(name: K.Notifications.ProfileEdited, object: nil)
-        }.catch{ error in
+        }.catch { _ in
             self.snackbarMessage.text = "Failed to update your profile."
             MDCSnackbarManager.show(self.snackbarMessage)
         }.finally {
@@ -131,13 +131,13 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate {
             self.saveButton.isEnabled = true
         }
     }
-    
+
     func loadProfile() {
         firstly {
             Services.userService.getCurrentUser()
         }.done { user in
             self.currentUser = user
-        }.catch { error in
+        }.catch { _ in
             self.dismiss(animated: true) {
                 self.snackbarMessage.text = "Failed to load user profile."
                 MDCSnackbarManager.show(self.snackbarMessage)

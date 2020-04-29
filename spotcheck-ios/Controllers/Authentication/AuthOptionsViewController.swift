@@ -15,7 +15,7 @@ import FirebaseAuth.FIRAuthErrors
 
 class AuthOptionsViewController: UIViewController, UITextFieldDelegate, ValidationDelegate {
     var window: UIWindow?
-    
+
     let spotcheckHeadline: UILabel = {
        let label = UILabel()
         label.text = "Spotcheckr"
@@ -25,7 +25,7 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     let spotcheckSubtitle: UILabel = {
         let label = UILabel()
         label.text = "Get your exercise form reviewed \nand connect with certfied trainers."
@@ -36,7 +36,7 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     let emailAddressTextField: MDCTextField = {
         let field = MDCTextField()
         field.placeholder = "Email Address"
@@ -48,7 +48,7 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
         return field
     }()
     let emailAddressTextFieldController: MDCTextInputControllerOutlined
-    
+
     let passwordTextField: MDCTextField = {
        let field = MDCTextField()
         field.placeholder = "Password"
@@ -59,7 +59,7 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
         return field
     }()
     let passwordTextFieldController: MDCTextInputControllerOutlined
-    
+
     let forgotPasswordLabel: UILabel = {
         let label = UILabel()
         label.text = "Forgot password?"
@@ -71,7 +71,7 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     let signUpButton: MDCButton = {
         let button = MDCButton()
         button.setTitle("Sign Up", for: .normal)
@@ -83,7 +83,7 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
         button.addTarget(self, action: #selector(onSignUpClick(sender:)), for: .touchUpInside)
         return button
     }()
-    
+
     let signInButton: MDCButton = {
         let button = MDCButton()
         button.setTitle("Sign In", for: .normal)
@@ -95,7 +95,7 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
         button.addTarget(self, action: #selector(onSignInClick(sender:)), for: .touchUpInside)
         return button
     }()
-    
+
     let anonSignUpButton: MDCButton = {
         let button = MDCButton()
         button.setTitle("Skip Sign Up", for: .normal)
@@ -105,7 +105,7 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
         button.addTarget(self, action: #selector(onAnonSignUpClick(sender:)), for: .touchUpInside)
         return button
     }()
-    
+
     let errorLabel: UILabel = {
         let label = UILabel()
         label.layer.backgroundColor = ApplicationScheme.instance.containerScheme.colorScheme.errorColor.cgColor
@@ -117,13 +117,13 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     let snackbarMessage: MDCSnackbarMessage = {
        let message = MDCSnackbarMessage()
         MDCSnackbarTypographyThemer.applyTypographyScheme(ApplicationScheme.instance.containerScheme.typographyScheme)
        return message
     }()
-    
+
     var activityIndicator: MDCActivityIndicator = {
         let indicator = MDCActivityIndicator()
         indicator.sizeToFit()
@@ -132,10 +132,10 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
         indicator.translatesAutoresizingMaskIntoConstraints = false
         return indicator
     }()
-    
+
     let authenticationService: AuthenticationProtocol = AuthenticationService()
     let validator: Validator
-    
+
     required init?(coder aDecoder: NSCoder) {
         emailAddressTextFieldController = MDCTextInputControllerOutlined(textInput: emailAddressTextField)
         emailAddressTextFieldController.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
@@ -153,10 +153,10 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
         passwordTextFieldController.floatingPlaceholderActiveColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
 
         validator = Validator()
-        
+
         super.init(coder: aDecoder)
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         addSubviews()
@@ -170,17 +170,17 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
         validator.registerField(emailAddressTextField, rules: [RequiredRule(message: "Required"), EmailRule(message: "Invalid email address")])
         validator.registerField(passwordTextField, rules: [RequiredRule(message: "Required")])
     }
-    
+
     private func setDelegates() {
         emailAddressTextField.delegate = self
         passwordTextField.delegate = self
     }
-    
+
     private func addGestures() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onForgotPasswordClick))
         forgotPasswordLabel.addGestureRecognizer(tapGesture)
     }
-    
+
     private func addSubviews() {
         self.view.addSubview(spotcheckHeadline)
         self.view.addSubview(spotcheckSubtitle)
@@ -192,10 +192,10 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
         self.view.addSubview(signInButton)
         self.view.addSubview(anonSignUpButton)
     }
-    
+
     private func applyConstraints() {
         let safeArea = self.view.safeAreaLayoutGuide
-        
+
         NSLayoutConstraint.activate([
             spotcheckHeadline.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor, constant: 0),
             spotcheckHeadline.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 90),
@@ -223,42 +223,40 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
             anonSignUpButton.topAnchor.constraint(equalTo: signInButton.bottomAnchor, constant: 20)
         ])
     }
-    
+
     func textFieldDidChangeSelection(_ textField: UITextField) {
         if textField == emailAddressTextField && emailAddressTextFieldController.errorText != nil {
             emailAddressTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
-        }
-        else if textField == passwordTextField && passwordTextFieldController.errorText != nil {
+        } else if textField == passwordTextField && passwordTextFieldController.errorText != nil {
             passwordTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
         }
     }
-    
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         validator.validateField(textField) { error in
             if textField == emailAddressTextField {
                 passwordTextField.becomeFirstResponder()
                 emailAddressTextFieldController.setErrorText(error?.errorMessage, errorAccessibilityValue: error?.errorMessage)
-            }
-            else if textField == passwordTextField {
+            } else if textField == passwordTextField {
                 passwordTextField.resignFirstResponder()
                 passwordTextFieldController.setErrorText(error?.errorMessage, errorAccessibilityValue: error?.errorMessage)
             }
         }
-        
+
         return true
     }
-    
+
     @objc private func onSignUpClick(sender: Any) {
         let signUpViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: K.Storyboard.SignUpViewControllerId)
         signUpViewController.modalPresentationStyle = .fullScreen
         self.present(signUpViewController, animated: true)
     }
-    
+
     @objc private func onSignInClick(sender: Any) {
         errorLabel.isHidden = true
         validator.validate(self)
     }
-    
+
     @objc private func onAnonSignUpClick(sender: Any) {
         anonSignUpButton.addSubview(activityIndicator)
         NSLayoutConstraint.activate([
@@ -266,14 +264,14 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
             activityIndicator.centerXAnchor.constraint(equalTo: anonSignUpButton.centerXAnchor)
         ])
         anonSignUpButton.setTitle("", for: .normal)
-        
+
         anonSignUpButton.isUserInteractionEnabled = false
         activityIndicator.startAnimating()
         firstly {
             Services.authenticationService.anonymousSignUp()
         }.done {
             self.authenticationFinished()
-        }.catch { error in
+        }.catch { _ in
             self.snackbarMessage.text = "Failed to continue"
             MDCSnackbarManager.show(self.snackbarMessage)
         }.finally {
@@ -282,7 +280,7 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
             self.anonSignUpButton.isUserInteractionEnabled = true
         }
     }
-        
+
     func validationSuccessful() {
         signInButton.addSubview(activityIndicator)
         NSLayoutConstraint.activate([
@@ -290,7 +288,7 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
             activityIndicator.centerXAnchor.constraint(equalTo: signInButton.centerXAnchor)
         ])
         signInButton.setTitle("", for: .normal)
-        
+
         signInButton.isUserInteractionEnabled = false
         emailAddressTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
         passwordTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
@@ -303,7 +301,7 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
             let errorCode = (error as NSError).code
             var errorMessage = ""
             var isCriticalError = false
-            
+
             switch errorCode {
             case AuthErrorCode.wrongPassword.rawValue:
                 errorMessage = "The password is incorrect."
@@ -330,26 +328,25 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
             self.signInButton.isUserInteractionEnabled = true
         }
     }
-    
+
     func validationFailed(_ errors: [(Validatable, ValidationError)]) {
         for (field, error) in errors {
             if let field = field as? MDCTextField {
                 if field == emailAddressTextField {
                     emailAddressTextFieldController.setErrorText(error.errorMessage, errorAccessibilityValue: error.errorMessage)
-                }
-                else if field == passwordTextField {
+                } else if field == passwordTextField {
                     passwordTextFieldController.setErrorText(error.errorMessage, errorAccessibilityValue: error.errorMessage)
                 }
             }
         }
     }
-    
+
     @objc func onForgotPasswordClick() {
         let forgotPasswordController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: K.Storyboard.ForgotPasswordControllerId)
         forgotPasswordController.modalPresentationStyle = .fullScreen
         self.present(forgotPasswordController, animated: true)
     }
-    
+
     @objc private func authenticationFinished() {
         let homeViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: K.Storyboard.MainTabBarControllerId)
         self.window = UIWindow(frame: UIScreen.main.bounds)

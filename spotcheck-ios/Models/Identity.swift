@@ -8,19 +8,19 @@ struct Identity {
     var fullName: String {
         get {
             var name = ""
-            
+
             if !salutation.isEmpty {
                 name.append("\(salutation) ")
             }
-            
+
             name.append("\(firstName)")
-            
+
             if !middleName.isEmpty {
                 name.append(" \(middleName)")
             }
-            
+
             name.append(" \(lastName)")
-            
+
             return name
         }
     }

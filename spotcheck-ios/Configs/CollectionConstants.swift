@@ -122,7 +122,7 @@ class CollectionConstants {
             #endif
         }
     }
-    
+
     static var systemCollection: String {
         get {
             #if DEVEL

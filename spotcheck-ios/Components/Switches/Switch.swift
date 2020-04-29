@@ -7,14 +7,14 @@ class Switch: UIView {
         element.onTintColor = ApplicationScheme.instance.containerScheme.colorScheme.secondaryColor
         return element
     }()
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+
         addSubview(content)
         NSLayoutConstraint.activate([
 //            content.centerXAnchor.constraint(equalTo: centerXAnchor),
