@@ -66,9 +66,9 @@ jobs:
 
     - name: Upload to Firebase App Distribution (Staging)
       run: >
-       firebase appdistribution:distribute "./dist/spotcheckr-ios.ipa"
-       --app ${{ secrets.FIREBASE_APP_ID}}
-       --token ${{ secrets.FIREBASE_TOKEN  }}
+       firebase appdistribution:distribute "./dist/spotcheckr-ios.ipa/spotcheck-ios (Staging).ipa""
+       --app ${{ secrets.FIREBASE_APP_ID }}
+       --token ${{ secrets.FIREBASE_TOKEN }}
 
     - name: Send to App Store
       run: echo TODO this
