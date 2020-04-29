@@ -4,6 +4,7 @@ import FirebaseUI
 import DropDown
 import IQKeyboardManagerSwift
 import PromiseKit
+import SwiftyPlistManager
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -46,8 +47,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private func configureServices() {
         FirebaseApp.configure()
+        let plistFiles = ["Preferences"]
         #if DEVEL
             Analytics.setAnalyticsCollectionEnabled(false)
+            SwiftyPlistManager.shared.start(plistNames: plistFiles, logging: true)
+        #else
+            SwiftyPlistManager.shared.start(plistNames: plistFiles, logging: false)
         #endif
     }
     
