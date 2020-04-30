@@ -94,8 +94,8 @@ class StorageService: StorageProtocol {
     //convert Firebase Storage reference into https: url
     func getVideoDownloadURL(filename: String) -> Promise<URL> {
 
-        return Promise { promise in            
-            let firebaseVideoStorageRef = Storage.storage().reference().child(K.Firestore.Storage.videosRootDirectory)            
+        return Promise { promise in
+            let firebaseVideoStorageRef = Storage.storage().reference().child(K.Firestore.Storage.videosRootDirectory)
 
             let vidStorageRef = firebaseVideoStorageRef.child(filename)
 
