@@ -31,9 +31,11 @@ class PostDetailViewController: UIViewController {
         self.present(createAnswerViewController, animated: true)
     }
 
-    typealias DiffedPostsDataUpdateClosureType = ((_ diffType: DiffType, _ post: ExercisePost) -> Void) //takes diff type, and post to be modified
+    //takes diff type, and post to be modified
+    typealias DiffedPostsDataUpdateClosureType = ((_ diffType: DiffType, _ post: ExercisePost) -> Void)
 
-    var diffedPostsDataClosure: DiffedPostsDataUpdateClosureType? //To dynamically update FeedView's cell with the new/updated post
+    //To dynamically update FeedView's cell with the new/updated post
+    var diffedPostsDataClosure: DiffedPostsDataUpdateClosureType?
 
     // MARK: - Properties
     var post: ExercisePost?
@@ -57,6 +59,8 @@ class PostDetailViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.isHidden = true
+        label.numberOfLines = 2
+        label.textAlignment = .center
         label.text = "There are no answers, be the first to help!"
         label.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
         label.font = ApplicationScheme.instance.containerScheme.typographyScheme.body1
@@ -82,16 +86,17 @@ class PostDetailViewController: UIViewController {
 
     func updatePostDetail(argPost: ExercisePost) {
         self.post = argPost
-        let idxPath = IndexPath(row: 0, section: 0)
+        //let idxPath = IndexPath(row: 0, section: 0)
 
 //        self.tableView.beginUpdates()
 //        self.tableView.reloadRows(at: [idxPath], with: .automatic)
 //        self.tableView.endUpdates()
     }
 
-    static func create(postId: ExercisePostID?, diffedPostsDataClosure: DiffedPostsDataUpdateClosureType? = nil) -> PostDetailViewController {
+    static func create(postId: ExercisePostID?,
+                      diffedPostsDataClosure: DiffedPostsDataUpdateClosureType? = nil) -> PostDetailViewController {
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
-
+        //swiftlint:disable force_cast line_length
         let postDetailViewController = storyboard.instantiateViewController(withIdentifier: K.Storyboard.PostDetailViewControllerId) as! PostDetailViewController
 
         postDetailViewController.postId = postId
@@ -116,11 +121,15 @@ class PostDetailViewController: UIViewController {
         applyConstraints()
 
         firstly {
-            when(fulfilled: Services.exercisePostService.getPost(withId: postId!), Services.userService.getCurrentUser())
+            when(fulfilled: Services.exercisePostService.getPost(withId: postId!),
+                            Services.userService.getCurrentUser())
         }.done { post, user in
             self.post = post
             self.appBarViewController.navigationBar.title = "\(self.post?.answersCount ?? 0) Answers"
-            self.appBarViewController.navigationBar.leadingBarButtonItem = UIBarButtonItem(image: Images.back, style: .done, target: self, action: #selector(self.backOnClick(sender:)))
+            self.appBarViewController.navigationBar.leadingBarButtonItem = UIBarButtonItem(image: Images.back,
+                                                                                           style: .done,
+                                                                                           target: self,
+                                                                                           action: #selector(self.backOnClick(sender:)))
             self.currentUser = user
             self.collectionView.reloadData()
         }.catch { _ in
@@ -130,7 +139,8 @@ class PostDetailViewController: UIViewController {
             }
         }.finally {
             let answersCenter = (self.collectionView.frame.height - self.postCellHeight) / 2
-            self.answersLoadingIndicator.topAnchor.constraint(equalTo: self.postYAxisAnchor, constant: answersCenter).isActive = true
+            self.answersLoadingIndicator.topAnchor.constraint(equalTo: self.postYAxisAnchor,
+                                                              constant: answersCenter).isActive = true
             self.answersLoadingIndicator.indicator.startAnimating()
             firstly {
                 Services.exercisePostService.getAnswers(forPostWithId: self.post!.id!)
@@ -144,7 +154,8 @@ class PostDetailViewController: UIViewController {
             }.finally {
                 self.answersLoadingIndicator.indicator.stopAnimating()
                 if self.answersCount == 0 {
-                    self.defaultAnswersSectionLabel.topAnchor.constraint(equalTo: self.postYAxisAnchor, constant: answersCenter).isActive = true
+                    self.defaultAnswersSectionLabel.topAnchor.constraint(equalTo: self.postYAxisAnchor,
+                                                                         constant: answersCenter).isActive = true
                     self.defaultAnswersSectionLabel.isHidden = false
                 }
             }
@@ -156,7 +167,9 @@ class PostDetailViewController: UIViewController {
     }
 }
 
-extension PostDetailViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+extension PostDetailViewController: UICollectionViewDataSource,
+                                  UICollectionViewDelegate,
+                                  UICollectionViewDelegateFlowLayout {
     enum CollectionViewSections: Int {
         case postInformation, answers
     }
@@ -176,8 +189,10 @@ extension PostDetailViewController: UICollectionViewDataSource, UICollectionView
         }
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.section == CollectionViewSections.postInformation.rawValue {
+            //swiftlint:disable force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: K.Storyboard.feedCellId,
             for: indexPath) as! FeedCell
             cell.setShadowElevation(ShadowElevation(rawValue: 10), for: .normal)
@@ -187,10 +202,14 @@ extension PostDetailViewController: UICollectionViewDataSource, UICollectionView
             cell.headerLabel.numberOfLines = 0
             cell.subHeadLabel.text = "\(post?.dateCreated?.toDisplayFormat() ?? "")"
             cell.votingControls.upvoteOnTap = { (voteDirection: VoteDirection) in
-                Services.exercisePostService.voteContent(contentId: self.post!.id!, userId: (self.currentUser?.id!)!, direction: voteDirection)
+                Services.exercisePostService.voteContent(contentId: self.post!.id!,
+                                                         userId: (self.currentUser?.id!)!,
+                                                                  direction: voteDirection)
             }
             cell.votingControls.downvoteOnTap = { (voteDirection: VoteDirection) in
-                Services.exercisePostService.voteContent(contentId: self.post!.id!, userId: (self.currentUser?.id!)!, direction: voteDirection)
+                Services.exercisePostService.voteContent(contentId: self.post!.id!,
+                                                         userId: (self.currentUser?.id!)!,
+                                                                  direction: voteDirection)
             }
 
             if post?.imagePath != nil {
@@ -234,15 +253,18 @@ extension PostDetailViewController: UICollectionViewDataSource, UICollectionView
                 })
 
                 let editAction = MDCActionSheetAction(title: "Edit", image: Images.edit, handler: { (_) in
-                    let createPostViewController = CreatePostViewController.create(updatePostMode: .edit, post: self.post, diffedPostsDataClosure: self.diffedPostsDataClosure,
-                                                                                   updatePostDetailClosure: self.updatePostDetail )
+                    let createPostViewController = CreatePostViewController.create(updatePostMode: .edit,
+                                                                                   post: self.post,
+                                                                                   diffedPostsDataClosure: self.diffedPostsDataClosure,
+                                                                                   updatePostDetailClosure: self.updatePostDetail)
 
                     //TODO: Update PostDetail after edit, as well as in Feed TableView
                     self.present(createPostViewController, animated: true)
                 })
 
                 let deleteAction = MDCActionSheetAction(title: "Delete", image: Images.trash) { (_) in
-                    let deleteAlertController = MDCAlertController(title: "Are you sure you want to delete this post?", message: "This will delete all included answers too.")
+                    let deleteAlertController = MDCAlertController(title: "Are you sure you want to delete this post?",
+                                                                   message: "This will delete all included answers too.")
 
                     let deleteAlertAction = MDCAlertAction(title: "Delete", emphasis: .high, handler: { (_) in
                         self.activityIndicator.startAnimating()
@@ -260,14 +282,9 @@ extension PostDetailViewController: UICollectionViewDataSource, UICollectionView
                         }.catch { err in
                             self.activityIndicator.stopAnimating()
 
-                            let postId = self.post?.id ?? nil
-                            print(err)
-                            let msg = "ERROR deleting post \(postId)"
-
-                            let snackbarMessage = MDCSnackbarMessage()
-                            snackbarMessage.text = msg
                             self.navigationController?.popViewController(animated: true)
-                            MDCSnackbarManager.show(snackbarMessage)
+                            self.snackbarMessage.text = "Error deleting post."
+                            MDCSnackbarManager.show(self.snackbarMessage)
 
                         }
                     })
@@ -308,10 +325,14 @@ extension PostDetailViewController: UICollectionViewDataSource, UICollectionView
         cell.headerLabel.numberOfLines = 0
         cell.subHeadLabel.text = "\(answer.dateCreated?.toDisplayFormat() ?? "")"
         cell.votingControls.upvoteOnTap = { (voteDirection: VoteDirection) in
-            Services.exercisePostService.voteContent(contentId: answer.id!, userId: (self.currentUser?.id!)!, direction: voteDirection)
+            Services.exercisePostService.voteContent(contentId: answer.id!,
+                                                     userId: (self.currentUser?.id!)!,
+                                                              direction: voteDirection)
         }
         cell.votingControls.downvoteOnTap = { (voteDirection: VoteDirection) in
-            Services.exercisePostService.voteContent(contentId: answer.id!, userId: (self.currentUser?.id!)!, direction: voteDirection)
+            Services.exercisePostService.voteContent(contentId: answer.id!,
+                                                     userId: (self.currentUser?.id!)!,
+                                                              direction: voteDirection)
         }
         cell.supportingTextLabel.text = answer.text
         cell.supportingTextLabel.numberOfLines = 0
@@ -328,7 +349,8 @@ extension PostDetailViewController: UICollectionViewDataSource, UICollectionView
 
             if answer.createdBy?.id == self.currentUser?.id {
                 let deleteCommentAction = MDCActionSheetAction(title: "Delete", image: Images.trash) { (_) in
-                    let deleteCommentAlertController = MDCAlertController(title: nil, message: "Are you sure you want to delete your comment?")
+                    let deleteCommentAlertController = MDCAlertController(title: nil,
+                                                                          message: "Are you sure you want to delete your comment?")
 
                 let deleteCommentAlertAction = MDCAlertAction(title: "Delete", emphasis: .high, handler: { (_) in
                         //TODO: Show activity indicator
@@ -404,7 +426,8 @@ extension PostDetailViewController {
             answerReplyButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -75),
             answerReplyButton.widthAnchor.constraint(equalToConstant: 64),
             answerReplyButton.heightAnchor.constraint(equalToConstant: 64),
-            defaultAnswersSectionLabel.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor),
+            answerReplyButton.leadingAnchor.constraint(equalTo: defaultAnswersSectionLabel.trailingAnchor, constant: 16),
+            defaultAnswersSectionLabel.widthAnchor.constraint(equalToConstant: 200),
             answersLoadingIndicator.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor)
         ])
     }
