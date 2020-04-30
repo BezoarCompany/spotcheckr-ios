@@ -49,7 +49,8 @@ class CardCollectionCell: MDCCardCollectionCell {
         let button = FlatButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.view.setImage(Images.moreHorizontal, for: .normal)
-        button.view.setImageTintColor(ApplicationScheme.instance.containerScheme.colorScheme.onSurfaceColor, for: .normal)
+        button.view.setImageTintColor(ApplicationScheme.instance.containerScheme.colorScheme.onSurfaceColor,
+                                      for: .normal)
         return button
     }()
 
@@ -102,12 +103,15 @@ class CardCollectionCell: MDCCardCollectionCell {
 
     func setOverflowMenuLocation(location: OverflowMenuLocation) {
         if location == .bottom {
-            overflowMenuLayoutConstraints = [overflowMenu.topAnchor.constraint(equalTo: supportingTextLabel.bottomAnchor, constant: 24),
-            contentView.trailingAnchor.constraint(equalTo: overflowMenu.trailingAnchor, constant: 8),
-            contentView.bottomAnchor.constraint(equalTo: overflowMenu.bottomAnchor, constant: 16)]
+            //swiftlint:disable line_length
+            overflowMenuLayoutConstraints = [overflowMenu.topAnchor.constraint(equalTo: supportingTextLabel.bottomAnchor,
+                                                                            constant: 24),
+                                           contentView.trailingAnchor.constraint(equalTo: overflowMenu.trailingAnchor, constant: 8),
+                                           contentView.bottomAnchor.constraint(equalTo: overflowMenu.bottomAnchor, constant: 16)]
         } else {
-            overflowMenuLayoutConstraints = [overflowMenu.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            contentView.trailingAnchor.constraint(equalTo: overflowMenu.trailingAnchor, constant: 8)]
+            overflowMenuLayoutConstraints = [overflowMenu.topAnchor.constraint(equalTo: contentView.topAnchor),
+                                           contentView.trailingAnchor.constraint(equalTo: overflowMenu.trailingAnchor,
+                                                                               constant: 8)]
         }
 
         NSLayoutConstraint.activate(overflowMenuLayoutConstraints!)
