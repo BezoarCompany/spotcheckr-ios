@@ -55,7 +55,7 @@ jobs:
       run: >
        xcodebuild -exportArchive
        -archivePath ./Archives/spotcheckr-ios.xcarchive
-       -exportOptionsPlist ./spotcheck-ios/Configs/exportOptions.plist
+       -exportOptionsPlist ./spotcheck-ios/Configs/ExportOptionsFirebase.plist
        -exportPath ./dist/spotcheckr-ios.ipa
 
     - name: (Staging-QA) Upload to Firebase App Distribution
@@ -84,4 +84,8 @@ jobs:
        -exportPath ./dist/spotcheckr-ios.ipa
 
     - name: (PROD) Send to App Store
+      if: github.event_name == 'pull_request' && contains(github.base_ref, 'release')
       run: echo TODO this
+
+
+
