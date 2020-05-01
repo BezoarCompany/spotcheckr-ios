@@ -19,6 +19,7 @@ jobs:
         if: github.event_name == 'pull_request'
         run: echo "Pull Request to ${{ github.base_ref }} from ${{ github.head_ref }}"
   clean: # Most likely not necessary if using github hosted runners since each job runs in its own special environment.
+    needs: log
     runs-on: [self-hosted, macos]
     steps:
       - name: Clean environments
@@ -27,18 +28,24 @@ jobs:
           xcodebuild clean -workspace spotcheck-ios.xcworkspace -scheme "spotcheck-ios (Staging)"
           xcodebuild clean -workspace spotcheck-ios.xcworkspace -scheme "spotcheck-ios (Development)"
           xcodebuild clean -workspace spotcheck-ios.xcworkspace -scheme "spotcheck-ios"
+  lint:
+    needs: clean
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Lint
+        uses: norio-nomura/action-swiftlint@3.1.0
+        env:
+          DIFF_BASE: ${{ github.base_ref }}
+
   build:
+    needs: lint
     runs-on: [self-hosted, macos]
     steps:
       - uses: actions/checkout@v2
 
       - name: Install Dependencies
         run: pod install
-
-      - name: Lint
-        uses: norio-nomura/action-swiftlint@3.1.0
-        env:
-          DIFF_BASE: ${{ github.base_ref }}
 
       - name: (Development) Build environment
         if: github.event_name == 'pull_request' &&  !contains( github.base_ref, 'master')  && !contains(github.base_ref, 'release')
