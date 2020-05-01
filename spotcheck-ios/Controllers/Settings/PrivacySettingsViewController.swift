@@ -16,6 +16,9 @@ class PrivacySettingsViewController: UIViewController {
     var isAnalyticsCollectionEnabled = false
     var analyticsPreferenceCell: SettingsCell?
 
+    var isPerformanceMonitoringCollectionEnabled = false
+    var performanceMonitoringPreferenceCell: SettingsCell?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         initAppBar()
@@ -25,8 +28,12 @@ class PrivacySettingsViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         isAnalyticsCollectionEnabled = Services.analyticsService.getCollectionEnabled()
+        isPerformanceMonitoringCollectionEnabled = Services.analyticsService.getPerformanceMonitoringEnabled()
         analyticsPreferenceCell?.switchView.content.addTarget(self,
                                                               action: #selector(setAnalytics(sender:)),
+                                                              for: .touchUpInside)
+        performanceMonitoringPreferenceCell?.switchView.content.addTarget(self,
+                                                              action: #selector(setPerformanceMonitoring(sender:)),
                                                               for: .touchUpInside)
         collectionView.contentView.reloadData()
     }
@@ -74,17 +81,37 @@ class PrivacySettingsViewController: UIViewController {
             MDCSnackbarManager.show(self.snackbarMessage)
         }
     }
+
+    @objc func setPerformanceMonitoring(sender: Any) {
+        do {
+            //swiftlint:disable line_length
+            try Services.analyticsService.setPerformanceMonitoringEnabled(performanceMonitoringPreferenceCell!.switchView.content.isOn)
+        } catch {
+            //swiftlint:disable line_length
+            performanceMonitoringPreferenceCell?.switchView.content.setOn(!performanceMonitoringPreferenceCell!.switchView.content.isOn,
+                                                              animated: true)
+            self.snackbarMessage.text = "Unable to set performance monitoring setting."
+            MDCSnackbarManager.show(self.snackbarMessage)
+        }
+    }
 }
 
 extension PrivacySettingsViewController: UICollectionViewDataSource,
                                        UICollectionViewDelegate,
 UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: view.frame.width, height: 88)
+    }
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return CellLocations.allCases.count
     }
 
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        //swiftlint:disable force_cast
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PrivacyCell",
                                                       for: indexPath) as! SettingsCell
 
@@ -97,6 +124,12 @@ UICollectionViewDelegateFlowLayout {
             detailLabel.text = "Spotcheckr uses analytics to capture crash data, logs, and other usage information."
             cell.switchView.content.setOn(isAnalyticsCollectionEnabled, animated: false)
             analyticsPreferenceCell = cell
+        case CellLocations.performanceMonitoring.rawValue:
+            titleLabel.text = "Performance Monitoring"
+            detailLabel.text = "Spotcheckr uses performance monitoring to measure app startup time, web requests," +
+                               "and more. Changes will take effect the next time Spotcheckr restarts."
+            cell.switchView.content.setOn(isPerformanceMonitoringCollectionEnabled, animated: false)
+            performanceMonitoringPreferenceCell = cell
         default: break
         }
 
@@ -107,9 +140,6 @@ UICollectionViewDelegateFlowLayout {
     }
 
     func initCollectionView() {
-        let layout = UICollectionViewFlowLayout()
-        layout.estimatedItemSize = CGSize(width: view.frame.width, height: 1)
-        collectionView.contentView.collectionViewLayout = layout
         collectionView.contentView.delegate = self
         collectionView.contentView.dataSource = self
         collectionView.contentView.register(SettingsCell.self, forCellWithReuseIdentifier: "PrivacyCell")
@@ -118,5 +148,6 @@ UICollectionViewDelegateFlowLayout {
 
     enum CellLocations: Int, CaseIterable {
         case analytics
+        case performanceMonitoring
     }
 }
