@@ -4,9 +4,6 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Foundation
 import MaterialComponents
-import MaterialComponents.MaterialTextFields_TypographyThemer
-import MaterialComponents.MaterialSnackbar
-import MaterialComponents.MaterialSnackbar_TypographyThemer
 import PromiseKit
 
 class CreateAnswerViewController: UIViewController, MDCMultilineTextInputDelegate, MDCMultilineTextInputLayoutDelegate {
@@ -50,8 +47,10 @@ class CreateAnswerViewController: UIViewController, MDCMultilineTextInputDelegat
         }
     }
 
-    static func create(post: ExercisePost?, createAnswerClosure: CreateAnswerClosureType? = nil) -> CreateAnswerViewController {
+    static func create(post: ExercisePost?,
+                      createAnswerClosure: CreateAnswerClosureType? = nil) -> CreateAnswerViewController {
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+        // swiftlint:disable force_cast line_length
         let createAnswerViewController = storyboard.instantiateViewController(withIdentifier: K.Storyboard.CreateAnswerViewControllerId) as! CreateAnswerViewController
 
         createAnswerViewController.post = post
@@ -67,11 +66,14 @@ class CreateAnswerViewController: UIViewController, MDCMultilineTextInputDelegat
 
     required init?(coder aDecoder: NSCoder) {
         self.answerTextInputController = MDCTextInputControllerOutlinedTextArea(textInput: self.answerTextField)
-        MDCTextFieldTypographyThemer.applyTypographyScheme(ApplicationScheme.instance.containerScheme.typographyScheme, to: self.answerTextInputController)
-        self.answerTextInputController.activeColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
-        self.answerTextInputController.normalColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
-        self.answerTextInputController.floatingPlaceholderNormalColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
-        self.answerTextInputController.floatingPlaceholderActiveColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
+        let colorScheme = ApplicationScheme.instance.containerScheme.colorScheme
+        MDCTextFieldTypographyThemer.applyTypographyScheme(ApplicationScheme.instance.containerScheme.typographyScheme,
+                                                           to: self.answerTextInputController)
+        self.answerTextInputController.activeColor = colorScheme.onBackgroundColor
+        self.answerTextInputController.normalColor = colorScheme.onBackgroundColor
+        self.answerTextInputController.floatingPlaceholderNormalColor = colorScheme.onBackgroundColor
+        self.answerTextInputController.floatingPlaceholderActiveColor = colorScheme.onBackgroundColor
+        self.answerTextInputController.inlinePlaceholderColor = colorScheme.primaryColorVariant
         self.answerTextInputController.placeholderText = "Answer"
         super.init(coder: aDecoder)
     }
@@ -81,6 +83,9 @@ class CreateAnswerViewController: UIViewController, MDCMultilineTextInputDelegat
         initTextViewPlaceholders()
         initAppBar()
         applyConstraints()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
         firstly {
             Services.userService.getCurrentUser()
         }.done { user in
@@ -107,7 +112,8 @@ extension CreateAnswerViewController {
     }
 
     func multilineTextField(_ multilineTextField: MDCMultilineTextInput, didChangeContentSize size: CGSize) {
-        appBarViewController.navigationBar.rightBarButtonItem?.isEnabled = multilineTextField.text?.count ?? 0 > 0
+        //swiftlint:disable line_length
+        appBarViewController.navigationBar.rightBarButtonItem?.isEnabled = multilineTextField.text?.trim().count ?? 0 > 0
     }
 
     func createAnswer() -> Promise<Answer> {
@@ -115,7 +121,7 @@ extension CreateAnswerViewController {
                             dateCreated: Date(),
                             dateModified: Date(),
                             exercisePostId: self.post!.id,
-                            text: self.answerTextField.text!
+                            text: self.answerTextField.text!.trim()
                             )
 
         return Promise { promise in
@@ -134,17 +140,24 @@ extension CreateAnswerViewController {
         appBarViewController.didMove(toParent: self)
         appBarViewController.inferTopSafeAreaInsetFromViewController = true
         appBarViewController.navigationBar.title = "Add Answer"
-        appBarViewController.navigationBar.leftBarButtonItem = UIBarButtonItem(image: Images.close, style: .done, target: self, action: #selector(self.cancelAnswer(_:)))
-        appBarViewController.navigationBar.rightBarButtonItem = UIBarButtonItem(image: Images.plus, style: .done, target: self, action: #selector(self.submitAction(_:)))
+        appBarViewController.navigationBar.leftBarButtonItem = UIBarButtonItem(image: Images.close,
+                                                                               style: .done,
+                                                                               target: self,
+                                                                               action: #selector(self.cancelAnswer(_:)))
+        appBarViewController.navigationBar.rightBarButtonItem = UIBarButtonItem(image: Images.plus,
+                                                                                style: .done,
+                                                                                target: self,
+                                                                                action: #selector(self.submitAction(_:)))
         appBarViewController.navigationBar.rightBarButtonItem?.isEnabled = false
         view.addSubview(appBarViewController.view)
     }
 
     func applyConstraints() {
         NSLayoutConstraint.activate([
-            answerTextField.topAnchor.constraint(equalTo: appBarViewController.navigationBar.bottomAnchor, constant: 16),
+            answerTextField.topAnchor.constraint(equalTo: appBarViewController.navigationBar.bottomAnchor,
+                                                 constant: 16),
             answerTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-            answerTextField.bottomAnchor.constraint(equalTo: answerTextField.inputAccessoryView?.topAnchor ?? self.view.safeAreaLayoutGuide.bottomAnchor, constant: 0),
+            answerTextField.bottomAnchor.constraint(equalTo: answerTextField.inputAccessoryView?.topAnchor ?? self.view.safeAreaLayoutGuide.bottomAnchor),
             view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: answerTextField.trailingAnchor, constant: 10)
         ])
     }

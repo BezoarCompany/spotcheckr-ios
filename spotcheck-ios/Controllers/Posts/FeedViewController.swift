@@ -174,7 +174,7 @@ class FeedViewController: UIViewController {
     }
 }
 
-// MARK: -Collection View Data Source
+// MARK: - Collection View Data Source
 extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
