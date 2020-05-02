@@ -140,13 +140,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		5679531123D806C00077BA08 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 567952F223D806BE0077BA08 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 567952F923D806BE0077BA08;
-			remoteInfo = "spotcheck-ios";
-		};
 		BAA7D1B3245DA27B00766BC9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 567952F223D806BE0077BA08 /* Project object */;
@@ -180,7 +173,6 @@
 		5679530623D806C00077BA08 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5679530923D806C00077BA08 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5679530B23D806C00077BA08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5679531023D806C00077BA08 /* spotcheck-iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "spotcheck-iosTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5679533323D972F00077BA08 /* AuthOptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthOptionsViewController.swift; sourceTree = "<group>"; };
 		5679533723D980E40077BA08 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		5679533923D988910077BA08 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -326,13 +318,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5679530D23D806C00077BA08 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		BAA7D1AB245DA27B00766BC9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -414,7 +399,6 @@
 			isa = PBXGroup;
 			children = (
 				567952FA23D806BE0077BA08 /* Spotcheckr.app */,
-				5679531023D806C00077BA08 /* spotcheck-iosTests.xctest */,
 				BAA7D1AE245DA27B00766BC9 /* spotcheckr-uitests.xctest */,
 			);
 			name = Products;
@@ -836,24 +820,6 @@
 			productReference = 567952FA23D806BE0077BA08 /* Spotcheckr.app */;
 			productType = "com.apple.product-type.application";
 		};
-		5679530F23D806C00077BA08 /* spotcheck-iosTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 5679532723D806C00077BA08 /* Build configuration list for PBXNativeTarget "spotcheck-iosTests" */;
-			buildPhases = (
-				5679530C23D806C00077BA08 /* Sources */,
-				5679530D23D806C00077BA08 /* Frameworks */,
-				5679530E23D806C00077BA08 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				5679531223D806C00077BA08 /* PBXTargetDependency */,
-			);
-			name = "spotcheck-iosTests";
-			productName = "spotcheck-iosTests";
-			productReference = 5679531023D806C00077BA08 /* spotcheck-iosTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		BAA7D1AD245DA27B00766BC9 /* spotcheckr-uitests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = BAA7D1B5245DA27B00766BC9 /* Build configuration list for PBXNativeTarget "spotcheckr-uitests" */;
@@ -888,10 +854,6 @@
 					567952F923D806BE0077BA08 = {
 						CreatedOnToolsVersion = 11.2.1;
 					};
-					5679530F23D806C00077BA08 = {
-						CreatedOnToolsVersion = 11.2.1;
-						TestTargetID = 567952F923D806BE0077BA08;
-					};
 					BAA7D1AD245DA27B00766BC9 = {
 						CreatedOnToolsVersion = 11.4.1;
 						TestTargetID = 567952F923D806BE0077BA08;
@@ -912,7 +874,6 @@
 			projectRoot = "";
 			targets = (
 				567952F923D806BE0077BA08 /* spotcheck-ios */,
-				5679530F23D806C00077BA08 /* spotcheck-iosTests */,
 				BAA7D1AD245DA27B00766BC9 /* spotcheckr-uitests */,
 			);
 		};
@@ -963,13 +924,6 @@
 				BAEDB8E524592CBD00FC5587 /* Preferences.plist in Resources */,
 				BA49213823E6289B00A74A73 /* Roboto-Light.ttf in Resources */,
 				BABA11162457E74100FB9D1D /* .swiftlint.yml in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5679530E23D806C00077BA08 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1209,13 +1163,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5679530C23D806C00077BA08 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		BAA7D1AA245DA27B00766BC9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1227,11 +1174,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		5679531223D806C00077BA08 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 567952F923D806BE0077BA08 /* spotcheck-ios */;
-			targetProxy = 5679531123D806C00077BA08 /* PBXContainerItemProxy */;
-		};
 		BAA7D1B4245DA27B00766BC9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 567952F923D806BE0077BA08 /* spotcheck-ios */;
@@ -1345,28 +1287,6 @@
 			};
 			name = "Debug (Development)";
 		};
-		567860C92441B22D00451C3A /* Debug (Development) */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8U9GL9JNNQ;
-				INFOPLIST_FILE = "spotcheck-iosTests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.spotcheck.spotcheck-iosTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/spotcheck-ios.app/spotcheck-ios";
-			};
-			name = "Debug (Development)";
-		};
 		567860CB2441B24700451C3A /* Debug (Staging) */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 567860D92441C62400451C3A /* Staging.xcconfig */;
@@ -1453,28 +1373,6 @@
 			};
 			name = "Debug (Staging)";
 		};
-		567860CD2441B24700451C3A /* Debug (Staging) */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8U9GL9JNNQ;
-				INFOPLIST_FILE = "spotcheck-iosTests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.spotcheck.spotcheck-iosTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/spotcheck-ios.app/spotcheck-ios";
-			};
-			name = "Debug (Staging)";
-		};
 		567860CF2441B27700451C3A /* Release (Development) */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 567860D82441C58100451C3A /* Development.xcconfig */;
@@ -1554,28 +1452,6 @@
 			};
 			name = "Release (Development)";
 		};
-		567860D12441B27700451C3A /* Release (Development) */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8U9GL9JNNQ;
-				INFOPLIST_FILE = "spotcheck-iosTests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.spotcheck.spotcheck-iosTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/spotcheck-ios.app/spotcheck-ios";
-			};
-			name = "Release (Development)";
-		};
 		567860D32441B28500451C3A /* Release (Staging) */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 567860D92441C62400451C3A /* Staging.xcconfig */;
@@ -1652,28 +1528,6 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = "Release (Staging)";
-		};
-		567860D52441B28500451C3A /* Release (Staging) */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8U9GL9JNNQ;
-				INFOPLIST_FILE = "spotcheck-iosTests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.spotcheck.spotcheck-iosTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/spotcheck-ios.app/spotcheck-ios";
 			};
 			name = "Release (Staging)";
 		};
@@ -1839,50 +1693,6 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = "Release (Production)";
-		};
-		5679532823D806C00077BA08 /* Debug (Production) */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8U9GL9JNNQ;
-				INFOPLIST_FILE = "spotcheck-iosTests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.spotcheck.spotcheck-iosTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/spotcheck-ios.app/spotcheck-ios";
-			};
-			name = "Debug (Production)";
-		};
-		5679532923D806C00077BA08 /* Release (Production) */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8U9GL9JNNQ;
-				INFOPLIST_FILE = "spotcheck-iosTests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.spotcheck.spotcheck-iosTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/spotcheck-ios.app/spotcheck-ios";
 			};
 			name = "Release (Production)";
 		};
@@ -2325,19 +2135,6 @@
 				5679532623D806C00077BA08 /* Release (Production) */,
 				567860D02441B27700451C3A /* Release (Development) */,
 				567860D42441B28500451C3A /* Release (Staging) */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Release (Production)";
-		};
-		5679532723D806C00077BA08 /* Build configuration list for PBXNativeTarget "spotcheck-iosTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				5679532823D806C00077BA08 /* Debug (Production) */,
-				567860C92441B22D00451C3A /* Debug (Development) */,
-				567860CD2441B24700451C3A /* Debug (Staging) */,
-				5679532923D806C00077BA08 /* Release (Production) */,
-				567860D12441B27700451C3A /* Release (Development) */,
-				567860D52441B28500451C3A /* Release (Staging) */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release (Production)";
