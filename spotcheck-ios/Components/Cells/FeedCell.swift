@@ -56,7 +56,7 @@ class FeedCell: CardCollectionCell {
 
         headerLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
         headerLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-
+        headerLabel.widthAnchor.constraint(equalToConstant: 312),
         subHeadLabel.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 8),
         subHeadLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
 
