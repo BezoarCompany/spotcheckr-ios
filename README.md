@@ -4,7 +4,7 @@
 **Table of Contents**
 
 **Running**
-- [Xcode](doc/runninng.md)
+- [Xcode](docs/running.md)
   
 **Forms**
 - [Validation](docs/form_validation.md)
