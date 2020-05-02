@@ -21,9 +21,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("########################## PROD-Release ##########################")
         #endif
 
+        initPlistManager()
+        initFirebase()
         styleNavigationBar()
         styleTabBar()
-        configureServices()
         setStartingViewController()
         DropDown.startListeningToKeyboard()
         IQKeyboardManager.shared.enable = true
@@ -45,11 +46,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UITabBar.appearance().tintColor = ApplicationScheme.instance.containerScheme.colorScheme.onPrimaryColor
     }
 
-    private func configureServices() {
+    private func initFirebase() {
+        var isPerformanceCollectionEnabled = Services.analyticsService.getPerformanceMonitoringEnabled()
+        var isAnalyticsEnabled = Services.analyticsService.getCollectionEnabled()
+        #if DEVEL
+            isAnalyticsEnabled = false
+            isPerformanceCollectionEnabled = false
+        #endif
+        do {
+            try Services.analyticsService.setCollectionEnabled(isAnalyticsEnabled)
+            try Services.analyticsService.setPerformanceMonitoringEnabled(isPerformanceCollectionEnabled)
+        } catch {
+
+        }
         FirebaseApp.configure()
+    }
+
+    private func initPlistManager() {
         let plistFiles = ["Preferences"]
         #if DEVEL
-            Analytics.setAnalyticsCollectionEnabled(false)
             SwiftyPlistManager.shared.start(plistNames: plistFiles, logging: true)
         #else
             SwiftyPlistManager.shared.start(plistNames: plistFiles, logging: false)

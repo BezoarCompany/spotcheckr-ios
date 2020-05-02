@@ -17,7 +17,10 @@ class CollectionView: UIView {
     }
 
     let contentView: UICollectionView = {
-        let view = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumInteritemSpacing = 8.0
+
+        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = ApplicationScheme.instance.containerScheme.colorScheme.backgroundColor
         return view

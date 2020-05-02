@@ -53,7 +53,7 @@ class SettingsCell: UICollectionViewCell {
             baseCell.leadingAnchor.constraint(equalTo: leadingAnchor),
             baseCell.topAnchor.constraint(equalTo: topAnchor),
             bottomAnchor.constraint(equalTo: baseCell.bottomAnchor),
-            baseCell.trailingAnchor.constraint(equalTo: switchView.leadingAnchor),
+            switchView.leadingAnchor.constraint(equalTo: baseCell.trailingAnchor),
             switchView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
             bottomAnchor.constraint(equalTo: switchView.bottomAnchor),
             trailingAnchor.constraint(equalTo: switchView.trailingAnchor, constant: 16)
