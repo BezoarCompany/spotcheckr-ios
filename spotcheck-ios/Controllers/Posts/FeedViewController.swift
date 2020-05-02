@@ -280,14 +280,27 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
     // MARK: - When Cell selected or clicked
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let post = posts[indexPath.row]
+        
+        if indexPath.section == 1 {
+            return
+        }
+        
+        let cell = collectionView.cellForItem(at: indexPath) as! FeedCell
+        
+        if let player = cell.avPlayerViewController.player {
+            player.pause()
+            //player.play() TODO: figure how to programatticaly do full screen mode
+            //let window = UIWindow(frame: UIScreen.main.bounds)
+            //window.rootViewController?.present(cell.avPlayerViewController, animated: true)
+            //window.makeKeyAndVisible()
+        }
+        
         viewPostHandler(exercisePost: post)
     }
 
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
 
         if indexPath.section == 1 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LoadingCell.cellId,
-            for: indexPath) as! LoadingCell
             return
         }
 
