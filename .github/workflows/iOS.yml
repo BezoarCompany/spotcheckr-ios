@@ -52,7 +52,7 @@ jobs:
           -workspace spotcheck-ios.xcworkspace
           -allowProvisioningUpdates
       - name: (Staging-QA) Archive
-        if: github.event_name == 'pull_request' && contains(github.base_ref, 'master')
+        if: github.event_name == 'pull_request' && contains(github.base_ref, 'release')
         run: >
           xcodebuild archive
           -scheme "spotcheck-ios (Staging)"
@@ -60,15 +60,17 @@ jobs:
           -allowProvisioningUpdates
           -destination "generic/platform=iOS"
           -archivePath ./Archives/spotcheckr-ios.xcarchive
+          -derivedDataPath ./DD
+
       - name: (Staging-QA) Create *.ipa artifact
-        if: github.event_name == 'pull_request' && contains(github.base_ref, 'master')
+        if: github.event_name == 'pull_request' && contains(github.base_ref, 'release')
         run: >
           xcodebuild -exportArchive
           -archivePath ./Archives/spotcheckr-ios.xcarchive
           -exportOptionsPlist ./spotcheck-ios/Configs/ExportOptionsFirebase.plist
           -exportPath ./dist/spotcheckr-ios.ipa
       - name: (Staging-QA) Upload to Firebase App Distribution
-        if: github.event_name == 'pull_request' && contains(github.base_ref, 'master')
+        if: github.event_name == 'pull_request' && contains(github.base_ref, 'release')
         run: >
           firebase appdistribution:distribute "./dist/spotcheckr-ios.ipa/spotcheck-ios (Staging).ipa"
           --app ${{ secrets.FIREBASE_APP_ID }}
@@ -82,6 +84,8 @@ jobs:
           -allowProvisioningUpdates
           -destination "generic/platform=iOS"
           -archivePath ./Archives/spotcheckr-ios.xcarchive
+          -derivedDataPath ./DD
+
       - name: (PROD) Create *.ipa artifact
         if: github.event_name == 'pull_request' && contains(github.base_ref, 'release')
         run: >
