@@ -375,6 +375,9 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="MainNavBar"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <segue destination="OlI-rI-fzN" kind="relationship" relationship="viewControllers" id="ZVp-47-uXk"/>
                         <segue destination="Y1l-d4-YEY" kind="relationship" relationship="viewControllers" id="kpO-I3-R4j"/>

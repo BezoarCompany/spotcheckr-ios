@@ -115,16 +115,20 @@ extension SettingsViewController: UICollectionViewDataSource,
         switch indexPath.row {
         case CellLocations.privacy.rawValue:
             cell.titleLabel.text = "Privacy"
+            cell.accessibilityIdentifier = "PrivacyCell"
             cell.leadingImageView.image = Images.lock
             cell.trailingImageView.image = Images.chevronRight
         case CellLocations.logout.rawValue:
             cell.titleLabel.text = "Log out"
+            cell.accessibilityIdentifier = "LogOutCell"
             cell.leadingImageView.image = Images.logOut
         case CellLocations.rate.rawValue:
             cell.titleLabel.text = "Rate Spotcheckr"
+            cell.accessibilityIdentifier = "RateCell"
             cell.leadingImageView.image = Images.heart
         case CellLocations.clearCache.rawValue:
             cell.titleLabel.text = "Clear cache"
+            cell.accessibilityIdentifier = "ClearCacheCell"
             cell.leadingImageView.image = Images.database
         case CellLocations.buildVersion.rawValue:
             cell.titleLabel.translatesAutoresizingMaskIntoConstraints = false

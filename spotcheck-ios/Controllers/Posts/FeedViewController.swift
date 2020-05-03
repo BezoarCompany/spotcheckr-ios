@@ -40,6 +40,7 @@ class FeedViewController: UIViewController {
     let feedView: UICollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.accessibilityIdentifier = "FeedView"
         return view
     }()
     var layout: UICollectionViewFlowLayout = {
