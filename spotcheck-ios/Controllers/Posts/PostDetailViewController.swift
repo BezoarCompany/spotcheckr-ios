@@ -279,7 +279,7 @@ extension PostDetailViewController: UICollectionViewDataSource,
                             }
 
                             self.navigationController?.popViewController(animated: true)
-                        }.catch { err in
+                        }.catch { _ in
                             self.activityIndicator.stopAnimating()
 
                             self.navigationController?.popViewController(animated: true)

@@ -37,13 +37,13 @@ class TabBarController: UITabBarController, MDCBottomNavigationBarDelegate {
         bottomNav.applyPrimaryTheme(withScheme: ApplicationScheme.instance.containerScheme)
         let feedTabBarItem = UITabBarItem(title: "Feed", image: Images.list, tag: 0)
         feedTabBarItem.accessibilityIdentifier = "Feed"
-        
+
         let profileTabBarItem = UITabBarItem(title: "Profile", image: Images.user, tag: 1)
         profileTabBarItem.accessibilityIdentifier = "Profile"
-        
+
         let settingsTabBarItem = UITabBarItem(title: "Settings", image: Images.settings, tag: 2)
         settingsTabBarItem.accessibilityIdentifier = "Settings"
-        
+
         bottomNav.items = [
             feedTabBarItem,
             profileTabBarItem,
