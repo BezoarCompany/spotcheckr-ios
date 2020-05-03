@@ -85,7 +85,7 @@ jobs:
           -destination "generic/platform=iOS"
           -archivePath ./Archives/spotcheckr-ios.xcarchive
 	  -derivedDataPath ./DD
-	  
+
       - name: (PROD) Create *.ipa artifact
         if: github.event_name == 'pull_request' && contains(github.base_ref, 'release')
         run: >
