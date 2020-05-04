@@ -102,7 +102,7 @@ extension CreatePostViewController: UINavigationControllerDelegate, UIImagePicke
             assetImageGenerator.appliesPreferredTrackTransform = true //set to right side up, no image rotation 90 deg clockwise
 
             var time = asset.duration
-            time.value = min(time.value, 2)
+            time.value = max(time.value/2, 1)
 
             do {
                 let imageRef = try assetImageGenerator.copyCGImage(at: time, actualTime: nil)
