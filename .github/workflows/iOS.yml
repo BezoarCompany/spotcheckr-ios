@@ -2,7 +2,7 @@ name: iOS
 
 on:
   push:
-    branches: [master, develop]
+    branches: [master, develop, feature/uitests]
   pull_request:
     branches: [master, develop, release-*]
 
@@ -16,15 +16,17 @@ jobs:
           xcodebuild clean -workspace spotcheck-ios.xcworkspace -scheme "spotcheck-ios (Staging)"
           xcodebuild clean -workspace spotcheck-ios.xcworkspace -scheme "spotcheck-ios (Development)"
           xcodebuild clean -workspace spotcheck-ios.xcworkspace -scheme "spotcheck-ios"
-  lint:
-    needs: clean
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Lint
-        uses: norio-nomura/action-swiftlint@3.1.0
-        env: # Only lint files in PR.
-          DIFF_BASE: ${{ github.base_ref }}
+          xcodebuild clean -workspace spotcheck-ios.xcworkspace -scheme "spotcheckr-uitests"
+
+  # lint:
+  #   needs: clean
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - name: Lint
+  #       uses: norio-nomura/action-swiftlint@3.1.0
+  #       env: # Only lint files in PR.
+  #         DIFF_BASE: ${{ github.base_ref }}
 
   build:
     needs: lint
@@ -32,67 +34,79 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Github Event
-        run: echo "Event - ${{ github.event_name }}"
-      - name: Branch name
-        run: echo "Branch - githubRef ${{ github.ref }}"
+      # - name: Github Event
+      #   run: echo "Event - ${{ github.event_name }}"
+      # - name: Branch name
+      #   run: echo "Branch - githubRef ${{ github.ref }}"
 
-      - name: Pull Request
-        if: github.event_name == 'pull_request'
-        run: echo "Pull Request to ${{ github.base_ref }} from ${{ github.head_ref }}"
+      # - name: Pull Request
+      #   if: github.event_name == 'pull_request'
+      #   run: echo "Pull Request to ${{ github.base_ref }} from ${{ github.head_ref }}"
 
       - name: Install Dependencies
         run: pod install
 
-      - name: (Development) Build environment
-        if: github.event_name == 'pull_request' &&  !contains( github.base_ref, 'master')  && !contains(github.base_ref, 'release')
-        run: >
-          xcodebuild build
-          -scheme "spotcheck-ios (Development)"
-          -workspace spotcheck-ios.xcworkspace
-          -allowProvisioningUpdates
-      - name: (Staging-QA) Archive
-        if: github.event_name == 'pull_request' && contains(github.base_ref, 'release')
-        run: >
-          xcodebuild archive
-          -scheme "spotcheck-ios (Staging)"
-          -workspace spotcheck-ios.xcworkspace
-          -allowProvisioningUpdates
-          -destination "generic/platform=iOS"
-          -archivePath ./Archives/spotcheckr-ios.xcarchive
-          -derivedDataPath ./DD
+      # - name: (Development) Build environment
+      #   if: github.event_name == 'pull_request' &&  !contains( github.base_ref, 'master')  && !contains(github.base_ref, 'release')
+      #   run: >
+      #     xcodebuild build
+      #     -scheme "spotcheck-ios (Development)"
+      #     -workspace spotcheck-ios.xcworkspace
+      #     -allowProvisioningUpdates
 
-      - name: (Staging-QA) Create *.ipa artifact
-        if: github.event_name == 'pull_request' && contains(github.base_ref, 'release')
+      - name: (Staging-QA) Build for Testing
+        #if: github.event_name == 'pull_request' && contains(github.base_ref, 'release')
         run: >
-          xcodebuild -exportArchive
-          -archivePath ./Archives/spotcheckr-ios.xcarchive
-          -exportOptionsPlist ./spotcheck-ios/Configs/ExportOptionsFirebase.plist
-          -exportPath ./dist/spotcheckr-ios.ipa
-      - name: (Staging-QA) Upload to Firebase App Distribution
-        if: github.event_name == 'pull_request' && contains(github.base_ref, 'release')
-        run: >
-          firebase appdistribution:distribute "./dist/spotcheckr-ios.ipa/spotcheck-ios (Staging).ipa"
-          --app ${{ secrets.FIREBASE_APP_ID }}
-          --token ${{ secrets.FIREBASE_TOKEN }}
-      - name: (PROD) Archive
-        if: github.event_name == 'pull_request' && contains(github.base_ref, 'release')
-        run: >
-          xcodebuild archive
-          -scheme "spotcheck-ios"
+          xcodebuild 
+          -scheme "spotcheckr-uitests"
           -workspace spotcheck-ios.xcworkspace
-          -allowProvisioningUpdates
-          -destination "generic/platform=iOS"
-          -archivePath ./Archives/spotcheckr-ios.xcarchive
           -derivedDataPath ./DD
-
-      - name: (PROD) Create *.ipa artifact
-        if: github.event_name == 'pull_request' && contains(github.base_ref, 'release')
+          -allowProvisioningUpdates
+          -sdk iphoneos build-for-testing
+      - name: Zip UITests
         run: >
-          xcodebuild -exportArchive
-          -archivePath ./Archives/spotcheckr-ios.xcarchive
-          -exportOptionsPlist ./spotcheck-ios/Configs/exportOptions.plist
-          -exportPath ./dist/spotcheckr-ios.ipa
-      - name: (PROD) Send to App Store
-        if: github.event_name == 'pull_request' && contains(github.base_ref, 'release')
-        run: echo TODO this
+          cd ./DD/Build/Products
+          ls
+      # - name: (Staging-QA) Archive
+      #   if: github.event_name == 'pull_request' && contains(github.base_ref, 'release')
+      #   run: >
+      #     xcodebuild archive
+      #     -scheme "spotcheck-ios (Staging)"
+      #     -workspace spotcheck-ios.xcworkspace
+      #     -allowProvisioningUpdates
+      #     -destination "generic/platform=iOS"
+      #     -archivePath ./Archives/spotcheckr-ios.xcarchive
+      #     -derivedDataPath ./DD
+      # - name: (Staging-QA) Create *.ipa artifact
+      #   if: github.event_name == 'pull_request' && contains(github.base_ref, 'release')
+      #   run: >
+      #     xcodebuild -exportArchive
+      #     -archivePath ./Archives/spotcheckr-ios.xcarchive
+      #     -exportOptionsPlist ./spotcheck-ios/Configs/ExportOptionsFirebase.plist
+      #     -exportPath ./dist/spotcheckr-ios.ipa
+      # - name: (Staging-QA) Upload to Firebase App Distribution
+      #   if: github.event_name == 'pull_request' && contains(github.base_ref, 'release')
+      #   run: >
+      #     firebase appdistribution:distribute "./dist/spotcheckr-ios.ipa/spotcheck-ios (Staging).ipa"
+      #     --app ${{ secrets.FIREBASE_APP_ID }}
+      #     --token ${{ secrets.FIREBASE_TOKEN }}
+      # - name: (PROD) Archive
+      #   if: github.event_name == 'pull_request' && contains(github.base_ref, 'release')
+      #   run: >
+      #     xcodebuild archive
+      #     -scheme "spotcheck-ios"
+      #     -workspace spotcheck-ios.xcworkspace
+      #     -allowProvisioningUpdates
+      #     -destination "generic/platform=iOS"
+      #     -archivePath ./Archives/spotcheckr-ios.xcarchive
+      #     -derivedDataPath ./DD
+      # - name: (PROD) Create *.ipa artifact
+      #   if: github.event_name == 'pull_request' && contains(github.base_ref, 'release')
+      #   run: >
+      #     xcodebuild -exportArchive
+      #     -archivePath ./Archives/spotcheckr-ios.xcarchive
+      #     -exportOptionsPlist ./spotcheck-ios/Configs/exportOptions.plist
+      #     -exportPath ./dist/spotcheckr-ios.ipa
+      # - name: (PROD) Send to App Store
+      #   if: github.event_name == 'pull_request' && contains(github.base_ref, 'release')
+      #   run: echo TODO this
