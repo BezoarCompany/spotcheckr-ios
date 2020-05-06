@@ -99,7 +99,7 @@ jobs:
 
       - name: Extract Artifact
         run: >
-          unzip spotcheck-ios (Staging).ipa.zip -d ./dist/spotcheck-ios.ipa
+          unzip "spotcheck-ios (Staging).ipa.zip" -d ./dist/spotcheck-ios.ipa
 
       - name: (Staging-QA) Upload to Firebase App Distribution
         run: >
