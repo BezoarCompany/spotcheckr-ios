@@ -4,5 +4,5 @@ struct BodyMeasurement {
 }
 
 enum MeasurementSystem {
-    case Imperial, Metric
+    case imperial, metric
 }

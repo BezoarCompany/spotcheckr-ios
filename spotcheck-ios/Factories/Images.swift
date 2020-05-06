@@ -6,13 +6,13 @@ class Images {
         svgLayer.fillColor = .none
         svgLayer.strokeColor = UIColor.white.cgColor
     }
-    
+
     static let chevronDown = UIImageView(SVGNamed: "chevron-down") {
         (svgLayer) in
         svgLayer.fillColor = .none
         svgLayer.strokeColor = UIColor.white.cgColor
     }
-    
+
     static let list = SVGKImage(named: "list").uiImage.withRenderingMode(.alwaysTemplate)
     static let user = SVGKImage(named: "user").uiImage.withRenderingMode(.alwaysTemplate)
     static let moreHorizontal = SVGKImage(named: "more-horizontal").uiImage.withRenderingMode(.alwaysTemplate)
@@ -31,4 +31,9 @@ class Images {
     static let profilePicturePlaceholder = UIImage(systemName: "person.crop.circle")?.withTintColor(.white)
     static let save = SVGKImage(named: "save").uiImage.withRenderingMode(.alwaysTemplate)
     static let send = SVGKImage(named: "send").uiImage.withRenderingMode(.alwaysTemplate)
+    static let close = SVGKImage(named: "x").uiImage.withRenderingMode(.alwaysTemplate)
+    static let heart = SVGKImage(named: "heart").uiImage.withRenderingMode(.alwaysTemplate)
+    static let database = SVGKImage(named: "database").uiImage.withRenderingMode(.alwaysTemplate)
+    static let chevronRight = SVGKImage(named: "chevron-right").uiImage.withRenderingMode(.alwaysTemplate)
+    static let lock = SVGKImage(named: "lock").uiImage.withRenderingMode(.alwaysTemplate)
 }

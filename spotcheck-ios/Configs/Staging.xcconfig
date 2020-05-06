@@ -1,0 +1,10 @@
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+// These override the Project level build settings
+// Can specify different
+#include "Pods/Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios.debug (staging).xcconfig"
+#include "Pods/Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios.release (staging).xcconfig"
+
+// App Settings
+APP_NAME = $(PRODUCT_NAME) (Staging)
+APP_BUNDLE_ID = $(PRODUCT_BUNDLE_IDENTIFIER) //.staging - set for when we need separate bundle IDs for a separate firestore/web service

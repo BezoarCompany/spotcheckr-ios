@@ -5,6 +5,11 @@ target 'spotcheck-ios' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
+  # Dev Dependencies
+  pod 'SwiftLint'
+  
+  pod 'SwiftyPlistManager'
+  
   # Dynamic Collection Views and Diff tool
   pod 'IGListKit', '~> 4.0.0'
   
@@ -13,7 +18,6 @@ target 'spotcheck-ios' do
   pod 'PromiseKit'
   pod 'SwiftSVG', '~> 2.2.1'
   pod 'SVGKit', :git => 'https://github.com/SVGKit/SVGKit.git', :branch => '3.x'
-  pod 'Fakery'
   
   # UI Elements
   pod 'DropDown', '2.3.13'
@@ -30,6 +34,7 @@ target 'spotcheck-ios' do
   pod 'FirebaseFirestoreSwift'
   pod 'Firebase/Analytics'
   pod 'Firebase/Crashlytics'
+  pod 'Firebase/Performance'
   
   # Material design dependencies
   pod 'MaterialComponents/TextFields'

@@ -1,5 +1,4 @@
 struct Metrics {
-    var views = 0
     var upvotes = 0
     var downvotes = 0
     var totalVotes: Int {
@@ -7,11 +6,11 @@ struct Metrics {
             return upvotes - downvotes
         }
     }
-    var currentVoteDirection: VoteDirection = .Neutral
+    var currentVoteDirection: VoteDirection = .neutral
 }
 
 enum VoteDirection: Int {
-    case Down = -1, Neutral, Up
+    case down = -1, neutral, up
     func get() -> Int {
         return self.rawValue
     }
