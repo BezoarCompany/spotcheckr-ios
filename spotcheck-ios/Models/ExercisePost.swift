@@ -38,28 +38,3 @@ class ExercisePost {
     }
 
 }
-
-extension ExercisePost: ListDiffable {
-
-    //To define the unique identifying attribute of a post
-    func diffIdentifier() -> NSObjectProtocol {
-        return id!.value as NSObjectProtocol
-    }
-
-    //equality operator
-    func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
-        guard let post = (object as? ExercisePost) else {
-            return false
-        }
-
-        if self.dateModified != post.dateModified
-            || self.title != post.title
-            || self.description != post.description
-            || self.imagePath != post.imagePath
-            || self.videoPath != post.videoPath {
-            return false
-        }
-
-        return true
-    }
-}

@@ -48,6 +48,7 @@
 		BA1FB52923F11ADA00E091B1 /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1FB52823F11ADA00E091B1 /* Answer.swift */; };
 		BA1FB52B23F11B5100E091B1 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1FB52A23F11B5100E091B1 /* Media.swift */; };
 		BA1FB52F23F11C3400E091B1 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1FB52E23F11C3400E091B1 /* Exercise.swift */; };
+		BA35490F246355270033C818 /* PostDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA35490E246355270033C818 /* PostDetailViewModel.swift */; };
 		BA3DDD2B241CB1F600692100 /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3DDD2A241CB1F600692100 /* AnalyticsService.swift */; };
 		BA3DDD2D241CB20F00692100 /* AnalyticsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3DDD2C241CB20F00692100 /* AnalyticsProtocol.swift */; };
 		BA3DDD2F241CB33600692100 /* AnalyticsEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3DDD2E241CB33600692100 /* AnalyticsEvent.swift */; };
@@ -136,6 +137,8 @@
 		BAEE4ACC2426E122005C2023 /* arrow-down.svg in Resources */ = {isa = PBXBuildFile; fileRef = BAEE4ACB2426E122005C2023 /* arrow-down.svg */; };
 		BAEE4ACE24274D49005C2023 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEE4ACD24274D49005C2023 /* Colors.swift */; };
 		BAEE4AD024276DFD005C2023 /* account-circle.svg in Resources */ = {isa = PBXBuildFile; fileRef = BAEE4ACF24276DFD005C2023 /* account-circle.svg */; };
+		BAF39FFC246273D600CAB73A /* ExercisePostDetailSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF39FFB246273D600CAB73A /* ExercisePostDetailSectionController.swift */; };
+		BAF3A0032463429500CAB73A /* ExercisePostDetailSectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF3A0022463429500CAB73A /* ExercisePostDetailSectionModel.swift */; };
 		CE177860E3221E038C0D83EF /* Pods_spotcheck_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BAF183FCC50189FBD943ED6 /* Pods_spotcheck_ios.framework */; };
 /* End PBXBuildFile section */
 
@@ -216,6 +219,7 @@
 		BA1FB52823F11ADA00E091B1 /* Answer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
 		BA1FB52A23F11B5100E091B1 /* Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
 		BA1FB52E23F11C3400E091B1 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
+		BA35490E246355270033C818 /* PostDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewModel.swift; sourceTree = "<group>"; };
 		BA3DDD2A241CB1F600692100 /* AnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
 		BA3DDD2C241CB20F00692100 /* AnalyticsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsProtocol.swift; sourceTree = "<group>"; };
 		BA3DDD2E241CB33600692100 /* AnalyticsEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsEvent.swift; sourceTree = "<group>"; };
@@ -304,6 +308,8 @@
 		BAEE4ACB2426E122005C2023 /* arrow-down.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "arrow-down.svg"; sourceTree = "<group>"; };
 		BAEE4ACD24274D49005C2023 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		BAEE4ACF24276DFD005C2023 /* account-circle.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "account-circle.svg"; sourceTree = "<group>"; };
+		BAF39FFB246273D600CAB73A /* ExercisePostDetailSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisePostDetailSectionController.swift; sourceTree = "<group>"; };
+		BAF3A0022463429500CAB73A /* ExercisePostDetailSectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisePostDetailSectionModel.swift; sourceTree = "<group>"; };
 		C2C22F40222FA4280C7585DB /* Pods-spotcheck-ios.release (staging).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios.release (staging).xcconfig"; path = "Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios.release (staging).xcconfig"; sourceTree = "<group>"; };
 		E91885A464EB0E3BB2719776 /* Pods-spotcheck-ios.release (development).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios.release (development).xcconfig"; path = "Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios.release (development).xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -502,6 +508,13 @@
 				1BAF183FCC50189FBD943ED6 /* Pods_spotcheck_ios.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BA35490D246354DA0033C818 /* Answers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Answers;
 			sourceTree = "<group>";
 		};
 		BA49212C23E6285600A74A73 /* Fonts */ = {
@@ -770,9 +783,9 @@
 		BABAA3E42439D8F300FF5C33 /* Posts */ = {
 			isa = PBXGroup;
 			children = (
+				BAF39FF92462738A00CAB73A /* Post Detail */,
 				5679533723D980E40077BA08 /* FeedViewController.swift */,
 				BA54CD7A2436D60C00A944BC /* ReportViewController.swift */,
-				569794D023F11DBC00994B71 /* PostDetailViewController.swift */,
 				5645AFE723F51C0700B64D0B /* CreatePostViewController.swift */,
 				56B8D0392447114800E3C157 /* CreatePostViewController+media.swift */,
 				5686D2E124051C0300E09868 /* CreatePostViewController+helpers.swift */,
@@ -799,6 +812,34 @@
 				BAEDB8E02459114200FC5587 /* Switch.swift */,
 			);
 			path = Switches;
+			sourceTree = "<group>";
+		};
+		BAF39FF92462738A00CAB73A /* Post Detail */ = {
+			isa = PBXGroup;
+			children = (
+				BAF39FFA2462739800CAB73A /* Section Controllers */,
+				569794D023F11DBC00994B71 /* PostDetailViewController.swift */,
+				BA35490E246355270033C818 /* PostDetailViewModel.swift */,
+			);
+			path = "Post Detail";
+			sourceTree = "<group>";
+		};
+		BAF39FFA2462739800CAB73A /* Section Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				BA35490D246354DA0033C818 /* Answers */,
+				BAF3A0012463428200CAB73A /* Exercise Post Detail */,
+			);
+			path = "Section Controllers";
+			sourceTree = "<group>";
+		};
+		BAF3A0012463428200CAB73A /* Exercise Post Detail */ = {
+			isa = PBXGroup;
+			children = (
+				BAF39FFB246273D600CAB73A /* ExercisePostDetailSectionController.swift */,
+				BAF3A0022463429500CAB73A /* ExercisePostDetailSectionModel.swift */,
+			);
+			path = "Exercise Post Detail";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1067,6 +1108,7 @@
 				BA733D5524038E4100395895 /* ErrorExtensions.swift in Sources */,
 				5644F61D2406435C00A103EF /* StorageService.swift in Sources */,
 				BA65CBB3244C43D100901812 /* UIColorExtensions.swift in Sources */,
+				BAF3A0032463429500CAB73A /* ExercisePostDetailSectionModel.swift in Sources */,
 				BACCABEA241E162100BEC89E /* UIElementFactory.swift in Sources */,
 				BA1FB51723F104B400E091B1 /* PhoneNumber.swift in Sources */,
 				BA95E2612452970E00118DE0 /* SystemService.swift in Sources */,
@@ -1095,6 +1137,7 @@
 				BA1FB51F23F1071000E091B1 /* Organization.swift in Sources */,
 				BA3DDD2D241CB20F00692100 /* AnalyticsProtocol.swift in Sources */,
 				BA1FB52323F116AE00E091B1 /* ExercisePostProtocol.swift in Sources */,
+				BAF39FFC246273D600CAB73A /* ExercisePostDetailSectionController.swift in Sources */,
 				BA65CBBD244D0CF000901812 /* GenericID.swift in Sources */,
 				567E9A3223E93EA2004C1B2E /* Constants.swift in Sources */,
 				BA828EFB241CE2F10012509D /* FirebaseToDomainMapper.swift in Sources */,
@@ -1106,6 +1149,7 @@
 				BAEDB8DC245909B200FC5587 /* SettingsCell.swift in Sources */,
 				BA95E25F2452961B00118DE0 /* SemanticVersion.swift in Sources */,
 				5686D2E224051C0300E09868 /* CreatePostViewController+helpers.swift in Sources */,
+				BA35490F246355270033C818 /* PostDetailViewModel.swift in Sources */,
 				BA54CD712436528300A944BC /* ReportingProtocol.swift in Sources */,
 				5653ABCF24161921001E9CF0 /* MemoryCache.swift in Sources */,
 				BABAA3EA2443454D00FF5C33 /* VotingControls.swift in Sources */,
