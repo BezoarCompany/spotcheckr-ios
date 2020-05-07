@@ -505,7 +505,7 @@ class ExercisePostService: ExercisePostProtocol {
     //so it'll look like an nil intermediate node
     func deleteAnswer(_ answer: Answer) -> Promise<Void> {
         return Promise { promise in
-            let exercisePostRef = Firestore.firestore().document("/\(CollectionConstants.postsCollection)/\(answer.exercisePostId!)")
+            let exercisePostRef = Firestore.firestore().document("/\(CollectionConstants.postsCollection)/\(answer.exercisePostId!.value)")
             Firestore.firestore().runTransaction({ (transaction, _) -> Any? in
                 do {
                     let exercisePostDoc = try transaction.getDocument(exercisePostRef).data()
