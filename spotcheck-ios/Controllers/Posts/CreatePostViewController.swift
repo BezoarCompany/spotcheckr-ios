@@ -45,6 +45,12 @@ class CreatePostViewController: UIViewController {
         self.activityIndicator.startAnimating()
         self.validator.validate(self)
     }
+    
+    var circularActivityIndicatorWithBG: CircularActivityIndicatorWithBackground = {
+        let cai = CircularActivityIndicatorWithBackground()
+        cai.translatesAutoresizingMaskIntoConstraints = false
+        return cai
+    }()
 
     var photoImageView: UIImageView = {
         let piv = UIImageView()
@@ -98,6 +104,7 @@ class CreatePostViewController: UIViewController {
         indicator.sizeToFit()
         indicator.indicatorMode = .indeterminate
         indicator.cycleColors = [ApplicationScheme.instance.containerScheme.colorScheme.secondaryColor]
+        indicator.translatesAutoresizingMaskIntoConstraints = false
         return indicator
     }()
 
@@ -157,6 +164,7 @@ class CreatePostViewController: UIViewController {
         }.done { user in
             self.currentUser = user
         }
+        
 
         initAppBar()
         initDropDowns()
@@ -170,6 +178,17 @@ class CreatePostViewController: UIViewController {
         initButtonBarItems()
         setupValidation()
 
+        self.view.addSubview(circularActivityIndicatorWithBG)
+        self.circularActivityIndicatorWithBG.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        self.circularActivityIndicatorWithBG.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+        circularActivityIndicatorWithBG.indicator.startAnimating()
+        
+//        self.view.addSubview(activityIndicator)
+//
+//        self.activityIndicator.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+//        self.activityIndicator.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+//        self.activityIndicator.startAnimating()
+        
         if updatePostMode == .edit {
             subjectTextField.text = self.exercisePost?.title
             bodyTextField.text = self.exercisePost?.description

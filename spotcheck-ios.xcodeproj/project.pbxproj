@@ -28,6 +28,7 @@
 		5681771823FDCE7500CA7AB5 /* DetailedPostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5681771623FDCE7500CA7AB5 /* DetailedPostCell.xib */; };
 		5686D2E224051C0300E09868 /* CreatePostViewController+helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5686D2E124051C0300E09868 /* CreatePostViewController+helpers.swift */; };
 		568721A323E7EF1100E15F87 /* ApplicationScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568721A223E7EF1100E15F87 /* ApplicationScheme.swift */; };
+		569745DD24640B7A009633F5 /* CircularActivityIndicatorWithBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569745DC24640B7A009633F5 /* CircularActivityIndicatorWithBackground.swift */; };
 		569794D123F11DBC00994B71 /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569794D023F11DBC00994B71 /* PostDetailViewController.swift */; };
 		569A8B99244588EC007CCDD3 /* exportOptions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 569A8B98244588EC007CCDD3 /* exportOptions.plist */; };
 		56B8D03A2447114800E3C157 /* CreatePostViewController+media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B8D0392447114800E3C157 /* CreatePostViewController+media.swift */; };
@@ -191,6 +192,7 @@
 		5681771623FDCE7500CA7AB5 /* DetailedPostCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailedPostCell.xib; sourceTree = "<group>"; };
 		5686D2E124051C0300E09868 /* CreatePostViewController+helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CreatePostViewController+helpers.swift"; sourceTree = "<group>"; };
 		568721A223E7EF1100E15F87 /* ApplicationScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationScheme.swift; sourceTree = "<group>"; };
+		569745DC24640B7A009633F5 /* CircularActivityIndicatorWithBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularActivityIndicatorWithBackground.swift; sourceTree = "<group>"; };
 		569794D023F11DBC00994B71 /* PostDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
 		569A8B98244588EC007CCDD3 /* exportOptions.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = exportOptions.plist; sourceTree = "<group>"; };
 		56B8D0392447114800E3C157 /* CreatePostViewController+media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CreatePostViewController+media.swift"; sourceTree = "<group>"; };
@@ -678,6 +680,7 @@
 			isa = PBXGroup;
 			children = (
 				BA95E2542452023800118DE0 /* CircularActivityIndicator.swift */,
+				569745DC24640B7A009633F5 /* CircularActivityIndicatorWithBackground.swift */,
 			);
 			path = "Activity Indicators";
 			sourceTree = "<group>";
@@ -1156,6 +1159,7 @@
 				BA59197623F92DBA00E8B900 /* Services.swift in Sources */,
 				568721A323E7EF1100E15F87 /* ApplicationScheme.swift in Sources */,
 				BA1FB52B23F11B5100E091B1 /* Media.swift in Sources */,
+				569745DD24640B7A009633F5 /* CircularActivityIndicatorWithBackground.swift in Sources */,
 				BA5DE7102419ADAC002C98E6 /* Images.swift in Sources */,
 				BA65CBB5244C6BF700901812 /* FlatButton.swift in Sources */,
 				5679533823D980E40077BA08 /* FeedViewController.swift in Sources */,
