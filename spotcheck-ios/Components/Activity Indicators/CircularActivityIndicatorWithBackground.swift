@@ -3,6 +3,7 @@ import UIKit
 
 class CircularActivityIndicatorWithBackground: UIView {
     let boxSize = 80
+    let lightGrey = UIColor(red: 0.898, green: 0.898, blue: 0.898, alpha: 0.67)
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -10,9 +11,10 @@ class CircularActivityIndicatorWithBackground: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        self.isHidden = true
         self.heightAnchor.constraint(equalToConstant: CGFloat(boxSize)).isActive = true
         self.widthAnchor.constraint(equalToConstant: CGFloat(boxSize)).isActive = true
-        self.backgroundColor = UIColor(red: 0.898, green: 0.898, blue: 0.898, alpha: 0.67)
+        self.backgroundColor = lightGrey
         self.layer.cornerRadius = 10
         
         addSubview(indicator)
@@ -32,4 +34,14 @@ class CircularActivityIndicatorWithBackground: UIView {
         indicator.translatesAutoresizingMaskIntoConstraints = false
         return indicator
     }()
+    
+    func startAnimating() {
+        indicator.startAnimating()
+        self.isHidden = false
+    }
+    
+    func stopAnimating() {
+        indicator.stopAnimating()
+        self.isHidden = true
+    }
 }

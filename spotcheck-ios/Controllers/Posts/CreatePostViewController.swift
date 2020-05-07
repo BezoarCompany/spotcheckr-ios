@@ -42,7 +42,7 @@ class CreatePostViewController: UIViewController {
 
     @objc func submitPost(_ sender: Any) {
         appBarViewController.navigationBar.rightBarButtonItem?.customView = self.activityIndicator
-        self.activityIndicator.startAnimating()
+        self.circularActivityIndicatorWithBG.startAnimating()
         self.validator.validate(self)
     }
     
@@ -181,13 +181,6 @@ class CreatePostViewController: UIViewController {
         self.view.addSubview(circularActivityIndicatorWithBG)
         self.circularActivityIndicatorWithBG.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
         self.circularActivityIndicatorWithBG.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
-        circularActivityIndicatorWithBG.indicator.startAnimating()
-        
-//        self.view.addSubview(activityIndicator)
-//
-//        self.activityIndicator.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-//        self.activityIndicator.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
-//        self.activityIndicator.startAnimating()
         
         if updatePostMode == .edit {
             subjectTextField.text = self.exercisePost?.title
