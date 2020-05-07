@@ -97,14 +97,6 @@ jobs:
           name: "spotcheck-ios (Staging).ipa"
           path: "./dist/"
 
-      - name: Log Dist Directory Contents
-        run: >
-          ls
-          
-      - name: Extract Artifact
-        run: >
-          unzip "./dist/spotcheck-ios (Staging).ipa.zip" -d ./dist/spotcheck-ios.ipa
-
       - name: (Staging-QA) Upload to Firebase App Distribution
         run: >
           firebase appdistribution:distribute "./dist/spotcheck-ios.ipa/spotcheck-ios (Staging).ipa"
