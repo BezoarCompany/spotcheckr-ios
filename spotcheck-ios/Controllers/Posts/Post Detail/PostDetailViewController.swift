@@ -8,63 +8,16 @@ import MaterialComponents
 import IGListKit
 
 class PostDetailViewController: UIViewController {
-    // MARK: - UI Elements
-    let collectionView: CollectionView = {
-        let view = CollectionView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-
-    var layout: UICollectionViewFlowLayout = {
-        let layout = UICollectionViewFlowLayout()
-        return layout
-    }()
-    let cellHeightEstimate = 185.0
-    let cellEstimatedSize: CGSize = {
-        let width = UIScreen.main.bounds.size.width
-        let height = CGFloat(185)
-        let size = CGSize(width: width, height: height)
-        return size
-    }()
-    var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
-    let appBarViewController = UIElementFactory.getAppBar()
-    let answerReplyButton: MDCFloatingButton = {
-        let button = MDCFloatingButton()
-        button.applySecondaryTheme(withScheme: ApplicationScheme.instance.containerScheme)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(Images.reply, for: .normal)
-        return button
-    }()
-    let defaultAnswersSectionLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.isHidden = true
-        label.numberOfLines = 2
-        label.textAlignment = .center
-        label.text = "There are no answers, be the first to help!"
-        label.textColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
-        label.font = ApplicationScheme.instance.containerScheme.typographyScheme.body1
-        return label
-    }()
-    let answersLoadingIndicator: CircularActivityIndicator = {
-        let indicator = CircularActivityIndicator()
-        indicator.translatesAutoresizingMaskIntoConstraints = false
-        return indicator
-    }()
     lazy var adapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 0)
     }()
 
-    // MARK: - Properties
-    var postId: ExercisePostID?
-    var postDetailSectionModel: ExercisePostDetailSectionModel?
     var postDetailViewModel = PostDetailViewModel()
-    var answers = [Answer]()
-    var answersCount = 0
+    
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        self.addChild(appBarViewController)
+        self.addChild(postDetailViewModel.appBarViewController)
     }
 
     static func create(postId: ExercisePostID?) -> PostDetailViewController {
@@ -72,7 +25,7 @@ class PostDetailViewController: UIViewController {
         //swiftlint:disable force_cast line_length
         let postDetailViewController = storyboard.instantiateViewController(withIdentifier: K.Storyboard.PostDetailViewControllerId) as! PostDetailViewController
 
-        postDetailViewController.postId = postId
+        postDetailViewController.postDetailViewModel.postId = postId
 
         return postDetailViewController
     }
@@ -83,8 +36,8 @@ class PostDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(appBarViewController.view)
-        appBarViewController.didMove(toParent: self)
+        view.addSubview(postDetailViewModel.appBarViewController.view)
+       postDetailViewModel.appBarViewController.didMove(toParent: self)
 
         initCollectionView()
         initAnswersSection()
@@ -95,19 +48,16 @@ class PostDetailViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         firstly {
-            when(fulfilled: Services.exercisePostService.getPost(withId: postId!),
+            when(fulfilled: Services.exercisePostService.getPost(withId: postDetailViewModel.postId!),
                  Services.userService.getCurrentUser())
         }.done { post, user in
             self.postDetailViewModel.post = post
             self.postDetailViewModel.currentUser = user
-            self.postDetailViewModel.viewController = self
-            self.appBarViewController.navigationBar.title = "\(self.postDetailViewModel.post?.answersCount ?? 0) Answers"
-            self.appBarViewController.navigationBar.leadingBarButtonItem = UIBarButtonItem(image: Images.back,
+            self.postDetailViewModel.appBarViewController.navigationBar.title = "\(self.postDetailViewModel.post?.answersCount ?? 0) Answers"
+            self.postDetailViewModel.appBarViewController.navigationBar.leadingBarButtonItem = UIBarButtonItem(image: Images.back,
                                                                                            style: .done,
                                                                                            target: self,
                                                                                            action: #selector(self.backOnClick(sender:)))
-            self.postDetailSectionModel = ExercisePostDetailSectionModel()
-            self.postDetailSectionModel?.screen = self.postDetailViewModel
             self.adapter.performUpdates(animated: true)
         }.catch { _ in
             self.dismiss(animated: true) {
@@ -152,21 +102,6 @@ class PostDetailViewController: UIViewController {
 
 extension PostDetailViewController {
 
-//    func numberOfSections(in collectionView: UICollectionView) -> Int {
-//        return 2
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        switch section {
-//        case CollectionViewSections.postInformation.rawValue:
-//            return 1
-//        case CollectionViewSections.answers.rawValue:
-//            return answers.count
-//        default:
-//            return 0
-//        }
-//    }
-//
 //    func collectionView(_ collectionView: UICollectionView,
 //                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 //
@@ -242,38 +177,43 @@ extension PostDetailViewController {
 //    }
 
     func initCollectionView() {
-        view.addSubview(collectionView)
-        layout.estimatedItemSize = cellEstimatedSize
+        view.addSubview(postDetailViewModel.collectionView)
+        postDetailViewModel.layout.estimatedItemSize = postDetailViewModel.cellEstimatedSize
 //        layout.minimumLineSpacing = 0
 //        layout.minimumInteritemSpacing = 0
-        collectionView.contentView.collectionViewLayout = layout
+        postDetailViewModel.collectionView.contentView.collectionViewLayout = postDetailViewModel.layout
 //        collectionView.contentView.delegate = self
 //        collectionView.contentView.dataSource = self
 //        collectionView.contentView.register(FeedCell.self, forCellWithReuseIdentifier: K.Storyboard.feedCellId)
 //        collectionView.contentView.register(AnswerCell.self, forCellWithReuseIdentifier: K.Storyboard.answerCellId)
-        collectionView.contentView.backgroundColor = ApplicationScheme.instance.containerScheme.colorScheme.backgroundColor
-        adapter.collectionView = collectionView.contentView
+        postDetailViewModel.collectionView.contentView.backgroundColor = ApplicationScheme.instance.containerScheme.colorScheme.backgroundColor
+        adapter.collectionView = postDetailViewModel.collectionView.contentView
         adapter.dataSource = self
     }
 
     func initAnswersSection() {
-        collectionView.contentView.addSubview(defaultAnswersSectionLabel)
-        collectionView.contentView.addSubview(answersLoadingIndicator)
+        postDetailViewModel.collectionView.contentView.addSubview(postDetailViewModel.defaultAnswersSectionLabel)
+        postDetailViewModel.collectionView.contentView.addSubview(postDetailViewModel.answersLoadingIndicator)
     }
 }
 
 extension PostDetailViewController: ListAdapterDataSource {
 
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
-        if let postDetailViewModel = postDetailSectionModel {
-            return [postDetailViewModel]
+        if let post = postDetailViewModel.post {
+            return [post]
         }
 
         return []
     }
 
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
-        return ExercisePostDetailSectionController()
+        if object is ExercisePost {
+            return ExercisePostDetailSectionController()
+        }
+        else {
+            return AnswersSectionController()
+        }
     }
 
     func emptyView(for listAdapter: ListAdapter) -> UIView? {
@@ -283,32 +223,32 @@ extension PostDetailViewController: ListAdapterDataSource {
 
 extension PostDetailViewController {
     func initActivityIndicator() {
-        activityIndicator.center = self.view.center
-        activityIndicator.hidesWhenStopped = true
-        activityIndicator.style = UIActivityIndicatorView.Style.whiteLarge
-        collectionView.contentView.addSubview(activityIndicator)
+        postDetailViewModel.activityIndicator.center = self.view.center
+        postDetailViewModel.activityIndicator.hidesWhenStopped = true
+        postDetailViewModel.activityIndicator.style = UIActivityIndicatorView.Style.whiteLarge
+        postDetailViewModel.collectionView.contentView.addSubview(postDetailViewModel.activityIndicator)
     }
 
     func initReplyButton() {
-        answerReplyButton.addTarget(self, action: #selector(addAnswerButton(_:)), for: .touchUpInside)
-        collectionView.contentView.addSubview(answerReplyButton)
+        postDetailViewModel.answerReplyButton.addTarget(self, action: #selector(addAnswerButton(_:)), for: .touchUpInside)
+        postDetailViewModel.collectionView.contentView.addSubview(postDetailViewModel.answerReplyButton)
     }
 
     func applyConstraints() {
         let safeArea = view.safeAreaLayoutGuide
 
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: appBarViewController.view.bottomAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: 0),
-            collectionView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -55),
-            answerReplyButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20),
-            answerReplyButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -75),
-            answerReplyButton.widthAnchor.constraint(equalToConstant: 64),
-            answerReplyButton.heightAnchor.constraint(equalToConstant: 64),
-            answerReplyButton.leadingAnchor.constraint(equalTo: defaultAnswersSectionLabel.trailingAnchor, constant: 16),
-            defaultAnswersSectionLabel.widthAnchor.constraint(equalToConstant: 200),
-            answersLoadingIndicator.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor)
+            postDetailViewModel.collectionView.topAnchor.constraint(equalTo: postDetailViewModel.appBarViewController.view.bottomAnchor),
+            postDetailViewModel.collectionView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            postDetailViewModel.collectionView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: 0),
+            postDetailViewModel.collectionView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -55),
+            postDetailViewModel.answerReplyButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20),
+            postDetailViewModel.answerReplyButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -75),
+            postDetailViewModel.answerReplyButton.widthAnchor.constraint(equalToConstant: 64),
+            postDetailViewModel.answerReplyButton.heightAnchor.constraint(equalToConstant: 64),
+            postDetailViewModel.answerReplyButton.leadingAnchor.constraint(equalTo: postDetailViewModel.defaultAnswersSectionLabel.trailingAnchor, constant: 16),
+            postDetailViewModel.defaultAnswersSectionLabel.widthAnchor.constraint(equalToConstant: 200),
+            postDetailViewModel.answersLoadingIndicator.centerXAnchor.constraint(equalTo: postDetailViewModel.collectionView.centerXAnchor)
         ])
     }
 }

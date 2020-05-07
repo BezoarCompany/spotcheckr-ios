@@ -1,5 +1,4 @@
 import Foundation
-import IGListKit
 
 class ExercisePost {
     var id: ExercisePostID?
@@ -36,5 +35,4 @@ class ExercisePost {
         self.imagePath = imagePath
         self.videoPath = imagePath
     }
-
 }
