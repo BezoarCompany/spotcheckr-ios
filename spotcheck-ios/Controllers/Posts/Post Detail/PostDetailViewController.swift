@@ -13,7 +13,6 @@ class PostDetailViewController: UIViewController {
     }()
 
     var postDetailViewModel = PostDetailViewModel()
-    
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -37,7 +36,7 @@ class PostDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(postDetailViewModel.appBarViewController.view)
-       postDetailViewModel.appBarViewController.didMove(toParent: self)
+        postDetailViewModel.appBarViewController.didMove(toParent: self)
 
         initCollectionView()
         initAnswersSection()
@@ -65,27 +64,27 @@ class PostDetailViewController: UIViewController {
                 MDCSnackbarManager.show(self.postDetailViewModel.snackbarMessage)
             }
         }.finally {
-//            let answersCenter = (self.collectionView.contentView.frame.height - self.postCellHeight) / 2
-//            self.answersLoadingIndicator.topAnchor.constraint(equalTo: self.postYAxisAnchor,
-//                                                              constant: answersCenter).isActive = true
-//            self.answersLoadingIndicator.indicator.startAnimating()
-//            firstly {
-//                Services.exercisePostService.getAnswers(forPostWithId: self.post!.id!)
-//            }.done { answers in
-//                self.answers = answers
-//                self.answersCount = self.answers.count
-//                self.collectionView.contentView.reloadData()
-//            }.catch { (_) in
-//                self.snackbarMessage.text = "There was an error loading answers."
-//                MDCSnackbarManager.show(self.snackbarMessage)
-//            }.finally {
-//                self.answersLoadingIndicator.indicator.stopAnimating()
-//                if self.answersCount == 0 {
-//                    self.defaultAnswersSectionLabel.topAnchor.constraint(equalTo: self.postYAxisAnchor,
-//                                                                         constant: answersCenter).isActive = true
-//                    self.defaultAnswersSectionLabel.isHidden = false
-//                }
-            //}
+            let answersCenter = (self.postDetailViewModel.collectionView.contentView.frame.height - self.postDetailViewModel.postCellHeight) / 2
+            self.postDetailViewModel.answersLoadingIndicator.topAnchor.constraint(equalTo: self.postDetailViewModel.postYAxisAnchor,
+                                                              constant: answersCenter).isActive = true
+            self.postDetailViewModel.answersLoadingIndicator.indicator.startAnimating()
+            firstly {
+                Services.exercisePostService.getAnswers(forPostWithId: self.postDetailViewModel.post!.id!)
+            }.done { answers in
+                self.postDetailViewModel.answers = answers
+                self.postDetailViewModel.answersCount = self.postDetailViewModel.answers.count
+                self.adapter.performUpdates(animated: true)
+            }.catch { (_) in
+                self.postDetailViewModel.snackbarMessage.text = "There was an error loading answers."
+                MDCSnackbarManager.show(self.postDetailViewModel.snackbarMessage)
+            }.finally {
+                self.postDetailViewModel.answersLoadingIndicator.indicator.stopAnimating()
+                if self.postDetailViewModel.answersCount == 0 {
+                    self.postDetailViewModel.defaultAnswersSectionLabel.topAnchor.constraint(equalTo: self.postDetailViewModel.postYAxisAnchor,
+                                                                         constant: answersCenter).isActive = true
+                    self.postDetailViewModel.defaultAnswersSectionLabel.isHidden = false
+                }
+            }
         }
     }
 
@@ -101,91 +100,10 @@ class PostDetailViewController: UIViewController {
 }
 
 extension PostDetailViewController {
-
-//    func collectionView(_ collectionView: UICollectionView,
-//                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//
-//        let answer = answers[indexPath.row]
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: K.Storyboard.answerCellId,
-//                                                      for: indexPath) as! AnswerCell
-//        let isLastCell = { (indexPath: IndexPath) in return indexPath.row == self.answersCount - 1 }
-//        if isLastCell(indexPath) {
-//            cell.hideDivider()
-//        }
-//        cell.setShadowElevation(ShadowElevation(rawValue: 10), for: .normal)
-//        cell.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
-//        cell.isInteractable = false
-//        cell.headerLabel.text = answer.createdBy?.information?.name
-//        cell.headerLabel.numberOfLines = 0
-//        cell.subHeadLabel.text = "\(answer.dateCreated?.toDisplayFormat() ?? "")"
-//        cell.votingControls.upvoteOnTap = { (voteDirection: VoteDirection) in
-//            Services.exercisePostService.voteContent(contentId: answer.id!,
-//                                                     userId: (self.currentUser?.id!)!,
-//                                                              direction: voteDirection)
-//        }
-//        cell.votingControls.downvoteOnTap = { (voteDirection: VoteDirection) in
-//            Services.exercisePostService.voteContent(contentId: answer.id!,
-//                                                     userId: (self.currentUser?.id!)!,
-//                                                              direction: voteDirection)
-//        }
-//        cell.supportingTextLabel.text = answer.text
-//        cell.supportingTextLabel.numberOfLines = 0
-//        cell.votingControls.votingUserId = currentUser?.id
-//        cell.votingControls.voteDirection = answer.metrics?.currentVoteDirection
-//        cell.votingControls.renderVotingControls()
-//        cell.cornerRadius = 0
-//        cell.overflowMenuTap = {
-//            let actionSheet = UIElementFactory.getActionSheet()
-//            let reportAction = MDCActionSheetAction(title: "Report", image: Images.flag, handler: { (_) in
-//                let reportViewController = ReportViewController.create(contentId: answer.id)
-//                self.present(reportViewController, animated: true)
-//            })
-//
-//            if answer.createdBy?.id == self.currentUser?.id {
-//                let deleteCommentAction = MDCActionSheetAction(title: "Delete", image: Images.trash) { (_) in
-//                    let deleteCommentAlertController = MDCAlertController(title: nil,
-//                                                                          message: "Are you sure you want to delete your comment?")
-//
-//                let deleteCommentAlertAction = MDCAlertAction(title: "Delete", emphasis: .high, handler: { (_) in
-//                        //TODO: Show activity indicator
-//                        firstly {
-//                            Services.exercisePostService.deleteAnswer(answer)
-//                        }.done {
-//                            //TODO: Stop animating activity indicator
-//                            self.answersCount -= 1
-//                            self.appBarViewController.navigationBar.title = "\(self.answersCount) Answers"
-//                            collectionView.deleteItems(at: [indexPath])
-//                        }.catch { _ in
-//                            self.snackbarMessage.text = "Unable to delete answer."
-//                            MDCSnackbarManager.show(self.snackbarMessage)
-//                        }
-//                    })
-//
-//                deleteCommentAlertController.addAction(deleteCommentAlertAction)
-//                deleteCommentAlertController.addAction(MDCAlertAction(title: "Cancel", emphasis: .high, handler: nil))
-//                deleteCommentAlertController.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
-//                self.present(deleteCommentAlertController, animated: true)
-//                }
-//                actionSheet.addAction(deleteCommentAction)
-//            }
-//
-//            actionSheet.addAction(reportAction)
-//            self.present(actionSheet, animated: true)
-//        }
-//        cell.setOverflowMenuLocation(location: .top)
-//        return cell
-//    }
-
     func initCollectionView() {
         view.addSubview(postDetailViewModel.collectionView)
         postDetailViewModel.layout.estimatedItemSize = postDetailViewModel.cellEstimatedSize
-//        layout.minimumLineSpacing = 0
-//        layout.minimumInteritemSpacing = 0
         postDetailViewModel.collectionView.contentView.collectionViewLayout = postDetailViewModel.layout
-//        collectionView.contentView.delegate = self
-//        collectionView.contentView.dataSource = self
-//        collectionView.contentView.register(FeedCell.self, forCellWithReuseIdentifier: K.Storyboard.feedCellId)
-//        collectionView.contentView.register(AnswerCell.self, forCellWithReuseIdentifier: K.Storyboard.answerCellId)
         postDetailViewModel.collectionView.contentView.backgroundColor = ApplicationScheme.instance.containerScheme.colorScheme.backgroundColor
         adapter.collectionView = postDetailViewModel.collectionView.contentView
         adapter.dataSource = self
@@ -198,10 +116,9 @@ extension PostDetailViewController {
 }
 
 extension PostDetailViewController: ListAdapterDataSource {
-
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
         if let post = postDetailViewModel.post {
-            return [post]
+            return [post] + postDetailViewModel.answers
         }
 
         return []
