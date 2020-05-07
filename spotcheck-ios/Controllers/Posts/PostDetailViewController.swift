@@ -41,7 +41,12 @@ class PostDetailViewController: UIViewController {
     var post: ExercisePost?
     var postId: ExercisePostID?
 
-    var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
+    var circularActivityIndicatorWithBG: CircularActivityIndicatorWithBackground = {
+        let cai = CircularActivityIndicatorWithBackground()
+        cai.translatesAutoresizingMaskIntoConstraints = false
+        return cai
+    }()
+    
     let appBarViewController = UIElementFactory.getAppBar()
     let answerReplyButton: MDCFloatingButton = {
         let button = MDCFloatingButton()
@@ -267,12 +272,12 @@ extension PostDetailViewController: UICollectionViewDataSource,
                                                                    message: "This will delete all included answers too.")
 
                     let deleteAlertAction = MDCAlertAction(title: "Delete", emphasis: .high, handler: { (_) in
-                        self.activityIndicator.startAnimating()
+                        self.circularActivityIndicatorWithBG.startAnimating()
 
                         firstly {
                             Services.exercisePostService.deletePost(self.post!)
                         }.done {
-                            self.activityIndicator.stopAnimating()
+                            self.circularActivityIndicatorWithBG.stopAnimating()
 
                             if let updateTableView = self.diffedPostsDataClosure {
                                 updateTableView(.delete, self.post!)
@@ -280,7 +285,7 @@ extension PostDetailViewController: UICollectionViewDataSource,
 
                             self.navigationController?.popViewController(animated: true)
                         }.catch { _ in
-                            self.activityIndicator.stopAnimating()
+                            self.circularActivityIndicatorWithBG.stopAnimating()
 
                             self.navigationController?.popViewController(animated: true)
                             self.snackbarMessage.text = "Error deleting post."
@@ -402,11 +407,11 @@ extension PostDetailViewController: UICollectionViewDataSource,
 }
 
 extension PostDetailViewController {
-    func initActivityIndicator() {
-        activityIndicator.center = self.view.center
-        activityIndicator.hidesWhenStopped = true
-        activityIndicator.style = UIActivityIndicatorView.Style.whiteLarge
-        collectionView.addSubview(activityIndicator)
+    func initActivityIndicator() {        
+        collectionView.addSubview(circularActivityIndicatorWithBG)
+        self.circularActivityIndicatorWithBG.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor).isActive = true
+        self.circularActivityIndicatorWithBG.centerYAnchor.constraint(equalTo: collectionView.centerYAnchor).isActive = true
+        
     }
 
     func initReplyButton() {

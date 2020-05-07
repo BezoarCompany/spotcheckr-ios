@@ -188,7 +188,7 @@ extension CreatePostViewController {
             print(err)
             //TODO: Error updating post from no image to new image
         }.finally {
-            self.activityIndicator.stopAnimating()
+            self.circularActivityIndicatorWithBG.startAnimating()
         }
     }
 

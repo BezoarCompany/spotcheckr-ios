@@ -41,7 +41,6 @@ class CreatePostViewController: UIViewController {
     let validator = Validator()
 
     @objc func submitPost(_ sender: Any) {
-        appBarViewController.navigationBar.rightBarButtonItem?.customView = self.activityIndicator
         self.circularActivityIndicatorWithBG.startAnimating()
         self.validator.validate(self)
     }
@@ -98,15 +97,6 @@ class CreatePostViewController: UIViewController {
         return message
     }()
     let cancelAlertController = MDCAlertController(title: "Cancel?", message: "You will lose all entered data.")
-
-    var activityIndicator: MDCActivityIndicator = {
-        let indicator = MDCActivityIndicator()
-        indicator.sizeToFit()
-        indicator.indicatorMode = .indeterminate
-        indicator.cycleColors = [ApplicationScheme.instance.containerScheme.colorScheme.secondaryColor]
-        indicator.translatesAutoresizingMaskIntoConstraints = false
-        return indicator
-    }()
 
     static func create(updatePostMode: DiffType = .add, post: ExercisePost? = nil,
                        createdPostDetailClosure: CreatedPostDetailClosureType? = nil,
