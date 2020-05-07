@@ -200,7 +200,7 @@ class CreatePostViewController: UIViewController {
         appBarViewController.inferTopSafeAreaInsetFromViewController = true
         appBarViewController.navigationBar.title = "Add Question"
         appBarViewController.navigationBar.leftBarButtonItem = UIBarButtonItem(image: Images.close, style: .done, target: self, action: #selector(self.cancelButtonOnClick(sender:)))
-        appBarViewController.navigationBar.rightBarButtonItem = UIBarButtonItem(image: Images.plus, style: .done, target: self, action: #selector(self.submitPost(_:)))
+        appBarViewController.navigationBar.rightBarButtonItem = UIBarButtonItem(title: "Create", style: .done, target: self, action: #selector(self.submitPost(_:)))
         view.addSubview(appBarViewController.view)
     }
 }
