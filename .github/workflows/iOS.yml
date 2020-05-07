@@ -97,6 +97,10 @@ jobs:
           name: "spotcheck-ios (Staging).ipa"
           path: "./dist/"
 
+      - name: Log Dist Directory Contents
+        run: >
+          ls
+          
       - name: Extract Artifact
         run: >
           unzip "./dist/spotcheck-ios (Staging).ipa.zip" -d ./dist/spotcheck-ios.ipa
