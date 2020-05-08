@@ -248,7 +248,6 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
 
     @objc private func onSignUpClick(sender: Any) {
         let signUpViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: K.Storyboard.SignUpViewControllerId)
-        signUpViewController.modalPresentationStyle = .fullScreen
         self.present(signUpViewController, animated: true)
     }
 
@@ -343,7 +342,6 @@ class AuthOptionsViewController: UIViewController, UITextFieldDelegate, Validati
 
     @objc func onForgotPasswordClick() {
         let forgotPasswordController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: K.Storyboard.ForgotPasswordControllerId)
-        forgotPasswordController.modalPresentationStyle = .fullScreen
         self.present(forgotPasswordController, animated: true)
     }
 
