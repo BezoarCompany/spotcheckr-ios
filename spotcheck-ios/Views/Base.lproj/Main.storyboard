@@ -12,7 +12,7 @@
             <objects>
                 <viewController storyboardIdentifier="AuthOptionsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" userLabel="Auth Options" customClass="AuthOptionsViewController" customModule="Spotcheckr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.12941294910000001" green="0.12940964099999999" blue="0.1294118762" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -54,7 +54,7 @@
                                 <rect key="frame" x="40" y="523" width="334" height="30"/>
                                 <state key="normal" title="Have an Account? Log In"/>
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="showDetail" id="g51-UX-Uzl"/>
+                                    <segue destination="BYZ-38-t0r" kind="presentation" modalPresentationStyle="fullScreen" id="g51-UX-Uzl"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -434,7 +434,7 @@
                                 <rect key="frame" x="45" y="522" width="324" height="30"/>
                                 <state key="normal" title="Cancel"/>
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="bdw-On-ZHl"/>
+                                    <segue destination="BYZ-38-t0r" kind="presentation" modalPresentationStyle="fullScreen" id="bdw-On-ZHl"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -489,7 +489,7 @@
                                 <rect key="frame" x="45" y="215.5" width="324" height="30"/>
                                 <state key="normal" title="Return to login"/>
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="eMl-qN-UBV"/>
+                                    <segue destination="BYZ-38-t0r" kind="presentation" modalPresentationStyle="fullScreen" id="eMl-qN-UBV"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -519,7 +519,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="g51-UX-Uzl"/>
+        <segue reference="eMl-qN-UBV"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="list.dash" catalog="system" width="128" height="85"/>
