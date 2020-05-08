@@ -342,11 +342,13 @@ class ExercisePostService: ExercisePostProtocol {
                     if let error = error {
                         return promise.reject(error)
                     }
+                    let updatedVoteDirection = VoteDirection(rawValue: updatedStatus)
 
                     if contentId is ExercisePostID {
-                        CacheManager.userCache[userId]?.exercisePostVotes[contentId as! ExercisePostID] = VoteDirection(rawValue: updatedStatus)
+                        CacheManager.exercisePostCache[contentId as! ExercisePostID]?.metrics.currentVoteDirection = updatedVoteDirection!
+                        CacheManager.userCache[userId]?.exercisePostVotes[contentId as! ExercisePostID] = updatedVoteDirection
                     } else {
-                        CacheManager.userCache[userId]?.answerVotes[contentId as! AnswerID] = VoteDirection(rawValue: updatedStatus)
+                        CacheManager.userCache[userId]?.answerVotes[contentId as! AnswerID] = updatedVoteDirection
                     }
 
                     promise.fulfill_()
