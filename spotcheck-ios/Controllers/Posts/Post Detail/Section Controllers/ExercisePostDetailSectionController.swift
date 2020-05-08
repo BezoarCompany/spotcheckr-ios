@@ -54,10 +54,8 @@ class ExercisePostDetailSectionController: ListSectionController {
             cell.media.sd_setImage(with: storagePathReference, placeholderImage: placeholderImage)
 
             cell.setConstraintsWithMedia()
-            controller?.postDetailViewModel.postCellHeight = cell.frame.height + CGFloat(FeedCell.imageHeight)
         } else {
             cell.setConstraintsWithNoMedia()
-            controller?.postDetailViewModel.postCellHeight = cell.frame.height
         }
 
         if let vidFilename = post.videoPath {
@@ -125,6 +123,11 @@ class ExercisePostDetailSectionController: ListSectionController {
         }
         cell.setOverflowMenuLocation(location: .top)
         cell.setFullBleedDivider()
+        
+        if cell.frame.size.height >  controller?.postDetailViewModel.postCellHeight ?? 0 {
+            controller?.postDetailViewModel.postCellHeight = cell.frame.size.height
+        }
+        
         controller?.postDetailViewModel.postYAxisAnchor = cell.bottomAnchor
         return cell
     }
