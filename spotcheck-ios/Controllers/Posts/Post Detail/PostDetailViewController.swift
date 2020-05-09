@@ -57,7 +57,7 @@ class PostDetailViewController: UIViewController {
     @objc func backOnClick(sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
-    
+
     @objc func refreshPostDetail(_ sender: Any) {
         self.viewModel.collectionView.refreshControl.beginRefreshing()
         firstly {
@@ -69,7 +69,7 @@ class PostDetailViewController: UIViewController {
             MDCSnackbarManager.show(self.viewModel.snackbarMessage)
         }
     }
-    
+
     @objc func finishRefreshing(_ sender: Any) {
         self.viewModel.collectionView.refreshControl.endRefreshing()
     }
@@ -125,17 +125,17 @@ extension PostDetailViewController {
             }
         }
     }
-    
+
     func initCollectionView() {
         viewModel.layout.estimatedItemSize = viewModel.cellEstimatedSize
         viewModel.collectionView.contentView.collectionViewLayout = viewModel.layout
         viewModel.collectionView.contentView.backgroundColor = ApplicationScheme.instance.containerScheme.colorScheme.backgroundColor
         viewModel.collectionView.contentView.alwaysBounceVertical = true
         viewModel.collectionView.refreshControl.addTarget(self, action: #selector(refreshPostDetail), for: .valueChanged)
-        
+
         adapter.collectionView = viewModel.collectionView.contentView
         adapter.dataSource = self
-        
+
         view.addSubview(viewModel.collectionView)
         viewModel.collectionView.attachRefreshControl()
     }
@@ -144,22 +144,22 @@ extension PostDetailViewController {
         viewModel.collectionView.contentView.addSubview(viewModel.defaultAnswersSectionLabel)
         viewModel.collectionView.contentView.addSubview(viewModel.answersLoadingIndicator)
     }
-    
+
     func initActivityIndicator() {
         viewModel.activityIndicator.center = self.view.center
         viewModel.activityIndicator.hidesWhenStopped = true
         viewModel.activityIndicator.style = UIActivityIndicatorView.Style.whiteLarge
         viewModel.collectionView.contentView.addSubview(viewModel.activityIndicator)
     }
-    
+
     func initReplyButton() {
         viewModel.answerReplyButton.addTarget(self, action: #selector(addAnswerButton(_:)), for: .touchUpInside)
         viewModel.collectionView.contentView.addSubview(viewModel.answerReplyButton)
     }
-    
+
     func applyConstraints() {
         let safeArea = view.safeAreaLayoutGuide
-        
+
         NSLayoutConstraint.activate([
             viewModel.collectionView.topAnchor.constraint(equalTo: viewModel.appBarViewController.view.bottomAnchor),
             viewModel.collectionView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),

@@ -33,6 +33,6 @@ class CollectionView: UIView {
         view.backgroundColor = ApplicationScheme.instance.containerScheme.colorScheme.backgroundColor
         return view
     }()
-    
+
     let refreshControl = RefreshControl()
 }

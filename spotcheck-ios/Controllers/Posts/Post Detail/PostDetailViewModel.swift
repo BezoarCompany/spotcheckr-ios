@@ -18,7 +18,7 @@ class PostDetailViewModel {
         let size = CGSize(width: width, height: height)
         return size
     }()
-    
+
     // MARK: - UIElements
     let snackbarMessage: MDCSnackbarMessage = {
         let message = MDCSnackbarMessage()

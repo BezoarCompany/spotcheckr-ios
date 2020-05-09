@@ -4,24 +4,24 @@ import PromiseKit
 
 class AnswersSectionController: ListSectionController {
     var answer: Answer!
-    
+
     override init() {
         super.init()
     }
-    
+
     override func numberOfItems() -> Int {
         return 1
     }
-    
+
     override func sizeForItem(at index: Int) -> CGSize {
         return CGSize(width: collectionContext!.containerSize.width, height: CGFloat(185))
     }
-    
+
     override func cellForItem(at index: Int) -> UICollectionViewCell {
         let controller = self.viewController as? PostDetailViewController
-        
+
         let cell = collectionContext!.dequeueReusableCell(of: AnswerCell.self, for: self, at: index) as! AnswerCell
-        
+
         let isLastCell = { (index: Int) in return index == (controller?.viewModel.answersCount)! - 1 }
         if isLastCell(index) {
             cell.hideDivider()
@@ -89,7 +89,7 @@ class AnswersSectionController: ListSectionController {
         cell.setOverflowMenuLocation(location: .top)
         return cell
     }
-    
+
     override func didUpdate(to object: Any) {
         answer = object as? Answer
     }

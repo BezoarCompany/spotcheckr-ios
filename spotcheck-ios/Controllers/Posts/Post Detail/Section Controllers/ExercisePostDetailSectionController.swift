@@ -20,7 +20,7 @@ class ExercisePostDetailSectionController: ListSectionController {
 
     override func cellForItem(at index: Int) -> UICollectionViewCell {
         let controller = self.viewController as? PostDetailViewController
-        
+
         let cell = collectionContext!.dequeueReusableCell(of: FeedCell.self, for: self, at: index) as! FeedCell
         cell.setShadowElevation(ShadowElevation(rawValue: 10), for: .normal)
         cell.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
@@ -123,11 +123,11 @@ class ExercisePostDetailSectionController: ListSectionController {
         }
         cell.setOverflowMenuLocation(location: .top)
         cell.setFullBleedDivider()
-        
+
         if cell.frame.size.height >  controller?.viewModel.postCellHeight ?? 0 {
             controller?.viewModel.postCellHeight = cell.frame.size.height
         }
-        
+
         controller?.viewModel.postYAxisAnchor = cell.bottomAnchor
         return cell
     }

@@ -1,11 +1,11 @@
 import UIKit
 
 class RefreshControl: UIRefreshControl {
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
+
     override init() {
         super.init()
         self.tintColor = .clear
@@ -15,17 +15,17 @@ class RefreshControl: UIRefreshControl {
             activityIndicator.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ])
     }
-    
+
     override func beginRefreshing() {
         super.beginRefreshing()
         activityIndicator.indicator.startAnimating()
     }
-    
+
     override func endRefreshing() {
         super.endRefreshing()
         activityIndicator.indicator.stopAnimating()
     }
-    
+
     private let activityIndicator: CircularActivityIndicator = {
         let activityIndicator = CircularActivityIndicator()
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false

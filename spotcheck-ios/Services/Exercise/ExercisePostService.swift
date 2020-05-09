@@ -83,7 +83,7 @@ class ExercisePostService: ExercisePostProtocol {
                     return promise.fulfill(answers.map { $0.1 })
                 }
             }
-            
+
             let answersRef = Firestore.firestore().collection(CollectionConstants.answerCollection).whereField("exercise-post", isEqualTo: postId.value)
             answersRef.getDocuments { (answersSnapshot, error) in
                 if let error = error {
@@ -109,7 +109,7 @@ class ExercisePostService: ExercisePostProtocol {
                                                                             createdBy: createdByResults[usersIndex]))
                             usersIndex += 1
                         }
-                        
+
                         CacheManager.exercisePostAnswersCache.insert(answers.reduce(into: [:]) { $0[$1.id!] = $1 }, forKey: postId)
                         return promise.fulfill(answers)
                     }
@@ -281,12 +281,12 @@ class ExercisePostService: ExercisePostProtocol {
         let parentDocPath = "/\(contentCollection)/\(contentId.value)"
         let parentDocRef = Firestore.firestore().document(parentDocPath)
         let collectionPath = "\(parentDocPath)/\(CollectionConstants.votesCollection)"
-        
+
         return Promise { promise in
             let voteRef = Firestore.firestore().collection(collectionPath).whereField("voted-by", isEqualTo: userId.value)
             let userRef = Firestore.firestore().collection(CollectionConstants.userCollection).document(userId.value)
             let userVoteField = contentCollection == CollectionConstants.answerCollection ? "answer-votes" : "exercise-post-votes"
-            
+
             voteRef.getDocuments { (voteSnapshot, error) in
                 if let error = error {
                     return promise.reject(error)
@@ -299,11 +299,11 @@ class ExercisePostService: ExercisePostProtocol {
 
                         let parentDoc = try transaction.getDocument(parentDocRef).data()
                         guard let parentDocData = parentDoc else { return nil }
-                        
+
                         if contentId is AnswerID {
                             exercisePostId = ExercisePostID(parentDocData["exercise-post"] as? String ?? "")
                         }
-                        
+
                         //Vote does not exist so add the vote
                         if voteSnapshot?.count == 0 {
                             let newVoteRef = Firestore.firestore().collection(collectionPath).document()
