@@ -50,8 +50,8 @@
 		BA1FB52F23F11C3400E091B1 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1FB52E23F11C3400E091B1 /* Exercise.swift */; };
 		BA35490F246355270033C818 /* PostDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA35490E246355270033C818 /* PostDetailViewModel.swift */; };
 		BA35491124636E8B0033C818 /* AnswersSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA35491024636E8B0033C818 /* AnswersSectionController.swift */; };
-		BA3549172463A7480033C818 /* ExercisePostExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3549162463A7480033C818 /* ExercisePostExtension.swift */; };
-		BA3549192463A78B0033C818 /* AnswerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3549182463A78B0033C818 /* AnswerExtension.swift */; };
+		BA3549172463A7480033C818 /* ExercisePostIGListKitExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3549162463A7480033C818 /* ExercisePostIGListKitExtension.swift */; };
+		BA3549192463A78B0033C818 /* AnswerIGListKitExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3549182463A78B0033C818 /* AnswerIGListKitExtension.swift */; };
 		BA3DDD2B241CB1F600692100 /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3DDD2A241CB1F600692100 /* AnalyticsService.swift */; };
 		BA3DDD2D241CB20F00692100 /* AnalyticsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3DDD2C241CB20F00692100 /* AnalyticsProtocol.swift */; };
 		BA3DDD2F241CB33600692100 /* AnalyticsEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3DDD2E241CB33600692100 /* AnalyticsEvent.swift */; };
@@ -224,8 +224,8 @@
 		BA1FB52E23F11C3400E091B1 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
 		BA35490E246355270033C818 /* PostDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewModel.swift; sourceTree = "<group>"; };
 		BA35491024636E8B0033C818 /* AnswersSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswersSectionController.swift; sourceTree = "<group>"; };
-		BA3549162463A7480033C818 /* ExercisePostExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisePostExtension.swift; sourceTree = "<group>"; };
-		BA3549182463A78B0033C818 /* AnswerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerExtension.swift; sourceTree = "<group>"; };
+		BA3549162463A7480033C818 /* ExercisePostIGListKitExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisePostIGListKitExtension.swift; sourceTree = "<group>"; };
+		BA3549182463A78B0033C818 /* AnswerIGListKitExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerIGListKitExtension.swift; sourceTree = "<group>"; };
 		BA3DDD2A241CB1F600692100 /* AnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
 		BA3DDD2C241CB20F00692100 /* AnalyticsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsProtocol.swift; sourceTree = "<group>"; };
 		BA3DDD2E241CB33600692100 /* AnalyticsEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsEvent.swift; sourceTree = "<group>"; };
@@ -528,8 +528,8 @@
 		BA3549152463A7360033C818 /* IGListKit */ = {
 			isa = PBXGroup;
 			children = (
-				BA3549162463A7480033C818 /* ExercisePostExtension.swift */,
-				BA3549182463A78B0033C818 /* AnswerExtension.swift */,
+				BA3549162463A7480033C818 /* ExercisePostIGListKitExtension.swift */,
+				BA3549182463A78B0033C818 /* AnswerIGListKitExtension.swift */,
 			);
 			path = IGListKit;
 			sourceTree = "<group>";
@@ -1159,7 +1159,7 @@
 				BA65CBBD244D0CF000901812 /* GenericID.swift in Sources */,
 				567E9A3223E93EA2004C1B2E /* Constants.swift in Sources */,
 				BA828EFB241CE2F10012509D /* FirebaseToDomainMapper.swift in Sources */,
-				BA3549172463A7480033C818 /* ExercisePostExtension.swift in Sources */,
+				BA3549172463A7480033C818 /* ExercisePostIGListKitExtension.swift in Sources */,
 				BA1FB51B23F106B600E091B1 /* Trainer.swift in Sources */,
 				BA65CBB9244D0B1800901812 /* AnswerID.swift in Sources */,
 				BA828EF9241CE0270012509D /* StringExtensions.swift in Sources */,
@@ -1181,7 +1181,7 @@
 				BAEDB8E12459114200FC5587 /* Switch.swift in Sources */,
 				BA1FB51323F1014900E091B1 /* BodyMeasurement.swift in Sources */,
 				BA4EE44723EBA347003E6D87 /* Identity.swift in Sources */,
-				BA3549192463A78B0033C818 /* AnswerExtension.swift in Sources */,
+				BA3549192463A78B0033C818 /* AnswerIGListKitExtension.swift in Sources */,
 				BA95E26C2454390200118DE0 /* CacheManager.swift in Sources */,
 				56EA7F87242B0D3A00EEDF34 /* LoadingCell.swift in Sources */,
 				5679533423D972F00077BA08 /* AuthOptionsViewController.swift in Sources */,

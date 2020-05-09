@@ -45,46 +45,7 @@ class PostDetailViewController: UIViewController {
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        firstly {
-            when(fulfilled: Services.exercisePostService.getPost(withId: viewModel.postId!),
-                 Services.userService.getCurrentUser())
-        }.done { post, user in
-            self.viewModel.post = post
-            self.viewModel.currentUser = user
-            self.viewModel.appBarViewController.navigationBar.title = "\(self.viewModel.post?.answersCount ?? 0) Answers"
-            self.viewModel.appBarViewController.navigationBar.leadingBarButtonItem = UIBarButtonItem(image: Images.back,
-                                                                                           style: .done,
-                                                                                           target: self,
-                                                                                           action: #selector(self.backOnClick(sender:)))
-            self.adapter.performUpdates(animated: true)
-        }.catch { _ in
-            self.dismiss(animated: true) {
-                self.viewModel.snackbarMessage.text = "There was an error loading the post."
-                MDCSnackbarManager.show(self.viewModel.snackbarMessage)
-            }
-        }.finally {
-            let answersCenter = (self.viewModel.collectionView.contentView.frame.height - self.viewModel.postCellHeight) / 2
-            self.viewModel.answersLoadingIndicator.topAnchor.constraint(equalTo: self.viewModel.postYAxisAnchor,
-                                                              constant: answersCenter).isActive = true
-            self.viewModel.answersLoadingIndicator.indicator.startAnimating()
-            firstly {
-                Services.exercisePostService.getAnswers(forPostWithId: self.viewModel.post!.id!)
-            }.done { answers in
-                self.viewModel.answers = answers
-                self.viewModel.answersCount = self.viewModel.answers.count
-                self.adapter.performUpdates(animated: true)
-            }.catch { (_) in
-                self.viewModel.snackbarMessage.text = "There was an error loading answers."
-                MDCSnackbarManager.show(self.viewModel.snackbarMessage)
-            }.finally {
-                self.viewModel.answersLoadingIndicator.indicator.stopAnimating()
-                if self.viewModel.answersCount == 0 {
-                    self.viewModel.defaultAnswersSectionLabel.topAnchor.constraint(equalTo: self.viewModel.postYAxisAnchor,
-                                                                         constant: answersCenter).isActive = true
-                    self.viewModel.defaultAnswersSectionLabel.isHidden = false
-                }
-            }
-        }
+        _ = loadPostDetail()
     }
 
     // MARK: - objc Functions
@@ -98,12 +59,73 @@ class PostDetailViewController: UIViewController {
     }
     
     @objc func refreshPostDetail(_ sender: Any) {
-        
-        print("refreshing")
+        self.viewModel.collectionView.refreshControl.beginRefreshing()
+        firstly {
+            loadPostDetail(bypassCache: true)
+        }.done {
+            self.perform(#selector(self.finishRefreshing), with: nil, afterDelay: 0.1)
+        }.catch { _ in
+            self.viewModel.snackbarMessage.text = "Error refreshing post."
+            MDCSnackbarManager.show(self.viewModel.snackbarMessage)
+        }
+    }
+    
+    @objc func finishRefreshing(_ sender: Any) {
+        self.viewModel.collectionView.refreshControl.endRefreshing()
     }
 }
 
+// MARK: - Functions
 extension PostDetailViewController {
+    func loadPostDetail(bypassCache: Bool = false) -> Promise<Void> {
+        return Promise { promise in
+            firstly {
+                when(fulfilled:
+                    Services.exercisePostService.getPost(withId: viewModel.postId!, bypassCache: bypassCache),
+                     Services.userService.getCurrentUser())
+            }.done { post, user in
+                self.viewModel.post = post
+                self.viewModel.currentUser = user
+                self.viewModel.appBarViewController.navigationBar.title = "\(self.viewModel.post?.answersCount ?? 0) Answers"
+                self.viewModel.appBarViewController.navigationBar.leadingBarButtonItem = UIBarButtonItem(image: Images.back,
+                                                                                                         style: .done,
+                                                                                                         target: self,
+                                                                                                         action: #selector(self.backOnClick(sender:)))
+                self.adapter.performUpdates(animated: true)
+            }.catch { error in
+                self.dismiss(animated: true) {
+                    self.viewModel.snackbarMessage.text = "There was an error loading the post."
+                    MDCSnackbarManager.show(self.viewModel.snackbarMessage)
+                    return promise.reject(error)
+                }
+            }.finally {
+                let answersCenter = (self.viewModel.collectionView.contentView.frame.height - self.viewModel.postCellHeight) / 2
+                self.viewModel.answersLoadingIndicator.topAnchor.constraint(equalTo: self.viewModel.postYAxisAnchor,
+                                                                            constant: answersCenter).isActive = true
+                self.viewModel.answersLoadingIndicator.indicator.startAnimating()
+                firstly {
+                    Services.exercisePostService.getAnswers(forPostWithId: self.viewModel.post!.id!, bypassCache: bypassCache)
+                }.done { answers in
+                    self.viewModel.answers = answers
+                    self.viewModel.answersCount = self.viewModel.answers.count
+                    self.adapter.performUpdates(animated: true)
+                }.catch { (error) in
+                    self.viewModel.snackbarMessage.text = "There was an error loading answers."
+                    MDCSnackbarManager.show(self.viewModel.snackbarMessage)
+                    return promise.reject(error)
+                }.finally {
+                    self.viewModel.answersLoadingIndicator.indicator.stopAnimating()
+                    if self.viewModel.answersCount == 0 {
+                        self.viewModel.defaultAnswersSectionLabel.topAnchor.constraint(equalTo: self.viewModel.postYAxisAnchor,
+                                                                                       constant: answersCenter).isActive = true
+                        self.viewModel.defaultAnswersSectionLabel.isHidden = false
+                    }
+                    return promise.fulfill_()
+                }
+            }
+        }
+    }
+    
     func initCollectionView() {
         viewModel.layout.estimatedItemSize = viewModel.cellEstimatedSize
         viewModel.collectionView.contentView.collectionViewLayout = viewModel.layout
@@ -122,47 +144,22 @@ extension PostDetailViewController {
         viewModel.collectionView.contentView.addSubview(viewModel.defaultAnswersSectionLabel)
         viewModel.collectionView.contentView.addSubview(viewModel.answersLoadingIndicator)
     }
-}
-
-extension PostDetailViewController: ListAdapterDataSource {
-    func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
-        if let post = viewModel.post {
-            return [post] + viewModel.answers
-        }
-
-        return []
-    }
-
-    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
-        if object is ExercisePost {
-            return ExercisePostDetailSectionController()
-        }
-        else {
-            return AnswersSectionController()
-        }
-    }
-
-    func emptyView(for listAdapter: ListAdapter) -> UIView? {
-        return nil
-    }
-}
-
-extension PostDetailViewController {
+    
     func initActivityIndicator() {
         viewModel.activityIndicator.center = self.view.center
         viewModel.activityIndicator.hidesWhenStopped = true
         viewModel.activityIndicator.style = UIActivityIndicatorView.Style.whiteLarge
         viewModel.collectionView.contentView.addSubview(viewModel.activityIndicator)
     }
-
+    
     func initReplyButton() {
         viewModel.answerReplyButton.addTarget(self, action: #selector(addAnswerButton(_:)), for: .touchUpInside)
         viewModel.collectionView.contentView.addSubview(viewModel.answerReplyButton)
     }
-
+    
     func applyConstraints() {
         let safeArea = view.safeAreaLayoutGuide
-
+        
         NSLayoutConstraint.activate([
             viewModel.collectionView.topAnchor.constraint(equalTo: viewModel.appBarViewController.view.bottomAnchor),
             viewModel.collectionView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
@@ -176,5 +173,28 @@ extension PostDetailViewController {
             viewModel.defaultAnswersSectionLabel.widthAnchor.constraint(equalToConstant: 200),
             viewModel.answersLoadingIndicator.centerXAnchor.constraint(equalTo: viewModel.collectionView.centerXAnchor)
         ])
+    }
+}
+
+// MARK: - List Adapter
+extension PostDetailViewController: ListAdapterDataSource {
+    func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
+        if let post = viewModel.post {
+            return [post] + viewModel.answers
+        }
+
+        return []
+    }
+
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
+        if object is ExercisePost {
+            return ExercisePostDetailSectionController()
+        } else {
+            return AnswersSectionController()
+        }
+    }
+
+    func emptyView(for listAdapter: ListAdapter) -> UIView? {
+        return nil
     }
 }

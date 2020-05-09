@@ -16,10 +16,19 @@ class RefreshControl: UIRefreshControl {
         ])
     }
     
+    override func beginRefreshing() {
+        super.beginRefreshing()
+        activityIndicator.indicator.startAnimating()
+    }
+    
+    override func endRefreshing() {
+        super.endRefreshing()
+        activityIndicator.indicator.stopAnimating()
+    }
+    
     private let activityIndicator: CircularActivityIndicator = {
         let activityIndicator = CircularActivityIndicator()
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-        activityIndicator.indicator.startAnimating()
         return activityIndicator
     }()
 }

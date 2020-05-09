@@ -2,11 +2,14 @@ import PromiseKit
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
+//swiftlint:disable type_body_length
 class ExercisePostService: ExercisePostProtocol {
-    func getPost(withId id: ExercisePostID) -> Promise<ExercisePost> {
+    func getPost(withId id: ExercisePostID, bypassCache: Bool = false) -> Promise<ExercisePost> {
             return Promise { promise in
                 if let post = CacheManager.exercisePostCache[id] {
-                    return promise.fulfill(post)
+                    if !bypassCache {
+                        return promise.fulfill(post)
+                    }
                 }
                 let docRef = Firestore.firestore().collection(CollectionConstants.postsCollection).document(id.value)
                 docRef.getDocument { doc, error in
@@ -73,8 +76,14 @@ class ExercisePostService: ExercisePostProtocol {
         }
     }
 
-    func getAnswers(forPostWithId postId: ExercisePostID) -> Promise<[Answer]> {
+    func getAnswers(forPostWithId postId: ExercisePostID, bypassCache: Bool = false) -> Promise<[Answer]> {
         return Promise { promise in
+            if let answers = CacheManager.exercisePostAnswersCache[postId] {
+                if !bypassCache {
+                    return promise.fulfill(answers.map { $0.1 })
+                }
+            }
+            
             let answersRef = Firestore.firestore().collection(CollectionConstants.answerCollection).whereField("exercise-post", isEqualTo: postId.value)
             answersRef.getDocuments { (answersSnapshot, error) in
                 if let error = error {
@@ -100,7 +109,8 @@ class ExercisePostService: ExercisePostProtocol {
                                                                             createdBy: createdByResults[usersIndex]))
                             usersIndex += 1
                         }
-
+                        
+                        CacheManager.exercisePostAnswersCache.insert(answers.reduce(into: [:]) { $0[$1.id!] = $1 }, forKey: postId)
                         return promise.fulfill(answers)
                     }
                 }
@@ -260,7 +270,9 @@ class ExercisePostService: ExercisePostProtocol {
 
     func voteContent(contentId: GenericID, userId: UserID, direction: VoteDirection) -> Promise<Void> {
         var contentCollection: String
-        if contentId is AnswerID {
+        var exercisePostId = contentId as? ExercisePostID
+        let answerId = contentId as? AnswerID
+        if answerId != nil {
             contentCollection = CollectionConstants.answerCollection
         } else {
             contentCollection = CollectionConstants.postsCollection
@@ -269,11 +281,12 @@ class ExercisePostService: ExercisePostProtocol {
         let parentDocPath = "/\(contentCollection)/\(contentId.value)"
         let parentDocRef = Firestore.firestore().document(parentDocPath)
         let collectionPath = "\(parentDocPath)/\(CollectionConstants.votesCollection)"
+        
         return Promise { promise in
             let voteRef = Firestore.firestore().collection(collectionPath).whereField("voted-by", isEqualTo: userId.value)
             let userRef = Firestore.firestore().collection(CollectionConstants.userCollection).document(userId.value)
             let userVoteField = contentCollection == CollectionConstants.answerCollection ? "answer-votes" : "exercise-post-votes"
-
+            
             voteRef.getDocuments { (voteSnapshot, error) in
                 if let error = error {
                     return promise.reject(error)
@@ -286,7 +299,11 @@ class ExercisePostService: ExercisePostProtocol {
 
                         let parentDoc = try transaction.getDocument(parentDocRef).data()
                         guard let parentDocData = parentDoc else { return nil }
-
+                        
+                        if contentId is AnswerID {
+                            exercisePostId = ExercisePostID(parentDocData["exercise-post"] as? String ?? "")
+                        }
+                        
                         //Vote does not exist so add the vote
                         if voteSnapshot?.count == 0 {
                             let newVoteRef = Firestore.firestore().collection(collectionPath).document()
@@ -345,10 +362,11 @@ class ExercisePostService: ExercisePostProtocol {
                     let updatedVoteDirection = VoteDirection(rawValue: updatedStatus)
 
                     if contentId is ExercisePostID {
-                        CacheManager.exercisePostCache[contentId as! ExercisePostID]?.metrics.currentVoteDirection = updatedVoteDirection!
-                        CacheManager.userCache[userId]?.exercisePostVotes[contentId as! ExercisePostID] = updatedVoteDirection
+                        CacheManager.exercisePostCache[exercisePostId!]?.metrics.currentVoteDirection = updatedVoteDirection!
+                        CacheManager.userCache[userId]?.exercisePostVotes[exercisePostId!] = updatedVoteDirection
                     } else {
-                        CacheManager.userCache[userId]?.answerVotes[contentId as! AnswerID] = updatedVoteDirection
+                        CacheManager.exercisePostAnswersCache[exercisePostId!]![answerId!]?.metrics?.currentVoteDirection = updatedVoteDirection!
+                        CacheManager.userCache[userId]?.answerVotes[answerId!] = updatedVoteDirection
                     }
 
                     promise.fulfill_()
