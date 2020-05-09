@@ -22,7 +22,7 @@ class AnswersSectionController: ListSectionController {
         
         let cell = collectionContext!.dequeueReusableCell(of: AnswerCell.self, for: self, at: index) as! AnswerCell
         
-        let isLastCell = { (index: Int) in return index == (controller?.postDetailViewModel.answersCount)! - 1 }
+        let isLastCell = { (index: Int) in return index == (controller?.viewModel.answersCount)! - 1 }
         if isLastCell(index) {
             cell.hideDivider()
         }
@@ -34,17 +34,17 @@ class AnswersSectionController: ListSectionController {
         cell.subHeadLabel.text = "\(answer.dateCreated?.toDisplayFormat() ?? "")"
         cell.votingControls.upvoteOnTap = { (voteDirection: VoteDirection) in
             Services.exercisePostService.voteContent(contentId: self.answer.id!,
-                                                     userId: (controller?.postDetailViewModel.currentUser?.id!)!,
+                                                     userId: (controller?.viewModel.currentUser?.id!)!,
                                                               direction: voteDirection)
         }
         cell.votingControls.downvoteOnTap = { (voteDirection: VoteDirection) in
             Services.exercisePostService.voteContent(contentId: self.answer.id!,
-                                                     userId: (controller?.postDetailViewModel.currentUser?.id!)!,
+                                                     userId: (controller?.viewModel.currentUser?.id!)!,
                                                               direction: voteDirection)
         }
         cell.supportingTextLabel.text = answer.text
         cell.supportingTextLabel.numberOfLines = 0
-        cell.votingControls.votingUserId = controller?.postDetailViewModel.currentUser?.id
+        cell.votingControls.votingUserId = controller?.viewModel.currentUser?.id
         cell.votingControls.voteDirection = answer.metrics?.currentVoteDirection
         cell.votingControls.renderVotingControls()
         cell.cornerRadius = 0
@@ -55,7 +55,7 @@ class AnswersSectionController: ListSectionController {
                 controller?.present(reportViewController, animated: true)
             })
 
-            if self.answer.createdBy?.id == controller?.postDetailViewModel.currentUser?.id {
+            if self.answer.createdBy?.id == controller?.viewModel.currentUser?.id {
                 let deleteCommentAction = MDCActionSheetAction(title: "Delete", image: Images.trash) { (_) in
                     let deleteCommentAlertController = MDCAlertController(title: nil,
                                                                           message: "Are you sure you want to delete your comment?")
@@ -66,12 +66,12 @@ class AnswersSectionController: ListSectionController {
                             Services.exercisePostService.deleteAnswer(self.answer)
                         }.done {
                             //TODO: Stop animating activity indicator
-                            controller?.postDetailViewModel.answersCount -= 1
-                            controller?.postDetailViewModel.appBarViewController.navigationBar.title = "\(controller?.postDetailViewModel.answersCount) Answers"
+                            controller?.viewModel.answersCount -= 1
+                            controller?.viewModel.appBarViewController.navigationBar.title = "\(controller?.viewModel.answersCount) Answers"
                             //TODO: Delete items
                         }.catch { _ in
-                            controller?.postDetailViewModel.snackbarMessage.text = "Unable to delete answer."
-                            MDCSnackbarManager.show(controller?.postDetailViewModel.snackbarMessage)
+                            controller?.viewModel.snackbarMessage.text = "Unable to delete answer."
+                            MDCSnackbarManager.show(controller?.viewModel.snackbarMessage)
                         }
                     })
 

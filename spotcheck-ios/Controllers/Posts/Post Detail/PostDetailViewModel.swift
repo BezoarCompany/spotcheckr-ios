@@ -1,5 +1,6 @@
 import UIKit
 import MaterialComponents
+import IGListKit
 
 class PostDetailViewModel {
     // MARK: - Properties

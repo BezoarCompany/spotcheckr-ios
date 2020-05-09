@@ -130,6 +130,7 @@
 		BABAA3EA2443454D00FF5C33 /* VotingControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABAA3E92443454D00FF5C33 /* VotingControls.swift */; };
 		BABAA3EC244404D200FF5C33 /* AnswerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABAA3EB244404D200FF5C33 /* AnswerCell.swift */; };
 		BACCABEA241E162100BEC89E /* UIElementFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACCABE9241E162100BEC89E /* UIElementFactory.swift */; };
+		BAEB797E24663F7400207055 /* RefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEB797D24663F7400207055 /* RefreshControl.swift */; };
 		BAEDB8DC245909B200FC5587 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEDB8DB245909B200FC5587 /* SettingsCell.swift */; };
 		BAEDB8DE24590D0D00FC5587 /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEDB8DD24590D0D00FC5587 /* CollectionView.swift */; };
 		BAEDB8E12459114200FC5587 /* Switch.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEDB8E02459114200FC5587 /* Switch.swift */; };
@@ -303,6 +304,7 @@
 		BABAA3E92443454D00FF5C33 /* VotingControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VotingControls.swift; sourceTree = "<group>"; };
 		BABAA3EB244404D200FF5C33 /* AnswerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerCell.swift; sourceTree = "<group>"; };
 		BACCABE9241E162100BEC89E /* UIElementFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIElementFactory.swift; sourceTree = "<group>"; };
+		BAEB797D24663F7400207055 /* RefreshControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshControl.swift; sourceTree = "<group>"; };
 		BAEDB8DB245909B200FC5587 /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		BAEDB8DD24590D0D00FC5587 /* CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionView.swift; sourceTree = "<group>"; };
 		BAEDB8E02459114200FC5587 /* Switch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Switch.swift; sourceTree = "<group>"; };
@@ -812,6 +814,7 @@
 		BABAA3E8244344B200FF5C33 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				BAEB797C24663F6200207055 /* Refresh Controls */,
 				BAEDB8DF2459113700FC5587 /* Switches */,
 				BABA111E24588AA200FB9D1D /* Views */,
 				BA95E2532452020F00118DE0 /* Activity Indicators */,
@@ -819,6 +822,14 @@
 				BA65CBCD244E25F300901812 /* Cells */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		BAEB797C24663F6200207055 /* Refresh Controls */ = {
+			isa = PBXGroup;
+			children = (
+				BAEB797D24663F7400207055 /* RefreshControl.swift */,
+			);
+			path = "Refresh Controls";
 			sourceTree = "<group>";
 		};
 		BAEDB8DF2459113700FC5587 /* Switches */ = {
@@ -1111,6 +1122,7 @@
 				BA1FB52723F119CB00E091B1 /* Metrics.swift in Sources */,
 				5644F61F2406459B00A103EF /* StorageProtocol.swift in Sources */,
 				5645AFE823F51C0700B64D0B /* CreatePostViewController.swift in Sources */,
+				BAEB797E24663F7400207055 /* RefreshControl.swift in Sources */,
 				BA733D5524038E4100395895 /* ErrorExtensions.swift in Sources */,
 				5644F61D2406435C00A103EF /* StorageService.swift in Sources */,
 				BA65CBB3244C43D100901812 /* UIColorExtensions.swift in Sources */,
