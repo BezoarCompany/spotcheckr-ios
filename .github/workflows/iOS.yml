@@ -29,6 +29,7 @@ jobs:
 
   build:
     needs: lint
+    if: github.event_name == 'pull_request' &&  !contains( github.base_ref, 'master')  && !contains(github.base_ref, 'release')
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v2
@@ -46,7 +47,6 @@ jobs:
         run: pod install
 
       - name: (Development) Build environment
-        if: github.event_name == 'pull_request' &&  !contains( github.base_ref, 'master')  && !contains(github.base_ref, 'release')
         run: >
           xcodebuild build
           -scheme "spotcheck-ios (Development)"
