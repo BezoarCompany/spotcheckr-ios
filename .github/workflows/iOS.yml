@@ -2,7 +2,7 @@ name: iOS
 
 on:
   push:
-    branches: [master, develop, feature/refactor-ci-cd-artifacts]
+    branches: [master, develop]
   pull_request:
     branches: [master, develop, release-*]
 
