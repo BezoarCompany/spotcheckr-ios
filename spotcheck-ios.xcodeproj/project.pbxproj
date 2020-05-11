@@ -24,8 +24,6 @@
 		5679533823D980E40077BA08 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5679533723D980E40077BA08 /* FeedViewController.swift */; };
 		5679533A23D988910077BA08 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5679533923D988910077BA08 /* ProfileViewController.swift */; };
 		567E9A3223E93EA2004C1B2E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567E9A3123E93EA2004C1B2E /* Constants.swift */; };
-		5681771723FDCE7500CA7AB5 /* DetailedPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5681771523FDCE7500CA7AB5 /* DetailedPostCell.swift */; };
-		5681771823FDCE7500CA7AB5 /* DetailedPostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5681771623FDCE7500CA7AB5 /* DetailedPostCell.xib */; };
 		5686D2E224051C0300E09868 /* CreatePostViewController+helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5686D2E124051C0300E09868 /* CreatePostViewController+helpers.swift */; };
 		568721A323E7EF1100E15F87 /* ApplicationScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568721A223E7EF1100E15F87 /* ApplicationScheme.swift */; };
 		569745DD24640B7A009633F5 /* CircularActivityIndicatorWithBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569745DC24640B7A009633F5 /* CircularActivityIndicatorWithBackground.swift */; };
@@ -151,9 +149,9 @@
 		BAEE4ACC2426E122005C2023 /* arrow-down.svg in Resources */ = {isa = PBXBuildFile; fileRef = BAEE4ACB2426E122005C2023 /* arrow-down.svg */; };
 		BAEE4ACE24274D49005C2023 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEE4ACD24274D49005C2023 /* Colors.swift */; };
 		BAEE4AD024276DFD005C2023 /* account-circle.svg in Resources */ = {isa = PBXBuildFile; fileRef = BAEE4ACF24276DFD005C2023 /* account-circle.svg */; };
+		BAF39FFC246273D600CAB73A /* ExercisePostDetailSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF39FFB246273D600CAB73A /* ExercisePostDetailSectionController.swift */; };
 		BE132542C12E06260A198C70 /* Pods_spotcheck_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8EB8078F73318F3714F055C /* Pods_spotcheck_ios.framework */; };
 		FEDDBD4D8C90C3CC1C368B54 /* Pods_spotcheck_ios_spotcheckr_uitests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF5C9BF77A2CF96877E6AAF9 /* Pods_spotcheck_ios_spotcheckr_uitests.framework */; };
-		BAF39FFC246273D600CAB73A /* ExercisePostDetailSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF39FFB246273D600CAB73A /* ExercisePostDetailSectionController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -194,8 +192,6 @@
 		5679533723D980E40077BA08 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		5679533923D988910077BA08 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		567E9A3123E93EA2004C1B2E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		5681771523FDCE7500CA7AB5 /* DetailedPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedPostCell.swift; sourceTree = "<group>"; };
-		5681771623FDCE7500CA7AB5 /* DetailedPostCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailedPostCell.xib; sourceTree = "<group>"; };
 		5686D2E124051C0300E09868 /* CreatePostViewController+helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CreatePostViewController+helpers.swift"; sourceTree = "<group>"; };
 		568721A223E7EF1100E15F87 /* ApplicationScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationScheme.swift; sourceTree = "<group>"; };
 		569745DC24640B7A009633F5 /* CircularActivityIndicatorWithBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularActivityIndicatorWithBackground.swift; sourceTree = "<group>"; };
@@ -335,15 +331,13 @@
 		BAEE4ACB2426E122005C2023 /* arrow-down.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "arrow-down.svg"; sourceTree = "<group>"; };
 		BAEE4ACD24274D49005C2023 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		BAEE4ACF24276DFD005C2023 /* account-circle.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "account-circle.svg"; sourceTree = "<group>"; };
+		BAF39FFB246273D600CAB73A /* ExercisePostDetailSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisePostDetailSectionController.swift; sourceTree = "<group>"; };
 		CA676D29CA06064DE5A22E75 /* Pods-spotcheck-ios.release (production).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios.release (production).xcconfig"; path = "Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios.release (production).xcconfig"; sourceTree = "<group>"; };
 		DE3F0FD74FDAA6FA4FDB49F8 /* Pods-spotcheckr-uitests.release (development).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheckr-uitests.release (development).xcconfig"; path = "Target Support Files/Pods-spotcheckr-uitests/Pods-spotcheckr-uitests.release (development).xcconfig"; sourceTree = "<group>"; };
 		E6A95DE0C46F032F47BDC44A /* Pods-spotcheck-ios-spotcheckr-uitests.release (staging).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios-spotcheckr-uitests.release (staging).xcconfig"; path = "Target Support Files/Pods-spotcheck-ios-spotcheckr-uitests/Pods-spotcheck-ios-spotcheckr-uitests.release (staging).xcconfig"; sourceTree = "<group>"; };
 		E8EB8078F73318F3714F055C /* Pods_spotcheck_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_spotcheck_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF3C57BD3F15AE53A8CE7339 /* Pods-spotcheck-ios.release (staging).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios.release (staging).xcconfig"; path = "Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios.release (staging).xcconfig"; sourceTree = "<group>"; };
 		EF5C9BF77A2CF96877E6AAF9 /* Pods_spotcheck_ios_spotcheckr_uitests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_spotcheck_ios_spotcheckr_uitests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		BAF39FFB246273D600CAB73A /* ExercisePostDetailSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisePostDetailSectionController.swift; sourceTree = "<group>"; };
-		03991B4D4597474019A970D7 /* Pods-spotcheck-ios.release (development).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios.release (development).xcconfig"; path = "Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios.release (development).xcconfig"; sourceTree = "<group>"; };
-
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -473,8 +467,6 @@
 				568721A223E7EF1100E15F87 /* ApplicationScheme.swift */,
 				5659D9D523FD02980043FA6A /* AnswerPostCell.swift */,
 				5659D9D623FD02980043FA6A /* AnswerPostCell.xib */,
-				5681771523FDCE7500CA7AB5 /* DetailedPostCell.swift */,
-				5681771623FDCE7500CA7AB5 /* DetailedPostCell.xib */,
 				BA4EDA442402909A00206267 /* ProfilePostCell.xib */,
 				BA4EDA46240290C000206267 /* ProfilePostCell.swift */,
 				56EA7F85242B0D3A00EEDF34 /* LoadingCell.swift */,
@@ -1024,7 +1016,6 @@
 				BAEE4ACC2426E122005C2023 /* arrow-down.svg in Resources */,
 				BA54CD792436D52700A944BC /* flag.svg in Resources */,
 				5679530723D806C00077BA08 /* Assets.xcassets in Resources */,
-				5681771823FDCE7500CA7AB5 /* DetailedPostCell.xib in Resources */,
 				5659D9D823FD02980043FA6A /* AnswerPostCell.xib in Resources */,
 				BABA111A245886C700FB9D1D /* lock.svg in Resources */,
 				BABAA3E72443337400FF5C33 /* x.svg in Resources */,
@@ -1217,7 +1208,6 @@
 				BA4EDA47240290C000206267 /* ProfilePostCell.swift in Sources */,
 				BABA112024588ADE00FB9D1D /* ScrollView.swift in Sources */,
 				BA749771242ACEF100C1C17C /* SettingsViewController.swift in Sources */,
-				5681771723FDCE7500CA7AB5 /* DetailedPostCell.swift in Sources */,
 				BA59197623F92DBA00E8B900 /* Services.swift in Sources */,
 				568721A323E7EF1100E15F87 /* ApplicationScheme.swift in Sources */,
 				BA1FB52B23F11B5100E091B1 /* Media.swift in Sources */,
