@@ -20,7 +20,7 @@ class ExercisePostDetailSectionController: ListSectionController {
 
     override func cellForItem(at index: Int) -> UICollectionViewCell {
         let controller = self.viewController as? PostDetailViewController
-        
+
         let cell = collectionContext!.dequeueReusableCell(of: FeedCell.self, for: self, at: index) as! FeedCell
         cell.setShadowElevation(ShadowElevation(rawValue: 10), for: .normal)
         cell.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
@@ -30,12 +30,12 @@ class ExercisePostDetailSectionController: ListSectionController {
         cell.subHeadLabel.text = "\(post.dateCreated?.toDisplayFormat() ?? "")"
         cell.votingControls.upvoteOnTap = { (voteDirection: VoteDirection) in
             Services.exercisePostService.voteContent(contentId: self.post.id!,
-                                                     userId: (controller?.postDetailViewModel.currentUser?.id!)!,
+                                                     userId: (controller?.viewModel.currentUser?.id!)!,
                                                      direction: voteDirection)
         }
         cell.votingControls.downvoteOnTap = { (voteDirection: VoteDirection) in
-            Services.exercisePostService.voteContent(contentId: (controller?.postDetailViewModel.post?.id!)!,
-                                                     userId: (controller?.postDetailViewModel.currentUser?.id!)!,
+            Services.exercisePostService.voteContent(contentId: (controller?.viewModel.post?.id!)!,
+                                                     userId: (controller?.viewModel.currentUser?.id!)!,
                                                      direction: voteDirection)
         }
 
@@ -66,7 +66,7 @@ class ExercisePostDetailSectionController: ListSectionController {
         cell.supportingTextLabel.numberOfLines = 0
         cell.postId = post.id
         cell.post = post
-        cell.votingControls.votingUserId = controller?.postDetailViewModel.currentUser?.id
+        cell.votingControls.votingUserId = controller?.viewModel.currentUser?.id
         cell.votingControls.voteDirection = post.metrics.currentVoteDirection
         cell.votingControls.renderVotingControls()
         cell.cornerRadius = 0
@@ -101,8 +101,8 @@ class ExercisePostDetailSectionController: ListSectionController {
                         //self.activityIndicator.stopAnimating()
 
                         self.viewController?.navigationController?.popViewController(animated: true)
-                        controller?.postDetailViewModel.snackbarMessage.text = "Error deleting post."
-                        MDCSnackbarManager.show(controller?.postDetailViewModel.snackbarMessage)
+                        controller?.viewModel.snackbarMessage.text = "Error deleting post."
+                        MDCSnackbarManager.show(controller?.viewModel.snackbarMessage)
                     }
                 })
 
@@ -113,7 +113,7 @@ class ExercisePostDetailSectionController: ListSectionController {
                 self.viewController?.present(deleteAlertController, animated: true, completion: nil)
             }
 
-            if controller?.postDetailViewModel.currentUser?.id == self.post.createdBy?.id {
+            if controller?.viewModel.currentUser?.id == self.post.createdBy?.id {
                 actionSheet.addAction(editAction)
                 actionSheet.addAction(deleteAction)
             }
@@ -123,12 +123,12 @@ class ExercisePostDetailSectionController: ListSectionController {
         }
         cell.setOverflowMenuLocation(location: .top)
         cell.setFullBleedDivider()
-        
-        if cell.frame.size.height >  controller?.postDetailViewModel.postCellHeight ?? 0 {
-            controller?.postDetailViewModel.postCellHeight = cell.frame.size.height
+
+        if cell.frame.size.height >  controller?.viewModel.postCellHeight ?? 0 {
+            controller?.viewModel.postCellHeight = cell.frame.size.height
         }
-        
-        controller?.postDetailViewModel.postYAxisAnchor = cell.bottomAnchor
+
+        controller?.viewModel.postYAxisAnchor = cell.bottomAnchor
         return cell
     }
 
