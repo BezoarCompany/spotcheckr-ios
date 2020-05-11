@@ -16,6 +16,14 @@ class CollectionView: UIView {
         ])
     }
 
+    func attachRefreshControl() {
+        if !refreshControl.isDescendant(of: contentView) {
+            contentView.addSubview(refreshControl)
+            NSLayoutConstraint.activate([
+                refreshControl.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
+            ])
+        }
+    }
     let contentView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = 8.0
@@ -25,4 +33,6 @@ class CollectionView: UIView {
         view.backgroundColor = ApplicationScheme.instance.containerScheme.colorScheme.backgroundColor
         return view
     }()
+
+    let refreshControl = RefreshControl()
 }

@@ -20,7 +20,7 @@ class CircularActivityIndicator: UIView {
         let indicator = MDCActivityIndicator()
         indicator.sizeToFit()
         indicator.indicatorMode = .indeterminate
-        indicator.cycleColors = [ApplicationScheme.instance.containerScheme.colorScheme.secondaryColor]
+        indicator.cycleColors = [ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor]
         indicator.translatesAutoresizingMaskIntoConstraints = false
         return indicator
     }()
