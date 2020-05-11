@@ -9,7 +9,7 @@ class Answer {
     var text = ""
     var media = [Media]()
     var metrics: Metrics?
-    
+
     init(id: AnswerID? = nil,
          createdBy: User? = nil,
          dateCreated: Date? = nil,
