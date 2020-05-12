@@ -418,7 +418,6 @@
 			children = (
 				563772B8245807A0002292B8 /* Sample */,
 				567860D72441C46500451C3A /* Configs */,
-				561648A0243A6641003DB6CA /* Spotcheckr.entitlements */,
 				BAA340FB23F39A7000C7392C /* Factories */,
 				BAA340F823F3931A00C7392C /* Extensions */,
 				BA4EE45023EECE5D003E6D87 /* Icons */,
@@ -429,12 +428,13 @@
 				BA49212C23E6285600A74A73 /* Fonts */,
 				56B79E3623E2AFA700568685 /* Models */,
 				BABAA3E02439D81500FF5C33 /* Controllers */,
+				5679530623D806C00077BA08 /* Assets.xcassets */,
+				5679530823D806C00077BA08 /* LaunchScreen.storyboard */,
 				567952FD23D806BE0077BA08 /* AppDelegate.swift */,
 				5679530B23D806C00077BA08 /* Info.plist */,
 				BAEDB8E424592CBD00FC5587 /* Preferences.plist */,
 				BA584C7724381D0C00417DC5 /* GoogleService-Info.plist */,
-				5679530623D806C00077BA08 /* Assets.xcassets */,
-				5679530823D806C00077BA08 /* LaunchScreen.storyboard */,
+				561648A0243A6641003DB6CA /* Spotcheckr.entitlements */,
 			);
 			path = "spotcheck-ios";
 			sourceTree = "<group>";
