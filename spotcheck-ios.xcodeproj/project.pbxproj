@@ -422,6 +422,7 @@
 				BAA340FB23F39A7000C7392C /* Factories */,
 				BAA340F823F3931A00C7392C /* Extensions */,
 				BA4EE45023EECE5D003E6D87 /* Icons */,
+				BA95E26824542E5300118DE0 /* Caching */,
 				BA4EE42423E94A4E003E6D87 /* Services */,
 				567E9A3323E93F15004C1B2E /* Views */,
 				BABAA3E8244344B200FF5C33 /* Components */,
@@ -555,7 +556,6 @@
 				BA65CBC7244D468F00901812 /* Reporting */,
 				BA95E2592452954300118DE0 /* System */,
 				BA65CBC8244D46C700901812 /* Mapping */,
-				BA95E26824542E5300118DE0 /* Caches */,
 				BA59197523F92DBA00E8B900 /* Services.swift */,
 			);
 			path = Services;
@@ -714,13 +714,13 @@
 			path = System;
 			sourceTree = "<group>";
 		};
-		BA95E26824542E5300118DE0 /* Caches */ = {
+		BA95E26824542E5300118DE0 /* Caching */ = {
 			isa = PBXGroup;
 			children = (
 				5653ABCE24161921001E9CF0 /* MemoryCache.swift */,
 				BA95E26B2454390200118DE0 /* CacheManager.swift */,
 			);
-			path = Caches;
+			path = Caching;
 			sourceTree = "<group>";
 		};
 		BAA340F823F3931A00C7392C /* Extensions */ = {
