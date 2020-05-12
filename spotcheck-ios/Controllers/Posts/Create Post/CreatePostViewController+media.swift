@@ -10,30 +10,6 @@ import MobileCoreServices
 import AVFoundation
 
 extension CreatePostViewController {
-    @objc func openMediaOptions() {
-        let mediaActionSheet = UIElementFactory.getActionSheet()
-        mediaActionSheet.title = "Choose Media Source"
-
-        let mediaGalleryAction = MDCActionSheetAction(title: "Photo and Video Gallery", image: UIImage(systemName: "photo.on.rectangle"), handler: { (_) in
-            self.openMediaGallery()
-        })
-
-        mediaActionSheet.addAction(mediaGalleryAction)
-
-        self.present(mediaActionSheet, animated: true, completion: nil)
-
-    }
-
-    @objc func openCamera() {
-        print("openCamera")
-    }
-
-    @objc func openMediaGallery() {
-        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
-            checkPhotoPermissionsAndShowLib()
-        }
-    }
-
     func showPhotoLibraryPicker() {
         imagePickerController = UIImagePickerController()
 
@@ -44,13 +20,38 @@ extension CreatePostViewController {
 
         present(imagePickerController, animated: true, completion: nil)
     }
-
+    
+    // MARK: - objc functions
+    @objc func openMediaOptions() {
+        let mediaActionSheet = UIElementFactory.getActionSheet()
+        mediaActionSheet.title = "Choose Media Source"
+        
+        let mediaGalleryAction = MDCActionSheetAction(title: "Photo and Video Gallery", image: UIImage(systemName: "photo.on.rectangle"), handler: { (_) in
+            self.openMediaGallery()
+        })
+        
+        mediaActionSheet.addAction(mediaGalleryAction)
+        
+        self.present(mediaActionSheet, animated: true, completion: nil)
+        
+    }
+    
+    @objc func openCamera() {
+        print("openCamera")
+    }
+    
+    @objc func openMediaGallery() {
+        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
+            checkPhotoPermissionsAndShowLib()
+        }
+    }
+    
     @objc func checkPhotoPermissionsAndShowLib() {
         let photoAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
-
+        
+        //TODO: Handle the cases where the status is .restricted, .denied, .default
         switch photoAuthorizationStatus {
         case .authorized:
-            print("Access is granted by user")
             showPhotoLibraryPicker()
         case .notDetermined:
             PHPhotoLibrary.requestAuthorization({ newStatus in
@@ -86,13 +87,8 @@ extension CreatePostViewController: UINavigationControllerDelegate, UIImagePicke
         if mediaType as! String == kUTTypeImage as String { // Image
             chosenImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
             photoImageView.image = chosenImage
-
         } else if mediaType as! String == kUTTypeMovie as String { // Video
-
-            print("info[UIImagePickerController.InfoKey.mediaURL] phAsset ", info[.phAsset])
-            print("info[UIImagePickerController.InfoKey.mediaURL] mediaURL ", info[.mediaURL])
             // Saved URL on the controller for later reference in the submit
-
             let videoURL = info[UIImagePickerController.InfoKey.mediaURL] as? URL
             self.selectedVideoFileURL = videoURL
 
@@ -108,6 +104,7 @@ extension CreatePostViewController: UINavigationControllerDelegate, UIImagePicke
                 let imageRef = try assetImageGenerator.copyCGImage(at: time, actualTime: nil)
                 photoImageView.image = UIImage(cgImage: imageRef)
             } catch {
+                //TODO: Show error message when this happens?
                 print("Error creating video thumbnail")
             }
         }
