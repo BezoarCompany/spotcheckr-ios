@@ -49,6 +49,8 @@
 		BA1FB52B23F11B5100E091B1 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1FB52A23F11B5100E091B1 /* Media.swift */; };
 		BA1FB52F23F11C3400E091B1 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1FB52E23F11C3400E091B1 /* Exercise.swift */; };
 		BA223A7A246BA5C800CFDE98 /* CreatePostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA223A79246BA5C800CFDE98 /* CreatePostViewModel.swift */; };
+		BA223A7C246BAC9200CFDE98 /* VoteDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA223A7B246BAC9200CFDE98 /* VoteDirection.swift */; };
+		BA223A7E246BACB200CFDE98 /* PhoneNumberType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA223A7D246BACB200CFDE98 /* PhoneNumberType.swift */; };
 		BA35490F246355270033C818 /* PostDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA35490E246355270033C818 /* PostDetailViewModel.swift */; };
 		BA35491124636E8B0033C818 /* AnswersSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA35491024636E8B0033C818 /* AnswersSectionController.swift */; };
 		BA3549172463A7480033C818 /* ExercisePostIGListKitExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3549162463A7480033C818 /* ExercisePostIGListKitExtension.swift */; };
@@ -228,6 +230,8 @@
 		BA1FB52A23F11B5100E091B1 /* Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
 		BA1FB52E23F11C3400E091B1 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
 		BA223A79246BA5C800CFDE98 /* CreatePostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostViewModel.swift; sourceTree = "<group>"; };
+		BA223A7B246BAC9200CFDE98 /* VoteDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteDirection.swift; sourceTree = "<group>"; };
+		BA223A7D246BACB200CFDE98 /* PhoneNumberType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberType.swift; sourceTree = "<group>"; };
 		BA35490E246355270033C818 /* PostDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewModel.swift; sourceTree = "<group>"; };
 		BA35491024636E8B0033C818 /* AnswersSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswersSectionController.swift; sourceTree = "<group>"; };
 		BA3549162463A7480033C818 /* ExercisePostIGListKitExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisePostIGListKitExtension.swift; sourceTree = "<group>"; };
@@ -513,7 +517,6 @@
 				BA3DDD2E241CB33600692100 /* AnalyticsEvent.swift */,
 				BA54CD72243652E000A944BC /* Report.swift */,
 				BA54CD742436CACE00A944BC /* ReportType.swift */,
-				BA95E251245138DA00118DE0 /* ContentType.swift */,
 				BA95E25C245295E100118DE0 /* Configuration.swift */,
 				BA95E25E2452961B00118DE0 /* SemanticVersion.swift */,
 			);
@@ -751,6 +754,9 @@
 			children = (
 				BA9D1ACD246B5463008A1CF1 /* MeasurementSystem.swift */,
 				BA9D1ACF246B54A8008A1CF1 /* DigitalStorageUnit.swift */,
+				BA95E251245138DA00118DE0 /* ContentType.swift */,
+				BA223A7B246BAC9200CFDE98 /* VoteDirection.swift */,
+				BA223A7D246BACB200CFDE98 /* PhoneNumberType.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -1183,6 +1189,7 @@
 				BABA111D2458874000FB9D1D /* PrivacySettingsViewController.swift in Sources */,
 				5679533A23D988910077BA08 /* ProfileViewController.swift in Sources */,
 				BAEE4ACE24274D49005C2023 /* Colors.swift in Sources */,
+				BA223A7E246BACB200CFDE98 /* PhoneNumberType.swift in Sources */,
 				BA54CD73243652E000A944BC /* Report.swift in Sources */,
 				BA223A7A246BA5C800CFDE98 /* CreatePostViewModel.swift in Sources */,
 				BA54CD752436CACE00A944BC /* ReportType.swift in Sources */,
@@ -1213,6 +1220,7 @@
 				BA828EFD241CE3E30012509D /* DomainToFirebaseMapper.swift in Sources */,
 				BA54CD7F2436F9E100A944BC /* CollectionConstants.swift in Sources */,
 				BA54CD7B2436D60C00A944BC /* ReportViewController.swift in Sources */,
+				BA223A7C246BAC9200CFDE98 /* VoteDirection.swift in Sources */,
 				BA4EDA4124025F0D00206267 /* EditProfileViewController.swift in Sources */,
 				BAEDB8E12459114200FC5587 /* Switch.swift in Sources */,
 				BA1FB51323F1014900E091B1 /* BodyMeasurement.swift in Sources */,
