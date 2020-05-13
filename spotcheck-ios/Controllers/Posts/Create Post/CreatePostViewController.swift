@@ -131,7 +131,7 @@ class CreatePostViewController: UIViewController {
 
     required init?(coder aDecoder: NSCoder) {
         let containerScheme = ApplicationScheme.instance.containerScheme
-        
+
         self.subjectTextFieldController = MDCTextInputControllerFilled(textInput: subjectTextField)
         self.subjectTextFieldController.applyTheme(withScheme: containerScheme)
         self.subjectTextFieldController.characterCountViewMode = .always
@@ -208,7 +208,7 @@ class CreatePostViewController: UIViewController {
             self.viewModel.configuration = config
         }
     }
-    
+
     func initAppBar() {
         appBarViewController.didMove(toParent: self)
         appBarViewController.inferTopSafeAreaInsetFromViewController = true

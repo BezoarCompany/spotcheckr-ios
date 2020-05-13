@@ -85,29 +85,29 @@ extension CreatePostViewController {
         self.cancelAlertController.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
         appBarViewController.navigationBar.leftBarButtonItem?.action = #selector(cancelButtonOnClick(sender:))
     }
-    
+
     func applyConstraints() {
         self.exerciseTextField.topAnchor.constraint(equalTo: self.appBarViewController.navigationBar.bottomAnchor, constant: 16).isActive = true
         self.exerciseTextField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
         self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: self.exerciseTextField.trailingAnchor, constant: 15).isActive = true
-        
+
         self.subjectTextField.topAnchor.constraint(equalTo: self.exerciseTextField.bottomAnchor, constant: 15).isActive = true
         self.subjectTextField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
         self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: subjectTextField.trailingAnchor, constant: 15).isActive = true
-        
+
         self.photoImageView.topAnchor.constraint(equalTo: self.subjectTextField.bottomAnchor, constant: 15).isActive = true
         self.photoImageView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
         self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: photoImageView.trailingAnchor, constant: 15).isActive = true
         self.photoImageView.heightAnchor.constraint(equalToConstant: CGFloat(200)).isActive = true
         self.photoImageView.contentMode = .scaleAspectFit
         self.photoImageView.clipsToBounds = true
-        
+
         self.bodyTextField.topAnchor.constraint(equalTo: self.photoImageView.bottomAnchor, constant: 15).isActive = true
         self.bodyTextField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
         self.view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: bodyTextField.trailingAnchor, constant: 15).isActive = true
-        
+
     }
-    
+
     /// Modify an existing post
     func updatePostWorkflow(post: ExercisePost?) {
         guard let post = post
@@ -116,41 +116,41 @@ extension CreatePostViewController {
                 return
         }
         self.activityIndicator.startAnimating()
-        
+
         let copyPost = post
         copyPost.dateModified = Date()
         copyPost.title = subjectTextField.text!
         copyPost.description = bodyTextField.text!
-        
+
         //queue up parallel execution of storage delete old image, storage-upload-new image, and firestore-update post
         var voidPromises = [Promise<Void>]()
-        
+
         if isMediaChanged {
             let newImageName = "\(NSUUID().uuidString)" + ".jpeg"
             copyPost.imagePath = newImageName
             let jpegData = photoImageView.image!.jpegData(compressionQuality: 1.0)
-            
+
             voidPromises.append(Services.storageService.uploadImage(filename: newImageName, imagetype: .jpeg, data: jpegData))
-            
+
             //post had previous image, so create promise to delete that
             if let imagefilename = post.imagePath {
                 voidPromises.append(Services.storageService.deleteImage(filename: imagefilename))
             }
         }
-        
+
         //queue up firestore write call
         voidPromises.append(Services.exercisePostService.updatePost(post: copyPost))
-        
+
         firstly {
             //execute all promises in parallel!
             when(fulfilled: voidPromises )
         }.done { _ in
             print("success updating Post")
-            
+
             let postMap: [String: ExercisePost] = ["post": copyPost]
             //will update the Feed View's UI via Notification center
             NotificationCenter.default.post(name: K.Notifications.ExercisePostEdits, object: nil, userInfo: postMap )
-            
+
             //refresh Post Details UI
             if let updatePostDetailView = self.updatePostDetailClosure {
                 updatePostDetailView(copyPost)
@@ -168,7 +168,7 @@ extension CreatePostViewController {
             self.activityIndicator.stopAnimating()
         }
     }
-    
+
     func submitPostWorkflow() {
         //queue up parallel execution of storage delete old image, storage-upload-new image, and firestore-update post
         var exercises = [Exercise]()
@@ -186,30 +186,30 @@ extension CreatePostViewController {
         var uploadImagePromise: Promise<Void> =  Promise<Void> {promise in
             return promise.fulfill_()
         }
-        
+
         var uploadVideoPromise: Promise<Void> =  Promise<Void> {promise in
             return promise.fulfill_()
         }
-        
+
         if isMediaChanged {
             let baseName = NSUUID().uuidString
             let newImageName = "\(baseName)" + ".jpeg"
             exercisePost.imagePath = newImageName
-            
+
             let jpegData = photoImageView.image!.jpegData(compressionQuality: 1.0)
             uploadImagePromise = Services.storageService.uploadImage(filename: newImageName, imagetype: .jpeg, data: jpegData)
-            
+
             if let  selectedVideoFileURL = selectedVideoFileURL {
                 let newVideoName = "\(baseName)" + ".mov"
                 exercisePost.videoPath = newVideoName
                 uploadVideoPromise = Services.storageService.uploadVideo(filename: newVideoName, videotype: .mov, url: selectedVideoFileURL)
             }
         }
-        
+
         firstly {
             when(fulfilled: uploadImagePromise, Services.exercisePostService.createPost(post: exercisePost), uploadVideoPromise)
         }.done { _, newPost, _ in
-            
+
             print("success creating post")
             if let updateTableView = self.diffedPostsDataClosure {
                 updateTableView(.add, newPost)
@@ -231,12 +231,12 @@ extension CreatePostViewController {
             self.activityIndicator.stopAnimating()
         }
     }
-    
+
     // MARK: - objc functions
     @objc func dropdownIconOnClick(sender: Any) {
         self.toggleDropdownIcon()
     }
-    
+
     @objc func cancelButtonOnClick(sender: Any) {
         let formIsDirty = {() -> Bool in
             return self.selectedExercise != nil ||

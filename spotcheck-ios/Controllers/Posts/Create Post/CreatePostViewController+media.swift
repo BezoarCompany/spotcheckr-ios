@@ -20,35 +20,35 @@ extension CreatePostViewController {
 
         present(imagePickerController, animated: true, completion: nil)
     }
-    
+
     // MARK: - objc functions
     @objc func openMediaOptions() {
         let mediaActionSheet = UIElementFactory.getActionSheet()
         mediaActionSheet.title = "Choose Media Source"
-        
+
         let mediaGalleryAction = MDCActionSheetAction(title: "Photo and Video Gallery", image: UIImage(systemName: "photo.on.rectangle"), handler: { (_) in
             self.openMediaGallery()
         })
-        
+
         mediaActionSheet.addAction(mediaGalleryAction)
-        
+
         self.present(mediaActionSheet, animated: true, completion: nil)
-        
+
     }
-    
+
     @objc func openCamera() {
         print("openCamera")
     }
-    
+
     @objc func openMediaGallery() {
         if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
             checkPhotoPermissionsAndShowLib()
         }
     }
-    
+
     @objc func checkPhotoPermissionsAndShowLib() {
         let photoAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
-        
+
         //TODO: Handle the cases where the status is .restricted, .denied, .default
         switch photoAuthorizationStatus {
         case .authorized:
@@ -116,8 +116,8 @@ extension CreatePostViewController: UINavigationControllerDelegate, UIImagePicke
 
         isMediaChanged = true
     }
-    
+
     private func imageHandler() {
-        
+
     }
 }

@@ -1,9 +1,9 @@
 import UIKit
 
 extension UIImage {
-    func getSizeIn(_ unit: DigitalStorageUnit) throws -> Double  {
+    func getSizeIn(_ unit: DigitalStorageUnit) throws -> Double {
         guard let imageData = self.jpegData(compressionQuality: 1.0) else { throw String("Unable to retrieve image data") }
-        
+
         var size = Double(imageData.count)
         switch unit {
         case .byte:
@@ -15,7 +15,7 @@ extension UIImage {
         case .gigabyte:
             size = size / 1024 / 1024 / 1024
         }
-        
+
         return size
     }
 }
