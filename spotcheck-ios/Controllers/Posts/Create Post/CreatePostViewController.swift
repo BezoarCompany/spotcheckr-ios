@@ -16,6 +16,7 @@ enum DiffType {
 }
 
 class CreatePostViewController: UIViewController {
+    let viewModel = CreatePostViewModel()
     let maxSubjectLength = 300
     let appBarViewController = UIElementFactory.getAppBar()
     var imagePickerController = UIImagePickerController()
@@ -200,14 +201,32 @@ class CreatePostViewController: UIViewController {
         }
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        firstly {
+            Services.systemService.getConfiguration()
+        }.done { config in
+            self.viewModel.configuration = config
+        }
+    }
+    
     func initAppBar() {
         appBarViewController.didMove(toParent: self)
         appBarViewController.inferTopSafeAreaInsetFromViewController = true
         appBarViewController.navigationBar.title = "Add Question"
-        appBarViewController.navigationBar.leftBarButtonItem = UIBarButtonItem(image: Images.close, style: .done, target: self, action: #selector(self.cancelButtonOnClick(sender:)))
-        appBarViewController.navigationBar.rightBarButtonItem = UIBarButtonItem(image: Images.plus, style: .done, target: self, action: #selector(self.submitPost(_:)))
+        appBarViewController.navigationBar.leftBarButtonItem = UIBarButtonItem(image: Images.close,
+                                                                               style: .done,
+                                                                               target: self,
+                                                                               action: #selector(self.cancelButtonOnClick(sender:)))
+        appBarViewController.navigationBar.rightBarButtonItem = UIBarButtonItem(image: Images.plus,
+                                                                                style: .done,
+                                                                                target: self,
+                                                                                action: #selector(self.submitPost(_:)))
         view.addSubview(appBarViewController.view)
     }
+}
+
+extension CreatePostViewController: MDCMultilineTextInputDelegate {
+    //the description text view requires a delegate
 }
 
 extension CreatePostViewController: UITextFieldDelegate {

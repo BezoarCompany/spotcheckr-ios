@@ -73,7 +73,6 @@ extension CreatePostViewController {
 
 extension CreatePostViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-
         handleMediaSelectedForInfo(info: info)
 
         imagePickerController.dismiss(animated: true, completion: nil)
@@ -82,11 +81,17 @@ extension CreatePostViewController: UINavigationControllerDelegate, UIImagePicke
     private func handleMediaSelectedForInfo(info: [UIImagePickerController.InfoKey: Any]) {
         let mediaType = info[UIImagePickerController.InfoKey.mediaType] as AnyObject
 
-        var chosenImage = UIImage()
-
         if mediaType as! String == kUTTypeImage as String { // Image
-            chosenImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
-            photoImageView.image = chosenImage
+            let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+            do {
+                try viewModel.checkImageRequirements(image: selectedImage!)
+                photoImageView.image = selectedImage
+            } catch { MediaError.exceedsMaxImageSize
+                imagePickerController.dismiss(animated: true) {
+                    self.snackbarMessage.text = "Image size exceeds \(self.viewModel.configuration!.maxImageUploadSize) MB. Select a different image."
+                    MDCSnackbarManager.show(self.snackbarMessage)
+                }
+            }
         } else if mediaType as! String == kUTTypeMovie as String { // Video
             // Saved URL on the controller for later reference in the submit
             let videoURL = info[UIImagePickerController.InfoKey.mediaURL] as? URL
@@ -110,6 +115,9 @@ extension CreatePostViewController: UINavigationControllerDelegate, UIImagePicke
         }
 
         isMediaChanged = true
-
+    }
+    
+    private func imageHandler() {
+        
     }
 }

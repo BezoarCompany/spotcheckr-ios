@@ -10,7 +10,7 @@ import DropDown
 extension CreatePostViewController {
     func initDropDowns() {
         self.exerciseTextField.delegate = self
-        self.exerciseTextField.traili, MDCMultilineTextInputDelegatengView = Images.chevronUp
+        self.exerciseTextField.trailingView = Images.chevronUp
         self.exerciseTextField.trailingViewMode = .always
         self.exerciseTextField.trailingView?.isUserInteractionEnabled = true
         self.exerciseTextField.trailingView?.heightAnchor.constraint(equalToConstant: 20).isActive = true
@@ -208,7 +208,6 @@ extension CreatePostViewController {
         
         firstly {
             when(fulfilled: uploadImagePromise, Services.exercisePostService.createPost(post: exercisePost), uploadVideoPromise)
-            
         }.done { _, newPost, _ in
             
             print("success creating post")

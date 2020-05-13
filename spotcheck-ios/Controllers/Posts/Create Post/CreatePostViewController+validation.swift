@@ -1,3 +1,7 @@
+import SwiftValidator
+import MaterialComponents
+import UIKit
+
 extension CreatePostViewController: ValidationDelegate {
     func validationSuccessful() {
         appBarViewController.navigationBar.rightBarButtonItem?.isEnabled = false
@@ -28,7 +32,7 @@ extension CreatePostViewController: ValidationDelegate {
         appBarViewController.navigationBar.rightBarButtonItem?.customView = nil
     }
     
-    private func setupValidation() {
+    func setupValidation() {
         validator.registerField(self.subjectTextField, rules: [RequiredRule(message: "Required")])
         validator.registerField(self.bodyTextField.textView!, rules: [RequiredRule(message: "Required")])
     }
