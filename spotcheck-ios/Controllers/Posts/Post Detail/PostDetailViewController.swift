@@ -107,7 +107,9 @@ extension PostDetailViewController {
                 firstly {
                     Services.exercisePostService.getAnswers(forPostWithId: self.viewModel.post!.id!, bypassCache: bypassCache)
                 }.done { answers in
-                    self.viewModel.answers = answers
+                    self.viewModel.answers = answers.sorted(by: { (answer1, answer2) -> Bool in
+                        return answer1.dateCreated?.compare(answer2.dateCreated!) == .orderedDescending
+                    })
                     self.viewModel.answersCount = self.viewModel.answers.count
                     self.adapter.performUpdates(animated: true)
                 }.catch { (error) in
@@ -147,10 +149,9 @@ extension PostDetailViewController {
     }
 
     func initActivityIndicator() {
-        viewModel.activityIndicator.center = self.view.center
-        viewModel.activityIndicator.hidesWhenStopped = true
-        viewModel.activityIndicator.style = UIActivityIndicatorView.Style.whiteLarge
-        viewModel.collectionView.contentView.addSubview(viewModel.activityIndicator)
+        viewModel.collectionView.contentView.addSubview(viewModel.circularActivityIndicatorWithBG)
+        viewModel.circularActivityIndicatorWithBG.centerXAnchor.constraint(equalTo: viewModel.collectionView.centerXAnchor).isActive = true
+        viewModel.circularActivityIndicatorWithBG.centerYAnchor.constraint(equalTo: viewModel.collectionView.centerYAnchor).isActive = true        
     }
 
     func initReplyButton() {

@@ -37,7 +37,6 @@ extension CreatePostViewController {
         firstly {
             Services.exercisePostService.getExercises()
         }.done { exercises in
-
             var arr = [String]()
             for exercise in exercises {
                 self.exercises.append(exercise.value)
@@ -47,10 +46,6 @@ extension CreatePostViewController {
 
             self.exerciseDropdown.dataSource = arr
         }
-    }
-
-    @objc func dropdownIconOnClick(sender: Any) {
-        self.toggleDropdownIcon()
     }
 
     func toggleDropdownIcon() {
@@ -91,20 +86,6 @@ extension CreatePostViewController {
         appBarViewController.navigationBar.leftBarButtonItem?.action = #selector(cancelButtonOnClick(sender:))
     }
 
-    @objc func cancelButtonOnClick(sender: Any) {
-        let formIsDirty = {() -> Bool in
-            return self.selectedExercise != nil ||
-            (self.title != nil && self.title!.trim().count > 0) ||
-            (self.bodyTextField.text != nil && self.bodyTextField.text!.trim().count > 0)
-        }
-
-        if formIsDirty() {
-            present(self.cancelAlertController, animated: true)
-        } else {
-            self.dismiss(animated: true)
-        }
-    }
-
     func applyConstraints() {
         self.exerciseTextField.topAnchor.constraint(equalTo: self.appBarViewController.navigationBar.bottomAnchor, constant: 16).isActive = true
         self.exerciseTextField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
@@ -127,16 +108,12 @@ extension CreatePostViewController {
 
     }
 
-    @objc func keyboardBtnTapped() {
-         self.bodyTextField.textView!.resignFirstResponder()
-    }
-
-    //for modifying an existing post
+    /// Modify an existing post
     func updatePostWorkflow(post: ExercisePost?) {
         guard let post = post
             else {
-            print("@updatePostWorkflow -> invalid post args")
-            return
+                print("@updatePostWorkflow -> invalid post args")
+                return
         }
         self.circularActivityIndicatorWithBG.startAnimating()
 
@@ -198,14 +175,14 @@ extension CreatePostViewController {
         if self.selectedExercise != nil {
             // TODO: till we have tagging system
             print("selected-exercise: \(self.selectedExercise)")
-//            exercises.append(self.selectedExercise!)
+            //            exercises.append(self.selectedExercise!)
         }
         var exercisePost = ExercisePost(title: subjectTextField.text!,
-                                       description: bodyTextField.text!,
-                                       createdBy: self.currentUser,
-                                       dateCreated: Date(),
-                                       dateModified: Date(),
-                                       exercises: exercises)
+                                        description: bodyTextField.text!,
+                                        createdBy: self.currentUser,
+                                        dateCreated: Date(),
+                                        dateModified: Date(),
+                                        exercises: exercises)
         var uploadImagePromise: Promise<Void> =  Promise<Void> {promise in
             return promise.fulfill_()
         }
@@ -231,7 +208,6 @@ extension CreatePostViewController {
 
         firstly {
             when(fulfilled: uploadImagePromise, Services.exercisePostService.createPost(post: exercisePost), uploadVideoPromise)
-
         }.done { _, newPost, _ in
 
             print("success creating post")
@@ -254,5 +230,28 @@ extension CreatePostViewController {
         }.finally {
             self.circularActivityIndicatorWithBG.startAnimating()
         }
+    }
+
+    // MARK: - objc functions
+    @objc func dropdownIconOnClick(sender: Any) {
+        self.toggleDropdownIcon()
+    }
+
+    @objc func cancelButtonOnClick(sender: Any) {
+        let formIsDirty = {() -> Bool in
+            return self.selectedExercise != nil ||
+            (self.title != nil && self.title!.trim().count > 0) ||
+            (self.bodyTextField.text != nil && self.bodyTextField.text!.trim().count > 0)
+        }
+
+        if formIsDirty() {
+            present(self.cancelAlertController, animated: true)
+        } else {
+            self.dismiss(animated: true)
+        }
+    }
+
+    @objc func keyboardBtnTapped() {
+         self.bodyTextField.textView!.resignFirstResponder()
     }
 }
