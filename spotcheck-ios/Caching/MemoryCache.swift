@@ -17,7 +17,7 @@ final class MemoryCache<Key: Hashable, Value> {
     //TODO: Memory handling should be handled by all cache classes, whether they are disk, memory, hybrid, etc.
     //This should be handled on the protocol level if there is one introduced in the future.
     @objc func handleMemoryWarning(_ sender: Any) {
-        //TODO: Log memory warning received using SwiftyBeaver.
+        LogManager.warning("Memory warning received.")
         self.empty()
     }
     
