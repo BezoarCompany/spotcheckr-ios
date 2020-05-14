@@ -81,7 +81,7 @@ class FeedViewController: UIViewController {
     }
 
     func fetchMorePosts(lastSnapshot: DocumentSnapshot?) -> Promise<[ExercisePost]> {
-        print("@fetchMorePosts \(lastSnapshot)")
+        LogManager.info("Loading more posts")
         return Promise { promise in
 
             firstly {
@@ -324,8 +324,9 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
 
     //Query 'cache' for cell height to prevent jumpy recalc behavior
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
-           sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
 
         let height = cellHeights[indexPath] ?? CGFloat(cellHeightEstimate)
         let width = UIScreen.main.bounds.size.width

@@ -7,7 +7,7 @@ target 'spotcheck-ios' do
 
   # Dev Dependencies
   pod 'SwiftLint'
-  
+  pod 'SwiftyBeaver'
   pod 'SwiftyPlistManager'
   
   # Dynamic Collection Views and Diff tool

@@ -642,6 +642,7 @@ PODS:
   - SwiftLint (0.39.2)
   - SwiftSVG (2.2.1)
   - SwiftValidator (4.0.0)
+  - SwiftyBeaver (1.9.1)
   - SwiftyPlistManager (1.0.2)
 
 DEPENDENCIES:
@@ -688,6 +689,7 @@ DEPENDENCIES:
   - SwiftLint
   - SwiftSVG (~> 2.2.1)
   - SwiftValidator (from `https://github.com/jpotts18/SwiftValidator.git`, tag `4.2.0`)
+  - SwiftyBeaver
   - SwiftyPlistManager
 
 SPEC REPOS:
@@ -739,6 +741,7 @@ SPEC REPOS:
     - SDWebImage
     - SwiftLint
     - SwiftSVG
+    - SwiftyBeaver
     - SwiftyPlistManager
 
 EXTERNAL SOURCES:
@@ -807,8 +810,9 @@ SPEC CHECKSUMS:
   SwiftLint: 22ccbbe3b8008684be5955693bab135e0ed6a447
   SwiftSVG: e55084e4c5534f3f25743003a6a3a88580cacfb0
   SwiftValidator: 249b6b3ae3b294266c5b9de134d94f18f2d5aa47
+  SwiftyBeaver: a1f5691458561414bcfab51874b2b7445451602b
   SwiftyPlistManager: 5895924cccb7fe28deccbe14890e8aed78ae78ae
 
-PODFILE CHECKSUM: 1cb7df625c856bd5b5ecf46e11cedba0ff644ae2
+PODFILE CHECKSUM: a148e95a9606a20ae191f9b46bb3beed7eb8550e
 
 COCOAPODS: 1.9.1
