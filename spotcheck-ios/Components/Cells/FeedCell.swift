@@ -103,7 +103,7 @@ class FeedCell: CardCollectionCell {
           self.avPlayerViewController.view.frame = self.mediaContainerView.bounds
           self.avPlayerViewController.entersFullScreenWhenPlaybackBegins = true // TODO: Does not seem to actually go full screen, neither does presenting it via rootViewController
           self.avPlayerViewController.exitsFullScreenWhenPlaybackEnds = true
-          self.avPlayerViewController.videoGravity = AVLayerVideoGravity.resize
+
           self.mediaContainerView.addSubview(self.avPlayerViewController.view)
 
       }
