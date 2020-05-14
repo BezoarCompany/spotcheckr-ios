@@ -106,7 +106,9 @@ extension PostDetailViewController {
                 firstly {
                     Services.exercisePostService.getAnswers(forPostWithId: self.viewModel.post!.id!, bypassCache: bypassCache)
                 }.done { answers in
-                    self.viewModel.answers = answers
+                    self.viewModel.answers = answers.sorted(by: { (answer1, answer2) -> Bool in
+                        return answer1.dateCreated?.compare(answer2.dateCreated!) == .orderedDescending
+                    })
                     self.viewModel.answersCount = self.viewModel.answers.count
                     self.adapter.performUpdates(animated: true)
                 }.catch { (error) in
