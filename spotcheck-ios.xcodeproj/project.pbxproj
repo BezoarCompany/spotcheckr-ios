@@ -48,6 +48,10 @@
 		BA1FB52923F11ADA00E091B1 /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1FB52823F11ADA00E091B1 /* Answer.swift */; };
 		BA1FB52B23F11B5100E091B1 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1FB52A23F11B5100E091B1 /* Media.swift */; };
 		BA1FB52F23F11C3400E091B1 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1FB52E23F11C3400E091B1 /* Exercise.swift */; };
+		BA223A81246CDF0400CFDE98 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA223A80246CDF0400CFDE98 /* Logger.swift */; };
+		BA223A83246CDF5A00CFDE98 /* SwiftyBeaverLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA223A82246CDF5A00CFDE98 /* SwiftyBeaverLogger.swift */; };
+		BA223A85246CE7CC00CFDE98 /* LogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA223A84246CE7CC00CFDE98 /* LogManager.swift */; };
+		BA223A87246CED4500CFDE98 /* LogManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA223A86246CED4500CFDE98 /* LogManagerProtocol.swift */; };
 		BA35490F246355270033C818 /* PostDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA35490E246355270033C818 /* PostDetailViewModel.swift */; };
 		BA35491124636E8B0033C818 /* AnswersSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA35491024636E8B0033C818 /* AnswersSectionController.swift */; };
 		BA3549172463A7480033C818 /* ExercisePostIGListKitExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3549162463A7480033C818 /* ExercisePostIGListKitExtension.swift */; };
@@ -222,6 +226,10 @@
 		BA1FB52823F11ADA00E091B1 /* Answer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
 		BA1FB52A23F11B5100E091B1 /* Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
 		BA1FB52E23F11C3400E091B1 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
+		BA223A80246CDF0400CFDE98 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		BA223A82246CDF5A00CFDE98 /* SwiftyBeaverLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftyBeaverLogger.swift; sourceTree = "<group>"; };
+		BA223A84246CE7CC00CFDE98 /* LogManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogManager.swift; sourceTree = "<group>"; };
+		BA223A86246CED4500CFDE98 /* LogManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogManagerProtocol.swift; sourceTree = "<group>"; };
 		BA35490E246355270033C818 /* PostDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewModel.swift; sourceTree = "<group>"; };
 		BA35491024636E8B0033C818 /* AnswersSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswersSectionController.swift; sourceTree = "<group>"; };
 		BA3549162463A7480033C818 /* ExercisePostIGListKitExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisePostIGListKitExtension.swift; sourceTree = "<group>"; };
@@ -416,6 +424,7 @@
 		567952FC23D806BE0077BA08 /* spotcheck-ios */ = {
 			isa = PBXGroup;
 			children = (
+				BA223A7F246CDEEF00CFDE98 /* Logging */,
 				563772B8245807A0002292B8 /* Sample */,
 				567860D72441C46500451C3A /* Configs */,
 				561648A0243A6641003DB6CA /* Spotcheckr.entitlements */,
@@ -515,6 +524,17 @@
 				1BAF183FCC50189FBD943ED6 /* Pods_spotcheck_ios.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BA223A7F246CDEEF00CFDE98 /* Logging */ = {
+			isa = PBXGroup;
+			children = (
+				BA223A80246CDF0400CFDE98 /* Logger.swift */,
+				BA223A82246CDF5A00CFDE98 /* SwiftyBeaverLogger.swift */,
+				BA223A84246CE7CC00CFDE98 /* LogManager.swift */,
+				BA223A86246CED4500CFDE98 /* LogManagerProtocol.swift */,
+			);
+			path = Logging;
 			sourceTree = "<group>";
 		};
 		BA3549142463A72D0033C818 /* Extensions */ = {
@@ -1114,6 +1134,7 @@
 				BA1FB51523F1047A00E091B1 /* Contact.swift in Sources */,
 				BA95E2552452023800118DE0 /* CircularActivityIndicator.swift in Sources */,
 				BA4EE42823E94BBF003E6D87 /* AuthenticationProtocol.swift in Sources */,
+				BA223A85246CE7CC00CFDE98 /* LogManager.swift in Sources */,
 				BA1FB52923F11ADA00E091B1 /* Answer.swift in Sources */,
 				BA1FB51923F1058500E091B1 /* EmailAddress.swift in Sources */,
 				BA54CD6F2436526B00A944BC /* ReportingService.swift in Sources */,
@@ -1124,6 +1145,7 @@
 				5645AFE823F51C0700B64D0B /* CreatePostViewController.swift in Sources */,
 				BAEB797E24663F7400207055 /* RefreshControl.swift in Sources */,
 				BA733D5524038E4100395895 /* ErrorExtensions.swift in Sources */,
+				BA223A87246CED4500CFDE98 /* LogManagerProtocol.swift in Sources */,
 				5644F61D2406435C00A103EF /* StorageService.swift in Sources */,
 				BA65CBB3244C43D100901812 /* UIColorExtensions.swift in Sources */,
 				BACCABEA241E162100BEC89E /* UIElementFactory.swift in Sources */,
@@ -1171,6 +1193,7 @@
 				BA35490F246355270033C818 /* PostDetailViewModel.swift in Sources */,
 				BA54CD712436528300A944BC /* ReportingProtocol.swift in Sources */,
 				5653ABCF24161921001E9CF0 /* MemoryCache.swift in Sources */,
+				BA223A81246CDF0400CFDE98 /* Logger.swift in Sources */,
 				BABAA3EA2443454D00FF5C33 /* VotingControls.swift in Sources */,
 				BA4EE45E23EFEC39003E6D87 /* UserProtocol.swift in Sources */,
 				56B8D03A2447114800E3C157 /* CreatePostViewController+media.swift in Sources */,
@@ -1188,6 +1211,7 @@
 				BA1FB51D23F106E500E091B1 /* Certification.swift in Sources */,
 				BA65CBBF244D10BF00901812 /* UserID.swift in Sources */,
 				BA95E252245138DA00118DE0 /* ContentType.swift in Sources */,
+				BA223A83246CDF5A00CFDE98 /* SwiftyBeaverLogger.swift in Sources */,
 				BA1FB52123F1148700E091B1 /* ExercisePost.swift in Sources */,
 				5607DA0E2426221000B283D2 /* PromiseKitExtensions.swift in Sources */,
 				BAEDB8DE24590D0D00FC5587 /* CollectionView.swift in Sources */,
