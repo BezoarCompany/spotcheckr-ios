@@ -161,7 +161,6 @@
 		BAEE4ACC2426E122005C2023 /* arrow-down.svg in Resources */ = {isa = PBXBuildFile; fileRef = BAEE4ACB2426E122005C2023 /* arrow-down.svg */; };
 		BAEE4ACE24274D49005C2023 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEE4ACD24274D49005C2023 /* Colors.swift */; };
 		BAEE4AD024276DFD005C2023 /* account-circle.svg in Resources */ = {isa = PBXBuildFile; fileRef = BAEE4ACF24276DFD005C2023 /* account-circle.svg */; };
-		BE132542C12E06260A198C70 /* Pods_spotcheck_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8EB8078F73318F3714F055C /* Pods_spotcheck_ios.framework */; };
 		FEDDBD4D8C90C3CC1C368B54 /* Pods_spotcheck_ios_spotcheckr_uitests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF5C9BF77A2CF96877E6AAF9 /* Pods_spotcheck_ios_spotcheckr_uitests.framework */; };
 		BAF39FFC246273D600CAB73A /* ExercisePostDetailSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF39FFB246273D600CAB73A /* ExercisePostDetailSectionController.swift */; };
 		CE177860E3221E038C0D83EF /* Pods_spotcheck_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BAF183FCC50189FBD943ED6 /* Pods_spotcheck_ios.framework */; };
@@ -360,11 +359,11 @@
 		DE3F0FD74FDAA6FA4FDB49F8 /* Pods-spotcheckr-uitests.release (development).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheckr-uitests.release (development).xcconfig"; path = "Target Support Files/Pods-spotcheckr-uitests/Pods-spotcheckr-uitests.release (development).xcconfig"; sourceTree = "<group>"; };
 		E6A95DE0C46F032F47BDC44A /* Pods-spotcheck-ios-spotcheckr-uitests.release (staging).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios-spotcheckr-uitests.release (staging).xcconfig"; path = "Target Support Files/Pods-spotcheck-ios-spotcheckr-uitests/Pods-spotcheck-ios-spotcheckr-uitests.release (staging).xcconfig"; sourceTree = "<group>"; };
 		E8EB8078F73318F3714F055C /* Pods_spotcheck_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_spotcheck_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		EF3C57BD3F15AE53A8CE7339 /* Pods-spotcheck-ios.release (staging).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios.release (staging).xcconfig"; path = "Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios.release (staging).xcconfig"; sourceTree = "<group>"; };
 		EF5C9BF77A2CF96877E6AAF9 /* Pods_spotcheck_ios_spotcheckr_uitests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_spotcheck_ios_spotcheckr_uitests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAF39FFB246273D600CAB73A /* ExercisePostDetailSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisePostDetailSectionController.swift; sourceTree = "<group>"; };
 		C2C22F40222FA4280C7585DB /* Pods-spotcheck-ios.release (staging).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios.release (staging).xcconfig"; path = "Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios.release (staging).xcconfig"; sourceTree = "<group>"; };
 		E91885A464EB0E3BB2719776 /* Pods-spotcheck-ios.release (development).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios.release (development).xcconfig"; path = "Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios.release (development).xcconfig"; sourceTree = "<group>"; };
+
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
