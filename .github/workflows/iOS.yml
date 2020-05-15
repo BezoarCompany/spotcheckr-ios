@@ -65,7 +65,7 @@ jobs:
           -sdk iphoneos build-for-testing
       
       - name: Create UITests.zip
-        run: >
+        run: |
           cd ./DD/Build/Products
           zip -r UITests.zip *
           cd ../../../
