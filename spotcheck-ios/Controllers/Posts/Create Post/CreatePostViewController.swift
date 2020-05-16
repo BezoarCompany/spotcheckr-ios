@@ -219,7 +219,7 @@ class CreatePostViewController: UIViewController {
                                                                                style: .done,
                                                                                target: self,
                                                                                action: #selector(self.cancelButtonOnClick(sender:)))
-        appBarViewController.navigationBar.rightBarButtonItem = UIBarButtonItem(image: Images.plus,
+        appBarViewController.navigationBar.rightBarButtonItem = UIBarButtonItem(title: "Create",
                                                                                 style: .done,
                                                                                 target: self,
                                                                                 action: #selector(self.submitPost(_:)))
