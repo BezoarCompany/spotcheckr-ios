@@ -21,8 +21,7 @@ class PostDetailViewController: UIViewController {
     static func create(postId: ExercisePostID?) -> PostDetailViewController {
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         //swiftlint:disable force_cast line_length
-
-        let postDetailViewController = PostDetailViewController()
+        let postDetailViewController = storyboard.instantiateViewController(withIdentifier: K.Storyboard.PostDetailViewControllerId) as! PostDetailViewController
 
         postDetailViewController.viewModel.postId = postId
 
@@ -149,9 +148,10 @@ extension PostDetailViewController {
     }
 
     func initActivityIndicator() {
-        viewModel.collectionView.contentView.addSubview(viewModel.circularActivityIndicatorWithBG)
-        viewModel.circularActivityIndicatorWithBG.centerXAnchor.constraint(equalTo: viewModel.collectionView.centerXAnchor).isActive = true
-        viewModel.circularActivityIndicatorWithBG.centerYAnchor.constraint(equalTo: viewModel.collectionView.centerYAnchor).isActive = true        
+        viewModel.activityIndicator.center = self.view.center
+        viewModel.activityIndicator.hidesWhenStopped = true
+        viewModel.activityIndicator.style = UIActivityIndicatorView.Style.whiteLarge
+        viewModel.collectionView.contentView.addSubview(viewModel.activityIndicator)
     }
 
     func initReplyButton() {

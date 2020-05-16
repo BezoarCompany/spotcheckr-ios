@@ -34,11 +34,7 @@ class PostDetailViewModel {
         let layout = UICollectionViewFlowLayout()
         return layout
     }()
-    var circularActivityIndicatorWithBG: CircularActivityIndicatorWithBackground = {
-        let cai = CircularActivityIndicatorWithBackground()
-        cai.translatesAutoresizingMaskIntoConstraints = false
-        return cai
-    }()
+    var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
     let appBarViewController = UIElementFactory.getAppBar()
     let answerReplyButton: MDCFloatingButton = {
         let button = MDCFloatingButton()

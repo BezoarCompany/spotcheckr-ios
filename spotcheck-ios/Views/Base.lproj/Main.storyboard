@@ -200,6 +200,21 @@
             </objects>
             <point key="canvasLocation" x="3708.6956521739135" y="-144.64285714285714"/>
         </scene>
+        <!--Post Details-->
+        <scene sceneID="6dT-Gy-rnv">
+            <objects>
+                <viewController storyboardIdentifier="PostDetailViewController" id="M9o-fR-ved" userLabel="Post Details" customClass="PostDetailViewController" customModule="Spotcheckr" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="KGI-Jf-7G6">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="qMF-pz-b0p"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ps5-bF-p3k" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4741" y="280"/>
+        </scene>
         <!--CreatePost-->
         <scene sceneID="lzG-wv-yeJ">
             <objects>
