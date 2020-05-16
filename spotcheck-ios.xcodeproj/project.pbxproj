@@ -25,8 +25,6 @@
 		5679533823D980E40077BA08 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5679533723D980E40077BA08 /* FeedViewController.swift */; };
 		5679533A23D988910077BA08 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5679533923D988910077BA08 /* ProfileViewController.swift */; };
 		567E9A3223E93EA2004C1B2E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567E9A3123E93EA2004C1B2E /* Constants.swift */; };
-		5681771723FDCE7500CA7AB5 /* DetailedPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5681771523FDCE7500CA7AB5 /* DetailedPostCell.swift */; };
-		5681771823FDCE7500CA7AB5 /* DetailedPostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5681771623FDCE7500CA7AB5 /* DetailedPostCell.xib */; };
 		5686D2E224051C0300E09868 /* CreatePostViewController+helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5686D2E124051C0300E09868 /* CreatePostViewController+helpers.swift */; };
 		568721A323E7EF1100E15F87 /* ApplicationScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568721A223E7EF1100E15F87 /* ApplicationScheme.swift */; };
 		569794D123F11DBC00994B71 /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569794D023F11DBC00994B71 /* PostDetailViewController.swift */; };
@@ -204,8 +202,6 @@
 		5679533723D980E40077BA08 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		5679533923D988910077BA08 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		567E9A3123E93EA2004C1B2E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		5681771523FDCE7500CA7AB5 /* DetailedPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedPostCell.swift; sourceTree = "<group>"; };
-		5681771623FDCE7500CA7AB5 /* DetailedPostCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailedPostCell.xib; sourceTree = "<group>"; };
 		5686D2E124051C0300E09868 /* CreatePostViewController+helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CreatePostViewController+helpers.swift"; sourceTree = "<group>"; };
 		568721A223E7EF1100E15F87 /* ApplicationScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationScheme.swift; sourceTree = "<group>"; };
 		569794D023F11DBC00994B71 /* PostDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
@@ -493,8 +489,6 @@
 				568721A223E7EF1100E15F87 /* ApplicationScheme.swift */,
 				5659D9D523FD02980043FA6A /* AnswerPostCell.swift */,
 				5659D9D623FD02980043FA6A /* AnswerPostCell.xib */,
-				5681771523FDCE7500CA7AB5 /* DetailedPostCell.swift */,
-				5681771623FDCE7500CA7AB5 /* DetailedPostCell.xib */,
 				BA4EDA442402909A00206267 /* ProfilePostCell.xib */,
 				BA4EDA46240290C000206267 /* ProfilePostCell.swift */,
 				56EA7F85242B0D3A00EEDF34 /* LoadingCell.swift */,
@@ -1076,7 +1070,6 @@
 				BAEE4ACC2426E122005C2023 /* arrow-down.svg in Resources */,
 				BA54CD792436D52700A944BC /* flag.svg in Resources */,
 				5679530723D806C00077BA08 /* Assets.xcassets in Resources */,
-				5681771823FDCE7500CA7AB5 /* DetailedPostCell.xib in Resources */,
 				5659D9D823FD02980043FA6A /* AnswerPostCell.xib in Resources */,
 				BABA111A245886C700FB9D1D /* lock.svg in Resources */,
 				BABAA3E72443337400FF5C33 /* x.svg in Resources */,
@@ -1272,7 +1265,6 @@
 				BA4EDA47240290C000206267 /* ProfilePostCell.swift in Sources */,
 				BABA112024588ADE00FB9D1D /* ScrollView.swift in Sources */,
 				BA749771242ACEF100C1C17C /* SettingsViewController.swift in Sources */,
-				5681771723FDCE7500CA7AB5 /* DetailedPostCell.swift in Sources */,
 				BA59197623F92DBA00E8B900 /* Services.swift in Sources */,
 				568721A323E7EF1100E15F87 /* ApplicationScheme.swift in Sources */,
 				BA9D1AD0246B54A8008A1CF1 /* DigitalStorageUnit.swift in Sources */,
