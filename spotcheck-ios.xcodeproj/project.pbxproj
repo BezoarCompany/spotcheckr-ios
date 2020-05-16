@@ -20,8 +20,6 @@
 		5679530523D806BE0077BA08 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5679530323D806BE0077BA08 /* Main.storyboard */; };
 		5679530723D806C00077BA08 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5679530623D806C00077BA08 /* Assets.xcassets */; };
 		5679530A23D806C00077BA08 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5679530823D806C00077BA08 /* LaunchScreen.storyboard */; };
-		5679531523D806C00077BA08 /* spotcheck_iosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5679531423D806C00077BA08 /* spotcheck_iosTests.swift */; };
-		5679532023D806C00077BA08 /* spotcheck_iosUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5679531F23D806C00077BA08 /* spotcheck_iosUITests.swift */; };
 		5679533423D972F00077BA08 /* AuthOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5679533323D972F00077BA08 /* AuthOptionsViewController.swift */; };
 		5679533823D980E40077BA08 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5679533723D980E40077BA08 /* FeedViewController.swift */; };
 		5679533A23D988910077BA08 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5679533923D988910077BA08 /* ProfileViewController.swift */; };
@@ -112,6 +110,11 @@
 		BA65CBBD244D0CF000901812 /* GenericID.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA65CBBC244D0CF000901812 /* GenericID.swift */; };
 		BA65CBBF244D10BF00901812 /* UserID.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA65CBBE244D10BF00901812 /* UserID.swift */; };
 		BA65CBCC244E25EE00901812 /* CardCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA65CBCB244E25EE00901812 /* CardCollectionCell.swift */; };
+		BA732D01245E983D004E8032 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA732D00245E983D004E8032 /* Users.swift */; };
+		BA732D03245E999C004E8032 /* FeedViewScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA732D02245E999C004E8032 /* FeedViewScreen.swift */; };
+		BA732D08245EA0F6004E8032 /* ProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA732D07245EA0F6004E8032 /* ProfileScreen.swift */; };
+		BA732D0A245EA10C004E8032 /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA732D09245EA10C004E8032 /* SettingsScreen.swift */; };
+		BA732D0C245EBA6F004E8032 /* SettingsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA732D0B245EBA6F004E8032 /* SettingsTest.swift */; };
 		BA733D5524038E4100395895 /* ErrorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA733D5424038E4100395895 /* ErrorExtensions.swift */; };
 		BA74976D2429D6B100C1C17C /* edit-2.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA74976C2429D6B100C1C17C /* edit-2.svg */; };
 		BA74976F2429DA6400C1C17C /* settings.svg in Resources */ = {isa = PBXBuildFile; fileRef = BA74976E2429DA6400C1C17C /* settings.svg */; };
@@ -131,6 +134,12 @@
 		BA9D1ACE246B5463008A1CF1 /* MeasurementSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA9D1ACD246B5463008A1CF1 /* MeasurementSystem.swift */; };
 		BA9D1AD0246B54A8008A1CF1 /* DigitalStorageUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA9D1ACF246B54A8008A1CF1 /* DigitalStorageUnit.swift */; };
 		BAA340FA23F3932900C7392C /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA340F923F3932900C7392C /* DateExtensions.swift */; };
+		BAA7D1BF245E502600766BC9 /* BaseScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D1BE245E502600766BC9 /* BaseScreen.swift */; };
+		BAA7D1C1245E503300766BC9 /* BaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D1C0245E503300766BC9 /* BaseTest.swift */; };
+		BAA7D1C3245E511800766BC9 /* LoginTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D1C2245E511800766BC9 /* LoginTest.swift */; };
+		BAA7D1C5245E512300766BC9 /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D1C4245E512300766BC9 /* LoginScreen.swift */; };
+		BAA7D1C7245E558A00766BC9 /* SignUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D1C6245E558A00766BC9 /* SignUpScreen.swift */; };
+		BAA7D1C9245E57FD00766BC9 /* ForgotPasswordScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D1C8245E57FD00766BC9 /* ForgotPasswordScreen.swift */; };
 		BABA110A24555A3E00FB9D1D /* database.svg in Resources */ = {isa = PBXBuildFile; fileRef = BABA110924555A3E00FB9D1D /* database.svg */; };
 		BABA11162457E74100FB9D1D /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = BABA11152457E74100FB9D1D /* .swiftlint.yml */; };
 		BABA11182458833400FB9D1D /* chevron-right.svg in Resources */ = {isa = PBXBuildFile; fileRef = BABA11172458833300FB9D1D /* chevron-right.svg */; };
@@ -152,19 +161,13 @@
 		BAEE4ACC2426E122005C2023 /* arrow-down.svg in Resources */ = {isa = PBXBuildFile; fileRef = BAEE4ACB2426E122005C2023 /* arrow-down.svg */; };
 		BAEE4ACE24274D49005C2023 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEE4ACD24274D49005C2023 /* Colors.swift */; };
 		BAEE4AD024276DFD005C2023 /* account-circle.svg in Resources */ = {isa = PBXBuildFile; fileRef = BAEE4ACF24276DFD005C2023 /* account-circle.svg */; };
+		FEDDBD4D8C90C3CC1C368B54 /* Pods_spotcheck_ios_spotcheckr_uitests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF5C9BF77A2CF96877E6AAF9 /* Pods_spotcheck_ios_spotcheckr_uitests.framework */; };
 		BAF39FFC246273D600CAB73A /* ExercisePostDetailSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF39FFB246273D600CAB73A /* ExercisePostDetailSectionController.swift */; };
 		CE177860E3221E038C0D83EF /* Pods_spotcheck_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BAF183FCC50189FBD943ED6 /* Pods_spotcheck_ios.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		5679531123D806C00077BA08 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 567952F223D806BE0077BA08 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 567952F923D806BE0077BA08;
-			remoteInfo = "spotcheck-ios";
-		};
-		5679531C23D806C00077BA08 /* PBXContainerItemProxy */ = {
+		BAA7D1B3245DA27B00766BC9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 567952F223D806BE0077BA08 /* Project object */;
 			proxyType = 1;
@@ -174,8 +177,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1BAF183FCC50189FBD943ED6 /* Pods_spotcheck_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_spotcheck_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		54E1D9A2DBA4B2C5F2E04AE7 /* Pods-spotcheck-ios.release (production).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios.release (production).xcconfig"; path = "Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios.release (production).xcconfig"; sourceTree = "<group>"; };
+		03991B4D4597474019A970D7 /* Pods-spotcheck-ios.release (development).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios.release (development).xcconfig"; path = "Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios.release (development).xcconfig"; sourceTree = "<group>"; };
+		05E173A1F5F8710941BBF4A8 /* Pods-spotcheckr-uitests.release (staging).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheckr-uitests.release (staging).xcconfig"; path = "Target Support Files/Pods-spotcheckr-uitests/Pods-spotcheckr-uitests.release (staging).xcconfig"; sourceTree = "<group>"; };
+		08DCB3993CDB09DD42F2941D /* Pods-spotcheck-ios.debug (staging).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios.debug (staging).xcconfig"; path = "Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios.debug (staging).xcconfig"; sourceTree = "<group>"; };
 		5607DA0D2426221000B283D2 /* PromiseKitExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromiseKitExtensions.swift; sourceTree = "<group>"; };
 		561648A0243A6641003DB6CA /* Spotcheckr.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Spotcheckr.entitlements; sourceTree = "<group>"; };
 		5644F61C2406435C00A103EF /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
@@ -196,12 +200,6 @@
 		5679530623D806C00077BA08 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5679530923D806C00077BA08 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5679530B23D806C00077BA08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5679531023D806C00077BA08 /* spotcheck-iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "spotcheck-iosTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		5679531423D806C00077BA08 /* spotcheck_iosTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = spotcheck_iosTests.swift; sourceTree = "<group>"; };
-		5679531623D806C00077BA08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5679531B23D806C00077BA08 /* spotcheck-iosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "spotcheck-iosUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		5679531F23D806C00077BA08 /* spotcheck_iosUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = spotcheck_iosUITests.swift; sourceTree = "<group>"; };
-		5679532123D806C00077BA08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5679533323D972F00077BA08 /* AuthOptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthOptionsViewController.swift; sourceTree = "<group>"; };
 		5679533723D980E40077BA08 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		5679533923D988910077BA08 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -214,11 +212,17 @@
 		569A8B98244588EC007CCDD3 /* exportOptions.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = exportOptions.plist; sourceTree = "<group>"; };
 		56B8D0392447114800E3C157 /* CreatePostViewController+media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CreatePostViewController+media.swift"; sourceTree = "<group>"; };
 		56EA7F85242B0D3A00EEDF34 /* LoadingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCell.swift; sourceTree = "<group>"; };
-		7BE19FCDC24C6084E719EEC0 /* Pods-spotcheck-ios.debug (production).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios.debug (production).xcconfig"; path = "Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios.debug (production).xcconfig"; sourceTree = "<group>"; };
-		8AEB36802E706E9D882E5510 /* Pods-spotcheck-ios.debug (development).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios.debug (development).xcconfig"; path = "Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios.debug (development).xcconfig"; sourceTree = "<group>"; };
-		9B3F6A3B5A83E7CE38E189A3 /* Pods-spotcheck-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios.release.xcconfig"; path = "Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios.release.xcconfig"; sourceTree = "<group>"; };
-		A58C486462B98ED878E6B543 /* Pods-spotcheck-ios.debug (staging).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios.debug (staging).xcconfig"; path = "Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios.debug (staging).xcconfig"; sourceTree = "<group>"; };
-		B5E373BCDADE2E7A555D2190 /* Pods-spotcheck-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios.debug.xcconfig"; path = "Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios.debug.xcconfig"; sourceTree = "<group>"; };
+		64E7476F96CA2E038A141F20 /* Pods-spotcheck-ios-spotcheckr-uitests.release (production).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios-spotcheckr-uitests.release (production).xcconfig"; path = "Target Support Files/Pods-spotcheck-ios-spotcheckr-uitests/Pods-spotcheck-ios-spotcheckr-uitests.release (production).xcconfig"; sourceTree = "<group>"; };
+		77462C335A10C92B1088979B /* Pods-spotcheck-ios-spotcheckr-uitests.debug (staging).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios-spotcheckr-uitests.debug (staging).xcconfig"; path = "Target Support Files/Pods-spotcheck-ios-spotcheckr-uitests/Pods-spotcheck-ios-spotcheckr-uitests.debug (staging).xcconfig"; sourceTree = "<group>"; };
+		7962EE9D66A780F68198B5E7 /* Pods-spotcheck-ios-spotcheckr-uitests.debug (production).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios-spotcheckr-uitests.debug (production).xcconfig"; path = "Target Support Files/Pods-spotcheck-ios-spotcheckr-uitests/Pods-spotcheck-ios-spotcheckr-uitests.debug (production).xcconfig"; sourceTree = "<group>"; };
+		7E473996DECE746DC6DCC17D /* Pods-spotcheck-ios.debug (development).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios.debug (development).xcconfig"; path = "Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios.debug (development).xcconfig"; sourceTree = "<group>"; };
+		87954352A0FE0D66533A57B3 /* Pods-spotcheckr-uitests.debug (development).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheckr-uitests.debug (development).xcconfig"; path = "Target Support Files/Pods-spotcheckr-uitests/Pods-spotcheckr-uitests.debug (development).xcconfig"; sourceTree = "<group>"; };
+		89CB9C5D1D914E6D06A41DE3 /* Pods-spotcheck-ios-spotcheckr-uitests.debug (development).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios-spotcheckr-uitests.debug (development).xcconfig"; path = "Target Support Files/Pods-spotcheck-ios-spotcheckr-uitests/Pods-spotcheck-ios-spotcheckr-uitests.debug (development).xcconfig"; sourceTree = "<group>"; };
+		A7C7AC192D2F3B9A82C7B58B /* Pods-spotcheck-ios.debug (production).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios.debug (production).xcconfig"; path = "Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios.debug (production).xcconfig"; sourceTree = "<group>"; };
+		AB84EEEB8331153420D1A2C9 /* Pods-spotcheckr-uitests.debug (staging).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheckr-uitests.debug (staging).xcconfig"; path = "Target Support Files/Pods-spotcheckr-uitests/Pods-spotcheckr-uitests.debug (staging).xcconfig"; sourceTree = "<group>"; };
+		ADE97AB769AD024FBB45856D /* Pods-spotcheckr-uitests.release (production).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheckr-uitests.release (production).xcconfig"; path = "Target Support Files/Pods-spotcheckr-uitests/Pods-spotcheckr-uitests.release (production).xcconfig"; sourceTree = "<group>"; };
+		B42960171C9BD15172EBE091 /* Pods-spotcheck-ios-spotcheckr-uitests.release (development).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios-spotcheckr-uitests.release (development).xcconfig"; path = "Target Support Files/Pods-spotcheck-ios-spotcheckr-uitests/Pods-spotcheck-ios-spotcheckr-uitests.release (development).xcconfig"; sourceTree = "<group>"; };
+		B7A7A770CCBA79AD8CCFD75D /* Pods-spotcheckr-uitests.debug (production).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheckr-uitests.debug (production).xcconfig"; path = "Target Support Files/Pods-spotcheckr-uitests/Pods-spotcheckr-uitests.debug (production).xcconfig"; sourceTree = "<group>"; };
 		BA1FB51223F1014900E091B1 /* BodyMeasurement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyMeasurement.swift; sourceTree = "<group>"; };
 		BA1FB51423F1047A00E091B1 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		BA1FB51623F104B400E091B1 /* PhoneNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumber.swift; sourceTree = "<group>"; };
@@ -297,6 +301,12 @@
 		BA65CBBC244D0CF000901812 /* GenericID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericID.swift; sourceTree = "<group>"; };
 		BA65CBBE244D10BF00901812 /* UserID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserID.swift; sourceTree = "<group>"; };
 		BA65CBCB244E25EE00901812 /* CardCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCollectionCell.swift; sourceTree = "<group>"; };
+		BA732D00245E983D004E8032 /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
+		BA732D02245E999C004E8032 /* FeedViewScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewScreen.swift; sourceTree = "<group>"; };
+		BA732D07245EA0F6004E8032 /* ProfileScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreen.swift; sourceTree = "<group>"; };
+		BA732D09245EA10C004E8032 /* SettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreen.swift; sourceTree = "<group>"; };
+		BA732D0B245EBA6F004E8032 /* SettingsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTest.swift; sourceTree = "<group>"; };
+		BA732D0D245EBF07004E8032 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		BA733D5424038E4100395895 /* ErrorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorExtensions.swift; sourceTree = "<group>"; };
 		BA74976C2429D6B100C1C17C /* edit-2.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "edit-2.svg"; sourceTree = "<group>"; };
 		BA74976E2429DA6400C1C17C /* settings.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = settings.svg; sourceTree = "<group>"; };
@@ -316,6 +326,14 @@
 		BA9D1ACD246B5463008A1CF1 /* MeasurementSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementSystem.swift; sourceTree = "<group>"; };
 		BA9D1ACF246B54A8008A1CF1 /* DigitalStorageUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigitalStorageUnit.swift; sourceTree = "<group>"; };
 		BAA340F923F3932900C7392C /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
+		BAA7D1AE245DA27B00766BC9 /* spotcheckr-uitests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "spotcheckr-uitests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BAA7D1B2245DA27B00766BC9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BAA7D1BE245E502600766BC9 /* BaseScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseScreen.swift; sourceTree = "<group>"; };
+		BAA7D1C0245E503300766BC9 /* BaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTest.swift; sourceTree = "<group>"; };
+		BAA7D1C2245E511800766BC9 /* LoginTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTest.swift; sourceTree = "<group>"; };
+		BAA7D1C4245E512300766BC9 /* LoginScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreen.swift; sourceTree = "<group>"; };
+		BAA7D1C6245E558A00766BC9 /* SignUpScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpScreen.swift; sourceTree = "<group>"; };
+		BAA7D1C8245E57FD00766BC9 /* ForgotPasswordScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordScreen.swift; sourceTree = "<group>"; };
 		BABA110924555A3E00FB9D1D /* database.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = database.svg; sourceTree = "<group>"; };
 		BABA11152457E74100FB9D1D /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		BABA11172458833300FB9D1D /* chevron-right.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "chevron-right.svg"; sourceTree = "<group>"; };
@@ -337,9 +355,15 @@
 		BAEE4ACB2426E122005C2023 /* arrow-down.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "arrow-down.svg"; sourceTree = "<group>"; };
 		BAEE4ACD24274D49005C2023 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		BAEE4ACF24276DFD005C2023 /* account-circle.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "account-circle.svg"; sourceTree = "<group>"; };
+		CA676D29CA06064DE5A22E75 /* Pods-spotcheck-ios.release (production).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios.release (production).xcconfig"; path = "Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios.release (production).xcconfig"; sourceTree = "<group>"; };
+		DE3F0FD74FDAA6FA4FDB49F8 /* Pods-spotcheckr-uitests.release (development).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheckr-uitests.release (development).xcconfig"; path = "Target Support Files/Pods-spotcheckr-uitests/Pods-spotcheckr-uitests.release (development).xcconfig"; sourceTree = "<group>"; };
+		E6A95DE0C46F032F47BDC44A /* Pods-spotcheck-ios-spotcheckr-uitests.release (staging).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios-spotcheckr-uitests.release (staging).xcconfig"; path = "Target Support Files/Pods-spotcheck-ios-spotcheckr-uitests/Pods-spotcheck-ios-spotcheckr-uitests.release (staging).xcconfig"; sourceTree = "<group>"; };
+		E8EB8078F73318F3714F055C /* Pods_spotcheck_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_spotcheck_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EF5C9BF77A2CF96877E6AAF9 /* Pods_spotcheck_ios_spotcheckr_uitests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_spotcheck_ios_spotcheckr_uitests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAF39FFB246273D600CAB73A /* ExercisePostDetailSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisePostDetailSectionController.swift; sourceTree = "<group>"; };
 		C2C22F40222FA4280C7585DB /* Pods-spotcheck-ios.release (staging).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios.release (staging).xcconfig"; path = "Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios.release (staging).xcconfig"; sourceTree = "<group>"; };
 		E91885A464EB0E3BB2719776 /* Pods-spotcheck-ios.release (development).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotcheck-ios.release (development).xcconfig"; path = "Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios.release (development).xcconfig"; sourceTree = "<group>"; };
+
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -347,21 +371,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE177860E3221E038C0D83EF /* Pods_spotcheck_ios.framework in Frameworks */,
+				BE132542C12E06260A198C70 /* Pods_spotcheck_ios.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5679530D23D806C00077BA08 /* Frameworks */ = {
+		BAA7D1AB245DA27B00766BC9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5679531823D806C00077BA08 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				FEDDBD4D8C90C3CC1C368B54 /* Pods_spotcheck_ios_spotcheckr_uitests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,14 +389,24 @@
 		10C4979D2923A737CB22C2A2 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				B5E373BCDADE2E7A555D2190 /* Pods-spotcheck-ios.debug.xcconfig */,
-				9B3F6A3B5A83E7CE38E189A3 /* Pods-spotcheck-ios.release.xcconfig */,
-				7BE19FCDC24C6084E719EEC0 /* Pods-spotcheck-ios.debug (production).xcconfig */,
-				8AEB36802E706E9D882E5510 /* Pods-spotcheck-ios.debug (development).xcconfig */,
-				A58C486462B98ED878E6B543 /* Pods-spotcheck-ios.debug (staging).xcconfig */,
-				54E1D9A2DBA4B2C5F2E04AE7 /* Pods-spotcheck-ios.release (production).xcconfig */,
-				E91885A464EB0E3BB2719776 /* Pods-spotcheck-ios.release (development).xcconfig */,
-				C2C22F40222FA4280C7585DB /* Pods-spotcheck-ios.release (staging).xcconfig */,
+				A7C7AC192D2F3B9A82C7B58B /* Pods-spotcheck-ios.debug (production).xcconfig */,
+				7E473996DECE746DC6DCC17D /* Pods-spotcheck-ios.debug (development).xcconfig */,
+				08DCB3993CDB09DD42F2941D /* Pods-spotcheck-ios.debug (staging).xcconfig */,
+				CA676D29CA06064DE5A22E75 /* Pods-spotcheck-ios.release (production).xcconfig */,
+				03991B4D4597474019A970D7 /* Pods-spotcheck-ios.release (development).xcconfig */,
+				EF3C57BD3F15AE53A8CE7339 /* Pods-spotcheck-ios.release (staging).xcconfig */,
+				B7A7A770CCBA79AD8CCFD75D /* Pods-spotcheckr-uitests.debug (production).xcconfig */,
+				87954352A0FE0D66533A57B3 /* Pods-spotcheckr-uitests.debug (development).xcconfig */,
+				AB84EEEB8331153420D1A2C9 /* Pods-spotcheckr-uitests.debug (staging).xcconfig */,
+				ADE97AB769AD024FBB45856D /* Pods-spotcheckr-uitests.release (production).xcconfig */,
+				DE3F0FD74FDAA6FA4FDB49F8 /* Pods-spotcheckr-uitests.release (development).xcconfig */,
+				05E173A1F5F8710941BBF4A8 /* Pods-spotcheckr-uitests.release (staging).xcconfig */,
+				7962EE9D66A780F68198B5E7 /* Pods-spotcheck-ios-spotcheckr-uitests.debug (production).xcconfig */,
+				89CB9C5D1D914E6D06A41DE3 /* Pods-spotcheck-ios-spotcheckr-uitests.debug (development).xcconfig */,
+				77462C335A10C92B1088979B /* Pods-spotcheck-ios-spotcheckr-uitests.debug (staging).xcconfig */,
+				64E7476F96CA2E038A141F20 /* Pods-spotcheck-ios-spotcheckr-uitests.release (production).xcconfig */,
+				B42960171C9BD15172EBE091 /* Pods-spotcheck-ios-spotcheckr-uitests.release (development).xcconfig */,
+				E6A95DE0C46F032F47BDC44A /* Pods-spotcheck-ios-spotcheckr-uitests.release (staging).xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -417,8 +445,7 @@
 			children = (
 				BABA11152457E74100FB9D1D /* .swiftlint.yml */,
 				567952FC23D806BE0077BA08 /* spotcheck-ios */,
-				5679531323D806C00077BA08 /* spotcheck-iosTests */,
-				5679531E23D806C00077BA08 /* spotcheck-iosUITests */,
+				BAA7D1AF245DA27B00766BC9 /* spotcheckr-uitests */,
 				567952FB23D806BE0077BA08 /* Products */,
 				10C4979D2923A737CB22C2A2 /* Pods */,
 				63CFF66ACB16D4BF08954AA5 /* Frameworks */,
@@ -429,8 +456,7 @@
 			isa = PBXGroup;
 			children = (
 				567952FA23D806BE0077BA08 /* Spotcheckr.app */,
-				5679531023D806C00077BA08 /* spotcheck-iosTests.xctest */,
-				5679531B23D806C00077BA08 /* spotcheck-iosUITests.xctest */,
+				BAA7D1AE245DA27B00766BC9 /* spotcheckr-uitests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -460,24 +486,6 @@
 				561648A0243A6641003DB6CA /* Spotcheckr.entitlements */,
 			);
 			path = "spotcheck-ios";
-			sourceTree = "<group>";
-		};
-		5679531323D806C00077BA08 /* spotcheck-iosTests */ = {
-			isa = PBXGroup;
-			children = (
-				5679531423D806C00077BA08 /* spotcheck_iosTests.swift */,
-				5679531623D806C00077BA08 /* Info.plist */,
-			);
-			path = "spotcheck-iosTests";
-			sourceTree = "<group>";
-		};
-		5679531E23D806C00077BA08 /* spotcheck-iosUITests */ = {
-			isa = PBXGroup;
-			children = (
-				5679531F23D806C00077BA08 /* spotcheck_iosUITests.swift */,
-				5679532123D806C00077BA08 /* Info.plist */,
-			);
-			path = "spotcheck-iosUITests";
 			sourceTree = "<group>";
 		};
 		567E9A3323E93F15004C1B2E /* Views */ = {
@@ -536,7 +544,8 @@
 			isa = PBXGroup;
 			children = (
 				5645AFE923F53CF700B64D0B /* iOSDropDown.framework */,
-				1BAF183FCC50189FBD943ED6 /* Pods_spotcheck_ios.framework */,
+				E8EB8078F73318F3714F055C /* Pods_spotcheck_ios.framework */,
+				EF5C9BF77A2CF96877E6AAF9 /* Pods_spotcheck_ios_spotcheckr_uitests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -806,6 +815,42 @@
 			path = Factories;
 			sourceTree = "<group>";
 		};
+		BAA7D1AF245DA27B00766BC9 /* spotcheckr-uitests */ = {
+			isa = PBXGroup;
+			children = (
+				BAA7D1BD245E501B00766BC9 /* Tests */,
+				BAA7D1BC245E501200766BC9 /* Screens */,
+				BAA7D1B2245DA27B00766BC9 /* Info.plist */,
+				BA732D00245E983D004E8032 /* Users.swift */,
+				BA732D0D245EBF07004E8032 /* README.md */,
+			);
+			path = "spotcheckr-uitests";
+			sourceTree = "<group>";
+		};
+		BAA7D1BC245E501200766BC9 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				BAA7D1BE245E502600766BC9 /* BaseScreen.swift */,
+				BAA7D1C4245E512300766BC9 /* LoginScreen.swift */,
+				BAA7D1C6245E558A00766BC9 /* SignUpScreen.swift */,
+				BAA7D1C8245E57FD00766BC9 /* ForgotPasswordScreen.swift */,
+				BA732D02245E999C004E8032 /* FeedViewScreen.swift */,
+				BA732D07245EA0F6004E8032 /* ProfileScreen.swift */,
+				BA732D09245EA10C004E8032 /* SettingsScreen.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		BAA7D1BD245E501B00766BC9 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				BAA7D1C0245E503300766BC9 /* BaseTest.swift */,
+				BAA7D1C2245E511800766BC9 /* LoginTest.swift */,
+				BA732D0B245EBA6F004E8032 /* SettingsTest.swift */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
 		BABA111E24588AA200FB9D1D /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -923,13 +968,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5679532423D806C00077BA08 /* Build configuration list for PBXNativeTarget "spotcheck-ios" */;
 			buildPhases = (
-				EFDC925EFD384A46C613D372 /* [CP] Check Pods Manifest.lock */,
+				67962A7B896F0984A2B1F534 /* [CP] Check Pods Manifest.lock */,
 				567952F623D806BE0077BA08 /* Sources */,
 				567952F723D806BE0077BA08 /* Frameworks */,
 				567952F823D806BE0077BA08 /* Resources */,
-				79D62714D134489C2249ABD7 /* [CP] Embed Pods Frameworks */,
-				A96EF8782724C9320B7B0709 /* [CP] Copy Pods Resources */,
 				BABAA3E5243CCFFC00FF5C33 /* ShellScript */,
+				914A155BDB2E9968E1184311 /* [CP] Embed Pods Frameworks */,
+				E7D8B55759AFDF6360FA1896 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -940,40 +985,25 @@
 			productReference = 567952FA23D806BE0077BA08 /* Spotcheckr.app */;
 			productType = "com.apple.product-type.application";
 		};
-		5679530F23D806C00077BA08 /* spotcheck-iosTests */ = {
+		BAA7D1AD245DA27B00766BC9 /* spotcheckr-uitests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5679532723D806C00077BA08 /* Build configuration list for PBXNativeTarget "spotcheck-iosTests" */;
+			buildConfigurationList = BAA7D1B5245DA27B00766BC9 /* Build configuration list for PBXNativeTarget "spotcheckr-uitests" */;
 			buildPhases = (
-				5679530C23D806C00077BA08 /* Sources */,
-				5679530D23D806C00077BA08 /* Frameworks */,
-				5679530E23D806C00077BA08 /* Resources */,
+				5C94D55D01A8A510E4B04EAE /* [CP] Check Pods Manifest.lock */,
+				BAA7D1AA245DA27B00766BC9 /* Sources */,
+				BAA7D1AB245DA27B00766BC9 /* Frameworks */,
+				BAA7D1AC245DA27B00766BC9 /* Resources */,
+				E4CEFC55C93F1F4760D4DF1A /* [CP] Embed Pods Frameworks */,
+				487A5E1409CD5CA9CA5244D7 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				5679531223D806C00077BA08 /* PBXTargetDependency */,
+				BAA7D1B4245DA27B00766BC9 /* PBXTargetDependency */,
 			);
-			name = "spotcheck-iosTests";
-			productName = "spotcheck-iosTests";
-			productReference = 5679531023D806C00077BA08 /* spotcheck-iosTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		5679531A23D806C00077BA08 /* spotcheck-iosUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 5679532A23D806C00077BA08 /* Build configuration list for PBXNativeTarget "spotcheck-iosUITests" */;
-			buildPhases = (
-				5679531723D806C00077BA08 /* Sources */,
-				5679531823D806C00077BA08 /* Frameworks */,
-				5679531923D806C00077BA08 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				5679531D23D806C00077BA08 /* PBXTargetDependency */,
-			);
-			name = "spotcheck-iosUITests";
-			productName = "spotcheck-iosUITests";
-			productReference = 5679531B23D806C00077BA08 /* spotcheck-iosUITests.xctest */;
+			name = "spotcheckr-uitests";
+			productName = "spotcheckr-uitests";
+			productReference = BAA7D1AE245DA27B00766BC9 /* spotcheckr-uitests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -982,19 +1012,15 @@
 		567952F223D806BE0077BA08 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1120;
+				LastSwiftUpdateCheck = 1140;
 				LastUpgradeCheck = 1120;
 				ORGANIZATIONNAME = "Miguel Paysan";
 				TargetAttributes = {
 					567952F923D806BE0077BA08 = {
 						CreatedOnToolsVersion = 11.2.1;
 					};
-					5679530F23D806C00077BA08 = {
-						CreatedOnToolsVersion = 11.2.1;
-						TestTargetID = 567952F923D806BE0077BA08;
-					};
-					5679531A23D806C00077BA08 = {
-						CreatedOnToolsVersion = 11.2.1;
+					BAA7D1AD245DA27B00766BC9 = {
+						CreatedOnToolsVersion = 11.4.1;
 						TestTargetID = 567952F923D806BE0077BA08;
 					};
 				};
@@ -1013,8 +1039,7 @@
 			projectRoot = "";
 			targets = (
 				567952F923D806BE0077BA08 /* spotcheck-ios */,
-				5679530F23D806C00077BA08 /* spotcheck-iosTests */,
-				5679531A23D806C00077BA08 /* spotcheck-iosUITests */,
+				BAA7D1AD245DA27B00766BC9 /* spotcheckr-uitests */,
 			);
 		};
 /* End PBXProject section */
@@ -1067,14 +1092,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5679530E23D806C00077BA08 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5679531923D806C00077BA08 /* Resources */ = {
+		BAA7D1AC245DA27B00766BC9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1084,41 +1102,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		79D62714D134489C2249ABD7 /* [CP] Embed Pods Frameworks */ = {
+		487A5E1409CD5CA9CA5244D7 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A96EF8782724C9320B7B0709 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-spotcheck-ios-spotcheckr-uitests/Pods-spotcheck-ios-spotcheckr-uitests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-spotcheck-ios-spotcheckr-uitests/Pods-spotcheck-ios-spotcheckr-uitests-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-spotcheck-ios-spotcheckr-uitests/Pods-spotcheck-ios-spotcheckr-uitests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		BABAA3E5243CCFFC00FF5C33 /* ShellScript */ = {
+		5C94D55D01A8A510E4B04EAE /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1126,16 +1127,21 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
+			name = "[CP] Check Pods Manifest.lock";
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-spotcheck-ios-spotcheckr-uitests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
-		EFDC925EFD384A46C613D372 /* [CP] Check Pods Manifest.lock */ = {
+		67962A7B896F0984A2B1F534 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1155,6 +1161,74 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		914A155BDB2E9968E1184311 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BABAA3E5243CCFFC00FF5C33 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
+		E4CEFC55C93F1F4760D4DF1A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-spotcheck-ios-spotcheckr-uitests/Pods-spotcheck-ios-spotcheckr-uitests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-spotcheck-ios-spotcheckr-uitests/Pods-spotcheck-ios-spotcheckr-uitests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-spotcheck-ios-spotcheckr-uitests/Pods-spotcheck-ios-spotcheckr-uitests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E7D8B55759AFDF6360FA1896 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-spotcheck-ios/Pods-spotcheck-ios-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1271,34 +1345,31 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5679530C23D806C00077BA08 /* Sources */ = {
+		BAA7D1AA245DA27B00766BC9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5679531523D806C00077BA08 /* spotcheck_iosTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5679531723D806C00077BA08 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				5679532023D806C00077BA08 /* spotcheck_iosUITests.swift in Sources */,
+				BAA7D1BF245E502600766BC9 /* BaseScreen.swift in Sources */,
+				BAA7D1C9245E57FD00766BC9 /* ForgotPasswordScreen.swift in Sources */,
+				BA732D0C245EBA6F004E8032 /* SettingsTest.swift in Sources */,
+				BAA7D1C1245E503300766BC9 /* BaseTest.swift in Sources */,
+				BAA7D1C3245E511800766BC9 /* LoginTest.swift in Sources */,
+				BA732D08245EA0F6004E8032 /* ProfileScreen.swift in Sources */,
+				BAA7D1C5245E512300766BC9 /* LoginScreen.swift in Sources */,
+				BAA7D1C7245E558A00766BC9 /* SignUpScreen.swift in Sources */,
+				BA732D03245E999C004E8032 /* FeedViewScreen.swift in Sources */,
+				BA732D0A245EA10C004E8032 /* SettingsScreen.swift in Sources */,
+				BA732D01245E983D004E8032 /* Users.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		5679531223D806C00077BA08 /* PBXTargetDependency */ = {
+		BAA7D1B4245DA27B00766BC9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 567952F923D806BE0077BA08 /* spotcheck-ios */;
-			targetProxy = 5679531123D806C00077BA08 /* PBXContainerItemProxy */;
-		};
-		5679531D23D806C00077BA08 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 567952F923D806BE0077BA08 /* spotcheck-ios */;
-			targetProxy = 5679531C23D806C00077BA08 /* PBXContainerItemProxy */;
+			targetProxy = BAA7D1B3245DA27B00766BC9 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1408,48 +1479,6 @@
 			};
 			name = "Debug (Development)";
 		};
-		567860C92441B22D00451C3A /* Debug (Development) */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8U9GL9JNNQ;
-				INFOPLIST_FILE = "spotcheck-iosTests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.spotcheck.spotcheck-iosTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/spotcheck-ios.app/spotcheck-ios";
-			};
-			name = "Debug (Development)";
-		};
-		567860CA2441B22D00451C3A /* Debug (Development) */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8U9GL9JNNQ;
-				INFOPLIST_FILE = "spotcheck-iosUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.spotcheck.spotcheck-iosUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "spotcheck-ios";
-			};
-			name = "Debug (Development)";
-		};
 		567860CB2441B24700451C3A /* Debug (Staging) */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 567860D92441C62400451C3A /* Staging.xcconfig */;
@@ -1536,48 +1565,6 @@
 			};
 			name = "Debug (Staging)";
 		};
-		567860CD2441B24700451C3A /* Debug (Staging) */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8U9GL9JNNQ;
-				INFOPLIST_FILE = "spotcheck-iosTests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.spotcheck.spotcheck-iosTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/spotcheck-ios.app/spotcheck-ios";
-			};
-			name = "Debug (Staging)";
-		};
-		567860CE2441B24700451C3A /* Debug (Staging) */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8U9GL9JNNQ;
-				INFOPLIST_FILE = "spotcheck-iosUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.spotcheck.spotcheck-iosUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "spotcheck-ios";
-			};
-			name = "Debug (Staging)";
-		};
 		567860CF2441B27700451C3A /* Release (Development) */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 567860D82441C58100451C3A /* Development.xcconfig */;
@@ -1657,48 +1644,6 @@
 			};
 			name = "Release (Development)";
 		};
-		567860D12441B27700451C3A /* Release (Development) */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8U9GL9JNNQ;
-				INFOPLIST_FILE = "spotcheck-iosTests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.spotcheck.spotcheck-iosTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/spotcheck-ios.app/spotcheck-ios";
-			};
-			name = "Release (Development)";
-		};
-		567860D22441B27700451C3A /* Release (Development) */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8U9GL9JNNQ;
-				INFOPLIST_FILE = "spotcheck-iosUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.spotcheck.spotcheck-iosUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "spotcheck-ios";
-			};
-			name = "Release (Development)";
-		};
 		567860D32441B28500451C3A /* Release (Staging) */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 567860D92441C62400451C3A /* Staging.xcconfig */;
@@ -1775,48 +1720,6 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = "Release (Staging)";
-		};
-		567860D52441B28500451C3A /* Release (Staging) */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8U9GL9JNNQ;
-				INFOPLIST_FILE = "spotcheck-iosTests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.spotcheck.spotcheck-iosTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/spotcheck-ios.app/spotcheck-ios";
-			};
-			name = "Release (Staging)";
-		};
-		567860D62441B28500451C3A /* Release (Staging) */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8U9GL9JNNQ;
-				INFOPLIST_FILE = "spotcheck-iosUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.spotcheck.spotcheck-iosUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "spotcheck-ios";
 			};
 			name = "Release (Staging)";
 		};
@@ -1985,89 +1888,419 @@
 			};
 			name = "Release (Production)";
 		};
-		5679532823D806C00077BA08 /* Debug (Production) */ = {
+		BAA7D1B6245DA27B00766BC9 /* Debug (Production) */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7962EE9D66A780F68198B5E7 /* Pods-spotcheck-ios-spotcheckr-uitests.debug (production).xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 8U9GL9JNNQ;
-				INFOPLIST_FILE = "spotcheck-iosTests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "spotcheckr-uitests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.spotcheck.spotcheck-iosTests";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "app.spotcheckr.spotcheckr-uitests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/spotcheck-ios.app/spotcheck-ios";
-			};
-			name = "Debug (Production)";
-		};
-		5679532923D806C00077BA08 /* Release (Production) */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8U9GL9JNNQ;
-				INFOPLIST_FILE = "spotcheck-iosTests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.spotcheck.spotcheck-iosTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/spotcheck-ios.app/spotcheck-ios";
-			};
-			name = "Release (Production)";
-		};
-		5679532B23D806C00077BA08 /* Debug (Production) */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8U9GL9JNNQ;
-				INFOPLIST_FILE = "spotcheck-iosUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.spotcheck.spotcheck-iosUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "spotcheck-ios";
-			};
-			name = "Debug (Production)";
-		};
-		5679532C23D806C00077BA08 /* Release (Production) */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8U9GL9JNNQ;
-				INFOPLIST_FILE = "spotcheck-iosUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.spotcheck.spotcheck-iosUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "spotcheck-ios";
 			};
+			name = "Debug (Production)";
+		};
+		BAA7D1B7245DA27B00766BC9 /* Debug (Development) */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 89CB9C5D1D914E6D06A41DE3 /* Pods-spotcheck-ios-spotcheckr-uitests.debug (development).xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 8U9GL9JNNQ;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "spotcheckr-uitests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "app.spotcheckr.spotcheckr-uitests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "spotcheck-ios";
+			};
+			name = "Debug (Development)";
+		};
+		BAA7D1B8245DA27B00766BC9 /* Debug (Staging) */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 77462C335A10C92B1088979B /* Pods-spotcheck-ios-spotcheckr-uitests.debug (staging).xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 8U9GL9JNNQ;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "spotcheckr-uitests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "app.spotcheckr.spotcheckr-uitests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "spotcheck-ios";
+			};
+			name = "Debug (Staging)";
+		};
+		BAA7D1B9245DA27B00766BC9 /* Release (Production) */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 64E7476F96CA2E038A141F20 /* Pods-spotcheck-ios-spotcheckr-uitests.release (production).xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 8U9GL9JNNQ;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "spotcheckr-uitests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "app.spotcheckr.spotcheckr-uitests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "spotcheck-ios";
+				VALIDATE_PRODUCT = YES;
+			};
 			name = "Release (Production)";
+		};
+		BAA7D1BA245DA27B00766BC9 /* Release (Development) */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B42960171C9BD15172EBE091 /* Pods-spotcheck-ios-spotcheckr-uitests.release (development).xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 8U9GL9JNNQ;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "spotcheckr-uitests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "app.spotcheckr.spotcheckr-uitests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "spotcheck-ios";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Release (Development)";
+		};
+		BAA7D1BB245DA27B00766BC9 /* Release (Staging) */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E6A95DE0C46F032F47BDC44A /* Pods-spotcheck-ios-spotcheckr-uitests.release (staging).xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 8U9GL9JNNQ;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "spotcheckr-uitests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "app.spotcheckr.spotcheckr-uitests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "spotcheck-ios";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Release (Staging)";
 		};
 /* End XCBuildConfiguration section */
 
@@ -2098,28 +2331,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release (Production)";
 		};
-		5679532723D806C00077BA08 /* Build configuration list for PBXNativeTarget "spotcheck-iosTests" */ = {
+		BAA7D1B5245DA27B00766BC9 /* Build configuration list for PBXNativeTarget "spotcheckr-uitests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				5679532823D806C00077BA08 /* Debug (Production) */,
-				567860C92441B22D00451C3A /* Debug (Development) */,
-				567860CD2441B24700451C3A /* Debug (Staging) */,
-				5679532923D806C00077BA08 /* Release (Production) */,
-				567860D12441B27700451C3A /* Release (Development) */,
-				567860D52441B28500451C3A /* Release (Staging) */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Release (Production)";
-		};
-		5679532A23D806C00077BA08 /* Build configuration list for PBXNativeTarget "spotcheck-iosUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				5679532B23D806C00077BA08 /* Debug (Production) */,
-				567860CA2441B22D00451C3A /* Debug (Development) */,
-				567860CE2441B24700451C3A /* Debug (Staging) */,
-				5679532C23D806C00077BA08 /* Release (Production) */,
-				567860D22441B27700451C3A /* Release (Development) */,
-				567860D62441B28500451C3A /* Release (Staging) */,
+				BAA7D1B6245DA27B00766BC9 /* Debug (Production) */,
+				BAA7D1B7245DA27B00766BC9 /* Debug (Development) */,
+				BAA7D1B8245DA27B00766BC9 /* Debug (Staging) */,
+				BAA7D1B9245DA27B00766BC9 /* Release (Production) */,
+				BAA7D1BA245DA27B00766BC9 /* Release (Development) */,
+				BAA7D1BB245DA27B00766BC9 /* Release (Staging) */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release (Production)";

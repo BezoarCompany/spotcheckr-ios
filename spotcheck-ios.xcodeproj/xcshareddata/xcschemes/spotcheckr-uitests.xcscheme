@@ -5,22 +5,6 @@
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
-      <BuildActionEntries>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "567952F923D806BE0077BA08"
-               BuildableName = "Spotcheckr.app"
-               BlueprintName = "spotcheck-ios"
-               ReferencedContainer = "container:spotcheck-ios.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-      </BuildActionEntries>
    </BuildAction>
    <TestAction
       buildConfiguration = "Debug (Production)"
@@ -28,26 +12,6 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "5679530F23D806C00077BA08"
-               BuildableName = "spotcheck-iosTests.xctest"
-               BlueprintName = "spotcheck-iosTests"
-               ReferencedContainer = "container:spotcheck-ios.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "5679531A23D806C00077BA08"
-               BuildableName = "spotcheck-iosUITests.xctest"
-               BlueprintName = "spotcheck-iosUITests"
-               ReferencedContainer = "container:spotcheck-ios.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
          <TestableReference
             skipped = "NO">
             <BuildableReference
@@ -87,8 +51,7 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "567952F923D806BE0077BA08"
@@ -96,7 +59,7 @@
             BlueprintName = "spotcheck-ios"
             ReferencedContainer = "container:spotcheck-ios.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug (Production)">
