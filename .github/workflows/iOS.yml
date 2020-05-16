@@ -16,6 +16,7 @@ jobs:
           xcodebuild clean -workspace spotcheck-ios.xcworkspace -scheme "spotcheck-ios (Staging)"
           xcodebuild clean -workspace spotcheck-ios.xcworkspace -scheme "spotcheck-ios (Development)"
           xcodebuild clean -workspace spotcheck-ios.xcworkspace -scheme "spotcheck-ios"
+          xcodebuild clean -workspace spotcheck-ios.xcworkspace -scheme "spotcheckr-uitests"
 
   lint:
     needs: clean
@@ -34,15 +35,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Github Event
-        run: echo "Event - ${{ github.event_name }}"
-      - name: Branch name
-        run: echo "Branch - githubRef ${{ github.ref }}"
-
-      - name: Pull Request
-        if: github.event_name == 'pull_request'
-        run: echo "Pull Request to ${{ github.base_ref }} from ${{ github.head_ref }}"
-
       - name: Install Dependencies
         run: pod install
 
@@ -53,9 +45,51 @@ jobs:
           -workspace spotcheck-ios.xcworkspace
           -allowProvisioningUpdates
 
-  archive:
+  build_ui_tests:
     needs: lint
     if: github.event_name == 'pull_request' && contains(github.base_ref, 'release')
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Install Dependencies
+        run: pod install
+
+      - name: Build for UI Testing
+        run: >
+          xcodebuild 
+          -scheme "spotcheckr-uitests"
+          -workspace spotcheck-ios.xcworkspace
+          -derivedDataPath ./DD
+          -allowProvisioningUpdates
+          -sdk iphoneos build-for-testing
+      
+      - name: Create UITests.zip
+        run: |
+          cd ./DD/Build/Products
+          zip -r UITests.zip *
+          cd ../../../
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: "UITests.zip"
+          path: ./DD/Build/Products/UITests.zip
+  
+  run_ui_tests:
+    needs: build_ui_tests
+    runs-on: self-hosted
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: "UITests.zip"
+          path: "./dist/"
+
+      - name: Run UI Tests
+        run: >
+          gcloud firebase test ios run --test ./dist/UITests.zip --device model=iphone11,version=13.3,locale=en_US,orientation=portrait
+          
+  archive:
+    needs: run_ui_tests
     runs-on: self-hosted
     strategy:
       matrix:
@@ -89,7 +123,6 @@ jobs:
 
   firebase-upload:
     needs: archive #Set to UI testing once that is in place
-    if: github.event_name == 'pull_request' && contains(github.base_ref, 'release')
     runs-on: self-hosted
     steps:
       - uses: actions/download-artifact@v2
@@ -105,7 +138,6 @@ jobs:
 
   app-store-deploy:
     needs: archive #Same as above
-    if: github.event_name == 'pull_request' && contains(github.base_ref, 'release')
     runs-on: self-hosted
     steps:
       # Download artifact.
