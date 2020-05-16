@@ -147,11 +147,10 @@ extension PostDetailViewController {
         viewModel.collectionView.contentView.addSubview(viewModel.answersLoadingIndicator)
     }
 
-    func initActivityIndicator() {
-        viewModel.activityIndicator.center = self.view.center
-        viewModel.activityIndicator.hidesWhenStopped = true
-        viewModel.activityIndicator.style = UIActivityIndicatorView.Style.whiteLarge
-        viewModel.collectionView.contentView.addSubview(viewModel.activityIndicator)
+    func initActivityIndicator() {        
+        viewModel.collectionView.addSubview(viewModel.circularActivityIndicatorWithBG)
+        viewModel.circularActivityIndicatorWithBG.centerXAnchor.constraint(equalTo: viewModel.collectionView.centerXAnchor).isActive = true
+        viewModel.circularActivityIndicatorWithBG.centerYAnchor.constraint(equalTo: viewModel.collectionView.centerYAnchor).isActive = true
     }
 
     func initReplyButton() {
