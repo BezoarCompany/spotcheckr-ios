@@ -86,7 +86,9 @@ extension CreatePostViewController: UINavigationControllerDelegate, UIImagePicke
             do {
                 try viewModel.checkImageRequirements(image: selectedImage!)
                 photoImageView.image = selectedImage
+                isMediaChanged = true
             } catch { MediaError.exceedsMaxImageSize
+                isMediaChanged = false
                 imagePickerController.dismiss(animated: true) {
                     self.snackbarMessage.text = "Image size exceeds \(self.viewModel.configuration!.maxImageUploadSize) MB. Select a different image."
                     MDCSnackbarManager.show(self.snackbarMessage)
@@ -95,26 +97,33 @@ extension CreatePostViewController: UINavigationControllerDelegate, UIImagePicke
         } else if mediaType as! String == kUTTypeMovie as String { // Video
             // Saved URL on the controller for later reference in the submit
             let videoURL = info[UIImagePickerController.InfoKey.mediaURL] as? URL
-            self.selectedVideoFileURL = videoURL
-
-            //Create thumbnail from the video
-            let asset = AVAsset(url: videoURL!)
-            let assetImageGenerator = AVAssetImageGenerator(asset: asset)
-            assetImageGenerator.appliesPreferredTrackTransform = true //set to right side up, no image rotation 90 deg clockwise
-
-            var time = asset.duration
-            time.value = min(time.value, 2)
-
+            
             do {
-                let imageRef = try assetImageGenerator.copyCGImage(at: time, actualTime: nil)
+                
+                try viewModel.checkVideoRequirements(url: videoURL!)
+                self.selectedVideoFileURL = videoURL
+                let imageRef = try viewModel.createThumbnail(url: videoURL!)
                 photoImageView.image = UIImage(cgImage: imageRef)
-            } catch {
-                //TODO: Show error message when this happens?
-                print("Error creating video thumbnail")
+                isMediaChanged = true
+            } catch { MediaError.exceedsMaxVideoSize
+                
+                isMediaChanged = false
+                imagePickerController.dismiss(animated: true) {
+                    self.snackbarMessage.text = "Video size exceeds \(self.viewModel.configuration!.maxVideoUploadSize) MB. Please select a smaller video."
+                    MDCSnackbarManager.show(self.snackbarMessage)
+                }
+                
+            } catch { MediaError.errorThumbnailCreation
+                
+                isMediaChanged = false
+                imagePickerController.dismiss(animated: true) {
+                    self.snackbarMessage.text = "Error creating thumbnail. Please select another video."
+                    MDCSnackbarManager.show(self.snackbarMessage)
+                }
             }
+            
         }
-
-        isMediaChanged = true
+        
     }
 
     private func imageHandler() {

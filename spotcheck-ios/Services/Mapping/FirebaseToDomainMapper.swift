@@ -44,7 +44,8 @@ class FirebaseToDomainMapper {
         let minor = minimumAppVersion.stringAt(2)
         let patch = minimumAppVersion.stringAt(4)
         let config = Configuration(minimumAppVersion: SemanticVersion(major: major, minor: minor, patch: patch),
-                                   maxImageUploadSize: data.keys.contains("max-image-upload-size-in-mb") ? (data["max-image-upload-size-in-mb"] as? Int ?? 10) : 10)
+                                   maxImageUploadSize: data.keys.contains("max-image-upload-size-in-mb") ? (data["max-image-upload-size-in-mb"] as? Int ?? 10) : 10,
+                                   maxVideoUploadSize: data.keys.contains("max-video-upload-size-in-mb") ? (data["max-video-upload-size-in-mb"] as? Int ?? 30) : 30)
         return config
     }
 

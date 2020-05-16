@@ -142,5 +142,5 @@ jobs:
     steps:
       # Download artifact.
       - name: (PROD) Send to App Store
-        if: github.event_name == 'pull_request' && contains(github.base_ref, 'release')
+        if: false && github.event_name == 'pull_request' && contains(github.base_ref, 'release')
         run: echo TODO this
