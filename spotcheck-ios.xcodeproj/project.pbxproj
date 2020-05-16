@@ -26,7 +26,6 @@
 		567E9A3223E93EA2004C1B2E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567E9A3123E93EA2004C1B2E /* Constants.swift */; };
 		5686D2E224051C0300E09868 /* CreatePostViewController+helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5686D2E124051C0300E09868 /* CreatePostViewController+helpers.swift */; };
 		568721A323E7EF1100E15F87 /* ApplicationScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568721A223E7EF1100E15F87 /* ApplicationScheme.swift */; };
-		569745DD24640B7A009633F5 /* CircularActivityIndicatorWithBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569745DC24640B7A009633F5 /* CircularActivityIndicatorWithBackground.swift */; };
 		569794D123F11DBC00994B71 /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569794D023F11DBC00994B71 /* PostDetailViewController.swift */; };
 		569A8B99244588EC007CCDD3 /* exportOptions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 569A8B98244588EC007CCDD3 /* exportOptions.plist */; };
 		56B8D03A2447114800E3C157 /* CreatePostViewController+media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B8D0392447114800E3C157 /* CreatePostViewController+media.swift */; };
@@ -45,13 +44,13 @@
 		BA1FB52923F11ADA00E091B1 /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1FB52823F11ADA00E091B1 /* Answer.swift */; };
 		BA1FB52B23F11B5100E091B1 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1FB52A23F11B5100E091B1 /* Media.swift */; };
 		BA1FB52F23F11C3400E091B1 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1FB52E23F11C3400E091B1 /* Exercise.swift */; };
+		BA223A7A246BA5C800CFDE98 /* CreatePostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA223A79246BA5C800CFDE98 /* CreatePostViewModel.swift */; };
+		BA223A7C246BAC9200CFDE98 /* VoteDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA223A7B246BAC9200CFDE98 /* VoteDirection.swift */; };
+		BA223A7E246BACB200CFDE98 /* PhoneNumberType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA223A7D246BACB200CFDE98 /* PhoneNumberType.swift */; };
 		BA223A81246CDF0400CFDE98 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA223A80246CDF0400CFDE98 /* Logger.swift */; };
 		BA223A83246CDF5A00CFDE98 /* SwiftyBeaverLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA223A82246CDF5A00CFDE98 /* SwiftyBeaverLogger.swift */; };
 		BA223A85246CE7CC00CFDE98 /* LogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA223A84246CE7CC00CFDE98 /* LogManager.swift */; };
 		BA223A87246CED4500CFDE98 /* LogManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA223A86246CED4500CFDE98 /* LogManagerProtocol.swift */; };
-		BA223A7A246BA5C800CFDE98 /* CreatePostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA223A79246BA5C800CFDE98 /* CreatePostViewModel.swift */; };
-		BA223A7C246BAC9200CFDE98 /* VoteDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA223A7B246BAC9200CFDE98 /* VoteDirection.swift */; };
-		BA223A7E246BACB200CFDE98 /* PhoneNumberType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA223A7D246BACB200CFDE98 /* PhoneNumberType.swift */; };
 		BA35490F246355270033C818 /* PostDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA35490E246355270033C818 /* PostDetailViewModel.swift */; };
 		BA35491124636E8B0033C818 /* AnswersSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA35491024636E8B0033C818 /* AnswersSectionController.swift */; };
 		BA3549172463A7480033C818 /* ExercisePostIGListKitExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3549162463A7480033C818 /* ExercisePostIGListKitExtension.swift */; };
@@ -205,7 +204,6 @@
 		567E9A3123E93EA2004C1B2E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		5686D2E124051C0300E09868 /* CreatePostViewController+helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CreatePostViewController+helpers.swift"; sourceTree = "<group>"; };
 		568721A223E7EF1100E15F87 /* ApplicationScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationScheme.swift; sourceTree = "<group>"; };
-		569745DC24640B7A009633F5 /* CircularActivityIndicatorWithBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularActivityIndicatorWithBackground.swift; sourceTree = "<group>"; };
 		569794D023F11DBC00994B71 /* PostDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
 		569A8B98244588EC007CCDD3 /* exportOptions.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = exportOptions.plist; sourceTree = "<group>"; };
 		56B8D0392447114800E3C157 /* CreatePostViewController+media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CreatePostViewController+media.swift"; sourceTree = "<group>"; };
@@ -235,13 +233,13 @@
 		BA1FB52823F11ADA00E091B1 /* Answer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
 		BA1FB52A23F11B5100E091B1 /* Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
 		BA1FB52E23F11C3400E091B1 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
+		BA223A79246BA5C800CFDE98 /* CreatePostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostViewModel.swift; sourceTree = "<group>"; };
+		BA223A7B246BAC9200CFDE98 /* VoteDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteDirection.swift; sourceTree = "<group>"; };
+		BA223A7D246BACB200CFDE98 /* PhoneNumberType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberType.swift; sourceTree = "<group>"; };
 		BA223A80246CDF0400CFDE98 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		BA223A82246CDF5A00CFDE98 /* SwiftyBeaverLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftyBeaverLogger.swift; sourceTree = "<group>"; };
 		BA223A84246CE7CC00CFDE98 /* LogManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogManager.swift; sourceTree = "<group>"; };
 		BA223A86246CED4500CFDE98 /* LogManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogManagerProtocol.swift; sourceTree = "<group>"; };
-		BA223A79246BA5C800CFDE98 /* CreatePostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostViewModel.swift; sourceTree = "<group>"; };
-		BA223A7B246BAC9200CFDE98 /* VoteDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteDirection.swift; sourceTree = "<group>"; };
-		BA223A7D246BACB200CFDE98 /* PhoneNumberType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberType.swift; sourceTree = "<group>"; };
 		BA35490E246355270033C818 /* PostDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewModel.swift; sourceTree = "<group>"; };
 		BA35491024636E8B0033C818 /* AnswersSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswersSectionController.swift; sourceTree = "<group>"; };
 		BA3549162463A7480033C818 /* ExercisePostIGListKitExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisePostIGListKitExtension.swift; sourceTree = "<group>"; };
@@ -738,7 +736,6 @@
 			isa = PBXGroup;
 			children = (
 				BA95E2542452023800118DE0 /* CircularActivityIndicator.swift */,
-				569745DC24640B7A009633F5 /* CircularActivityIndicatorWithBackground.swift */,
 			);
 			path = "Activity Indicators";
 			sourceTree = "<group>";
@@ -1272,7 +1269,6 @@
 				568721A323E7EF1100E15F87 /* ApplicationScheme.swift in Sources */,
 				BA9D1AD0246B54A8008A1CF1 /* DigitalStorageUnit.swift in Sources */,
 				BA1FB52B23F11B5100E091B1 /* Media.swift in Sources */,
-				569745DD24640B7A009633F5 /* CircularActivityIndicatorWithBackground.swift in Sources */,
 				BA5DE7102419ADAC002C98E6 /* Images.swift in Sources */,
 				BA65CBB5244C6BF700901812 /* FlatButton.swift in Sources */,
 				5679533823D980E40077BA08 /* FeedViewController.swift in Sources */,

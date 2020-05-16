@@ -48,8 +48,9 @@ class CreatePostViewController: UIViewController {
         self.validator.validate(self)
     }
     
-    var circularActivityIndicatorWithBG: CircularActivityIndicatorWithBackground = {
-        let cai = CircularActivityIndicatorWithBackground()
+    var circularActivityIndicatorWithBG: CircularActivityIndicator = {
+        let cai = CircularActivityIndicator()
+        cai.showBackground()
         cai.translatesAutoresizingMaskIntoConstraints = false
         return cai
     }()
