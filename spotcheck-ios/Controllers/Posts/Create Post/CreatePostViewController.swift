@@ -44,15 +44,10 @@ class CreatePostViewController: UIViewController {
     let validator = Validator()
 
     @objc func submitPost(_ sender: Any) {
-        self.circularActivityIndicatorWithBG.startAnimating()
+        appBarViewController.navigationBar.rightBarButtonItem?.customView = self.activityIndicator
+        self.activityIndicator.startAnimating()
         self.validator.validate(self)
     }
-    
-    var circularActivityIndicatorWithBG: CircularActivityIndicatorWithBackground = {
-        let cai = CircularActivityIndicatorWithBackground()
-        cai.translatesAutoresizingMaskIntoConstraints = false
-        return cai
-    }()
 
     var photoImageView: UIImageView = {
         let piv = UIImageView()
@@ -101,6 +96,14 @@ class CreatePostViewController: UIViewController {
         return message
     }()
     let cancelAlertController = MDCAlertController(title: "Cancel?", message: "You will lose all entered data.")
+
+    var activityIndicator: MDCActivityIndicator = {
+        let indicator = MDCActivityIndicator()
+        indicator.sizeToFit()
+        indicator.indicatorMode = .indeterminate
+        indicator.cycleColors = [ApplicationScheme.instance.containerScheme.colorScheme.secondaryColor]
+        return indicator
+    }()
 
     static func create(updatePostMode: DiffType = .add, post: ExercisePost? = nil,
                        createdPostDetailClosure: CreatedPostDetailClosureType? = nil,
@@ -160,7 +163,6 @@ class CreatePostViewController: UIViewController {
         }.done { user in
             self.currentUser = user
         }
-        
 
         initAppBar()
         initDropDowns()
@@ -174,10 +176,6 @@ class CreatePostViewController: UIViewController {
         initButtonBarItems()
         setupValidation()
 
-        self.view.addSubview(circularActivityIndicatorWithBG)
-        self.circularActivityIndicatorWithBG.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        self.circularActivityIndicatorWithBG.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
-        
         if updatePostMode == .edit {
             subjectTextField.text = self.exercisePost?.title
             bodyTextField.text = self.exercisePost?.description
@@ -215,12 +213,11 @@ class CreatePostViewController: UIViewController {
         appBarViewController.didMove(toParent: self)
         appBarViewController.inferTopSafeAreaInsetFromViewController = true
         appBarViewController.navigationBar.title = "Add Question"
-
         appBarViewController.navigationBar.leftBarButtonItem = UIBarButtonItem(image: Images.close,
                                                                                style: .done,
                                                                                target: self,
                                                                                action: #selector(self.cancelButtonOnClick(sender:)))
-        appBarViewController.navigationBar.rightBarButtonItem = UIBarButtonItem(title: "Create",
+        appBarViewController.navigationBar.rightBarButtonItem = UIBarButtonItem(image: Images.plus,
                                                                                 style: .done,
                                                                                 target: self,
                                                                                 action: #selector(self.submitPost(_:)))
