@@ -34,8 +34,9 @@ class PostDetailViewModel {
         let layout = UICollectionViewFlowLayout()
         return layout
     }()
-    var circularActivityIndicatorWithBG: CircularActivityIndicatorWithBackground = {
-        let cai = CircularActivityIndicatorWithBackground()
+    var circularActivityIndicatorWithBG: CircularActivityIndicator = {
+        let cai = CircularActivityIndicator()
+        cai.showBackground()
         cai.translatesAutoresizingMaskIntoConstraints = false
         return cai
     }()

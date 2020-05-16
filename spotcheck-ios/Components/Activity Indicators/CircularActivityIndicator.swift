@@ -24,7 +24,7 @@ class CircularActivityIndicator: UIView {
         let indicator = MDCActivityIndicator()
         indicator.sizeToFit()
         indicator.indicatorMode = .indeterminate
-        indicator.cycleColors = [ApplicationScheme.instance.containerScheme.colorScheme.secondaryColor]
+        indicator.cycleColors = [ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor]
         indicator.translatesAutoresizingMaskIntoConstraints = false
         return indicator
     }()
@@ -35,6 +35,7 @@ class CircularActivityIndicator: UIView {
         self.widthAnchor.constraint(equalToConstant: CGFloat(boxSize)).isActive = true
         self.backgroundColor = lightGrey
         self.layer.cornerRadius = 10
+        self.indicator.cycleColors = [ApplicationScheme.instance.containerScheme.colorScheme.secondaryColor]
     }
     
     func startAnimating() {
