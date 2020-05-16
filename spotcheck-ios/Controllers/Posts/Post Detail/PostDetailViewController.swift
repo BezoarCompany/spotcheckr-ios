@@ -19,10 +19,9 @@ class PostDetailViewController: UIViewController {
     }
 
     static func create(postId: ExercisePostID?) -> PostDetailViewController {
-        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+        
         //swiftlint:disable force_cast line_length
-        let postDetailViewController = storyboard.instantiateViewController(withIdentifier: K.Storyboard.PostDetailViewControllerId) as! PostDetailViewController
-
+        let postDetailViewController = PostDetailViewController()
         postDetailViewController.viewModel.postId = postId
 
         return postDetailViewController
