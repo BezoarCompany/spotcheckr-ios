@@ -80,8 +80,7 @@ class StorageService: StorageProtocol {
     }
 
     #if DEVEL
-    func getVideoDownloadURL(filename: String) -> Promise<URL> {
-        print("stubbed DEVEL")
+    func getVideoDownloadURL(filename: String) -> Promise<URL> {        
         return Promise { promise in
             let urlPath = Bundle.main.path(forResource: "bulletTrain", ofType: "mp4")!
             let url = URL(fileURLWithPath: urlPath)

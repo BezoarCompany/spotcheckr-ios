@@ -115,7 +115,7 @@ extension CreatePostViewController {
                 print("@updatePostWorkflow -> invalid post args")
                 return
         }
-        self.activityIndicator.startAnimating()
+        self.circularActivityIndicatorWithBG.startAnimating()
 
         let copyPost = post
         copyPost.dateModified = Date()
@@ -165,7 +165,7 @@ extension CreatePostViewController {
             print(err)
             //TODO: Error updating post from no image to new image
         }.finally {
-            self.activityIndicator.stopAnimating()
+            self.circularActivityIndicatorWithBG.startAnimating()
         }
     }
 
@@ -228,7 +228,7 @@ extension CreatePostViewController {
             //TODO: Show snackbar error message.
             print(err)
         }.finally {
-            self.activityIndicator.stopAnimating()
+            self.circularActivityIndicatorWithBG.startAnimating()
         }
     }
 
