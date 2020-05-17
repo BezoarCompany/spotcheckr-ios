@@ -8,6 +8,7 @@ DerivedData/
 output/
 Archives/
 dist/
+DD/
 
 ## Various settings
 *.pbxuser
