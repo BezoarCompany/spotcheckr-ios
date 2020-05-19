@@ -54,7 +54,7 @@ class CreatePostViewController: UIViewController {
         cai.translatesAutoresizingMaskIntoConstraints = false
         return cai
     }()
-    
+
     var photoImageView: UIImageView = {
         let piv = UIImageView()
         piv.image = UIImage(systemName: "photo")
@@ -177,7 +177,7 @@ class CreatePostViewController: UIViewController {
         self.view.addSubview(circularActivityIndicatorWithBG)
         self.circularActivityIndicatorWithBG.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
         self.circularActivityIndicatorWithBG.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
-        
+
         if updatePostMode == .edit {
             subjectTextField.text = self.exercisePost?.title
             bodyTextField.text = self.exercisePost?.description
