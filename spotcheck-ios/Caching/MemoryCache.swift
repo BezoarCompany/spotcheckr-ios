@@ -20,7 +20,7 @@ final class MemoryCache<Key: Hashable, Value> {
         LogManager.warning("Memory warning received.")
         self.empty()
     }
-    
+
     func insert(_ value: Value, forKey key: Key, expiration: Date? = nil) {
         let date = dateProvider().addingTimeInterval(entryLifetime)
         let entry = Entry(value: value, expirationDate: expiration ?? date)

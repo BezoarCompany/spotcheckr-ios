@@ -3,7 +3,7 @@ class LoginTest: BaseTest {
         super.setUp()
         app.launch()
     }
-    
+
     func testLogin() {
         logout()
         LoginScreen(self).enterCredentials(emailAddress: Users.testUser.emailAddress,

@@ -1,5 +1,4 @@
-
-final class Users{
+final class Users {
     static let testUser = User(emailAddress: "nitish.sachar@gmail.com",
                            password: "password")
 }
