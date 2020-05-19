@@ -4,7 +4,7 @@ import UIKit
 class CircularActivityIndicator: UIView {
     let boxSize = 80
     let lightGrey = UIColor(red: 0.898, green: 0.898, blue: 0.898, alpha: 0.67)
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }

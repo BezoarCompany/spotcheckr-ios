@@ -21,35 +21,15 @@ class AnalyticsService: AnalyticsProtocol {
     }
 
     func setCollectionEnabled(_ enabled: Bool) throws {
-        SwiftyPlistManager.shared.save(enabled,
-                                       forKey: "analyticsCollectionEnabled",
-                                       toPlistWithName: "Preferences") { (error) in
-            if error == nil {
-                Analytics.setAnalyticsCollectionEnabled(enabled)
-            }
-        }
-    }
-
-    func getCollectionEnabled() -> Bool {
-        guard let result = SwiftyPlistManager.shared.fetchValue(for: "analyticsCollectionEnabled",
-                                                                fromPlistWithName: "Preferences") else { return true }
-        return result as? Bool ?? false
-    }
-
-    func getPerformanceMonitoringEnabled() -> Bool {
-        guard let result = SwiftyPlistManager.shared.fetchValue(for: "performanceMonitoringCollectionEnabled",
-                                                              fromPlistWithName: "Preferences") else { return true }
-        return result as? Bool ?? false
+        Services.systemService.savePreference(value: enabled, key: "analyticsCollectionEnabled", success: {
+           Analytics.setAnalyticsCollectionEnabled(enabled)
+        })
     }
 
     func setPerformanceMonitoringEnabled(_ enabled: Bool) throws {
-        SwiftyPlistManager.shared.save(enabled,
-                                       forKey: "performanceMonitoringCollectionEnabled",
-                                       toPlistWithName: "Preferences") { error in
-            if error == nil {
-                Performance.sharedInstance().isDataCollectionEnabled = enabled
-                Performance.sharedInstance().isInstrumentationEnabled = enabled
-            }
-        }
+        Services.systemService.savePreference(value: enabled, key: "performanceMonitoringCollectionEnabled", success: {
+            Performance.sharedInstance().isDataCollectionEnabled = enabled
+            Performance.sharedInstance().isInstrumentationEnabled = enabled
+        })
     }
 }

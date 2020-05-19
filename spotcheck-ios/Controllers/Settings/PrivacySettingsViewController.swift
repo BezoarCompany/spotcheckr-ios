@@ -13,11 +13,10 @@ class PrivacySettingsViewController: UIViewController {
         MDCSnackbarTypographyThemer.applyTypographyScheme(ApplicationScheme.instance.containerScheme.typographyScheme)
         return message
     }()
-    var isAnalyticsCollectionEnabled = false
-    var analyticsPreferenceCell: SettingsCell?
-
-    var isPerformanceMonitoringCollectionEnabled = false
-    var performanceMonitoringPreferenceCell: SettingsCell?
+    var preferences: Preferences?
+    var analyticsSwitch: UISwitch?
+    var performanceMonitoringSwitch: UISwitch?
+    var loggingSwitch: UISwitch?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,14 +26,7 @@ class PrivacySettingsViewController: UIViewController {
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        isAnalyticsCollectionEnabled = Services.analyticsService.getCollectionEnabled()
-        isPerformanceMonitoringCollectionEnabled = Services.analyticsService.getPerformanceMonitoringEnabled()
-        analyticsPreferenceCell?.switchView.content.addTarget(self,
-                                                              action: #selector(setAnalytics(sender:)),
-                                                              for: .touchUpInside)
-        performanceMonitoringPreferenceCell?.switchView.content.addTarget(self,
-                                                              action: #selector(setPerformanceMonitoring(sender:)),
-                                                              for: .touchUpInside)
+        preferences = Services.systemService.getPreferences()
         collectionView.contentView.reloadData()
     }
 
@@ -63,36 +55,38 @@ class PrivacySettingsViewController: UIViewController {
         appBarViewController.navigationBar.backItem = UIBarButtonItem(image: Images.back,
                                                                       style: .done,
                                                                       target: self,
-                                                                      action: #selector(backOnClick(sender:)))
+                                                                      action: #selector(backOnClick(_:)))
         view.addSubview(appBarViewController.view)
     }
 
-    @objc func backOnClick(sender: Any) {
+    @objc func backOnClick(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
 
-    @objc func setAnalytics(sender: Any) {
+    @objc func setAnalytics(_ sender: Any) {
         do {
-            try Services.analyticsService.setCollectionEnabled(analyticsPreferenceCell!.switchView.content.isOn)
+            try Services.analyticsService.setCollectionEnabled(analyticsSwitch!.isOn)
         } catch {
-            analyticsPreferenceCell?.switchView.content.setOn(!analyticsPreferenceCell!.switchView.content.isOn,
-                                                            animated: true)
+            analyticsSwitch!.setOn(analyticsSwitch!.isOn, animated: true)
             self.snackbarMessage.text = "Unable to set analytics setting."
             MDCSnackbarManager.show(self.snackbarMessage)
         }
     }
 
-    @objc func setPerformanceMonitoring(sender: Any) {
+    @objc func setPerformanceMonitoring(_ sender: Any) {
         do {
             //swiftlint:disable line_length
-            try Services.analyticsService.setPerformanceMonitoringEnabled(performanceMonitoringPreferenceCell!.switchView.content.isOn)
+            try Services.analyticsService.setPerformanceMonitoringEnabled(performanceMonitoringSwitch!.isOn)
         } catch {
             //swiftlint:disable line_length
-            performanceMonitoringPreferenceCell?.switchView.content.setOn(!performanceMonitoringPreferenceCell!.switchView.content.isOn,
-                                                              animated: true)
+            performanceMonitoringSwitch!.setOn(performanceMonitoringSwitch!.isOn, animated: true)
             self.snackbarMessage.text = "Unable to set performance monitoring setting."
             MDCSnackbarManager.show(self.snackbarMessage)
         }
+    }
+
+    @objc func setLogging(_ sender: Any) {
+        LogManager.setLoggingEnabled(loggingSwitch!.isOn)
     }
 }
 
@@ -114,28 +108,36 @@ UICollectionViewDelegateFlowLayout {
         //swiftlint:disable force_cast
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PrivacyCell",
                                                       for: indexPath) as! SettingsCell
-
-        let titleLabel = UILabel()
-        let detailLabel = UILabel()
-
+        cell.switchView.content.removeTarget(self, action: nil, for: .touchUpInside)
         switch indexPath.row {
         case CellLocations.analytics.rawValue:
-            titleLabel.text = "Analytics"
-            detailLabel.text = "Spotcheckr uses analytics to capture crash data, logs, and other usage information."
-            cell.switchView.content.setOn(isAnalyticsCollectionEnabled, animated: false)
-            analyticsPreferenceCell = cell
+            cell.titleLabel.text = "Analytics"
+            cell.detailLabel.text = "Spotcheckr uses analytics to capture crash data and other usage information."
+            cell.switchView.content.setOn(preferences?.analyticsCollectionEnabled ?? false, animated: false)
+            cell.switchView.content.addTarget(self,
+                                              action: #selector(setAnalytics(_:)),
+                                              for: .touchUpInside)
+            analyticsSwitch = cell.switchView.content
         case CellLocations.performanceMonitoring.rawValue:
-            titleLabel.text = "Performance Monitoring"
-            detailLabel.text = "Spotcheckr uses performance monitoring to measure app startup time, web requests," +
-                               "and more. Changes will take effect the next time Spotcheckr restarts."
-            cell.switchView.content.setOn(isPerformanceMonitoringCollectionEnabled, animated: false)
-            performanceMonitoringPreferenceCell = cell
+            cell.titleLabel.text = "Performance Monitoring"
+            cell.detailLabel.text = "Changes will take effect the next time Spotcheckr restarts."
+            cell.switchView.content.setOn(preferences?.performanceMonitoringCollectionEnabled ?? false, animated: false)
+            cell.switchView.content.addTarget(self,
+                                               action: #selector(setPerformanceMonitoring(_:)),
+                                               for: .touchUpInside)
+            performanceMonitoringSwitch = cell.switchView.content
+        case CellLocations.logging.rawValue:
+            cell.titleLabel.text = "Diagnostic Logging"
+            cell.detailLabel.text = "Logging allows Spotcheckr to diagnose issues that occur so that they can be fixed in the next release."
+            cell.switchView.content.setOn(preferences?.loggingEnabled ?? false, animated: false)
+            cell.switchView.content.addTarget(self,
+                                               action: #selector(setLogging(_:)),
+                                               for: .touchUpInside)
+            loggingSwitch = cell.switchView.content
         default: break
         }
 
-        cell.titleLabel = titleLabel
-        cell.detailLabel = detailLabel
-
+        cell.detailLabel.sizeToFit()
         return cell
     }
 
@@ -147,7 +149,6 @@ UICollectionViewDelegateFlowLayout {
     }
 
     enum CellLocations: Int, CaseIterable {
-        case analytics
-        case performanceMonitoring
+        case analytics = 0, performanceMonitoring = 1, logging = 2
     }
 }

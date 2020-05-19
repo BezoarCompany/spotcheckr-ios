@@ -13,7 +13,7 @@ class CreatePostViewModel {
             throw MediaError.exceedsMaxImageSize
         }
     }
-        
+
     func checkVideoRequirements(url: URL) throws {
         let resources = try url.resourceValues(forKeys: [.fileSizeKey])
         let fileSizeBytes = resources.fileSize!
@@ -24,7 +24,7 @@ class CreatePostViewModel {
         }
     }
 
-    func createThumbnail(url: URL) throws -> CGImage{
+    func createThumbnail(url: URL) throws -> CGImage {
         //Create thumbnail from the video
         let asset = AVAsset(url: url)
         let assetImageGenerator = AVAssetImageGenerator(asset: asset)

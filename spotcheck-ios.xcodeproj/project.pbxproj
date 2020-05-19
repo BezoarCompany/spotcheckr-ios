@@ -109,6 +109,7 @@
 		BA65CBBD244D0CF000901812 /* GenericID.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA65CBBC244D0CF000901812 /* GenericID.swift */; };
 		BA65CBBF244D10BF00901812 /* UserID.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA65CBBE244D10BF00901812 /* UserID.swift */; };
 		BA65CBCC244E25EE00901812 /* CardCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA65CBCB244E25EE00901812 /* CardCollectionCell.swift */; };
+		BA6CC35A247379BB00D5E43A /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6CC359247379BB00D5E43A /* Preferences.swift */; };
 		BA732D01245E983D004E8032 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA732D00245E983D004E8032 /* Users.swift */; };
 		BA732D03245E999C004E8032 /* FeedViewScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA732D02245E999C004E8032 /* FeedViewScreen.swift */; };
 		BA732D08245EA0F6004E8032 /* ProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA732D07245EA0F6004E8032 /* ProfileScreen.swift */; };
@@ -121,6 +122,7 @@
 		BA828EF9241CE0270012509D /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA828EF8241CE0270012509D /* StringExtensions.swift */; };
 		BA828EFB241CE2F10012509D /* FirebaseToDomainMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA828EFA241CE2F10012509D /* FirebaseToDomainMapper.swift */; };
 		BA828EFD241CE3E30012509D /* DomainToFirebaseMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA828EFC241CE3E30012509D /* DomainToFirebaseMapper.swift */; };
+		BA92B8C22471E652009DF904 /* NullLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA92B8C12471E652009DF904 /* NullLogger.swift */; };
 		BA95E252245138DA00118DE0 /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA95E251245138DA00118DE0 /* ContentType.swift */; };
 		BA95E2552452023800118DE0 /* CircularActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA95E2542452023800118DE0 /* CircularActivityIndicator.swift */; };
 		BA95E25B2452955400118DE0 /* SystemProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA95E25A2452955400118DE0 /* SystemProtocol.swift */; };
@@ -297,6 +299,7 @@
 		BA65CBBC244D0CF000901812 /* GenericID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericID.swift; sourceTree = "<group>"; };
 		BA65CBBE244D10BF00901812 /* UserID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserID.swift; sourceTree = "<group>"; };
 		BA65CBCB244E25EE00901812 /* CardCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCollectionCell.swift; sourceTree = "<group>"; };
+		BA6CC359247379BB00D5E43A /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		BA732D00245E983D004E8032 /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		BA732D02245E999C004E8032 /* FeedViewScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewScreen.swift; sourceTree = "<group>"; };
 		BA732D07245EA0F6004E8032 /* ProfileScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreen.swift; sourceTree = "<group>"; };
@@ -310,6 +313,7 @@
 		BA828EF8241CE0270012509D /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		BA828EFA241CE2F10012509D /* FirebaseToDomainMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseToDomainMapper.swift; sourceTree = "<group>"; };
 		BA828EFC241CE3E30012509D /* DomainToFirebaseMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainToFirebaseMapper.swift; sourceTree = "<group>"; };
+		BA92B8C12471E652009DF904 /* NullLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NullLogger.swift; sourceTree = "<group>"; };
 		BA95E251245138DA00118DE0 /* ContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentType.swift; sourceTree = "<group>"; };
 		BA95E2542452023800118DE0 /* CircularActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularActivityIndicator.swift; sourceTree = "<group>"; };
 		BA95E25A2452955400118DE0 /* SystemProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemProtocol.swift; sourceTree = "<group>"; };
@@ -528,6 +532,7 @@
 				BA54CD742436CACE00A944BC /* ReportType.swift */,
 				BA95E25C245295E100118DE0 /* Configuration.swift */,
 				BA95E25E2452961B00118DE0 /* SemanticVersion.swift */,
+				BA6CC359247379BB00D5E43A /* Preferences.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -545,8 +550,7 @@
 		BA223A7F246CDEEF00CFDE98 /* Logging */ = {
 			isa = PBXGroup;
 			children = (
-				BA223A80246CDF0400CFDE98 /* Logger.swift */,
-				BA223A82246CDF5A00CFDE98 /* SwiftyBeaverLogger.swift */,
+				BA92B8C02471E5DD009DF904 /* Loggers */,
 				BA223A84246CE7CC00CFDE98 /* LogManager.swift */,
 				BA223A86246CED4500CFDE98 /* LogManagerProtocol.swift */,
 			);
@@ -730,6 +734,16 @@
 				BABAA3E92443454D00FF5C33 /* VotingControls.swift */,
 			);
 			path = Controls;
+			sourceTree = "<group>";
+		};
+		BA92B8C02471E5DD009DF904 /* Loggers */ = {
+			isa = PBXGroup;
+			children = (
+				BA223A80246CDF0400CFDE98 /* Logger.swift */,
+				BA223A82246CDF5A00CFDE98 /* SwiftyBeaverLogger.swift */,
+				BA92B8C12471E652009DF904 /* NullLogger.swift */,
+			);
+			path = Loggers;
 			sourceTree = "<group>";
 		};
 		BA95E2532452020F00118DE0 /* Activity Indicators */ = {
@@ -1321,8 +1335,10 @@
 				BA95E252245138DA00118DE0 /* ContentType.swift in Sources */,
 				BA223A83246CDF5A00CFDE98 /* SwiftyBeaverLogger.swift in Sources */,
 				BA1FB52123F1148700E091B1 /* ExercisePost.swift in Sources */,
+				BA6CC35A247379BB00D5E43A /* Preferences.swift in Sources */,
 				5607DA0E2426221000B283D2 /* PromiseKitExtensions.swift in Sources */,
 				BAEDB8DE24590D0D00FC5587 /* CollectionView.swift in Sources */,
+				BA92B8C22471E652009DF904 /* NullLogger.swift in Sources */,
 				BA95E25B2452955400118DE0 /* SystemProtocol.swift in Sources */,
 				BA4EE46023EFEC7B003E6D87 /* UserService.swift in Sources */,
 				BA4EDA4324026CE200206267 /* IntExtensions.swift in Sources */,

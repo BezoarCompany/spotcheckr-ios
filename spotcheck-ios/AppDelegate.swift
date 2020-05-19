@@ -9,6 +9,7 @@ import SwiftyPlistManager
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
+    var preferences: Preferences?
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -23,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         initPlistManager()
         initFirebase()
+        initLogging()
         styleNavigationBar()
         styleTabBar()
         setStartingViewController()
@@ -47,8 +49,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     private func initFirebase() {
-        var isPerformanceCollectionEnabled = Services.analyticsService.getPerformanceMonitoringEnabled()
-        var isAnalyticsEnabled = Services.analyticsService.getCollectionEnabled()
+        var isPerformanceCollectionEnabled = preferences?.performanceMonitoringCollectionEnabled ?? false
+        var isAnalyticsEnabled = preferences?.analyticsCollectionEnabled ?? false
         #if DEVEL
             isAnalyticsEnabled = false
             isPerformanceCollectionEnabled = false
@@ -69,6 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #else
             SwiftyPlistManager.shared.start(plistNames: plistFiles, logging: false)
         #endif
+        preferences = Services.systemService.getPreferences()
     }
 
     private func setStartingViewController() {
@@ -80,6 +83,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                  storyboard.instantiateViewController(withIdentifier: K.Storyboard.AuthOptionViewControllerId)
         self.window?.rootViewController = baseViewController
         self.window?.makeKeyAndVisible()
+    }
+
+    private func initLogging() {
+        LogManager.setLoggingEnabled(preferences?.loggingEnabled ?? false)
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
