@@ -97,24 +97,24 @@ extension CreatePostViewController: UINavigationControllerDelegate, UIImagePicke
         } else if mediaType as! String == kUTTypeMovie as String { // Video
             // Saved URL on the controller for later reference in the submit
             let videoURL = info[UIImagePickerController.InfoKey.mediaURL] as? URL
-            
+
             do {
-                
+
                 try viewModel.checkVideoRequirements(url: videoURL!)
                 self.selectedVideoFileURL = videoURL
                 let imageRef = try viewModel.createThumbnail(url: videoURL!)
                 photoImageView.image = UIImage(cgImage: imageRef)
                 isMediaChanged = true
             } catch { MediaError.exceedsMaxVideoSize
-                
+
                 isMediaChanged = false
                 imagePickerController.dismiss(animated: true) {
                     self.snackbarMessage.text = "Video size exceeds \(self.viewModel.configuration!.maxVideoUploadSize) MB. Please select a smaller video."
                     MDCSnackbarManager.show(self.snackbarMessage)
                 }
-                
+
             } catch { MediaError.errorThumbnailCreation
-                
+
                 isMediaChanged = false
                 imagePickerController.dismiss(animated: true) {
                     self.snackbarMessage.text = "Error creating thumbnail. Please select another video."

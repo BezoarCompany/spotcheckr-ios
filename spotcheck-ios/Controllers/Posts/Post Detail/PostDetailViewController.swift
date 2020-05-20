@@ -19,7 +19,7 @@ class PostDetailViewController: UIViewController {
     }
 
     static func create(postId: ExercisePostID?) -> PostDetailViewController {
-        
+
         //swiftlint:disable force_cast line_length
         let postDetailViewController = PostDetailViewController()
         postDetailViewController.viewModel.postId = postId
@@ -146,7 +146,7 @@ extension PostDetailViewController {
         viewModel.collectionView.contentView.addSubview(viewModel.answersLoadingIndicator)
     }
 
-    func initActivityIndicator() {        
+    func initActivityIndicator() {
         viewModel.collectionView.addSubview(viewModel.circularActivityIndicatorWithBG)
         viewModel.circularActivityIndicatorWithBG.centerXAnchor.constraint(equalTo: viewModel.collectionView.centerXAnchor).isActive = true
         viewModel.circularActivityIndicatorWithBG.centerYAnchor.constraint(equalTo: viewModel.collectionView.centerYAnchor).isActive = true

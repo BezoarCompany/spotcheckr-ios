@@ -4,7 +4,7 @@ class SettingsTest: BaseTest {
         app.launch()
         loginIfNeeded(user: Users.testUser)
     }
-    
+
     func testLogout() {
         BaseScreen(self).tapSettingsTab().clickLogout()
     }
