@@ -60,7 +60,7 @@ class PostDetailViewController: UIViewController {
     @objc func refreshPostDetail(_ sender: Any) {
         self.viewModel.collectionView.refreshControl.beginRefreshing()
         firstly {
-            loadPostDetail(bypassCache: true)
+            loadPostDetail(isRefreshing: true)
         }.done {
             self.perform(#selector(self.finishRefreshing), with: nil, afterDelay: 0.1)
         }.catch { _ in
@@ -76,11 +76,11 @@ class PostDetailViewController: UIViewController {
 
 // MARK: - Functions
 extension PostDetailViewController {
-    func loadPostDetail(bypassCache: Bool = false) -> Promise<Void> {
+    func loadPostDetail(isRefreshing: Bool = false) -> Promise<Void> {
         return Promise { promise in
             firstly {
                 when(fulfilled:
-                    Services.exercisePostService.getPost(withId: viewModel.postId!, bypassCache: bypassCache),
+                    Services.exercisePostService.getPost(withId: viewModel.postId!, bypassCache: isRefreshing),
                      Services.userService.getCurrentUser())
             }.done { post, user in
                 self.viewModel.post = post
@@ -101,9 +101,11 @@ extension PostDetailViewController {
                 let answersCenter = (self.viewModel.collectionView.contentView.frame.height - self.viewModel.postCellHeight) / 2
                 self.viewModel.answersLoadingIndicator.topAnchor.constraint(equalTo: self.viewModel.postYAxisAnchor,
                                                                             constant: answersCenter).isActive = true
-                self.viewModel.answersLoadingIndicator.indicator.startAnimating()
+                if !isRefreshing {
+                    self.viewModel.answersLoadingIndicator.indicator.startAnimating()
+                }
                 firstly {
-                    Services.exercisePostService.getAnswers(forPostWithId: self.viewModel.post!.id!, bypassCache: bypassCache)
+                    Services.exercisePostService.getAnswers(forPostWithId: self.viewModel.post!.id!, bypassCache: isRefreshing)
                 }.done { answers in
                     self.viewModel.answers = answers.sorted(by: { (answer1, answer2) -> Bool in
                         return answer1.dateCreated?.compare(answer2.dateCreated!) == .orderedDescending
