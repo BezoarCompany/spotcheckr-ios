@@ -78,6 +78,9 @@ class PostDetailViewController: UIViewController {
 extension PostDetailViewController {
     func loadPostDetail(isRefreshing: Bool = false) -> Promise<Void> {
         return Promise { promise in
+            if !isRefreshing {
+                viewModel.circularActivityIndicatorWithBG.startAnimating()
+            }
             firstly {
                 when(fulfilled:
                     Services.exercisePostService.getPost(withId: viewModel.postId!, bypassCache: isRefreshing),
@@ -90,6 +93,7 @@ extension PostDetailViewController {
                                                                                                          style: .done,
                                                                                                          target: self,
                                                                                                          action: #selector(self.backOnClick(sender:)))
+                self.viewModel.circularActivityIndicatorWithBG.stopAnimating()
                 self.adapter.performUpdates(animated: true)
             }.catch { error in
                 self.dismiss(animated: true) {
@@ -150,8 +154,10 @@ extension PostDetailViewController {
 
     func initActivityIndicator() {
         viewModel.collectionView.addSubview(viewModel.circularActivityIndicatorWithBG)
-        viewModel.circularActivityIndicatorWithBG.centerXAnchor.constraint(equalTo: viewModel.collectionView.centerXAnchor).isActive = true
-        viewModel.circularActivityIndicatorWithBG.centerYAnchor.constraint(equalTo: viewModel.collectionView.centerYAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            viewModel.circularActivityIndicatorWithBG.centerXAnchor.constraint(equalTo: viewModel.collectionView.centerXAnchor),
+            viewModel.circularActivityIndicatorWithBG.centerYAnchor.constraint(equalTo: viewModel.collectionView.centerYAnchor)
+        ])
     }
 
     func initReplyButton() {
