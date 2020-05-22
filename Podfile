@@ -9,6 +9,7 @@ target 'spotcheck-ios' do
   pod 'SwiftLint'
   pod 'SwiftyBeaver'
   pod 'SwiftyPlistManager'
+  pod 'Signals'
   
   # Dynamic Collection Views and Diff tool
   pod 'IGListKit', '~> 4.0.0'

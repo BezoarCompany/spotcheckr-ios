@@ -58,17 +58,16 @@ class AnswersSectionController: ListSectionController {
             if self.answer.createdBy?.id == controller?.viewModel.currentUser?.id {
                 let deleteCommentAction = MDCActionSheetAction(title: "Delete", image: Images.trash) { (_) in
                     let deleteCommentAlertController = MDCAlertController(title: nil,
-                                                                          message: "Are you sure you want to delete your comment?")
+                                                                          message: "Are you sure you want to delete your answer?")
 
                 let deleteCommentAlertAction = MDCAlertAction(title: "Delete", emphasis: .high, handler: { (_) in
-                        //TODO: Show activity indicator
                         firstly {
                             Services.exercisePostService.deleteAnswer(self.answer)
                         }.done {
-                            //TODO: Stop animating activity indicator
+                            controller?.viewModel.answers.remove(at: index)
                             controller?.viewModel.answersCount -= 1
-                            controller?.viewModel.appBarViewController.navigationBar.title = "\(controller?.viewModel.answersCount) Answers"
-                            //TODO: Delete items
+                            controller?.viewModel.appBarViewController.navigationBar.title = "\(controller!.viewModel.answersCount) Answers"
+                            controller?.adapter.performUpdates(animated: true)
                         }.catch { _ in
                             controller?.viewModel.snackbarMessage.text = "Unable to delete answer."
                             MDCSnackbarManager.show(controller?.viewModel.snackbarMessage)
