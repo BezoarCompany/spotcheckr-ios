@@ -536,13 +536,17 @@ class ExercisePostService: ExercisePostProtocol {
                     let answerRef = Firestore.firestore().collection(CollectionConstants.answerCollection).document(answer.id!.value)
                     transaction.deleteDocument(answerRef)
                 } catch { error
+                    LogManager.error(error.localizedDescription, error)
                     return promise.reject(error)
                 }
                 return nil
             }) { (_, error) in
                 if let error = error {
+                    LogManager.error(error.localizedDescription, error)
                     return promise.reject(error)
                 }
+                
+                CacheManager.exercisePostAnswersCache[answer.exercisePostId!]?.removeValue(forKey: answer.id!)
                 promise.fulfill_()
             }
         }

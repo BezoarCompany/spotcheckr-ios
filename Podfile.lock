@@ -637,6 +637,7 @@ PODS:
   - SDWebImage (5.7.3):
     - SDWebImage/Core (= 5.7.3)
   - SDWebImage/Core (5.7.3)
+  - Signals (6.1.0)
   - SVGKit (2.1.0):
     - CocoaLumberjack (~> 3.0)
   - SwiftLint (0.39.2)
@@ -685,6 +686,7 @@ DEPENDENCIES:
   - "MaterialComponents/TextFields+Theming"
   - "MaterialComponents/TextFields+TypographyThemer"
   - PromiseKit
+  - Signals
   - SVGKit (from `https://github.com/SVGKit/SVGKit.git`, branch `3.x`)
   - SwiftLint
   - SwiftSVG (~> 2.2.1)
@@ -739,6 +741,7 @@ SPEC REPOS:
     - PromisesObjC
     - Protobuf
     - SDWebImage
+    - Signals
     - SwiftLint
     - SwiftSVG
     - SwiftyBeaver
@@ -806,6 +809,7 @@ SPEC CHECKSUMS:
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   Protobuf: 176220c526ad8bd09ab1fb40a978eac3fef665f7
   SDWebImage: 97351f6582ceca541ea294ba66a1fcb342a331c2
+  Signals: f8e5c979e93c35273f8dfe55ee7f47213d3e8fe8
   SVGKit: 8a2fc74258bdb2abb54d3b65f3dd68b0277a9c4d
   SwiftLint: 22ccbbe3b8008684be5955693bab135e0ed6a447
   SwiftSVG: e55084e4c5534f3f25743003a6a3a88580cacfb0
@@ -813,6 +817,6 @@ SPEC CHECKSUMS:
   SwiftyBeaver: a1f5691458561414bcfab51874b2b7445451602b
   SwiftyPlistManager: 5895924cccb7fe28deccbe14890e8aed78ae78ae
 
-PODFILE CHECKSUM: 0b918e137ec901a356bf3f0b3467b86318c282d5
+PODFILE CHECKSUM: 87756c1af32a646038d42f4956726f455cc5d899
 
 COCOAPODS: 1.9.1
