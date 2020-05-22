@@ -110,6 +110,7 @@
 		BA65CBBF244D10BF00901812 /* UserID.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA65CBBE244D10BF00901812 /* UserID.swift */; };
 		BA65CBCC244E25EE00901812 /* CardCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA65CBCB244E25EE00901812 /* CardCollectionCell.swift */; };
 		BA6CC35A247379BB00D5E43A /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6CC359247379BB00D5E43A /* Preferences.swift */; };
+		BA6CC36124784CF700D5E43A /* StateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6CC36024784CF600D5E43A /* StateManager.swift */; };
 		BA732D01245E983D004E8032 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA732D00245E983D004E8032 /* Users.swift */; };
 		BA732D03245E999C004E8032 /* FeedViewScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA732D02245E999C004E8032 /* FeedViewScreen.swift */; };
 		BA732D08245EA0F6004E8032 /* ProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA732D07245EA0F6004E8032 /* ProfileScreen.swift */; };
@@ -300,6 +301,7 @@
 		BA65CBBE244D10BF00901812 /* UserID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserID.swift; sourceTree = "<group>"; };
 		BA65CBCB244E25EE00901812 /* CardCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCollectionCell.swift; sourceTree = "<group>"; };
 		BA6CC359247379BB00D5E43A /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
+		BA6CC36024784CF600D5E43A /* StateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateManager.swift; sourceTree = "<group>"; };
 		BA732D00245E983D004E8032 /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		BA732D02245E999C004E8032 /* FeedViewScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewScreen.swift; sourceTree = "<group>"; };
 		BA732D07245EA0F6004E8032 /* ProfileScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreen.swift; sourceTree = "<group>"; };
@@ -462,6 +464,7 @@
 		567952FC23D806BE0077BA08 /* spotcheck-ios */ = {
 			isa = PBXGroup;
 			children = (
+				BA6CC35F2478475400D5E43A /* State */,
 				BA223A7F246CDEEF00CFDE98 /* Logging */,
 				563772B8245807A0002292B8 /* Sample */,
 				567860D72441C46500451C3A /* Configs */,
@@ -734,6 +737,14 @@
 				BABAA3E92443454D00FF5C33 /* VotingControls.swift */,
 			);
 			path = Controls;
+			sourceTree = "<group>";
+		};
+		BA6CC35F2478475400D5E43A /* State */ = {
+			isa = PBXGroup;
+			children = (
+				BA6CC36024784CF600D5E43A /* StateManager.swift */,
+			);
+			path = State;
 			sourceTree = "<group>";
 		};
 		BA92B8C02471E5DD009DF904 /* Loggers */ = {
@@ -1300,6 +1311,7 @@
 				BA9D1AC9246B5020008A1CF1 /* CreatePostViewController+validation.swift in Sources */,
 				BA65CBBD244D0CF000901812 /* GenericID.swift in Sources */,
 				567E9A3223E93EA2004C1B2E /* Constants.swift in Sources */,
+				BA6CC36124784CF700D5E43A /* StateManager.swift in Sources */,
 				BA828EFB241CE2F10012509D /* FirebaseToDomainMapper.swift in Sources */,
 				BA3549172463A7480033C818 /* ExercisePostIGListKitExtension.swift in Sources */,
 				BA1FB51B23F106B600E091B1 /* Trainer.swift in Sources */,
