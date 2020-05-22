@@ -1,6 +1,7 @@
 import PromiseKit
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import Signals
 
 //swiftlint:disable type_body_length
 class ExercisePostService: ExercisePostProtocol {
@@ -521,11 +522,13 @@ class ExercisePostService: ExercisePostProtocol {
         }
     }
 
-    //TODO: Create delete policy: because deleting answer only deletes document at Answers (not a recurse delete on collection its subcollections. NOT the subcollection documents like VOTES-
+    //TODO: Create delete policy: because deleting answer only deletes document at Answers (not a recurse delete on collection its subcollections.
+    //NOT the subcollection documents like VOTES-
     //so it'll look like an nil intermediate node
     func deleteAnswer(_ answer: Answer) -> Promise<Void> {
         return Promise { promise in
-            let exercisePostRef = Firestore.firestore().document("/\(CollectionConstants.postsCollection)/\(answer.exercisePostId!.value)")
+            let exercisePostRef = Firestore.firestore()
+                                           .document("/\(CollectionConstants.postsCollection)/\(answer.exercisePostId!.value)")
             Firestore.firestore().runTransaction({ (transaction, _) -> Any? in
                 do {
                     let exercisePostDoc = try transaction.getDocument(exercisePostRef).data()
@@ -546,6 +549,7 @@ class ExercisePostService: ExercisePostProtocol {
                     return promise.reject(error)
                 }
                 
+                StateManager.answerDeleted.fire(answer)
                 CacheManager.exercisePostCache[answer.exercisePostId!]?.answersCount -= 1
                 CacheManager.exercisePostAnswersCache[answer.exercisePostId!]?.removeValue(forKey: answer.id!)
                 promise.fulfill_()

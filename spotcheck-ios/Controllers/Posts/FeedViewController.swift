@@ -58,6 +58,14 @@ class FeedViewController: UIViewController {
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        StateManager.answerDeleted.subscribe(with: self, callback: { (answer) in
+            let post = self.posts.first { (post) -> Bool in
+                post.id == answer.exercisePostId
+            }
+            
+            post?.answersCount -= 1
+            self.diffedPostsHandler(diffType: .edit, exercisePost: post!)
+        })
     }
 
     override func viewDidLoad() {
