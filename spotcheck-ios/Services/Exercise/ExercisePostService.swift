@@ -546,6 +546,7 @@ class ExercisePostService: ExercisePostProtocol {
                     return promise.reject(error)
                 }
                 
+                CacheManager.exercisePostCache[answer.exercisePostId!]?.answersCount -= 1
                 CacheManager.exercisePostAnswersCache[answer.exercisePostId!]?.removeValue(forKey: answer.id!)
                 promise.fulfill_()
             }
