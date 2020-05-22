@@ -6,11 +6,11 @@ class TabBarController: UITabBarController, MDCBottomNavigationBarDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        initBottomNavigation()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        initBottomNavigation()
     }
 
     @available(iOS 11, *)
@@ -35,15 +35,25 @@ class TabBarController: UITabBarController, MDCBottomNavigationBarDelegate {
 
     func initBottomNavigation() {
         bottomNav.applyPrimaryTheme(withScheme: ApplicationScheme.instance.containerScheme)
+        let feedTabBarItem = UITabBarItem(title: "Feed", image: Images.list, tag: 0)
+        feedTabBarItem.accessibilityIdentifier = "Feed"
+
+        let profileTabBarItem = UITabBarItem(title: "Profile", image: Images.user, tag: 1)
+        profileTabBarItem.accessibilityIdentifier = "Profile"
+
+        let settingsTabBarItem = UITabBarItem(title: "Settings", image: Images.settings, tag: 2)
+        settingsTabBarItem.accessibilityIdentifier = "Settings"
+
         bottomNav.items = [
-            UITabBarItem(title: "Feed", image: Images.list, tag: 0),
-            UITabBarItem(title: "Profile", image: Images.user, tag: 1),
-            UITabBarItem(title: "Settings", image: Images.settings, tag: 2)
+            feedTabBarItem,
+            profileTabBarItem,
+            settingsTabBarItem
         ]
         bottomNav.titleVisibility = .always
         bottomNav.selectedItem = bottomNav.items[0]
 
         bottomNav.delegate = self
+        bottomNav.accessibilityIdentifier = "MainNavBar"
         view.addSubview(bottomNav)
 
     }

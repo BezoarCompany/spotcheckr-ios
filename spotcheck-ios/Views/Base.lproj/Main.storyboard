@@ -12,7 +12,7 @@
             <objects>
                 <viewController storyboardIdentifier="AuthOptionsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" userLabel="Auth Options" customClass="AuthOptionsViewController" customModule="Spotcheckr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.12941294910000001" green="0.12940964099999999" blue="0.1294118762" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -54,7 +54,7 @@
                                 <rect key="frame" x="40" y="523" width="334" height="30"/>
                                 <state key="normal" title="Have an Account? Log In"/>
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="showDetail" id="g51-UX-Uzl"/>
+                                    <segue destination="BYZ-38-t0r" kind="presentation" modalPresentationStyle="fullScreen" id="g51-UX-Uzl"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -199,21 +199,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PeB-ic-UsK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3708.6956521739135" y="-144.64285714285714"/>
-        </scene>
-        <!--Post Details-->
-        <scene sceneID="6dT-Gy-rnv">
-            <objects>
-                <viewController storyboardIdentifier="PostDetailViewController" id="M9o-fR-ved" userLabel="Post Details" customClass="PostDetailViewController" customModule="Spotcheckr" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="KGI-Jf-7G6">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="qMF-pz-b0p"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ps5-bF-p3k" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4741" y="280"/>
         </scene>
         <!--CreatePost-->
         <scene sceneID="lzG-wv-yeJ">
@@ -375,6 +360,9 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="MainNavBar"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <segue destination="OlI-rI-fzN" kind="relationship" relationship="viewControllers" id="ZVp-47-uXk"/>
                         <segue destination="Y1l-d4-YEY" kind="relationship" relationship="viewControllers" id="kpO-I3-R4j"/>
@@ -434,7 +422,7 @@
                                 <rect key="frame" x="45" y="522" width="324" height="30"/>
                                 <state key="normal" title="Cancel"/>
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="bdw-On-ZHl"/>
+                                    <segue destination="BYZ-38-t0r" kind="presentation" modalPresentationStyle="fullScreen" id="bdw-On-ZHl"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -489,7 +477,7 @@
                                 <rect key="frame" x="45" y="215.5" width="324" height="30"/>
                                 <state key="normal" title="Return to login"/>
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="eMl-qN-UBV"/>
+                                    <segue destination="BYZ-38-t0r" kind="presentation" modalPresentationStyle="fullScreen" id="eMl-qN-UBV"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -519,7 +507,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="g51-UX-Uzl"/>
+        <segue reference="eMl-qN-UBV"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="list.dash" catalog="system" width="128" height="85"/>

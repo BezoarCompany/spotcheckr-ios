@@ -10,13 +10,13 @@ struct PaginatedGetPostsResult {
 }
 
 protocol ExercisePostProtocol {
-    func getPost(withId id: ExercisePostID) -> Promise<ExercisePost>
+    func getPost(withId id: ExercisePostID, bypassCache: Bool) -> Promise<ExercisePost>
     func getPosts(limit: Int, lastPostSnapshot: DocumentSnapshot?) -> Promise<PaginatedGetPostsResult>
     func getPosts(forUser user: User) -> Promise<[ExercisePost]>
     func getExercises(forPostWithId postId: ExercisePostID) -> Promise<[Exercise]>
     func getExercises() -> Promise<[String: Exercise]>
     func getAnswers(byUserWithId userId: UserID) -> Promise<[Answer]>
-    func getAnswers(forPostWithId postId: ExercisePostID) -> Promise<[Answer]>
+    func getAnswers(forPostWithId postId: ExercisePostID, bypassCache: Bool) -> Promise<[Answer]>
     func voteContent(contentId: GenericID, userId: UserID, direction: VoteDirection) -> Promise<Void>
 
     func createPost(post: ExercisePost) -> Promise<ExercisePost>

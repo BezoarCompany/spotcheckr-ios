@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 
 final class MemoryCache<Key: Hashable, Value> {
     private var size = 0
@@ -10,6 +11,14 @@ final class MemoryCache<Key: Hashable, Value> {
          entryLifetime: TimeInterval = Double(K.App.CacheLifespanSeconds)) {
         self.dateProvider = dateProvider
         self.entryLifetime = entryLifetime
+        NotificationCenter.default.addObserver(self, selector: #selector(handleMemoryWarning), name: UIApplication.didReceiveMemoryWarningNotification, object: nil)
+    }
+
+    //TODO: Memory handling should be handled by all cache classes, whether they are disk, memory, hybrid, etc.
+    //This should be handled on the protocol level if there is one introduced in the future.
+    @objc func handleMemoryWarning(_ sender: Any) {
+        LogManager.warning("Memory warning received.")
+        self.empty()
     }
 
     func insert(_ value: Value, forKey key: Key, expiration: Date? = nil) {

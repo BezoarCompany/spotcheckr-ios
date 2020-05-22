@@ -7,7 +7,7 @@ target 'spotcheck-ios' do
 
   # Dev Dependencies
   pod 'SwiftLint'
-  
+  pod 'SwiftyBeaver'
   pod 'SwiftyPlistManager'
   
   # Dynamic Collection Views and Diff tool
@@ -61,4 +61,8 @@ target 'spotcheck-ios' do
   pod 'MaterialComponents/Cards+Theming'
   pod 'MaterialComponents/List'
   pod 'MaterialComponents/List+Theming'
+  
+  target 'spotcheckr-uitests' do
+    inherit! :complete
+  end
 end

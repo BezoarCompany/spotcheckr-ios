@@ -18,7 +18,7 @@ class SettingsCell: UICollectionViewCell {
 
     var titleLabel: UILabel {
         get {
-            return UILabel()
+            return baseCell.titleLabel
         }
         set(value) {
             baseCell.titleLabel.text = value.text
@@ -26,7 +26,7 @@ class SettingsCell: UICollectionViewCell {
     }
     var detailLabel: UILabel {
         get {
-            return UILabel()
+            return baseCell.detailLabel
         }
         set(value) {
             baseCell.detailLabel.text = value.text
@@ -35,6 +35,7 @@ class SettingsCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+
         addSubviews()
         applyConstraints()
     }
@@ -53,9 +54,8 @@ class SettingsCell: UICollectionViewCell {
             baseCell.leadingAnchor.constraint(equalTo: leadingAnchor),
             baseCell.topAnchor.constraint(equalTo: topAnchor),
             bottomAnchor.constraint(equalTo: baseCell.bottomAnchor),
-            switchView.leadingAnchor.constraint(equalTo: baseCell.trailingAnchor),
-            switchView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
-            bottomAnchor.constraint(equalTo: switchView.bottomAnchor),
+            baseCell.trailingAnchor.constraint(equalTo: switchView.leadingAnchor),
+            switchView.centerYAnchor.constraint(equalTo: centerYAnchor),
             trailingAnchor.constraint(equalTo: switchView.trailingAnchor, constant: 16)
         ])
     }

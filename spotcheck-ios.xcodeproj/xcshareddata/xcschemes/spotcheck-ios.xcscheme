@@ -48,6 +48,16 @@
                ReferencedContainer = "container:spotcheck-ios.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "BAA7D1AD245DA27B00766BC9"
+               BuildableName = "spotcheckr-uitests.xctest"
+               BlueprintName = "spotcheckr-uitests"
+               ReferencedContainer = "container:spotcheck-ios.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

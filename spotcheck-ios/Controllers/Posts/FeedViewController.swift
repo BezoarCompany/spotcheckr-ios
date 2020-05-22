@@ -40,6 +40,7 @@ class FeedViewController: UIViewController {
     let feedView: UICollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.accessibilityIdentifier = "FeedView"
         return view
     }()
     var layout: UICollectionViewFlowLayout = {
@@ -81,7 +82,7 @@ class FeedViewController: UIViewController {
     }
 
     func fetchMorePosts(lastSnapshot: DocumentSnapshot?) -> Promise<[ExercisePost]> {
-        print("@fetchMorePosts \(lastSnapshot)")
+        LogManager.info("Loading more posts")
         return Promise { promise in
 
             firstly {
@@ -280,13 +281,13 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
     // MARK: - When Cell selected or clicked
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let post = posts[indexPath.row]
-        
+
         if indexPath.section == 1 {
             return
         }
-        
+
         let cell = collectionView.cellForItem(at: indexPath) as! FeedCell
-        
+
         if let player = cell.avPlayerViewController.player {
             player.pause()
             //player.play() TODO: figure how to programatticaly do full screen mode
@@ -294,7 +295,7 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
             //window.rootViewController?.present(cell.avPlayerViewController, animated: true)
             //window.makeKeyAndVisible()
         }
-        
+
         viewPostHandler(exercisePost: post)
     }
 
@@ -324,8 +325,9 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
 
     //Query 'cache' for cell height to prevent jumpy recalc behavior
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
-           sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
 
         let height = cellHeights[indexPath] ?? CGFloat(cellHeightEstimate)
         let width = UIScreen.main.bounds.size.width
@@ -372,13 +374,13 @@ private extension FeedViewController {
     //Renders the changes between self's posts[] and the arg's posts[]
     func diffedTableViewRenderer(argPosts: [ExercisePost]) {
         //new data comes in `argPosts`
-        let results = ListDiffPaths(fromSection: 0, toSection: 0, oldArray: self.posts, newArray: argPosts, option: .equality)
+//        let results = ListDiffPaths(fromSection: 0, toSection: 0, oldArray: self.posts, newArray: argPosts, option: .equality)
 
-        self.posts = argPosts // set arg data into exiting array before updating tableview
-        self.feedView.performBatchUpdates({
-            self.feedView.deleteItems(at: results.deletes)
-            self.feedView.insertItems(at: results.inserts)
-        })
+//        self.posts = argPosts // set arg data into exiting array before updating tableview
+//        self.feedView.performBatchUpdates({
+//            self.feedView.deleteItems(at: results.deletes)
+//            self.feedView.insertItems(at: results.inserts)
+//        })
       //TODO: Do fade animation (?) for deletes and automatic for insert
     }
 
@@ -421,7 +423,7 @@ private extension FeedViewController {
     }
 
     func viewPostHandler(exercisePost: ExercisePost) {
-        let postDetailViewController = PostDetailViewController.create(postId: exercisePost.id, diffedPostsDataClosure: self.diffedPostsHandler)
+        let postDetailViewController = PostDetailViewController.create(postId: exercisePost.id)
         self.navigationController?.pushViewController(postDetailViewController, animated: true)
     }
 }

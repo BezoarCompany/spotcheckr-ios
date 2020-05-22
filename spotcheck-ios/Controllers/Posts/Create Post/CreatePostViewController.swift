@@ -16,6 +16,7 @@ enum DiffType {
 }
 
 class CreatePostViewController: UIViewController {
+    let viewModel = CreatePostViewModel()
     let maxSubjectLength = 300
     let appBarViewController = UIElementFactory.getAppBar()
     var imagePickerController = UIImagePickerController()
@@ -29,9 +30,11 @@ class CreatePostViewController: UIViewController {
     var selectedExercise: Exercise?
 
     typealias CreatedPostDetailClosureType = ((_ post: ExercisePost) -> Void)
-    typealias DiffedPostsDataUpdateClosureType = ((_ diffType: DiffType, _ post: ExercisePost) -> Void) //takes diff type, and post to be modified
+    //takes diff type, and post to be modified
+    typealias DiffedPostsDataUpdateClosureType = ((_ diffType: DiffType, _ post: ExercisePost) -> Void)
 
-    //From the Snackbar Action in FeedView, enter the Post Detail page with newly created Post (b/c Snackbar action created in CreatePost page)
+    //From the Snackbar Action in FeedView, enter the Post Detail page with newly
+    //created Post (b/c Snackbar action created in CreatePost page)
     //...Think React data flowing DOWN Stream
     var createdPostDetailClosure: CreatedPostDetailClosureType?
 
@@ -41,15 +44,22 @@ class CreatePostViewController: UIViewController {
     let validator = Validator()
 
     @objc func submitPost(_ sender: Any) {
-        appBarViewController.navigationBar.rightBarButtonItem?.customView = self.activityIndicator
-        self.activityIndicator.startAnimating()
+        self.circularActivityIndicatorWithBG.startAnimating()
         self.validator.validate(self)
     }
+
+    var circularActivityIndicatorWithBG: CircularActivityIndicator = {
+        let cai = CircularActivityIndicator()
+        cai.showBackground()
+        cai.translatesAutoresizingMaskIntoConstraints = false
+        return cai
+    }()
 
     var photoImageView: UIImageView = {
         let piv = UIImageView()
         piv.image = UIImage(systemName: "photo")
-        piv.translatesAutoresizingMaskIntoConstraints = false //You need to call this property so the image is added to your view
+        //You need to call this property so the image is added to your view
+        piv.translatesAutoresizingMaskIntoConstraints = false
         return piv
     }()
 
@@ -93,14 +103,6 @@ class CreatePostViewController: UIViewController {
     }()
     let cancelAlertController = MDCAlertController(title: "Cancel?", message: "You will lose all entered data.")
 
-    var activityIndicator: MDCActivityIndicator = {
-        let indicator = MDCActivityIndicator()
-        indicator.sizeToFit()
-        indicator.indicatorMode = .indeterminate
-        indicator.cycleColors = [ApplicationScheme.instance.containerScheme.colorScheme.secondaryColor]
-        return indicator
-    }()
-
     static func create(updatePostMode: DiffType = .add, post: ExercisePost? = nil,
                        createdPostDetailClosure: CreatedPostDetailClosureType? = nil,
                        diffedPostsDataClosure: DiffedPostsDataUpdateClosureType? = nil,
@@ -126,24 +128,26 @@ class CreatePostViewController: UIViewController {
     }
 
     required init?(coder aDecoder: NSCoder) {
+        let containerScheme = ApplicationScheme.instance.containerScheme
+
         self.subjectTextFieldController = MDCTextInputControllerFilled(textInput: subjectTextField)
-        self.subjectTextFieldController.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
+        self.subjectTextFieldController.applyTheme(withScheme: containerScheme)
         self.subjectTextFieldController.characterCountViewMode = .always
         self.subjectTextFieldController.characterCountMax = UInt(maxSubjectLength)
-        self.subjectTextFieldController.activeColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
-        self.subjectTextFieldController.floatingPlaceholderActiveColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
-        self.subjectTextFieldController.trailingUnderlineLabelTextColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
+        self.subjectTextFieldController.activeColor = containerScheme.colorScheme.onBackgroundColor
+        self.subjectTextFieldController.floatingPlaceholderActiveColor = containerScheme.colorScheme.onBackgroundColor
+        self.subjectTextFieldController.trailingUnderlineLabelTextColor = containerScheme.colorScheme.onBackgroundColor
 
         self.bodyTextFieldController = MDCTextInputControllerOutlinedTextArea(textInput: bodyTextField)
-         MDCTextFieldTypographyThemer.applyTypographyScheme(ApplicationScheme.instance.containerScheme.typographyScheme, to: self.bodyTextFieldController)
-        self.bodyTextFieldController.errorColor = ApplicationScheme.instance.containerScheme.colorScheme.errorColor
-        self.bodyTextFieldController.activeColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
-        self.bodyTextFieldController.floatingPlaceholderActiveColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
-        self.bodyTextFieldController.floatingPlaceholderNormalColor = ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor
-        self.bodyTextFieldController.inlinePlaceholderColor = ApplicationScheme.instance.containerScheme.colorScheme.primaryColorVariant
+         MDCTextFieldTypographyThemer.applyTypographyScheme(containerScheme.typographyScheme, to: self.bodyTextFieldController)
+        self.bodyTextFieldController.errorColor = containerScheme.colorScheme.errorColor
+        self.bodyTextFieldController.activeColor = containerScheme.colorScheme.onBackgroundColor
+        self.bodyTextFieldController.floatingPlaceholderActiveColor = containerScheme.colorScheme.onBackgroundColor
+        self.bodyTextFieldController.floatingPlaceholderNormalColor = containerScheme.colorScheme.onBackgroundColor
+        self.bodyTextFieldController.inlinePlaceholderColor = containerScheme.colorScheme.primaryColorVariant
 
         self.exerciseTextFieldController = MDCTextInputControllerFilled(textInput: exerciseTextField)
-        self.exerciseTextFieldController.applyTheme(withScheme: ApplicationScheme.instance.containerScheme)
+        self.exerciseTextFieldController.applyTheme(withScheme: containerScheme)
         self.exerciseTextFieldController.isFloatingEnabled = false
 
         super.init(coder: aDecoder)
@@ -170,6 +174,10 @@ class CreatePostViewController: UIViewController {
         initButtonBarItems()
         setupValidation()
 
+        self.view.addSubview(circularActivityIndicatorWithBG)
+        self.circularActivityIndicatorWithBG.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        self.circularActivityIndicatorWithBG.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+
         if updatePostMode == .edit {
             subjectTextField.text = self.exercisePost?.title
             bodyTextField.text = self.exercisePost?.description
@@ -195,54 +203,32 @@ class CreatePostViewController: UIViewController {
         }
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        firstly {
+            Services.systemService.getConfiguration()
+        }.done { config in
+            self.viewModel.configuration = config
+        }
+    }
+
     func initAppBar() {
         appBarViewController.didMove(toParent: self)
         appBarViewController.inferTopSafeAreaInsetFromViewController = true
         appBarViewController.navigationBar.title = "Add Question"
-        appBarViewController.navigationBar.leftBarButtonItem = UIBarButtonItem(image: Images.close, style: .done, target: self, action: #selector(self.cancelButtonOnClick(sender:)))
-        appBarViewController.navigationBar.rightBarButtonItem = UIBarButtonItem(image: Images.plus, style: .done, target: self, action: #selector(self.submitPost(_:)))
+        appBarViewController.navigationBar.leftBarButtonItem = UIBarButtonItem(image: Images.close,
+                                                                               style: .done,
+                                                                               target: self,
+                                                                               action: #selector(self.cancelButtonOnClick(sender:)))
+        appBarViewController.navigationBar.rightBarButtonItem = UIBarButtonItem(title: "Create",
+                                                                                style: .done,
+                                                                                target: self,
+                                                                                action: #selector(self.submitPost(_:)))
         view.addSubview(appBarViewController.view)
     }
 }
 
 extension CreatePostViewController: MDCMultilineTextInputDelegate {
     //the description text view requires a delegate
-}
-
-extension CreatePostViewController: ValidationDelegate {
-    func validationSuccessful() {
-        appBarViewController.navigationBar.rightBarButtonItem?.isEnabled = false
-
-        self.subjectTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
-        self.bodyTextFieldController.setErrorText(nil, errorAccessibilityValue: nil)
-
-        if updatePostMode == .edit {
-            updatePostWorkflow(post: self.exercisePost)
-        } else {
-            submitPostWorkflow()
-        }
-    }
-
-    func validationFailed(_ errors: [(Validatable, ValidationError)]) {
-        for (field, error) in errors {
-            if let field = field as? MDCTextField {
-                if field == self.subjectTextField {
-                    self.subjectTextFieldController.setErrorText(error.errorMessage, errorAccessibilityValue: error.errorMessage)
-                }
-            } else if let field = field as? MDCIntrinsicHeightTextView {
-                if field == self.bodyTextField.textView! {
-                    self.bodyTextFieldController.setErrorText(error.errorMessage, errorAccessibilityValue: error.errorMessage)
-                }
-            }
-        }
-
-        appBarViewController.navigationBar.rightBarButtonItem?.customView = nil
-    }
-
-    private func setupValidation() {
-        validator.registerField(self.subjectTextField, rules: [RequiredRule(message: "Required")])
-        validator.registerField(self.bodyTextField.textView!, rules: [RequiredRule(message: "Required")])
-    }
 }
 
 extension CreatePostViewController: UITextFieldDelegate {

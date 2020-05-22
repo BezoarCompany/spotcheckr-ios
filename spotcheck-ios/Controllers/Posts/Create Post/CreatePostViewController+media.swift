@@ -10,6 +10,18 @@ import MobileCoreServices
 import AVFoundation
 
 extension CreatePostViewController {
+    func showPhotoLibraryPicker() {
+        imagePickerController = UIImagePickerController()
+
+        imagePickerController.delegate = self
+        imagePickerController.sourceType = .photoLibrary
+        imagePickerController.allowsEditing = false
+        imagePickerController.mediaTypes = [ kUTTypeImage as String, kUTTypeMovie as String ] // Explicitly added movie option for selecting video files
+
+        present(imagePickerController, animated: true, completion: nil)
+    }
+
+    // MARK: - objc functions
     @objc func openMediaOptions() {
         let mediaActionSheet = UIElementFactory.getActionSheet()
         mediaActionSheet.title = "Choose Media Source"
@@ -34,23 +46,12 @@ extension CreatePostViewController {
         }
     }
 
-    func showPhotoLibraryPicker() {
-        imagePickerController = UIImagePickerController()
-
-        imagePickerController.delegate = self
-        imagePickerController.sourceType = .photoLibrary
-        imagePickerController.allowsEditing = false
-        imagePickerController.mediaTypes = [ kUTTypeImage as String, kUTTypeMovie as String ] // Explicitly added movie option for selecting video files
-
-        present(imagePickerController, animated: true, completion: nil)
-    }
-
     @objc func checkPhotoPermissionsAndShowLib() {
         let photoAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
 
+        //TODO: Handle the cases where the status is .restricted, .denied, .default
         switch photoAuthorizationStatus {
         case .authorized:
-            print("Access is granted by user")
             showPhotoLibraryPicker()
         case .notDetermined:
             PHPhotoLibrary.requestAuthorization({ newStatus in
@@ -72,7 +73,6 @@ extension CreatePostViewController {
 
 extension CreatePostViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-
         handleMediaSelectedForInfo(info: info)
 
         imagePickerController.dismiss(animated: true, completion: nil)
@@ -81,38 +81,52 @@ extension CreatePostViewController: UINavigationControllerDelegate, UIImagePicke
     private func handleMediaSelectedForInfo(info: [UIImagePickerController.InfoKey: Any]) {
         let mediaType = info[UIImagePickerController.InfoKey.mediaType] as AnyObject
 
-        var chosenImage = UIImage()
-
         if mediaType as! String == kUTTypeImage as String { // Image
-            chosenImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
-            photoImageView.image = chosenImage
-
+            let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+            do {
+                try viewModel.checkImageRequirements(image: selectedImage!)
+                photoImageView.image = selectedImage
+                isMediaChanged = true
+            } catch { MediaError.exceedsMaxImageSize
+                isMediaChanged = false
+                imagePickerController.dismiss(animated: true) {
+                    self.snackbarMessage.text = "Image size exceeds \(self.viewModel.configuration!.maxImageUploadSize) MB. Select a different image."
+                    MDCSnackbarManager.show(self.snackbarMessage)
+                }
+            }
         } else if mediaType as! String == kUTTypeMovie as String { // Video
-
-            print("info[UIImagePickerController.InfoKey.mediaURL] phAsset ", info[.phAsset])
-            print("info[UIImagePickerController.InfoKey.mediaURL] mediaURL ", info[.mediaURL])
             // Saved URL on the controller for later reference in the submit
-
             let videoURL = info[UIImagePickerController.InfoKey.mediaURL] as? URL
-            self.selectedVideoFileURL = videoURL
-
-            //Create thumbnail from the video
-            let asset = AVAsset(url: videoURL!)
-            let assetImageGenerator = AVAssetImageGenerator(asset: asset)
-            assetImageGenerator.appliesPreferredTrackTransform = true //set to right side up, no image rotation 90 deg clockwise
-
-            var time = asset.duration
-            time.value = min(time.value, 2)
 
             do {
-                let imageRef = try assetImageGenerator.copyCGImage(at: time, actualTime: nil)
+
+                try viewModel.checkVideoRequirements(url: videoURL!)
+                self.selectedVideoFileURL = videoURL
+                let imageRef = try viewModel.createThumbnail(url: videoURL!)
                 photoImageView.image = UIImage(cgImage: imageRef)
-            } catch {
-                print("Error creating video thumbnail")
+                isMediaChanged = true
+            } catch { MediaError.exceedsMaxVideoSize
+
+                isMediaChanged = false
+                imagePickerController.dismiss(animated: true) {
+                    self.snackbarMessage.text = "Video size exceeds \(self.viewModel.configuration!.maxVideoUploadSize) MB. Please select a smaller video."
+                    MDCSnackbarManager.show(self.snackbarMessage)
+                }
+
+            } catch { MediaError.errorThumbnailCreation
+
+                isMediaChanged = false
+                imagePickerController.dismiss(animated: true) {
+                    self.snackbarMessage.text = "Error creating thumbnail. Please select another video."
+                    MDCSnackbarManager.show(self.snackbarMessage)
+                }
             }
         }
 
         isMediaChanged = true
+    }
+
+    private func imageHandler() {
 
     }
 }
