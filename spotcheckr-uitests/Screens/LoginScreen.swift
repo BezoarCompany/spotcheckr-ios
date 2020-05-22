@@ -13,8 +13,8 @@ class LoginScreen: BaseScreen {
         var passwordTextField: XCUIElement
     }
 
-    var buttons: Buttons?
-    var textFields: TextFields?
+    var buttons: Buttons!
+    var textFields: TextFields!
 
     override init(_ xctc: XCTestCase) {
         super.init(xctc)
@@ -27,16 +27,20 @@ class LoginScreen: BaseScreen {
     }
 
     func enterCredentials(emailAddress: String, password: String) -> LoginScreen {
-        textFields?.emailAddressTextField.tap()
-        textFields?.emailAddressTextField.typeText(emailAddress)
+        textFields.emailAddressTextField.tap()
+        textFields.emailAddressTextField.typeText(emailAddress)
         app.keyboards.buttons["Next:"].tap()
-        textFields?.passwordTextField.typeText(password)
+        textFields.passwordTextField.typeText(password)
         app.keyboards.buttons["Done"].tap()
         return self
     }
 
     func clickSignIn() {
-        buttons?.signInButton.tap()
+        buttons.signInButton.tap()
+    }
+    
+    func clickAnonymousSignUp() {
+        buttons.skipButton.tap()
     }
 
     func goToSignUp() {
