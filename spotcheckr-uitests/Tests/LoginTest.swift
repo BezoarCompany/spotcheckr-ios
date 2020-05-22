@@ -1,3 +1,5 @@
+import FirebaseFirestore
+
 class LoginTest: BaseTest {
     override func setUp() {
         super.setUp()
@@ -9,6 +11,12 @@ class LoginTest: BaseTest {
         LoginScreen(self).enterCredentials(emailAddress: Users.testUser.emailAddress,
                                          password: Users.testUser.password)
                         .clickSignIn()
+        FeedViewScreen(self).verifyOnFeedScreen()
+    }
+    
+    func testAnonymousSignUp() {
+        logout()
+        LoginScreen(self).clickAnonymousSignUp()
         FeedViewScreen(self).verifyOnFeedScreen()
     }
 }
