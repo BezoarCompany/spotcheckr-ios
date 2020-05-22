@@ -1468,14 +1468,14 @@
 				CODE_SIGN_ENTITLEMENTS = "spotcheck-ios/Spotcheckr.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 8U9GL9JNNQ;
 				INFOPLIST_FILE = "spotcheck-ios/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = app.spotcheckr;
 				PRODUCT_NAME = Spotcheckr;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1554,14 +1554,14 @@
 				CODE_SIGN_ENTITLEMENTS = "spotcheck-ios/Spotcheckr.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 8U9GL9JNNQ;
 				INFOPLIST_FILE = "spotcheck-ios/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = app.spotcheckr;
 				PRODUCT_NAME = Spotcheckr;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1634,14 +1634,14 @@
 				CODE_SIGN_ENTITLEMENTS = "spotcheck-ios/Spotcheckr.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 8U9GL9JNNQ;
 				INFOPLIST_FILE = "spotcheck-ios/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = app.spotcheckr;
 				PRODUCT_NAME = Spotcheckr;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1713,14 +1713,14 @@
 				CODE_SIGN_ENTITLEMENTS = "spotcheck-ios/Spotcheckr.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 8U9GL9JNNQ;
 				INFOPLIST_FILE = "spotcheck-ios/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = app.spotcheckr;
 				PRODUCT_NAME = Spotcheckr;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1853,14 +1853,14 @@
 				CODE_SIGN_ENTITLEMENTS = "spotcheck-ios/Spotcheckr.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 8U9GL9JNNQ;
 				INFOPLIST_FILE = "spotcheck-ios/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = app.spotcheckr;
 				PRODUCT_NAME = Spotcheckr;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1878,14 +1878,14 @@
 				CODE_SIGN_ENTITLEMENTS = "spotcheck-ios/Spotcheckr.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 8U9GL9JNNQ;
 				INFOPLIST_FILE = "spotcheck-ios/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = app.spotcheckr;
 				PRODUCT_NAME = Spotcheckr;
 				PROVISIONING_PROFILE_SPECIFIER = "";

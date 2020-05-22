@@ -3,11 +3,11 @@ import UIKit
 
 class CircularActivityIndicator: UIView {
     let boxSize = 80
-    let lightGrey = UIColor(red: 0.898, green: 0.898, blue: 0.898, alpha: 0.67)
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(indicator)
@@ -21,7 +21,7 @@ class CircularActivityIndicator: UIView {
 
     var indicator: MDCActivityIndicator = {
         let indicator = MDCActivityIndicator()
-        indicator.sizeToFit()
+        //indicator.sizeToFit()
         indicator.indicatorMode = .indeterminate
         indicator.cycleColors = [ApplicationScheme.instance.containerScheme.colorScheme.onBackgroundColor]
         indicator.translatesAutoresizingMaskIntoConstraints = false
@@ -29,21 +29,24 @@ class CircularActivityIndicator: UIView {
     }()
 
     func showBackground() {
-        self.isHidden = true
-        self.heightAnchor.constraint(equalToConstant: CGFloat(boxSize)).isActive = true
-        self.widthAnchor.constraint(equalToConstant: CGFloat(boxSize)).isActive = true
-        self.backgroundColor = lightGrey
-        self.layer.cornerRadius = 10
-        self.indicator.cycleColors = [ApplicationScheme.instance.containerScheme.colorScheme.secondaryColor]
+        isHidden = true
+        NSLayoutConstraint.activate([
+            heightAnchor.constraint(equalToConstant: CGFloat(boxSize)),
+            widthAnchor.constraint(equalToConstant: CGFloat(boxSize))
+        ])
+        
+        backgroundColor = Colors.lightGray
+        layer.cornerRadius = 10
+        indicator.cycleColors = [ApplicationScheme.instance.containerScheme.colorScheme.secondaryColor]
     }
 
     func startAnimating() {
         indicator.startAnimating()
-        self.isHidden = false
+        isHidden = false
     }
 
     func stopAnimating() {
         indicator.stopAnimating()
-        self.isHidden = true
+        isHidden = true
     }
 }
