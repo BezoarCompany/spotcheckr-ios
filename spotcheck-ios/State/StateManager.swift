@@ -1,5 +1,5 @@
 import Signals
 
-struct StateManager{
+struct StateManager {
     static var answerDeleted = Signal<Answer>()
 }

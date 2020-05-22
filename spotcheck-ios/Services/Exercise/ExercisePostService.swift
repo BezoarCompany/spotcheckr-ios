@@ -548,7 +548,7 @@ class ExercisePostService: ExercisePostProtocol {
                     LogManager.error(error.localizedDescription, error)
                     return promise.reject(error)
                 }
-                
+
                 StateManager.answerDeleted.fire(answer)
                 CacheManager.exercisePostCache[answer.exercisePostId!]?.answersCount -= 1
                 CacheManager.exercisePostAnswersCache[answer.exercisePostId!]?.removeValue(forKey: answer.id!)

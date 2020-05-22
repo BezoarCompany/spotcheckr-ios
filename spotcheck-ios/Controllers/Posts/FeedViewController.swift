@@ -54,18 +54,11 @@ class FeedViewController: UIViewController {
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         self.addChild(appBarViewController)
+        subscribeToEvents()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        StateManager.answerDeleted.subscribe(with: self, callback: { (answer) in
-            let post = self.posts.first { (post) -> Bool in
-                post.id == answer.exercisePostId
-            }
-            
-            post?.answersCount -= 1
-            self.diffedPostsHandler(diffType: .edit, exercisePost: post!)
-        })
     }
 
     override func viewDidLoad() {
@@ -87,6 +80,17 @@ class FeedViewController: UIViewController {
         applyConstraints()
 
         refreshPosts()
+    }
+
+    func subscribeToEvents() {
+        StateManager.answerDeleted.subscribe(with: self, callback: { (answer) in
+            let post = self.posts.first { (post) -> Bool in
+                post.id == answer.exercisePostId
+            }
+
+            post?.answersCount -= 1
+            self.diffedPostsHandler(diffType: .edit, exercisePost: post!)
+        })
     }
 
     func fetchMorePosts(lastSnapshot: DocumentSnapshot?) -> Promise<[ExercisePost]> {

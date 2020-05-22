@@ -14,7 +14,7 @@ final class SwiftyBeaverLogger: Logger {
     func verbose(_ message: String, _ context: Any?) {
         log.verbose(message, context: context)
     }
-    
+
     func debug(_ message: String) {
         log.debug(message)
     }
@@ -22,27 +22,27 @@ final class SwiftyBeaverLogger: Logger {
     func debug(_ message: String, _ context: Any?) {
         log.debug(message, context: context)
     }
-    
+
     func info(_ message: String) {
         log.info(message)
     }
-    
+
     func info(_ message: String, _ context: Any?) {
         log.info(message, context: context)
     }
-    
+
     func warning(_ message: String) {
         log.warning(message)
     }
-    
+
     func warning(_ message: String, _ context: Any?) {
         log.warning(message, context: context)
     }
-    
+
     func error(_ message: String) {
         log.error(message)
     }
-    
+
     func error(_ message: String, _ context: Any?) {
         log.error(message, context: context)
     }
