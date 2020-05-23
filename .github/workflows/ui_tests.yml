@@ -1,0 +1,50 @@
+name: ui tests
+
+on:
+  push:
+    branches: [master, develop]
+  pull_request:
+    branches: [master, develop, release-*]
+
+jobs:
+  build_ui_tests:
+    if: github.event_name == 'pull_request' && contains(github.base_ref, 'release')
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Install Dependencies
+        run: pod install
+
+      - name: Build for UI Testing
+        run: >
+          xcodebuild 
+          -scheme "spotcheckr-uitests"
+          -workspace spotcheck-ios.xcworkspace
+          -derivedDataPath ./DD
+          -allowProvisioningUpdates
+          -sdk iphoneos build-for-testing
+      
+      - name: Create UITests.zip
+        run: |
+          cd ./DD/Build/Products
+          zip -r UITests.zip *
+          cd ../../../
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: "UITests.zip"
+          path: ./DD/Build/Products/UITests.zip
+  
+  run_ui_tests:
+    needs: build_ui_tests
+    runs-on: self-hosted
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: "UITests.zip"
+          path: "./dist/"
+
+      - name: Run UI Tests
+        run: >
+          gcloud firebase test ios run --test ./dist/UITests.zip --device model=iphone11,version=13.3,locale=en_US,orientation=portrait
