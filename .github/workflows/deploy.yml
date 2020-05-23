@@ -1,4 +1,4 @@
-name: Deploy
+name: deploy
 
 on:
   push:
@@ -64,7 +64,7 @@ jobs:
         run: >
           xcodebuild archive
           -scheme "${{ matrix.scheme }}"
-          -workspace spotcheck-ios.xcworkspace
+          -workspace spotcheck-ios.xcworkspace       
           -allowProvisioningUpdates
           -destination "generic/platform=iOS"
           -archivePath ./Archives/spotcheckr-ios.xcarchive
