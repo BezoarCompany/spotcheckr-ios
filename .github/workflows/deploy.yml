@@ -2,7 +2,7 @@ name: deploy
 
 on:
   push:
-    branches: [master, develop]
+    branches: [master, develop, feature/refactor-ci-cd-ui-tests]
   pull_request:
     branches: [master, develop, release-*]
 
@@ -18,48 +18,48 @@ jobs:
       - name: Install Dependencies
         run: pod install
 
-      - name: Create ${{ matrix.scheme }} Archive
-        run: >
-          xcodebuild archive
-          -scheme "${{ matrix.scheme }}"
-          -workspace spotcheck-ios.xcworkspace       
-          -allowProvisioningUpdates
-          -destination "generic/platform=iOS"
-          -archivePath ./Archives/spotcheckr-ios.xcarchive
-          -derivedDataPath ./DD
+      # - name: Create ${{ matrix.scheme }} Archive
+      #   run: >
+      #     xcodebuild archive
+      #     -scheme "${{ matrix.scheme }}"
+      #     -workspace spotcheck-ios.xcworkspace       
+      #     -allowProvisioningUpdates
+      #     -destination "generic/platform=iOS"
+      #     -archivePath ./Archives/spotcheckr-ios.xcarchive
+      #     -derivedDataPath ./DD
 
-      - name: Create .ipa artifact
-        run: >
-          xcodebuild -exportArchive
-          -archivePath ./Archives/spotcheckr-ios.xcarchive
-          -exportOptionsPlist ./spotcheck-ios/Configs/ExportOptionsFirebase.plist
-          -exportPath ./dist/spotcheckr-ios.ipa
+      # - name: Create .ipa artifact
+      #   run: >
+      #     xcodebuild -exportArchive
+      #     -archivePath ./Archives/spotcheckr-ios.xcarchive
+      #     -exportOptionsPlist ./spotcheck-ios/Configs/ExportOptionsFirebase.plist
+      #     -exportPath ./dist/spotcheckr-ios.ipa
 
-      - uses: actions/upload-artifact@v2
-        with:
-          name: "${{ matrix.scheme }}.ipa"
-          path: ./dist/spotcheckr-ios.ipa
+      # - uses: actions/upload-artifact@v2
+      #   with:
+      #     name: "${{ matrix.scheme }}.ipa"
+      #     path: ./dist/spotcheckr-ios.ipa
 
-  firebase-upload:
-    needs: archive #Set to UI testing once that is in place
-    runs-on: self-hosted
-    steps:
-      - uses: actions/download-artifact@v2
-        with:
-          name: "spotcheck-ios (Staging).ipa"
-          path: "./dist/"
+  # firebase-upload:
+  #   needs: archive #Set to UI testing once that is in place
+  #   runs-on: self-hosted
+  #   steps:
+  #     - uses: actions/download-artifact@v2
+  #       with:
+  #         name: "spotcheck-ios (Staging).ipa"
+  #         path: "./dist/"
 
-      - name: (Staging-QA) Upload to Firebase App Distribution
-        run: >
-          firebase appdistribution:distribute "./dist/spotcheck-ios (Staging).ipa"
-          --app ${{ secrets.FIREBASE_APP_ID }}
-          --token ${{ secrets.FIREBASE_TOKEN }}
+  #     - name: (Staging-QA) Upload to Firebase App Distribution
+  #       run: >
+  #         firebase appdistribution:distribute "./dist/spotcheck-ios (Staging).ipa"
+  #         --app ${{ secrets.FIREBASE_APP_ID }}
+  #         --token ${{ secrets.FIREBASE_TOKEN }}
 
-  app-store-deploy:
-    needs: archive #Same as above
-    runs-on: self-hosted
-    steps:
-      # Download artifact.
-      - name: (PROD) Send to App Store
-        if: github.event_name == 'pull_request' && contains(github.base_ref, 'release')
-        run: echo TODO this
+  # app-store-deploy:
+  #   needs: archive #Same as above
+  #   runs-on: self-hosted
+  #   steps:
+  #     # Download artifact.
+  #     - name: (PROD) Send to App Store
+  #       if: github.event_name == 'pull_request' && contains(github.base_ref, 'release')
+  #       run: echo TODO this
