@@ -379,6 +379,7 @@ class ExercisePostService: ExercisePostProtocol {
     func createAnswer(answer: Answer) -> Promise<Void> {
         return Promise { promise in
             let exercisePostRef = Firestore.firestore().document("/\(CollectionConstants.postsCollection)/\(answer.exercisePostId!.value)")
+            let newAnswer = answer
             Firestore.firestore().runTransaction({ (transaction, _) -> Any? in
                 do {
                     let exercisePostDoc = try transaction.getDocument(exercisePostRef).data()
@@ -387,7 +388,6 @@ class ExercisePostService: ExercisePostProtocol {
                     exercisePost["answers-count"] = (exercisePost["answers-count"] as! Int) + 1
                     transaction.updateData(exercisePost, forDocument: exercisePostRef)
                     let newAnswerRef = Firestore.firestore().collection(CollectionConstants.answerCollection).document()
-                    var newAnswer = answer
                     newAnswer.id = AnswerID(newAnswerRef.documentID)
                     transaction.setData(DomainToFirebaseMapper.mapAnswer(from: newAnswer), forDocument: newAnswerRef)
                 } catch { error
@@ -398,6 +398,9 @@ class ExercisePostService: ExercisePostProtocol {
                 if let error = error {
                     return promise.reject(error)
                 }
+                
+                CacheManager.exercisePostCache[newAnswer.exercisePostId!]?.answersCount += 1
+                CacheManager.exercisePostAnswersCache[newAnswer.exercisePostId!]?.add([newAnswer.id! : newAnswer])
                 promise.fulfill_()
             }
         }
