@@ -16,11 +16,10 @@ class PostDetailViewController: UIViewController {
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         self.addChild(viewModel.appBarViewController)
+        subscribeToEvents()
     }
 
     static func create(postId: ExercisePostID?) -> PostDetailViewController {
-
-        //swiftlint:disable force_cast line_length
         let postDetailViewController = PostDetailViewController()
         postDetailViewController.viewModel.postId = postId
 
@@ -47,6 +46,15 @@ class PostDetailViewController: UIViewController {
         _ = loadPostDetail()
     }
 
+    func subscribeToEvents() {
+        StateManager.answerCreated.subscribe(with: self, callback: { newAnswer in
+            self.viewModel.answers.insert(newAnswer, at: 0)
+            self.adapter.performUpdates(animated: true) { _ in
+                self.viewModel.appBarViewController.navigationBar.title = "\(self.viewModel.answers.count) Answers"
+            }
+        })
+    }
+    
     // MARK: - objc Functions
     @objc func addAnswerButton(_ sender: Any) {
         let createAnswerViewController = CreateAnswerViewController.create(post: viewModel.post)
@@ -114,7 +122,6 @@ extension PostDetailViewController {
                     self.viewModel.answers = answers.sorted(by: { (answer1, answer2) -> Bool in
                         return answer1.dateCreated?.compare(answer2.dateCreated!) == .orderedDescending
                     })
-                    self.viewModel.answersCount = self.viewModel.answers.count
                     self.adapter.performUpdates(animated: true)
                 }.catch { (error) in
                     self.viewModel.snackbarMessage.text = "There was an error loading answers."
@@ -122,7 +129,7 @@ extension PostDetailViewController {
                     return promise.reject(error)
                 }.finally {
                     self.viewModel.answersLoadingIndicator.indicator.stopAnimating()
-                    if self.viewModel.answersCount == 0 {
+                    if self.viewModel.answers.count == 0 {
                         self.viewModel.defaultAnswersSectionLabel.topAnchor.constraint(equalTo: self.viewModel.postYAxisAnchor,
                                                                                        constant: answersCenter).isActive = true
                         self.viewModel.defaultAnswersSectionLabel.isHidden = false

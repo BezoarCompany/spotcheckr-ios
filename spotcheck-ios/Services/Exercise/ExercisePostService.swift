@@ -399,6 +399,7 @@ class ExercisePostService: ExercisePostProtocol {
                     return promise.reject(error)
                 }
                 
+                StateManager.answerCreated.fire(newAnswer)
                 CacheManager.exercisePostCache[newAnswer.exercisePostId!]?.answersCount += 1
                 CacheManager.exercisePostAnswersCache[newAnswer.exercisePostId!]?.add([newAnswer.id! : newAnswer])
                 promise.fulfill_()

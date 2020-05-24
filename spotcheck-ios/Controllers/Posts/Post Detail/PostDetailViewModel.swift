@@ -7,7 +7,6 @@ class PostDetailViewModel {
     var post: ExercisePost?
     var postId: ExercisePostID?
     var answers = [Answer]()
-    var answersCount = 0
     var currentUser: User?
     var postYAxisAnchor: NSLayoutYAxisAnchor!
     var postCellHeight: CGFloat!

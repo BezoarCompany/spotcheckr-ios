@@ -54,7 +54,6 @@ class FeedViewController: UIViewController {
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         self.addChild(appBarViewController)
-        subscribeToEvents()
     }
 
     required init?(coder: NSCoder) {
@@ -64,9 +63,8 @@ class FeedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.appBarViewController.didMove(toParent: self)
-
-        NotificationCenter.default.addObserver(self, selector: #selector(updateTableViewEdittedPost), name: K.Notifications.ExercisePostEdits, object: nil)
-
+        subscribeToEvents()
+        
         firstly {
             Services.userService.getCurrentUser()
         }.done { user in
@@ -83,16 +81,26 @@ class FeedViewController: UIViewController {
     }
 
     func subscribeToEvents() {
-        StateManager.answerDeleted.subscribe(with: self, callback: { (answer) in
-            let post = self.posts.first { (post) -> Bool in
-                post.id == answer.exercisePostId
-            }
-
-            post?.answersCount -= 1
-            self.diffedPostsHandler(diffType: .edit, exercisePost: post!)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateTableViewEdittedPost), name: K.Notifications.ExercisePostEdits, object: nil)
+        
+        StateManager.answerDeleted.subscribe(with: self, callback: { answer in
+            self.updateAnswerCount(answer: answer, amount: -1)
+        })
+        
+        StateManager.answerCreated.subscribe(with: self, callback: { answer in
+            self.updateAnswerCount(answer: answer, amount: 1)
         })
     }
-
+    
+    func updateAnswerCount(answer: Answer, amount: Int) {
+        let post = self.posts.first { (post) -> Bool in
+            post.id == answer.exercisePostId
+        }
+        
+        post?.answersCount += amount
+        self.diffedPostsHandler(diffType: .edit, exercisePost: post!)
+    }
+    
     func fetchMorePosts(lastSnapshot: DocumentSnapshot?) -> Promise<[ExercisePost]> {
         LogManager.info("Loading more posts")
         return Promise { promise in
