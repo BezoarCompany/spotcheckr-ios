@@ -8,7 +8,7 @@ import PromiseKit
 
 class CreateAnswerViewController: UIViewController {
     let viewModel = CreateAnswerViewModel()
-    
+
     static func create(post: ExercisePost?) -> CreateAnswerViewController {
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         // swiftlint:disable force_cast line_length
@@ -57,12 +57,12 @@ class CreateAnswerViewController: UIViewController {
             }
         }
     }
-    
+
     // MARK: - objc Functions
     @objc func cancelAnswer(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
-    
+
     @objc func submitAction(_ sender: Any) {
         firstly {
             viewModel.createAnswer()
@@ -88,7 +88,7 @@ extension CreateAnswerViewController: MDCMultilineTextInputDelegate, MDCMultilin
 extension CreateAnswerViewController {
     func initTextViewPlaceholders() {
         let containerScheme = ApplicationScheme.instance.containerScheme
-        
+
         viewModel.answerTextField.multilineDelegate = self
         viewModel.answerTextField.layoutDelegate = self
         viewModel.answerTextField.clearButtonMode = .never

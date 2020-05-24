@@ -6,7 +6,7 @@ class CreateAnswerViewModel {
     // MARK: - Properties
     var currentUser: User?
     var post: ExercisePost?
-    
+
     // MARK: - UI Elements
     let answerTextField: MDCMultilineTextField = {
         let field = MDCMultilineTextField()
@@ -20,7 +20,7 @@ class CreateAnswerViewModel {
         return message
     }()
     let appBarViewController = UIElementFactory.getAppBar()
-    
+
     // MARK: - Functions
     func createAnswer() -> Promise<Answer> {
         let answer = Answer(createdBy: currentUser,
@@ -29,7 +29,7 @@ class CreateAnswerViewModel {
                             exercisePostId: post!.id,
                             text: answerTextField.text!.trim()
         )
-        
+
         return Promise { promise in
             firstly {
                 Services.exercisePostService.createAnswer(answer: answer)

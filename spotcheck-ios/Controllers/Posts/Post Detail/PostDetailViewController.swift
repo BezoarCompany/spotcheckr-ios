@@ -54,7 +54,7 @@ class PostDetailViewController: UIViewController {
             }
         })
     }
-    
+
     // MARK: - objc Functions
     @objc func addAnswerButton(_ sender: Any) {
         let createAnswerViewController = CreateAnswerViewController.create(post: viewModel.post)

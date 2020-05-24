@@ -64,7 +64,7 @@ class FeedViewController: UIViewController {
         super.viewDidLoad()
         self.appBarViewController.didMove(toParent: self)
         subscribeToEvents()
-        
+
         firstly {
             Services.userService.getCurrentUser()
         }.done { user in
@@ -82,25 +82,25 @@ class FeedViewController: UIViewController {
 
     func subscribeToEvents() {
         NotificationCenter.default.addObserver(self, selector: #selector(updateTableViewEdittedPost), name: K.Notifications.ExercisePostEdits, object: nil)
-        
+
         StateManager.answerDeleted.subscribe(with: self, callback: { answer in
             self.updateAnswerCount(answer: answer, amount: -1)
         })
-        
+
         StateManager.answerCreated.subscribe(with: self, callback: { answer in
             self.updateAnswerCount(answer: answer, amount: 1)
         })
     }
-    
+
     func updateAnswerCount(answer: Answer, amount: Int) {
         let post = self.posts.first { (post) -> Bool in
             post.id == answer.exercisePostId
         }
-        
+
         post?.answersCount += amount
         self.diffedPostsHandler(diffType: .edit, exercisePost: post!)
     }
-    
+
     func fetchMorePosts(lastSnapshot: DocumentSnapshot?) -> Promise<[ExercisePost]> {
         LogManager.info("Loading more posts")
         return Promise { promise in

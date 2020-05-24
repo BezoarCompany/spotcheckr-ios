@@ -38,7 +38,7 @@ class LoginScreen: BaseScreen {
     func clickSignIn() {
         buttons.signInButton.tap()
     }
-    
+
     func clickAnonymousSignUp() {
         buttons.skipButton.tap()
     }
