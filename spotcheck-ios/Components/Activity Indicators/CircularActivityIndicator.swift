@@ -7,7 +7,7 @@ class CircularActivityIndicator: UIView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(indicator)
@@ -34,7 +34,7 @@ class CircularActivityIndicator: UIView {
             heightAnchor.constraint(equalToConstant: CGFloat(boxSize)),
             widthAnchor.constraint(equalToConstant: CGFloat(boxSize))
         ])
-        
+
         backgroundColor = Colors.lightGray
         layer.cornerRadius = 10
         indicator.cycleColors = [ApplicationScheme.instance.containerScheme.colorScheme.secondaryColor]

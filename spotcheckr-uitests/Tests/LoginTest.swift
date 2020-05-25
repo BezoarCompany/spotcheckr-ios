@@ -13,7 +13,7 @@ class LoginTest: BaseTest {
                         .clickSignIn()
         FeedViewScreen(self).verifyOnFeedScreen()
     }
-    
+
     func testAnonymousSignUp() {
         logout()
         LoginScreen(self).clickAnonymousSignUp()

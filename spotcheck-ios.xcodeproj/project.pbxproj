@@ -131,6 +131,7 @@
 		BA95E25F2452961B00118DE0 /* SemanticVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA95E25E2452961B00118DE0 /* SemanticVersion.swift */; };
 		BA95E2612452970E00118DE0 /* SystemService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA95E2602452970E00118DE0 /* SystemService.swift */; };
 		BA95E26C2454390200118DE0 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA95E26B2454390200118DE0 /* CacheManager.swift */; };
+		BA9A95DB247AC64C008E108A /* CreateAnswerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA9A95DA247AC64C008E108A /* CreateAnswerViewModel.swift */; };
 		BA9D1AC9246B5020008A1CF1 /* CreatePostViewController+validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA9D1AC8246B5020008A1CF1 /* CreatePostViewController+validation.swift */; };
 		BA9D1ACB246B5405008A1CF1 /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA9D1ACA246B5405008A1CF1 /* UIImageExtensions.swift */; };
 		BA9D1ACE246B5463008A1CF1 /* MeasurementSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA9D1ACD246B5463008A1CF1 /* MeasurementSystem.swift */; };
@@ -323,6 +324,7 @@
 		BA95E25E2452961B00118DE0 /* SemanticVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemanticVersion.swift; sourceTree = "<group>"; };
 		BA95E2602452970E00118DE0 /* SystemService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemService.swift; sourceTree = "<group>"; };
 		BA95E26B2454390200118DE0 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
+		BA9A95DA247AC64C008E108A /* CreateAnswerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAnswerViewModel.swift; sourceTree = "<group>"; };
 		BA9D1AC8246B5020008A1CF1 /* CreatePostViewController+validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CreatePostViewController+validation.swift"; sourceTree = "<group>"; };
 		BA9D1ACA246B5405008A1CF1 /* UIImageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtensions.swift; sourceTree = "<group>"; };
 		BA9D1ACD246B5463008A1CF1 /* MeasurementSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementSystem.swift; sourceTree = "<group>"; };
@@ -783,6 +785,15 @@
 			path = Caching;
 			sourceTree = "<group>";
 		};
+		BA9A95D9247AC5F8008E108A /* Create Answer */ = {
+			isa = PBXGroup;
+			children = (
+				564FA33723FFBF81006017FB /* CreateAnswerViewController.swift */,
+				BA9A95DA247AC64C008E108A /* CreateAnswerViewModel.swift */,
+			);
+			path = "Create Answer";
+			sourceTree = "<group>";
+		};
 		BA9D1AC7246B4EE1008A1CF1 /* Create Post */ = {
 			isa = PBXGroup;
 			children = (
@@ -921,11 +932,11 @@
 		BABAA3E42439D8F300FF5C33 /* Posts */ = {
 			isa = PBXGroup;
 			children = (
+				BA9A95D9247AC5F8008E108A /* Create Answer */,
 				BA9D1AC7246B4EE1008A1CF1 /* Create Post */,
 				BAF39FF92462738A00CAB73A /* Post Detail */,
 				5679533723D980E40077BA08 /* FeedViewController.swift */,
 				BA54CD7A2436D60C00A944BC /* ReportViewController.swift */,
-				564FA33723FFBF81006017FB /* CreateAnswerViewController.swift */,
 			);
 			path = Posts;
 			sourceTree = "<group>";
@@ -1318,6 +1329,7 @@
 				BA65CBB9244D0B1800901812 /* AnswerID.swift in Sources */,
 				BA828EF9241CE0270012509D /* StringExtensions.swift in Sources */,
 				BA65CBCC244E25EE00901812 /* CardCollectionCell.swift in Sources */,
+				BA9A95DB247AC64C008E108A /* CreateAnswerViewModel.swift in Sources */,
 				BA4EE44F23EE91D1003E6D87 /* SignUpViewController.swift in Sources */,
 				BAEDB8DC245909B200FC5587 /* SettingsCell.swift in Sources */,
 				BA9D1ACE246B5463008A1CF1 /* MeasurementSystem.swift in Sources */,

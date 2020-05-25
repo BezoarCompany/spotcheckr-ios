@@ -22,7 +22,7 @@ class AnswersSectionController: ListSectionController {
 
         let cell = collectionContext!.dequeueReusableCell(of: AnswerCell.self, for: self, at: index) as! AnswerCell
 
-        let isLastCell = { (index: Int) in return index == (controller?.viewModel.answersCount)! - 1 }
+        let isLastCell = { (index: Int) in return index == (controller?.viewModel.answers.count)! - 1 }
         if isLastCell(index) {
             cell.hideDivider()
         }
@@ -65,8 +65,7 @@ class AnswersSectionController: ListSectionController {
                             Services.exercisePostService.deleteAnswer(self.answer)
                         }.done {
                             controller?.viewModel.answers.remove(at: index)
-                            controller?.viewModel.answersCount -= 1
-                            controller?.viewModel.appBarViewController.navigationBar.title = "\(controller!.viewModel.answersCount) Answers"
+                            controller?.viewModel.appBarViewController.navigationBar.title = "\(controller!.viewModel.answers.count) Answers"
                             controller?.adapter.performUpdates(animated: true)
                         }.catch { _ in
                             controller?.viewModel.snackbarMessage.text = "Unable to delete answer."
