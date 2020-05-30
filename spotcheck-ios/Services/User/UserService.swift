@@ -91,20 +91,22 @@ class UserService: UserProtocol {
 
     func getCurrentUser() -> Promise<User> {
         return Promise { promise in
+            if let uid = Auth.auth().currentUser?.uid {
+                let userId = UserID(uid)
 
-            let userId = UserID(Auth.auth().currentUser!.uid)
-
-            if let user = CacheManager.userCache[userId] {
-                return promise.fulfill(user)
+                if let user = CacheManager.userCache[userId] {
+                    return promise.fulfill(user)
+                }
+                firstly {
+                    self.getUser(withId: userId, includeVoteDetails: true)
+                }.done { user in
+                    CacheManager.userCache[user.id!] = user
+                    return promise.fulfill(user)
+                }.catch { error in
+                    return promise.reject(error)
+                }
             }
-            firstly {
-                self.getUser(withId: userId, includeVoteDetails: true)
-            }.done { user in
-                CacheManager.userCache[user.id!] = user
-                return promise.fulfill(user)
-            }.catch { error in
-                return promise.reject(error)
-            }
+            return promise.reject(String("UID not found"))
         }
     }
 
