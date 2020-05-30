@@ -1,4 +1,4 @@
-name: Build
+name: build
 
 on:
   push:
@@ -8,6 +8,7 @@ on:
 
 jobs:
   clean: # Most likely not necessary if using github hosted runners in the future since each job runs in its own special environment.
+    if: (github.event_name == 'push' || github.event_name == 'pull_request') && !contains( github.base_ref, 'master')  && !contains(github.base_ref, 'release')
     runs-on: self-hosted
     steps:
       - name: Clean environments
@@ -30,7 +31,6 @@ jobs:
 
   build:
     needs: lint
-    if: github.event_name == 'pull_request' &&  !contains( github.base_ref, 'master')  && !contains(github.base_ref, 'release')
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v2
