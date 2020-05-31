@@ -68,7 +68,7 @@ jobs:
           -allowProvisioningUpdates
           -destination "generic/platform=iOS"
           -archivePath ./Archives/spotcheckr-ios.xcarchive
-          -derivedDataPath ./DD
+          -derivedDataPath /Users/Shared/DD
 
       - name: Create .ipa artifact
         run: >
