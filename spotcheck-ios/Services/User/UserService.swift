@@ -92,7 +92,7 @@ class UserService: UserProtocol {
     func getCurrentUser() -> Promise<User> {
         return Promise { promise in
             guard let curUser = Auth.auth().currentUser else {
-                return promise.reject("currentUser")
+                return promise.reject("currentUser is null")
             }
             
             let userId = UserID(curUser.uid)
@@ -108,6 +108,7 @@ class UserService: UserProtocol {
             }.catch { error in
                 return promise.reject(error)
             }
+            return promise.reject(String("UID not found"))
         }
     }
 
