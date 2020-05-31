@@ -91,8 +91,11 @@ class UserService: UserProtocol {
 
     func getCurrentUser() -> Promise<User> {
         return Promise { promise in
-
-            let userId = UserID(Auth.auth().currentUser!.uid)
+            guard let curUser = Auth.auth().currentUser else {
+                return promise.reject("currentUser")
+            }
+            
+            let userId = UserID(curUser.uid)
 
             if let user = CacheManager.userCache[userId] {
                 return promise.fulfill(user)
