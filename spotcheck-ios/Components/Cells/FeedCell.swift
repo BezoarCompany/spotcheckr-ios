@@ -23,6 +23,7 @@ class FeedCell: CardCollectionCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.accessibilityIdentifier = "FeedCell"
         applyConstraints()
     }
 
