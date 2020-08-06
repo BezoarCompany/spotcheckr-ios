@@ -11,6 +11,7 @@ jobs:
     if: (github.event_name == 'push' || github.event_name == 'pull_request') && !contains( github.base_ref, 'master')  && !contains(github.base_ref, 'release')
     runs-on: self-hosted
     steps:
+      - uses: actions/checkout@v2
       - name: Clean environments
         run: |
           rm -rf ./Archives/
